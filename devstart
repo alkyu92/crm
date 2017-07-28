@@ -1,0 +1,10 @@
+#! /bin/sh
+
+echo "Development database migration..."
+rails db:migrate:reset
+
+echo "Seeding development database..."
+rails db:seed
+
+echo "Starting application server in development mode..."
+rails s
