@@ -1,0 +1,38 @@
+<div class="container" id="opportunityActivities">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default panel-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><%= link_to 'New Task', '#'%></li>
+                    <li><%= link_to 'Log Call'%></li>
+                    <li><%= link_to 'New Event'%></li>
+                </ul>
+                <br>
+                <%= simple_form_for :act do |f| %>
+                <%= f.input :try, label: false, placeholder: "Input here" %>
+                <%= f.button :submit %>
+                <% end %>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <h4>Timeline</h4>
+            <% for i in 1..6 do %>
+            <div class="media">
+                <div class="media-left">
+                    <i class="fa fa-circle-o fa-3x">27 Jul 2017</i>
+                </div>
+                <div class="media-body">
+                    <div class="panel panel-default panel-body">
+                        <small><%= link_to 'Mohammad' %>
+                            created
+                            <%= link_to 'Call Client'%>
+                            task</small>
+                        <h5 style="margin-top: -2px;">
+                            <small>about 2 hours ago</small>
+                            <h5></div>
+                        </div>
+                    </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>

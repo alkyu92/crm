@@ -54,8 +54,8 @@
 <div class="row">
 <div class="col-lg-12">
 <ul class="nav nav-tabs">
-  <li class="active"><%= link_to 'Activities', '#' %></li>
-  <li><%= link_to 'Details', '#' %></li>
+  <li class="active"><%= link_to 'Details', '#' %></li>
+  <li><%= link_to 'Activities', '#' %></li>
   <li><%= link_to 'Notes', '#' %></li>
   <li><%= link_to 'Related Contacts', '#' %></li>
   <li><%= link_to 'Related Documents', '#' %></li>
@@ -64,116 +64,8 @@
 </div>
 </div>
 
-<br>
-
-<div class="container">
-<div class="row">
-  <div class="col-lg-6">
-<div class="panel panel-default panel-body">
-<%= simple_form_for :act do |f| %>
-<%= f.input :try, placeholder: "Activity regarding the opportunity" %>
-<%= f.button :submit %>
-<% end %>
-</div>
-</div>
-<div class="col-lg-6">
-<h4>Timeline</h4>
-
-</div>
-</div>
-</div>
-
-<div class="container">
-<div class="row">
-<div class="col-lg-6">
-
-<small>Opportunity Name</small>
-<h4><%= @opportunity.name %></h4>
-<br>
-
-<small>Account</small>
-<h4><%= @opportunity.account_id %></h4>
-<br>
-
-<small>Type</small>
-<h4><%= @opportunity.type %></h4>
-<br>
-
-<small>Probability</small>
-<h4><%= @opportunity.probability %></h4>
-<br>
-
-<small>Amount</small>
-<h4><%= @opportunity.amount %></h4>
-<br>
-
-</div>
-<div class="col-lg-6">
-
-  <small>Description</small>
-  <h4><%= @opportunity.description %></h4>
-  <br>
-
-  <small>Loss Reason</small>
-  <h4><%= @opportunity.loss_reason %></h4>
-  <br>
-
-</div>
-</div>
-</div>
-
-<div class="container">
-<div class="row">
-<% for i in 1..6 do %>
-<div class="col-lg-3">
-<div class="panel panel-default panel-body">
-<%= link_to 'This is note about opportunity'%>
-<p>adf asdfads asd asdf ad ads ad fa</p>
-</div>
-</div>
-<% end %>
-</div>
-</div>
-
-<div class="modal">
-<div class="modal-body">
-
-</div>
-</div>
-
-<div class="container">
-<div class="row">
-<% for i in 1..6 do %>
-<div class="col-lg-3">
-<br>
-<div class="row">
-  <div class="col-lg-3">
-<%= image_tag('http://placehold.it/35x35', class: "img-responsive img-center img-circle") %>
-</div>
-<div class="col-lg-9">
-<span style="margin-left: -15px;">Mohammad</span>
-</div>
-</div>
-<div class="row">
-<div class="col-lg-12">
-Any important info here
-</div>
-</div>
-</div>
-<% end %>
-
-</div>
-</div>
-
-<div class="container">
-<div class="row">
-<% for i in 1..6 do %>
-<div class="col-lg-2">
-  <br>
-<%= image_tag('http://placehold.it/200x250', class: "img-responsive img-center")%>
-</div>
-<% end %>
-</div>
-</div>
-
-<br>
+<%= render 'opportunity_activities' %>
+<%= render 'opportunity_details' %>
+<%= render 'opportunity_notes' %>
+<%= render 'opportunity_contacts' %>
+<%= render 'opportunity_docs' %>
