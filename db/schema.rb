@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20170731012047) do
     t.string   "name"
     t.integer  "stage_id"
     t.integer  "account_id"
-    t.string   "type"
+    t.string   "business_type"
     t.string   "probability"
     t.string   "amount"
     t.text     "description"
@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 20170731012047) do
     t.date     "close_date"
     t.string   "next_step"
     t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.index ["user_id"], name: "index_opportunities_on_user_id"
   end
 
@@ -70,9 +70,11 @@ ActiveRecord::Schema.define(version: 20170731012047) do
 
   create_table "stages", force: :cascade do |t|
     t.string   "name"
-    t.boolean  "status",     default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.boolean  "complete",       default: false
+    t.integer  "opportunity_id"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["opportunity_id"], name: "index_stages_on_opportunity_id"
   end
 
   create_table "statuses", force: :cascade do |t|

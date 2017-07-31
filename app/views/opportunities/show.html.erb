@@ -10,7 +10,11 @@
         <div class="col-lg-3">
             <small>Opportunity Owner</small>
             <br>
+            <% if @opportunity.close_date.blank? %>
+            <span style="color: red;">Date not specified</span>
+            <% else %>
             <h4><%= @opportunity.close_date.strftime('%d %b %Y') %></h4>
+            <% end %>
         </div>
         <div class="col-lg-3">
             <small>Amount</small>
@@ -24,29 +28,10 @@
         </div>
     </div>
 </div>
+
 <hr>
 
-<div class="container">
-    <div class="row">
-        <% for i in 1..6 do %>
-        <% if %>
-        <div class="col-lg-2 btn btn-default">
-        <% else %>
-            <div class="col-lg-2 btn btn-success">
-                <% end %>
-                <span class="pull-left badge"><%= i %></span>
-                Nego
-                <br>
-                <% if %>
-                <small>In progress</small><br>
-                <small><%= link_to 'Mark as Completed' %></small>
-            <% else %>
-                <small>Completed</small>
-                <% end %>
-            </div>
-            <% end %>
-        </div>
-    </div>
+<%= render 'opportunity_stages'%>
 
 <hr>
 
@@ -63,6 +48,8 @@
 </div>
 </div>
 </div>
+
+<br>
 
 <%= render 'opportunity_activities' %>
 <%= render 'opportunity_details' %>

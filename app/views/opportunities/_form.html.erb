@@ -14,10 +14,8 @@
         <%= f.input :name, label: "Opportunity Name" %>
         <div class="row">
         <div class="col-lg-6">
-        <%= f.input :stage_id, collection: @stages, value_method: :id,
-        input_selected: @opportunity.stage_id, include_blank: false  %>
-        <%= f.input :type %>
-        <%= f.input :probability %>
+        <%= f.input :business_type %>
+        <%= f.input :probability, placeholder: "in percentage" %>
       </div>
       <div class="col-lg-6">
         <%= f.input :account_id, collection: @accounts, value_method: :id,

@@ -4,7 +4,7 @@ class CreateOpportunities < ActiveRecord::Migration[5.0]
       t.string :name
       t.integer :stage_id
       t.integer :account_id
-      t.string :type
+      t.string :business_type
       t.string :probability
       t.string :amount
       t.text :description

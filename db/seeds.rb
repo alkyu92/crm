@@ -30,8 +30,3 @@ account_arr = ['a', 'b', 'c']
 account_arr.each do |name|
   Account.create!(name: name)
 end
-
-stage_arr = ['Negotiation', 'Discussion']
-stage_arr.each do |name|
-  Stage.create!(name: name)
-end

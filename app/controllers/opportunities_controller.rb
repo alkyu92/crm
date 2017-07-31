@@ -6,6 +6,7 @@ class OpportunitiesController < ApplicationController
     @opportunity = current_user.opportunities.build
 
     @stages = Stage.all
+
     @accounts = Account.all
   end
 
@@ -49,7 +50,7 @@ class OpportunitiesController < ApplicationController
     params.require(:opportunity).permit( :name,
                                          :stage_id,
                                          :account_id,
-                                         :type,
+                                         :business_type,
                                          :probability,
                                          :amount,
                                          :description,
