@@ -1,6 +1,17 @@
-<h3><%= @opportunity.name %></h3>
-<br>
 <div class="container">
+  <div class="row">
+    <div class="col-lg-10">
+    <h3><%= @opportunity.name %></h3>
+  </div>
+  <div class="col-lg-2">
+    <div class="btn-group">
+    <%= link_to 'Edit', edit_opportunity_path(@opportunity), class: "btn btn-default"%>
+    <%= link_to 'Delete', opportunity_path(@opportunity), method: :delete,
+    data: {confirm: "Are yo sure?"},class: "btn btn-default" %>
+  </div>
+</div>
+  </div>
+    <br>
     <div class="row">
         <div class="col-lg-3">
             <small>Account</small>
@@ -8,11 +19,11 @@
             <h4><%= Account.find_by_id(@opportunity.account_id).name %></h4>
         </div>
         <div class="col-lg-3">
-            <small>Opportunity Owner</small>
+            <small>Due Date</small>
             <br>
             <% if @opportunity.close_date.blank? %>
             <span style="color: red;">Date not specified</span>
-            <% else %>
+        <% else %>
             <h4><%= @opportunity.close_date.strftime('%d %b %Y') %></h4>
             <% end %>
         </div>
@@ -36,23 +47,24 @@
 <hr>
 
 <div class="container">
-<div class="row">
-<div class="col-lg-12">
-<ul class="nav nav-tabs">
-  <li class="active"><%= link_to 'Details', '#' %></li>
-  <li><%= link_to 'Activities', '#' %></li>
-  <li><%= link_to 'Notes', '#' %></li>
-  <li><%= link_to 'Related Contacts', '#' %></li>
-  <li><%= link_to 'Related Documents', '#' %></li>
-</ul>
-</div>
-</div>
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><%= link_to 'Details', '#opportunityDetails', data: {toggle: "tab"} %></li>
+                <li><%= link_to 'Activities', '#opportunityActivities', data: {toggle: "tab"} %></li>
+                <li><%= link_to 'Notes', '#opportunityNotes', data: {toggle: "tab"} %></li>
+                <li><%= link_to 'Related Contacts', '#opportunityContacts', data: {toggle: "tab"} %></li>
+                <li><%= link_to 'Related Documents', '#opportunityDocs', data: {toggle: "tab"} %></li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 <br>
-
-<%= render 'opportunity_activities' %>
-<%= render 'opportunity_details' %>
-<%= render 'opportunity_notes' %>
-<%= render 'opportunity_contacts' %>
-<%= render 'opportunity_docs' %>
+<div class="tab-content">
+    <%= render 'opportunity_details' %>
+    <%= render 'opportunity_activities' %>
+    <%= render 'opportunity_notes' %>
+    <%= render 'opportunity_contacts' %>
+    <%= render 'opportunity_docs' %>
+</div>

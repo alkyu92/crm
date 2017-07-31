@@ -1,5 +1,6 @@
 class StagesController < ApplicationController
   before_action :find_opportunity
+  before_action :find_stage, only: [:destroy, :update_stage_status]
 
   def create
     @stage = @opportunity.stages.build(params_stage)
@@ -13,6 +14,23 @@ class StagesController < ApplicationController
     end
   end
 
+  def destroy
+    @stage.destroy
+    flash[:success] = "Opportunity stage deleted!"
+    redirect_to request.referrer
+  end
+
+  def update_stage_status
+    if @stage.complete == true
+      @stage.update_attributes(complete: false)
+    else
+      @stage.update_attributes(complete: true)
+    end
+    
+    flash[:success] = "Stage completed!"
+    redirect_to request.referrer
+  end
+
   private
   def params_stage
     params.require(:stage).permit(:name)
@@ -20,5 +38,10 @@ class StagesController < ApplicationController
 
   def find_opportunity
     @opportunity = Opportunity.find(params[:opportunity_id])
+  end
+
+  def find_stage
+    find_opportunity
+    @stage = Stage.find(params[:id])
   end
 end

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :users
 
   get '/search', to: 'search#search', as: :search
+  get '/opportunities/:opportunity_id/stages/:id/update_stage_status',
+  to: 'stages#update_stage_status', as: :update_stage_status
 
   root 'dashboards#index'
 end

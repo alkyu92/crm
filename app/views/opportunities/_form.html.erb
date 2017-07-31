@@ -11,7 +11,7 @@
       </div>
       <div class="modal-body">
         <%= simple_form_for @opportunity do |f| %>
-        <%= f.input :name, label: "Opportunity Name" %>
+        <%= f.input :name, label: "Opportunity Name", autofocus: true %>
         <div class="row">
         <div class="col-lg-6">
         <%= f.input :business_type %>

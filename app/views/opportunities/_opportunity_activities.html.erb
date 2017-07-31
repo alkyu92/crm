@@ -1,30 +1,49 @@
-<div class="container" id="opportunityActivities">
+<div class="container tab-pane fade in" id="opportunityActivities">
     <div class="row">
         <div class="col-lg-6">
             <div class="panel panel-default panel-body">
                 <ul class="nav nav-tabs">
-                    <li class="active"><%= link_to 'New Task', '#'%></li>
-                    <li><%= link_to 'Log Call'%></li>
-                    <li><%= link_to 'New Event'%></li>
+                    <li class="active"><%= link_to 'New Task', '#task', data: {toggle: "tab"} %></li>
+                    <li><%= link_to 'Log Call', '#call', data: {toggle: "tab"}%></li>
+                    <li><%= link_to 'New Event', '#event', data: {toggle: "tab"}%></li>
+                    <li><%= link_to 'Overall', '#overall', data: {toggle: "tab"}%></li>
                 </ul>
                 <br>
-                <%= simple_form_for :act do |f| %>
-                <%= f.input :try, label: false, placeholder: "Input here" %>
-                <%= f.button :submit %>
-                <% end %>
+
+                <div class="tab-content">
+                    <div id="task" class="tab-pane fade in active">
+                        <%= simple_form_for :task do |f| %>
+                        <%= f.input :task, label: false, placeholder: "Input here" %>
+                        <%= f.button :submit %>
+                        <% end %>
+                    </div>
+
+                    <div id="call" class="tab-pane fade in">
+                        <%= simple_form_for :call do |f| %>
+                        <%= f.input :call, label: false, placeholder: "Input here" %>
+                        <%= f.button :submit %>
+                        <% end %>
+                    </div>
+
+                    <div id="event" class="tab-pane fade in">
+                        <%= simple_form_for :event do |f| %>
+                        <%= f.input :event, label: false, placeholder: "Input here" %>
+                        <%= f.button :submit %>
+                        <% end %>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="col-lg-6">
-            <h4>Timeline</h4>
-            <% for i in 1..6 do %>
-            <!-- <div class="media"> -->
-                <!-- <div class="media-left"> -->
-                    <!-- <i class="fa fa-circle-o fa-3x">27 Jul 2017</i> -->
-                <!-- </div> -->
-                <!-- <div class="media-body"> -->
+
+            <div class="tab-content">
+                <div id="task" class="tab-pane fade in active">
+                    <h4>Task Timeline</h4>
+                    <% for i in 1..6 do %>
                     <div class="media">
                         <div class="panel panel-default panel-body">
-                            <div class="media-left">
+                            <div class="media-left" style="padding-top: 6px;">
                                 <%= image_tag('http://placehold.it/25x25', class: "media-object")%>
                             </div>
                             <div class="media-body">
@@ -37,9 +56,72 @@
                                     <h5></div>
                                 </div>
                             </div>
-                        <!-- </div> -->
-                    <!-- </div> -->
-                    <% end %>
-                </div>
-            </div>
-        </div>
+                            <% end %>
+                        </div>
+
+                        <div id="call" class="tab-pane fade in active">
+                            <h4>Call Timeline</h4>
+                            <% for i in 1..6 do %>
+                            <div class="media">
+                                <div class="panel panel-default panel-body">
+                                    <div class="media-left" style="padding-top: 6px;">
+                                        <%= image_tag('http://placehold.it/25x25', class: "media-object")%>
+                                    </div>
+                                    <div class="media-body">
+                                        <small><%= link_to 'Mohammad' %>
+                                            created
+                                            <%= link_to 'Call Client'%>
+                                            task</small>
+                                        <h5 style="margin-top: -2px;">
+                                            <small>about 2 hours ago</small>
+                                            <h5></div>
+                                        </div>
+                                    </div>
+                                    <% end %>
+                                </div>
+
+                                <div id="event" class="tab-pane fade in active">
+                                    <h4>Event Timeline</h4>
+                                    <% for i in 1..6 do %>
+                                    <div class="media">
+                                        <div class="panel panel-default panel-body">
+                                            <div class="media-left" style="padding-top: 6px;">
+                                                <%= image_tag('http://placehold.it/25x25', class: "media-object")%>
+                                            </div>
+                                            <div class="media-body">
+                                                <small><%= link_to 'Mohammad' %>
+                                                    created
+                                                    <%= link_to 'Call Client'%>
+                                                    task</small>
+                                                <h5 style="margin-top: -2px;">
+                                                    <small>about 2 hours ago</small>
+                                                    <h5></div>
+                                                </div>
+                                            </div>
+                                            <% end %>
+                                        </div>
+
+                                        <div id="overall" class="tab-pane fade in active">
+                                            <h4>Overall Timeline</h4>
+                                            <% for i in 1..6 do %>
+                                            <div class="media">
+                                                <div class="panel panel-default panel-body">
+                                                    <div class="media-left" style="padding-top: 6px;">
+                                                        <%= image_tag('http://placehold.it/25x25', class: "media-object")%>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <small><%= link_to 'Mohammad' %>
+                                                            created
+                                                            <%= link_to 'Call Client'%>
+                                                            task</small>
+                                                        <h5 style="margin-top: -2px;">
+                                                            <small>about 2 hours ago</small>
+                                                            <h5></div>
+                                                        </div>
+                                                    </div>
+                                                    <% end %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
