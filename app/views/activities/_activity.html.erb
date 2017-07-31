@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" style="margin-bottom: -20px; margin-top: -15px;">
     <div class="col-lg-1">
       <%= activity.id %>
     </div>
@@ -11,11 +11,11 @@
         <% if activity.due_date.blank? %>
         <p style="color: red;">Due date not specified</p>
         <% else %>
-        <%= activity.due_date.strftime('%d %b %Y') %>
+        <%= activity.due_date.strftime('%d %b %Y') %><br>
         <% if activity.due_date.to_date == DateTime.now.to_date %>
-        (Today)
+        <span style="color: red;"><small>(Today)</small></span>
         <% else %>
-        (<%= distance_of_time_in_words(Time.now, activity.due_date)%> left)
+        <small>(<%= distance_of_time_in_words(Time.now, activity.due_date)%> left)</small>
         <% end %>
         <% end %>
     </div>
@@ -36,7 +36,7 @@
       <% end %>
     </div>
     <div class="col-lg-2">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
         <i class="caret"></i>
       </a>
       <ul class="dropdown-menu">
@@ -49,3 +49,4 @@
       </ul>
     </div>
 </div>
+<hr>

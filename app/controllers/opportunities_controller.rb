@@ -4,6 +4,7 @@ class OpportunitiesController < ApplicationController
   def index
     @opportunities = Opportunity.all
     @opportunity = current_user.opportunities.build
+
     @stages = Stage.all
     @accounts = Account.all
   end
@@ -45,7 +46,17 @@ class OpportunitiesController < ApplicationController
   private
 
   def params_opportunity
-    params.require(:opportunity).permit(:name)
+    params.require(:opportunity).permit( :name,
+                                         :stage_id,
+                                         :account_id,
+                                         :type,
+                                         :probability,
+                                         :amount,
+                                         :description,
+                                         :loss_reason,
+                                         :close_date,
+                                         :next_step
+                                        )
   end
 
   def find_opportunity

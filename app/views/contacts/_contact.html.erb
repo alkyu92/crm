@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-lg-1">
+    <%= contact.id %>
+  </div>
+<div class="col-lg-3">
+<%= contact.name %>
+</div>
+<div class="col-lg-3">
+<%= contact.email %>
+</div>
+<div class="col-lg-3">
+<%= contact.phone %>
+</div>
+<div class="col-lg-2">
+  <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+    <i class="caret"></i>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= link_to 'Show', contact_path(contact) %></li>
+    <li><%= link_to 'Edit', '#', data: {toggle: "modal", target: "#contactModalForm"} %></li>
+    <li><%= link_to 'Delete', contact_path(contact), method: :delete,
+    data: {confirm: "Are you sure?"} %></li>
+  </ul>
+</div>
+</div>

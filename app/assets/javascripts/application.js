@@ -35,4 +35,9 @@ $(document).ready(function(){
     format: 'yyyy/mm/dd'
   });
   $('#opportunity_close_date').datetimepicker('setStartDate', new Date());
+
+  $('#activityCalendar').datetimepicker({
+    minView: 2,
+    todayHighlight: true
+  });
 });

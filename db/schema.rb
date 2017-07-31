@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170728111450) do
+ActiveRecord::Schema.define(version: 20170731012047) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -32,14 +32,33 @@ ActiveRecord::Schema.define(version: 20170728111450) do
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
+  create_table "contacts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "title"
+    t.string   "department"
+    t.string   "email"
+    t.string   "phone"
+    t.string   "address"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_contacts_on_user_id"
+  end
+
   create_table "opportunities", force: :cascade do |t|
     t.string   "name"
     t.integer  "stage_id"
     t.integer  "account_id"
+    t.string   "type"
+    t.string   "probability"
+    t.string   "amount"
+    t.text     "description"
+    t.string   "loss_reason"
     t.date     "close_date"
+    t.string   "next_step"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.index ["user_id"], name: "index_opportunities_on_user_id"
   end
 

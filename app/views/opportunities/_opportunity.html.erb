@@ -17,12 +17,12 @@
       <%= opportunity.close_date %>
     </div>
     <div class="col-lg-2">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
         <i class="caret"></i>
       </a>
       <ul class="dropdown-menu">
-        <li><%= link_to 'Show', '#', data: {toggle: "modal", target: "#opportunityModalShow"} %></li>
-        <li><%= link_to 'Edit', '#', data: {toggle: "modal", target: "#opportunityModalShow"} %></li>
+        <li><%= link_to 'Show', opportunity_path(opportunity) %></li>
+        <li><%= link_to 'Edit', '#', data: {toggle: "modal", target: "#opportunityModalForm"} %></li>
         <li><%= link_to 'Delete', opportunity_path(opportunity), method: :delete, data: {confirm: "Are you sure?"} %></li>
       </ul>
     </div>

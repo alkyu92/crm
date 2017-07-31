@@ -14,26 +14,46 @@
 <hr>
 
 <% if @activities.blank? %>
-No activities.
+<div class="row">
+  <div class="col-lg-9">
+    No activities.
+  </div>
+  <div class="col-lg-3">
+    <div id="activityCalendar" style="padding-left: 40px;"></div>
+  </div>
+</div>
 <% else %>
 <%= render 'modal_show' %>
 <div class="row">
-    <div class="col-lg-1"></div>
+    <div class="col-lg-9">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+                <strong>Activities / Tasks</strong>
+            </div>
+            <div class="col-lg-2">
+                <strong>Due Date</strong>
+            </div>
+            <div class="col-lg-2">
+                <strong>Priority</strong>
+            </div>
+            <div class="col-lg-2">
+                <strong>Status</strong>
+            </div>
+            <div class="col-lg-2">
+                <strong>Action</strong>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+</div>
+<br>
+<div class="row">
+    <div class="col-lg-9">
+        <%= render @activities %>
+    </div>
     <div class="col-lg-3">
-        <strong>Activities / Tasks</strong>
-    </div>
-    <div class="col-lg-2">
-        <strong>Due Date</strong>
-    </div>
-    <div class="col-lg-2">
-        <strong>Priority</strong>
-    </div>
-    <div class="col-lg-2">
-      <strong>Status</strong>
-    </div>
-    <div class="col-lg-2">
-        <strong>Action</strong>
+      <div id="activityCalendar" style="padding-left: 40px;"></div>
     </div>
 </div>
-  <%= render @activities %>
 <% end %>

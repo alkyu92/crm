@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_many :activities
   has_many :opportunities
+  has_many :contacts
 end
