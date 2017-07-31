@@ -1,5 +1,38 @@
-<% if @opportunities.blank? %>
+<div class="row">
+    <div class="col-lg-10">
+        <h1>Opportunities</h1>
+        <p>1 item &middot updated minutes ago</p>
+    </div>
+    <div class="col-lg-2" style="padding-top: 25px;">
+        <%= link_to 'New Opportunity', '#', class: "btn btn-default",
+        data: {toggle: "modal", target: "#opportunityModalForm"} %>
+    </div>
+</div>
 
+<%= render 'form' %>
+
+<hr>
+
+<% if @opportunities.blank? %>
+No opportunities yet.
 <% else %>
+<div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-3">
+        <strong>Opportunity Name</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Account Name</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Current Stage</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Closed Date</strong>
+    </div>
+    <div class="col-lg-2">
+      <strong>Action</strong>
+    </div>
+</div>
   <%= render @opportunities %>
 <% end %>

@@ -3,13 +3,12 @@ class OpportunitiesController < ApplicationController
 
   def index
     @opportunities = Opportunity.all
+    @opportunity = current_user.opportunities.build
+    @stages = Stage.all
+    @accounts = Account.all
   end
 
   def show
-  end
-
-  def new
-    @opportunity = current_user.opportunities.build
   end
 
   def create
@@ -17,7 +16,7 @@ class OpportunitiesController < ApplicationController
 
     if @opportunity.save
       flash[:success] = "Opportunity entry created!"
-      redirect_to @opportunity
+      redirect_to opportunities_path
     else
       flash[:danger] = "Failed to create opportunity entry!"
       render 'new'
@@ -30,7 +29,7 @@ class OpportunitiesController < ApplicationController
   def update
     if @opportunity.update(params_opportunity)
       flash[:success] = "Opportunity entry updated!"
-      redirect_to @opportunity
+      redirect_to opportunities_path
     else
       flash[:danger] = "Failed to update opportunity!"
       render 'edit'
@@ -50,6 +49,6 @@ class OpportunitiesController < ApplicationController
   end
 
   def find_opportunity
-    @opportunity.find(params[:id])
+    @opportunity = Opportunity.find(params[:id])
   end
 end

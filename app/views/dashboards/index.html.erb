@@ -1,2 +1,111 @@
-<h1>Dashboards#index</h1>
-<p>Find me in app/views/dashboards/index.html.erb</p>
+<div class="row">
+    <div class="col-lg-4">
+        <div class="panel panel-default panel-body">
+            <h5>Time now</h5>
+            <h3>
+                <div id="myClock"></div>
+            </h3>
+        </div>
+        <div class="panel panel-default panel-body">
+          <h5>To-do List</h5>
+          <div class="row">
+            <div class="col-lg-4"><strong>Activities</strong></div>
+            <div class="col-lg-4"><strong>Due date</strong></div>
+            <div class="col-lg-4"><strong>Time remaining</strong></div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4"><%= link_to 'Call', '#' %></div>
+            <div class="col-lg-4">28 July 2018</div>
+            <div class="col-lg-4">About two hours left</div>
+          </div>
+
+          <h5><%= link_to 'View Report', '#', class: "pull-right" %></h5>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="panel panel-default panel-body">
+          <h5>Total Sales Previous Month</h5>
+          asasfafasf<br>
+          asasfafasf<br>
+          asasfafasf<br>
+          asasfafasf<br>
+          asasfafasf<br>
+          asasfafasf<br>
+          asasfafasf<br>
+          <h5><%= link_to 'View Report', '#', class: "pull-right" %></h5>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="panel panel-default panel-body">
+          <h5>Opportunities List</h5>
+          <h5><%= link_to 'View Report', '#', class: "pull-right" %></h5>
+        </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="panel panel-default panel-body">
+        <h5>Sales Opportunities Pipelines</h5>
+
+        <h5><%= link_to 'View Report', '#', class: "pull-right" %></h5>
+      </div>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-4">
+    <div class="panel panel-default panel-body">
+      <h5>Top Accounts - Won</h5>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="panel panel-default panel-body">
+      <h5>Top Accounts - Open</h5>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="panel panel-default panel-body">
+      <h5>Closed Lost by Reason</h5>
+    </div>
+  </div>
+</div>
+
+<script>
+    function myClock() {
+        var month = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'Disember'
+        ]
+        var timeNow = new Date();
+
+        var timeDate = timeNow.getDate();
+        var timeMonth = month[timeNow.getMonth()];
+        var timeYear = timeNow.getFullYear();
+
+        var timeHours = timeNow.getHours();
+        var timeMinutes = timeNow.getMinutes();
+        var timeSeconds = timeNow.getSeconds();
+
+        var timeClock = timeDate + " "
+                        + timeMonth + " "
+                        + timeYear + " "
+                        + ("0" + timeHours).slice(-2) + ":"
+                        + ("0" + timeMinutes).slice(-2) + ":"
+                        + ("0" + timeSeconds).slice(-2);
+
+        $('#myClock').html(timeClock);
+    }
+
+    $(document).ready(function () {
+        setInterval('myClock()', 1000);
+    });
+</script>

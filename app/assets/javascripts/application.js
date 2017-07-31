@@ -13,5 +13,26 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require turbolinks
+//= require bootstrap-datetimepicker
 //= require_tree .
+
+$(document).ready(function(){
+
+  $('#activity_due_date').datetimepicker({
+    pickerPosition: 'bottom-left',
+    autoclose: true,
+    todayHighlight: true,
+    minView: 2,
+    format: 'yyyy/mm/dd'
+  });
+  $('#activity_due_date').datetimepicker('setStartDate', new Date());
+
+  $('#opportunity_close_date').datetimepicker({
+    pickerPosition: 'bottom-left',
+    autoclose: true,
+    todayHighlight: true,
+    minView: 2,
+    format: 'yyyy/mm/dd'
+  });
+  $('#opportunity_close_date').datetimepicker('setStartDate', new Date());
+});

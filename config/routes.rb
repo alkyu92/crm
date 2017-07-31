@@ -5,8 +5,9 @@ Rails.application.routes.draw do
   resources :dashboards
   resources :opportunities
   resources :activities
-  resources :contacts
   resources :users
+
+  get '/search', to: 'search#search', as: :search
 
   root 'dashboards#index'
 end

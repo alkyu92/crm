@@ -9,10 +9,29 @@
 user_arr = { sudo: ['sudo', 'sudo@lb.my', 123456, 123456],
              normal: ['normal', 'normal@lb.my', 123456, 123456]
             }
-
 user_arr.each do |key, value|
   User.create!( name: value[0],
                 email: value[1],
                 password: value[2],
                 password_confirmation: value[3])
+end
+
+priority_arr = ['Normal', 'High']
+priority_arr.each do |name|
+  Priority.create!(name: name)
+end
+
+status_arr = ['Open', 'Closed']
+status_arr.each do |name|
+  Status.create!(name: name)
+end
+
+account_arr = ['a', 'b', 'c']
+account_arr.each do |name|
+  Account.create!(name: name)
+end
+
+stage_arr = ['Negotiation', 'Discussion']
+stage_arr.each do |name|
+  Stage.create!(name: name)
 end

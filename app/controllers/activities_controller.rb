@@ -3,13 +3,13 @@ class ActivitiesController < ApplicationController
 
   def index
     @activities = Activity.all
+    @activity = current_user.activities.build
+
+    @priorities = Priority.all
+    @statuses = Status.all
   end
 
   def show
-  end
-
-  def new
-    @activity = current_user.activities.build
   end
 
   def create
@@ -17,7 +17,7 @@ class ActivitiesController < ApplicationController
 
     if @activity.save
       flash[:success] = "Activity entry created!"
-      redirect_to @activity
+      redirect_to activities_path
     else
       flash[:danger] = "Failed to create activity entry!"
       render 'new'
@@ -46,10 +46,16 @@ class ActivitiesController < ApplicationController
   private
 
   def params_activity
-    params.require(:activity).permit(:name)
+    params.require(:activity).permit(:due_date,
+                                     :subject,
+                                     :comments,
+                                     :priority_id,
+                                     :status_id,
+                                     :assigned_to,
+                                     :related_to)
   end
 
   def find_activity
-    @activity.find(params[:id])
+    @activity = Activity.find(params[:id])
   end
 end

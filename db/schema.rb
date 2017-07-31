@@ -10,19 +10,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727101831) do
+ActiveRecord::Schema.define(version: 20170728111450) do
 
-  create_table "activities", force: :cascade do |t|
+  create_table "accounts", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "contacts", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "activities", force: :cascade do |t|
+    t.datetime "due_date"
+    t.string   "subject"
+    t.text     "comments"
+    t.integer  "priority_id", default: 1, null: false
+    t.integer  "status_id",   default: 1, null: false
+    t.text     "assigned_to"
+    t.text     "related_to"
+    t.integer  "user_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
   create_table "opportunities", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "stage_id"
+    t.integer  "account_id"
+    t.date     "close_date"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_opportunities_on_user_id"
+  end
+
+  create_table "priorities", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stages", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -31,6 +65,9 @@ ActiveRecord::Schema.define(version: 20170727101831) do
     t.string   "name",                   default: "", null: false
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
+    t.string   "phone"
+    t.string   "title"
+    t.string   "address"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

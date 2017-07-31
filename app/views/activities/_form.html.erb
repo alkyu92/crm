@@ -1,0 +1,39 @@
+
+<!-- Modal -->
+<div id="activityModalForm" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create New Activity / Task</h4>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for @activity do |f| %>
+        <%= f.input :due_date, as: :date_time_picker %>
+        <%= f.input :subject %>
+        <%= f.input :comments %>
+        <div class="row">
+            <div class="col-lg-6">
+                <%= f.input :priority_id, collection: @priorities, value_method: :id,
+                input_selected: @activity.priority_id, include_blank: false %>
+            </div>
+            <div class="col-lg-6">
+                <%= f.input :status_id, collection: @statuses, value_method: :id,
+                input_selected: @activity.status_id, include_blank: false %>
+            </div>
+        </div>
+        <%= f.input :assigned_to %>
+        <%= f.input :related_to %>
+
+      </div>
+      <div class="modal-footer">
+        <%= f.button :submit, class: "btn-success" %>
+        <% end %>
+        <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+      </div>
+    </div>
+
+  </div>
+</div>

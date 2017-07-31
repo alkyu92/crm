@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="margin-top: -7px;">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#crm-menu">
@@ -13,12 +13,19 @@
         Local Basic CRM
         <% end %>
 
+        <div class="navbar-nav" style="margin-top: -15px; width: 40%;">
+        <%= simple_form_for :search, method: :get do |f| %>
+        <%= f.input :query, placeholder: "Search Local Basic CRM" %>
+        <% end %>
+      </div>
+
         <div class="collapse navbar-collapse" id="crm-menu">
             <ul class="nav navbar-nav navbar-right">
               <% if user_signed_in? %>
+
                 <li><%= link_to 'Dashboards', dashboards_path %></li>
                 <li><%= link_to 'Opportunities', opportunities_path %></li>
-                <li><%= link_to 'Contacts', contacts_path %></li>
+                <li><%= link_to 'Contacts', users_path %></li>
                 <li><%= link_to 'Activities', activities_path %></li>
 
                 <li class="dropdown">
