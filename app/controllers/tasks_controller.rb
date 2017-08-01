@@ -6,6 +6,10 @@ class TasksController < ApplicationController
     @task = @opportunity.tasks.build(params_task)
 
     if @task.save
+
+      @opportunity.timelines.create!(tactivity: "task",
+      idactivity: @task.id, action: "created", user_id: current_user.id)
+
       flash[:success] = "Task Log added!"
       redirect_to request.referrer
     else
@@ -16,6 +20,8 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(params_task)
+      @opportunity.timelines.create!(tactivity: "task",
+      idactivity: @task.id, action: "updated", user_id: current_user.id)
       flash[:success] = "Task updated!"
       redirect_to request.referrer
     else
@@ -26,6 +32,8 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
+    @opportunity.timelines.create!(tactivity: "task",
+    idactivity: @task.id, action: "deleted", user_id: current_user.id)
     flash[:success] = "Task log deleted!"
     redirect_to request.referrer
   end
@@ -36,7 +44,8 @@ class TasksController < ApplicationController
     else
       @task.update_attributes(complete: true)
     end
-
+    @opportunity.timelines.create!(tactivity: "task",
+    idactivity: @task.id, action: "updated status", user_id: current_user.id)
     flash[:success] = "Task log updated!"
     redirect_to request.referrer
   end
@@ -48,6 +57,10 @@ class TasksController < ApplicationController
 
   def find_opportunity
     @opportunity = Opportunity.find(params[:opportunity_id])
+
+  rescue ActiveRecord::RecordNotFound
+    flash[:danger] = "Record not found!"
+    redirect_to opportunities_path
   end
 
   def find_task

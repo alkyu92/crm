@@ -6,6 +6,8 @@ class EventsController < ApplicationController
     @event = @opportunity.events.build(params_event)
 
     if @event.save
+      @opportunity.timelines.create!(tactivity: "event",
+      idactivity: @event.id, action: "created", user_id: current_user.id)
       flash[:success] = "Event Log added!"
       redirect_to request.referrer
     else
@@ -16,6 +18,8 @@ class EventsController < ApplicationController
 
   def update
     if @event.update(params_event)
+      @opportunity.timelines.create!(tactivity: "event",
+      idactivity: @event.id, action: "updated", user_id: current_user.id)
       flash[:success] = "Event entry created!"
       redirect_to request.referrer
     else
@@ -26,6 +30,8 @@ class EventsController < ApplicationController
 
   def destroy
     @event.destroy
+    @opportunity.timelines.create!(tactivity: "event",
+    idactivity: @event.id, action: "deleted", user_id: current_user.id)
     flash[:success] = "Event log deleted!"
     redirect_to request.referrer
   end
@@ -36,7 +42,8 @@ class EventsController < ApplicationController
     else
       @event.update_attributes(complete: true)
     end
-
+    @opportunity.timelines.create!(tactivity: "event",
+    idactivity: @event.id, action: "updated status", user_id: current_user.id)
     flash[:success] = "Event log updated!"
     redirect_to request.referrer
   end

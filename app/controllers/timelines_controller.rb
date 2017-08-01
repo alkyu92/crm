@@ -1,6 +1,6 @@
 class TimelinesController < ApplicationController
   before_action :find_opportunity
-  before_action :find_timeline, only: [:destroy]
+  before_action :find_timeline, only: [:update, :destroy]
 
   def create
     @timeline = @opportunity.timelines.build(params_timeline)
@@ -32,7 +32,7 @@ class TimelinesController < ApplicationController
 
   private
   def params_timeline
-    params.require(:timeline).permit(:id_of_activity, :type_of_activity)
+    params.require(:timeline).permit(:idactivity, :typeactivity)
   end
 
   def find_timeline

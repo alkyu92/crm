@@ -18,7 +18,6 @@ class OpportunitiesController < ApplicationController
     @opportunity = current_user.opportunities.build(params_opportunity)
 
     if @opportunity.save
-
       flash[:success] = "Opportunity entry created!"
       redirect_to @opportunity
     else
@@ -64,6 +63,10 @@ class OpportunitiesController < ApplicationController
 
   def find_opportunity
     @opportunity = Opportunity.find(params[:id])
+
+  rescue ActiveRecord::RecordNotFound
+    flash[:danger] = "Record not found!"
+    redirect_to opportunities_path
   end
 
 end
