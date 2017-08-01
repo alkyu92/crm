@@ -18,7 +18,7 @@ class OpportunitiesController < ApplicationController
 
     if @opportunity.save
       flash[:success] = "Opportunity entry created!"
-      redirect_to opportunities_path
+      redirect_to @opportunity
     else
       flash[:danger] = "Failed to create opportunity entry!"
       render 'new'
@@ -31,7 +31,7 @@ class OpportunitiesController < ApplicationController
   def update
     if @opportunity.update(params_opportunity)
       flash[:success] = "Opportunity entry updated!"
-      redirect_to opportunities_path
+      redirect_to @opportunity
     else
       flash[:danger] = "Failed to update opportunity!"
       render 'edit'

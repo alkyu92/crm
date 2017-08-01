@@ -7,7 +7,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Create New Opportunity</h4>
+        <h4 class="modal-title"><%= yield :form_title %></h4>
       </div>
       <div class="modal-body">
         <%= simple_form_for @opportunity do |f| %>
@@ -21,12 +21,11 @@
         <%= f.input :account_id, collection: @accounts, value_method: :id,
         input_selected: @opportunity.account_id ,include_blank: false %>
         <%= f.input :close_date, as: :date_time_picker %>
-        <%= f.input :amount %>
       </div>
     </div>
-    <%= f.input :loss_reason %>
-    <%= f.input :next_step %>
+    <%= f.input :amount %>
     <%= f.input :description %>
+    <%= f.input :loss_reason %>
       </div>
       <div class="modal-footer">
         <%= f.button :submit, class: "btn-success" %>

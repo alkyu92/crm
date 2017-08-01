@@ -6,6 +6,11 @@
             No stages created yet.
         </div>
     <% else %>
+    <div class="row">
+      <div class="text-center">
+        <strong>Opportunity Stages</strong>
+      </div>
+      </div>
         <% @opportunity.stages.each_with_index do |stage, index| %>
         <% if stage.complete == false %>
         <div class="col-lg-2 btn btn-default">
@@ -35,7 +40,7 @@
         <br>
         <div class="row pull-right">
             <div class="col-lg-12">
-                <%= link_to 'Add Opportunity Stage','#',
+                <%= link_to 'Add Opportunity Stage','#', class: "btn btn-default",
           data: {toggle: "modal", target: "#opportunityModalStage"} %>
             </div>
         </div>

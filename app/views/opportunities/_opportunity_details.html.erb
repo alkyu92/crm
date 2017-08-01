@@ -1,38 +1,32 @@
-<div class="container tab-pane fade in active" id="opportunityDetails">
-    <div class="row">
-        <div class="col-lg-6">
+<div class="tab-pane fade in" id="opportunityDetails">
+    <h4>Opportunity Details</h4>
+    <br>
+    <small>Opportunity Name</small>
+    <h4><%= @opportunity.name %></h4>
+    <br>
 
-            <small>Opportunity Name</small>
-            <h4><%= @opportunity.name %></h4>
-            <br>
+    <small>Account</small>
+    <h4><%= @opportunity.account_id %></h4>
+    <br>
 
-            <small>Account</small>
-            <h4><%= @opportunity.account_id %></h4>
-            <br>
+    <small>Type</small>
+    <h4><%= @opportunity.business_type %></h4>
+    <br>
 
-            <small>Type</small>
-            <h4><%= @opportunity.business_type %></h4>
-            <br>
+    <small>Probability</small>
+    <h4><%= @opportunity.probability %></h4>
+    <br>
 
-            <small>Probability</small>
-            <h4><%= @opportunity.probability %></h4>
-            <br>
+    <small>Amount</small>
+    <h4><%= @opportunity.amount %></h4>
+    <br>
 
-            <small>Amount</small>
-            <h4><%= @opportunity.amount %></h4>
-            <br>
+    <small>Description</small>
+    <h4><%= @opportunity.description %></h4>
+    <br>
 
-        </div>
-        <div class="col-lg-6">
+    <small>Loss Reason</small>
+    <h4><%= @opportunity.loss_reason %></h4>
+    <br>
 
-            <small>Description</small>
-            <h4><%= @opportunity.description %></h4>
-            <br>
-
-            <small>Loss Reason</small>
-            <h4><%= @opportunity.loss_reason %></h4>
-            <br>
-
-        </div>
-    </div>
 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170731012047) do
+ActiveRecord::Schema.define(version: 20170801031404) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(version: 20170731012047) do
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
+  create_table "calls", force: :cascade do |t|
+    t.text     "description"
+    t.integer  "duration"
+    t.datetime "call_datetime"
+    t.boolean  "complete",       default: false
+    t.integer  "opportunity_id"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["opportunity_id"], name: "index_calls_on_opportunity_id"
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
     t.string   "title"
@@ -45,6 +56,16 @@ ActiveRecord::Schema.define(version: 20170731012047) do
     t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
+  create_table "events", force: :cascade do |t|
+    t.text     "description"
+    t.date     "event_date"
+    t.boolean  "complete",       default: false
+    t.integer  "opportunity_id"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["opportunity_id"], name: "index_events_on_opportunity_id"
+  end
+
   create_table "opportunities", force: :cascade do |t|
     t.string   "name"
     t.integer  "stage_id"
@@ -55,7 +76,6 @@ ActiveRecord::Schema.define(version: 20170731012047) do
     t.text     "description"
     t.string   "loss_reason"
     t.date     "close_date"
-    t.string   "next_step"
     t.integer  "user_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
@@ -81,6 +101,16 @@ ActiveRecord::Schema.define(version: 20170731012047) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.text     "description"
+    t.date     "due_date"
+    t.boolean  "complete",       default: false
+    t.integer  "opportunity_id"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["opportunity_id"], name: "index_tasks_on_opportunity_id"
   end
 
   create_table "users", force: :cascade do |t|

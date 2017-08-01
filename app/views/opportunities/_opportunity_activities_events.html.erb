@@ -1,0 +1,58 @@
+<div id="event_list" class="tab-pane fade in">
+    <h4>Events</h4>
+    <% if @opportunity.events.blank? %>
+    No event created yet.
+    <% else %>
+    <ul class="list-group">
+      <div class="row">
+        <div class="col-lg-6">
+          <strong>Description</strong>
+        </div>
+        <div class="col-lg-2">
+          <strong>Due date</strong>
+        </div>
+        <div class="col-lg-2">
+          <strong>Status</strong>
+        </div>
+        <div class="col-lg-2">
+          <strong>Action</strong>
+        </div>
+      </div>
+        <% @opportunity.events.each do |event| %>
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-lg-6">
+                    <%= event.description %>
+                </div>
+                <div class="col-lg-2">
+                    <%= event.event_date %>
+                </div>
+                <div class="col-lg-2">
+                    <% if %>
+                    <span style="color: red;">Not attend</span>
+                <% else %>
+                    <span style="color: green;">Attended</span>
+                    <% end %>
+                </div>
+                <div class="col-lg-2">
+                  <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+                    <i class="caret"></i>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <% if %>
+                      <%= link_to 'Mark as Attended', update_event_status_path(@opportunity, event) %>
+                      <% else %>
+                      <%= link_to 'Mark as Not Attend', update_event_status_path(@opportunity, event) %>
+                      <% end %>
+                    </li>
+                    <li><%= link_to 'Edit Event', '#' %></li>
+                    <li><%= link_to 'Delete Event', '#' %></li>
+                  </ul>
+                </div>
+            </div>
+        </li>
+        <% end %>
+    </ul>
+    <% end %>
+</div>

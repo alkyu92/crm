@@ -40,4 +40,30 @@ $(document).ready(function(){
     minView: 2,
     todayHighlight: true
   });
+
+  $('#task_due_date').datetimepicker({
+    pickerPosition: 'bottom-left',
+    autoclose: true,
+    todayHighlight: true,
+    minView: 2,
+    format: 'yyyy/mm/dd'
+  });
+  $('#task_due_date').datetimepicker('setStartDate', new Date());
+
+  $('#call_call_datetime').datetimepicker({
+    pickerPosition: 'bottom-left',
+    autoclose: true,
+    todayHighlight: true,
+    format: 'yyyy/mm/dd hh:ii:ss Z'
+  });
+  $('#call_call_datetime').datetimepicker();
+
+  $('#event_event_date').datetimepicker({
+    pickerPosition: 'bottom-left',
+    autoclose: true,
+    todayHighlight: true,
+    minView: 2,
+    format: 'yyyy/mm/dd'
+  });
+  $('#event_event_date').datetimepicker('setStartDate', new Date());
 });
