@@ -1,6 +1,6 @@
 class CallsController < ApplicationController
   before_action :find_opportunity
-  before_action :find_call, only: [:destroy, :update_call_status]
+  before_action :find_call, only: [:update, :destroy, :update_call_status]
 
   def create
     @call = @opportunity.calls.build(params_call)
@@ -10,6 +10,16 @@ class CallsController < ApplicationController
       redirect_to request.referrer
     else
       flash[:danger] = "Failed to add call log!"
+      redirect_to request.referrer
+    end
+  end
+
+  def update
+    if @call.update(params_call)
+      flash[:success] = "Call entry updated!"
+      redirect_to request.referrer
+    else
+      flash[:danger] = "Failed to update call entry!"
       redirect_to request.referrer
     end
   end
@@ -41,7 +51,6 @@ class CallsController < ApplicationController
   end
 
   def find_call
-    find_opportunity
     @call = Call.find(params[:id])
   end
 end

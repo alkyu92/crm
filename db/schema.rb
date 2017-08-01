@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170801031404) do
+ActiveRecord::Schema.define(version: 20170801043131) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -54,6 +54,11 @@ ActiveRecord::Schema.define(version: 20170801031404) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_contacts_on_user_id"
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -111,6 +116,15 @@ ActiveRecord::Schema.define(version: 20170801031404) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.index ["opportunity_id"], name: "index_tasks_on_opportunity_id"
+  end
+
+  create_table "timelines", force: :cascade do |t|
+    t.integer  "id_of_activity"
+    t.string   "type_of_activity"
+    t.integer  "user_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["user_id"], name: "index_timelines_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

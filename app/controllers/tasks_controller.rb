@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :find_opportunity
-  before_action :find_task, only: [:destroy, :update_task_status]
+  before_action :find_task, only: [:update, :destroy, :update_task_status]
 
   def create
     @task = @opportunity.tasks.build(params_task)
@@ -10,6 +10,16 @@ class TasksController < ApplicationController
       redirect_to request.referrer
     else
       flash[:danger] = "Failed to add task log!"
+      redirect_to request.referrer
+    end
+  end
+
+  def update
+    if @task.update(params_task)
+      flash[:success] = "Task updated!"
+      redirect_to request.referrer
+    else
+      flash[:danger] = "Failed to update task!"
       redirect_to request.referrer
     end
   end
@@ -41,7 +51,6 @@ class TasksController < ApplicationController
   end
 
   def find_task
-    find_opportunity
     @task = Task.find(params[:id])
   end
 end

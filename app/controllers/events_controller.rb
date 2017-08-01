@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :find_opportunity
-  before_action :find_event, only: [:destroy, :update_event_status]
+  before_action :find_event, only: [:update, :destroy, :update_event_status]
 
   def create
     @event = @opportunity.events.build(params_event)
@@ -10,6 +10,16 @@ class EventsController < ApplicationController
       redirect_to request.referrer
     else
       flash[:danger] = "Failed to add event log!"
+      redirect_to request.referrer
+    end
+  end
+
+  def update
+    if @event.update(params_event)
+      flash[:success] = "Event entry created!"
+      redirect_to request.referrer
+    else
+      flash[:danger] = "Failed to create event entry!"
       redirect_to request.referrer
     end
   end
@@ -41,7 +51,6 @@ class EventsController < ApplicationController
   end
 
   def find_event
-    find_opportunity
     @event = Event.find(params[:id])
   end
 end

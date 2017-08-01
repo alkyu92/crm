@@ -43,12 +43,36 @@
                     <i class="caret"></i>
                   </a>
                   <ul class="dropdown-menu">
-                    <li><%= link_to 'Edit Call', '#' %></li>
+                    <li><%= link_to 'Edit Call', '#', data: {toggle: "modal", target: "#actCall"} %></li>
                     <li><%= link_to 'Delete Call', opportunity_call_path(call), method: :delete %></li>
                   </ul>
                 </div>
             </div>
         </li>
+
+        <!-- Modal -->
+        <div id="actCall" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Task</h4>
+              </div>
+              <div class="modal-body">
+                <%= simple_form_for [@opportunity, call] do |f| %>
+                <%= f.input :description, placeholder: "Task description" %>
+                <%= f.input :call_datetime %>
+              </div>
+              <div class="modal-footer">
+                <%= f.button :submit %>
+                <% end %>
+                <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+              </div>
+            </div>
+          </div>
+        </div>
         <% end %>
     </ul>
     <% end %>

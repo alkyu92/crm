@@ -26,7 +26,7 @@ class StagesController < ApplicationController
     else
       @stage.update_attributes(complete: true)
     end
-    
+
     flash[:success] = "Stage completed!"
     redirect_to request.referrer
   end
@@ -41,7 +41,6 @@ class StagesController < ApplicationController
   end
 
   def find_stage
-    find_opportunity
     @stage = Stage.find(params[:id])
   end
 end

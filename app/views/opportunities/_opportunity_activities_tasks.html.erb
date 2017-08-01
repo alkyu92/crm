@@ -1,5 +1,6 @@
 <div id="task_list" class="tab-pane fade in active">
     <h4>Tasks</h4>
+
     <% if @opportunity.tasks.blank? %>
     No tasks created yet.
     <% else %>
@@ -18,7 +19,7 @@
           <strong>Action</strong>
         </div>
       </div>
-        <% @opportunity.tasks.each do |task| %>
+        <% @opportunity.tasks.order('created_at DESC').each do |task| %>
         <li class="list-group-item">
             <div class="row">
                 <div class="col-lg-5">
@@ -50,12 +51,37 @@
                       <%= link_to 'Mark as Incomplete', update_task_status_path(@opportunity, task) %>
                       <% end %>
                     </li>
-                    <li><%= link_to 'Edit Task', '#' %></li>
-                    <li><%= link_to 'Delete Task', opportunity_task_path(task), method: :delete %></li>
+                    <li><%= link_to 'Edit Task', '#', data: {toggle: "modal", target: "#act"} %></li>
+                    <li><%= link_to 'Delete Task', opportunity_task_path(@opportunity, task), method: :delete %></li>
                   </ul>
                 </div>
             </div>
         </li>
+
+
+        <!-- Modal -->
+        <div id="act" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Task</h4>
+              </div>
+              <div class="modal-body">
+                <%= simple_form_for [@opportunity, task] do |f| %>
+                <%= f.input :description, placeholder: "Task description" %>
+                <%= f.input :due_date %>
+              </div>
+              <div class="modal-footer">
+                <%= f.button :submit %>
+                <% end %>
+                <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+              </div>
+            </div>
+          </div>
+        </div>
         <% end %>
     </ul>
     <% end %>
