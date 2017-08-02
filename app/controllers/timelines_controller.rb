@@ -32,7 +32,7 @@ class TimelinesController < ApplicationController
 
   private
   def params_timeline
-    params.require(:timeline).permit(:idactivity, :typeactivity)
+    params.require(:timeline).permit(:nactivity, :tactivity, :info)
   end
 
   def find_timeline

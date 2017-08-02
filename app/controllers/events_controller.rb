@@ -7,7 +7,8 @@ class EventsController < ApplicationController
 
     if @event.save
       @opportunity.timelines.create!(tactivity: "event",
-      idactivity: @event.id, action: "created", user_id: current_user.id)
+      nactivity: @event.description, action: "created event", user_id: current_user.id)
+
       flash[:success] = "Event Log added!"
       redirect_to request.referrer
     else
@@ -19,7 +20,8 @@ class EventsController < ApplicationController
   def update
     if @event.update(params_event)
       @opportunity.timelines.create!(tactivity: "event",
-      idactivity: @event.id, action: "updated", user_id: current_user.id)
+      nactivity: @event.description, action: "updated event", user_id: current_user.id)
+
       flash[:success] = "Event entry created!"
       redirect_to request.referrer
     else
@@ -30,8 +32,10 @@ class EventsController < ApplicationController
 
   def destroy
     @event.destroy
+
     @opportunity.timelines.create!(tactivity: "event",
-    idactivity: @event.id, action: "deleted", user_id: current_user.id)
+    nactivity: @event.description, action: "deleted event", user_id: current_user.id)
+
     flash[:success] = "Event log deleted!"
     redirect_to request.referrer
   end
@@ -39,11 +43,17 @@ class EventsController < ApplicationController
   def update_event_status
     if @event.complete == true
       @event.update_attributes(complete: false)
+
+      @opportunity.timelines.create!(tactivity: "event",
+      nactivity: @event.description,
+      action: "updated event status from Attended to Not Attend for event", user_id: current_user.id)
     else
       @event.update_attributes(complete: true)
+      @opportunity.timelines.create!(tactivity: "event",
+      nactivity: @event.description,
+      action: "updated event status from Not Attend to Attended for event", user_id: current_user.id)
     end
-    @opportunity.timelines.create!(tactivity: "event",
-    idactivity: @event.id, action: "updated status", user_id: current_user.id)
+
     flash[:success] = "Event log updated!"
     redirect_to request.referrer
   end

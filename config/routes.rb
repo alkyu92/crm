@@ -21,8 +21,7 @@ Rails.application.routes.draw do
 
   get '/opportunities/:opportunity_id/tasks/:id/update_task_status',
   to: 'tasks#update_task_status', as: :update_task_status
-  get '/opportunities/:opportunity_id/calls/:id/update_call_status',
-  to: 'calls#update_call_status', as: :update_call_status
+
   get '/opportunities/:opportunity_id/events/:id/update_event_status',
   to: 'events#update_event_status', as: :update_event_status
 

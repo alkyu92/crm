@@ -7,11 +7,12 @@ class CallsController < ApplicationController
 
     if @call.save
       @opportunity.timelines.create!(tactivity: "call log",
-      idactivity: @call.id, action: "created", user_id: current_user.id)
-      flash[:success] = "Call Log added!"
+      nactivity: @call.description, action: "created call log", user_id: current_user.id)
+
+      flash[:success] = "Call Log created!"
       redirect_to request.referrer
     else
-      flash[:danger] = "Failed to add call log!"
+      flash[:danger] = "Failed to create call log!"
       redirect_to request.referrer
     end
   end
@@ -19,7 +20,8 @@ class CallsController < ApplicationController
   def update
     if @call.update(params_call)
       @opportunity.timelines.create!(tactivity: "call log",
-      idactivity: @call.id, action: "updated", user_id: current_user.id)
+      nactivity: @call.description, action: "updated call log", user_id: current_user.id)
+
       flash[:success] = "Call entry updated!"
       redirect_to request.referrer
     else
@@ -31,20 +33,8 @@ class CallsController < ApplicationController
   def destroy
     @call.destroy
     @opportunity.timelines.create!(tactivity: "call log",
-    idactivity: @call.id, action: "deleted", user_id: current_user.id)
+    nactivity: @call.description, action: "deleted call log", user_id: current_user.id)
     flash[:success] = "Call log deleted!"
-    redirect_to request.referrer
-  end
-
-  def update_call_status
-    if @call.complete == true
-      @call.update_attributes(complete: false)
-    else
-      @call.update_attributes(complete: true)
-    end
-    @opportunity.timelines.create!(tactivity: "call log",
-    idactivity: @call.id, action: "updated status", user_id: current_user.id)
-    flash[:success] = "Call log updated!"
     redirect_to request.referrer
   end
 

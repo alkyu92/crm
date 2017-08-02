@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 20170801043131) do
 
   create_table "timelines", force: :cascade do |t|
     t.string   "tactivity"
-    t.integer  "idactivity"
+    t.string   "nactivity"
     t.string   "action"
     t.integer  "opportunity_id"
     t.integer  "user_id"

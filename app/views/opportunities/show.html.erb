@@ -4,11 +4,11 @@
             <h3><%= @opportunity.name %></h3>
         </div>
         <div class="col-lg-2">
-            <div class="btn-group" style="padding-top: 10px;">
+            <div class="btn-group pull-right" style="padding-top: 10px;">
                 <%= link_to 'Edit', '#', class: "btn btn-default",
                 data: {toggle: "modal", target: "#opportunityModalForm"}%>
                 <%= link_to 'Delete', opportunity_path(@opportunity), method: :delete,
-    data: {confirm: "Are yo sure?"},class: "btn btn-default" %>
+    data: {confirm: "Are you sure?"},class: "btn btn-default" %>
             </div>
         </div>
     </div>
@@ -95,8 +95,7 @@
                         <small>
                             <%= link_to timeline.user.name, user_path(timeline.user.id) %>
                             <%= timeline.action %>
-                            <%= timeline.tactivity %>
-                            <%= timeline.idactivity %>
+                            <strong><%= timeline.nactivity %></strong>
                         </small>
                         <h5 style="margin-top: -2px;">
                             <small>

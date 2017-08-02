@@ -8,7 +8,7 @@ class TasksController < ApplicationController
     if @task.save
 
       @opportunity.timelines.create!(tactivity: "task",
-      idactivity: @task.id, action: "created", user_id: current_user.id)
+      nactivity: @task.description, action: "created task", user_id: current_user.id)
 
       flash[:success] = "Task Log added!"
       redirect_to request.referrer
@@ -21,7 +21,7 @@ class TasksController < ApplicationController
   def update
     if @task.update(params_task)
       @opportunity.timelines.create!(tactivity: "task",
-      idactivity: @task.id, action: "updated", user_id: current_user.id)
+      nactivity: @task.description, action: "updated task", user_id: current_user.id)
       flash[:success] = "Task updated!"
       redirect_to request.referrer
     else
@@ -33,7 +33,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     @opportunity.timelines.create!(tactivity: "task",
-    idactivity: @task.id, action: "deleted", user_id: current_user.id)
+    nactivity: @task.description, action: "deleted task", user_id: current_user.id)
     flash[:success] = "Task log deleted!"
     redirect_to request.referrer
   end
@@ -41,12 +41,17 @@ class TasksController < ApplicationController
   def update_task_status
     if @task.complete == true
       @task.update_attributes(complete: false)
+      @opportunity.timelines.create!(tactivity: "task",
+      nactivity: @task.description,
+      action: "updated task status from Completed to Incomplete for task", user_id: current_user.id)
     else
       @task.update_attributes(complete: true)
+      @opportunity.timelines.create!(tactivity: "task",
+      nactivity: @task.description,
+      action: "updated task status from Incomplete to Completed for task", user_id: current_user.id)
     end
-    @opportunity.timelines.create!(tactivity: "task",
-    idactivity: @task.id, action: "updated status", user_id: current_user.id)
-    flash[:success] = "Task log updated!"
+
+    flash[:success] = "Task log status updated!"
     redirect_to request.referrer
   end
 
