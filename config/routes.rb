@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :tasks
     resources :calls
     resources :events
+    resources :notes
   end
   resources :activities
   resources :contacts

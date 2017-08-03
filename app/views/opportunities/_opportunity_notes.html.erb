@@ -1,14 +1,38 @@
 <div class="tab-pane fade in" id="opportunityNotes">
-  <h4>Opportunity Notes</h4>
-  <br>
-  <div class="row">
-    <% for i in 1..6 do %>
-    <div class="col-lg-6">
-        <div class="panel panel-default panel-body">
-            <%= link_to 'This is note about opportunity'%>
-            <p>adf asdfads asd asdf ad ads ad fa</p>
+    <h4>Opportunity Notes</h4>
+    <div class="panel panel-default panel-body">
+        <%= simple_form_for [@opportunity, @note, Note.new] do |f| %>
+        <%= f.input :title %>
+        <%= f.input :description %>
+        <%= f.button :submit %>
+        <% end %>
+    </div>
+    <br>
+    <h4>Notes</h4>
+    <% if @opportunity.notes.blank? %>
+    No notes submitted yet.
+    <% else %>
+    <div class="row">
+        <% @opportunity.notes.each do |note| %>
+        <div class="col-lg-6">
+            <div class="panel panel-default panel-body">
+                <%= link_to note.title, '#' %>
+                <div class="pull-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="caret"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><%= link_to 'Edit', '#',
+                  data: {toggle: "modal", target: "#oppEditModalStage"} %></li>
+                        <li><%= link_to 'Delete',
+                  opportunity_note_path(@opportunity, note), method: :delete %></li>
+                    </ul>
+                </div>
+                <br>
+                <%= note.description %>
+            </div>
         </div>
+        <% end %>
     </div>
     <% end %>
-  </div>
 </div>
