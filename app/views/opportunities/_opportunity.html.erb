@@ -4,15 +4,27 @@
     </div>
     <div class="col-lg-3">
         <!-- Opportunity Name -->
-        <%= opportunity.name %>
+        <% if opportunity.name.blank? %>
+          <span style="color: red;">Opportunity name not specified</span>
+        <% else %>
+          <%= opportunity.name %>
+        <% end %>
     </div>
     <div class="col-lg-2">
         <!-- Account Name -->
-        <%= opportunity.account_id %>
+        <% if opportunity.account_id.blank? %>
+          <span style="color: red;">Account not specified</span>
+        <% else %>
+          <%= opportunity.account_id %>
+        <% end %>
     </div>
     <div class="col-lg-2">
         <!-- Current Stage -->
-        <%= opportunity.stage_id %>
+        <% if opportunity.stage_id.blank? %>
+          <span style="color: red;">Current stage not specified</span>
+        <% else %>
+          <%= opportunity.stage_id %>
+        <% end %>
     </div>
     <div class="col-lg-2">
       <!-- Closed Date -->

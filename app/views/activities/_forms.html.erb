@@ -1,5 +1,5 @@
 <div id="task" class="tab-pane fade in active">
-    <%= simple_form_for [@opportunity, @task, Task.new] do |f| %>
+    <%= simple_form_for [@opportunity, @task, Task.new], remote: true do |f| %>
     <%= f.input :description, placeholder: "To-do" %>
     <%= f.input :due_date, as: :date_time_picker %>
     <%= f.button :submit %>
@@ -7,7 +7,7 @@
 </div>
 
 <div id="call" class="tab-pane fade in">
-    <%= simple_form_for [@opportunity, @call, Call.new] do |f| %>
+    <%= simple_form_for [@opportunity, @call, Call.new], remote: true do |f| %>
     <%= f.input :description, placeholder: "Call description" %>
     <div class="row">
       <div class="col-lg-6">
@@ -22,7 +22,7 @@
 </div>
 
 <div id="event" class="tab-pane fade in">
-    <%= simple_form_for [@opportunity, @event, Event.new] do |f| %>
+    <%= simple_form_for [@opportunity, @event, Event.new], remote: true do |f| %>
     <%= f.input :description, placeholder: "Event description" %>
     <%= f.input :event_date, as: :date_time_picker %>
     <%= f.button :submit %>

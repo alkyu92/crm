@@ -1,0 +1,12 @@
+<div id="task_list" class="tab-pane fade in active">
+
+    <% if @opportunity.tasks.blank? %>
+      No tasks created yet.
+    <% else %>
+
+    <div class="task">
+      <%= render 'tasks/task' %>
+    </div>
+
+    <% end %>
+</div>

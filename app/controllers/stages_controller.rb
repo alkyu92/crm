@@ -23,8 +23,11 @@ class StagesController < ApplicationController
     @opportunity.timelines.create!(tactivity: "stage", nactivity: @stage.name,
     action: "deleted stage", user_id: current_user.id)
 
-    flash[:success] = "Opportunity stage deleted!"
-    redirect_to request.referrer
+    respond_to do |format|
+      format.js
+    end
+    # flash[:success] = "Opportunity stage deleted!"
+    # redirect_to request.referrer
   end
 
   def update_stage_status
@@ -42,8 +45,11 @@ class StagesController < ApplicationController
       action: "changed stage status from In Progress to Completed", user_id: current_user.id)
     end
 
-    flash[:success] = "Stage status changed!"
-    redirect_to request.referrer
+    respond_to do |format|
+      format.js
+    end
+
+    # redirect_to request.referrer
   end
 
   private

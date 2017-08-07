@@ -1,0 +1,61 @@
+<h4>Events</h4>
+<ul class="list-group">
+  <li class="list-group-item">
+  <div class="row">
+    <div class="col-lg-5">
+      <strong>Description</strong>
+    </div>
+    <div class="col-lg-3">
+      <strong>Due date</strong>
+    </div>
+    <div class="col-lg-2">
+      <strong>Status</strong>
+    </div>
+    <div class="col-lg-2">
+      <strong>Action</strong>
+    </div>
+  </div>
+</li>
+    <% @opportunity.events.each do |event| %>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col-lg-5">
+                <%= event.description %>
+            </div>
+            <div class="col-lg-3">
+              <% if event.event_date.blank? %>
+              <span style="color: red;">Date not specified</span>
+              <% else %>
+                <%= event.event_date.strftime('%d %b %Y') %>
+              <% end %>
+            </div>
+            <div class="col-lg-2">
+                <% if event.complete == false %>
+                <span style="color: red;">Not attend</span>
+            <% else %>
+                <span style="color: green;">Attended</span>
+                <% end %>
+            </div>
+            <div class="col-lg-2">
+              <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+                <i class="caret"></i>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <% if event.complete == false %>
+                  <%= link_to 'Mark as Attended', update_event_status_path(@opportunity, event),
+                  remote: true %>
+                  <% else %>
+                  <%= link_to 'Mark as Not Attend', update_event_status_path(@opportunity, event),
+                  remote: true %>
+                  <% end %>
+                </li>
+                <li><%= link_to 'Edit Event', '#', data: {toggle: "modal", target: "#actEvent"} %></li>
+                <li><%= link_to 'Delete Event', opportunity_event_path(@opportunity, event),
+                method: :delete, remote: true %></li>
+              </ul>
+            </div>
+        </div>
+    </li>
+    <% end %>
+</ul>

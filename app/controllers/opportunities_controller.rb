@@ -62,7 +62,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def find_opportunity
-    @opportunity = Opportunity.find(params[:id])
+    @opportunity = Opportunity.includes(:user).find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
     flash[:danger] = "Record not found!"

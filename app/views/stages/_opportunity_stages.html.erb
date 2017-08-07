@@ -5,95 +5,47 @@
         <div class="text-center">
             No stages created yet.
         </div>
-    <% else %>
+        <% else %>
         <div class="row">
             <div class="text-center">
                 <strong>Opportunity Stages</strong>
             </div>
         </div>
         <br>
-        <% previous_status = nil %>
-        <% current_status = nil %>
-        <% @opportunity.stages.each_with_index do |stage, index| %>
-        <% current_status = stage.complete %>
-        <% if stage.complete == false %>
-        <div class="col-lg-2 btn btn-default">
-        <% else %>
-            <div class="col-lg-2 btn btn-success">
-                <% end %>
-                <span class="pull-left badge"><%= index+1 %></span>
-                <strong><%= stage.name %></strong>
-
-                <!-- <i class="fa fa-times pull-right"></i> -->
-                <div class="pull-right">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="caret"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><%= link_to 'Edit', '#',
-                  data: {toggle: "modal", target: "#oppEditModalStage"} %></li>
-                        <li><%= link_to 'Delete',
-                  opportunity_stage_path(@opportunity, stage), method: :delete %></li>
-                    </ul>
-                </div>
-
-                <br>
-
-                <% if previous_status == true || index == 0 %>
-
-                <% if stage.complete == false %>
-                <small>In progress</small><br>
-                <small><%= link_to 'Mark as Completed',
-                    update_stage_status_path(@opportunity, stage) %></small>
-            <% else %>
-
-                <small>Completed</small><br>
-
-                <%# if previous_status == true %>
-                <small><%= link_to 'Mark as In Progress',
-                    update_stage_status_path(@opportunity, stage) %>
-                </small>
-                <%# end %>
-
-                <% end %>
-
-            <% else %>
-                <small>Waiting for previous stage</small><br>
-                <% end %>
-
-            </div>
-            <% previous_status = current_status %>
-            <% end %>
-            <% end %>
+        <div class="stage">
+          <%= render 'stages/stage' %>
         </div>
-        <br>
-        <div class="row pull-right">
-            <div class="col-lg-12">
-                <%= link_to 'Add Stage','#', class: "btn btn-default",
+        <% end %>
+        <!-- @opportunity.stages.blank? -->
+    </div>
+    <br>
+    <div class="row pull-right">
+        <div class="col-lg-12">
+            <%= link_to 'Add Stage','#', class: "btn btn-default",
           data: {toggle: "modal", target: "#opportunityModalStage"} %>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="opportunityModalStage" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create New Stage</h4>
+            </div>
+            <div class="modal-body">
+                <%= simple_form_for [@opportunity, @stage, Stage.new] do |f| %>
+                <%= f.input :name, label: "Stage Name", autofocus: true, hint: "required" %>
+            </div>
+            <div class="modal-footer">
+                <%= f.button :submit, class: "btn-success" %>
+                <% end %>
+                <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
-    <div id="opportunityModalStage" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Create New Stage</h4>
-                </div>
-                <div class="modal-body">
-                    <%= simple_form_for [@opportunity, @stage, Stage.new] do |f| %>
-                    <%= f.input :name, label: "Stage Name", autofocus: true, hint: "required" %>
-                </div>
-                <div class="modal-footer">
-                    <%= f.button :submit, class: "btn-success" %>
-                    <% end %>
-                    <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>

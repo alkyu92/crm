@@ -5,16 +5,20 @@ class CallsController < ApplicationController
   def create
     @call = @opportunity.calls.build(params_call)
 
-    if @call.save
-      @opportunity.timelines.create!(tactivity: "call log",
-      nactivity: @call.description, action: "created call log", user_id: current_user.id)
+    respond_to do |format|
+      if @call.save
+        @opportunity.timelines.create!(tactivity: "call log",
+        nactivity: @call.description, action: "created call log", user_id: current_user.id)
 
-      flash[:success] = "Call Log created!"
-      redirect_to request.referrer
-    else
-      flash[:danger] = "Failed to create call log!"
-      redirect_to request.referrer
+        format.js
+        # flash[:success] = "Call Log created!"
+        # redirect_to request.referrer
+      else
+        # flash[:danger] = "Failed to create call log!"
+        # redirect_to request.referrer
+      end
     end
+
   end
 
   def update
@@ -34,8 +38,11 @@ class CallsController < ApplicationController
     @call.destroy
     @opportunity.timelines.create!(tactivity: "call log",
     nactivity: @call.description, action: "deleted call log", user_id: current_user.id)
-    flash[:success] = "Call log deleted!"
-    redirect_to request.referrer
+    respond_to do |format|
+      format.js
+    end
+    # flash[:success] = "Call log deleted!"
+    # redirect_to request.referrer
   end
 
   private

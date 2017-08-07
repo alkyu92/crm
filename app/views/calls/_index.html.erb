@@ -1,0 +1,9 @@
+<div id="call_list" class="tab-pane fade in">
+    <% if @opportunity.calls.blank? %>
+    No call logs created yet.
+    <% else %>
+    <div class="call">
+      <%= render 'calls/call' %>
+    </div>
+    <% end %>
+</div>

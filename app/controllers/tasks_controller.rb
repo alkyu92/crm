@@ -5,18 +5,22 @@ class TasksController < ApplicationController
   def create
     @task = @opportunity.tasks.build(params_task)
 
+    respond_to do |format|
       if @task.save
 
         @opportunity.timelines.create!(tactivity: "task",
         nactivity: @task.description, action: "created task", user_id: current_user.id)
 
-        flash[:success] = "Task Log added!"
-        redirect_to request.referrer
+        # flash[:success] = "Task Log added!"
+        # redirect_to request.referrer
+
+        format.js
 
       else
-        flash[:danger] = "Failed to add task log!"
-        redirect_to request.referrer
+        # flash[:danger] = "Failed to add task log!"
+        # redirect_to request.referrer
       end
+    end
 
   end
 
@@ -36,8 +40,11 @@ class TasksController < ApplicationController
     @task.destroy
     @opportunity.timelines.create!(tactivity: "task",
     nactivity: @task.description, action: "deleted task", user_id: current_user.id)
-    flash[:success] = "Task log deleted!"
-    redirect_to request.referrer
+    # flash[:success] = "Task log deleted!"
+    # redirect_to request.referrer
+    respond_to do |format|
+      format.js
+    end
   end
 
   def update_task_status
@@ -53,8 +60,11 @@ class TasksController < ApplicationController
       action: "updated task status from Incomplete to Completed for task", user_id: current_user.id)
     end
 
-    flash[:success] = "Task log status updated!"
-    redirect_to request.referrer
+    respond_to do |format|
+      format.js
+    end
+    # flash[:success] = "Task log status updated!"
+    # redirect_to request.referrer
   end
 
   private

@@ -5,16 +5,20 @@ class EventsController < ApplicationController
   def create
     @event = @opportunity.events.build(params_event)
 
-    if @event.save
-      @opportunity.timelines.create!(tactivity: "event",
-      nactivity: @event.description, action: "created event", user_id: current_user.id)
+    respond_to do |format|
+      if @event.save
+        @opportunity.timelines.create!(tactivity: "event",
+        nactivity: @event.description, action: "created event", user_id: current_user.id)
 
-      flash[:success] = "Event Log added!"
-      redirect_to request.referrer
-    else
-      flash[:danger] = "Failed to add event log!"
-      redirect_to request.referrer
+        format.js
+        # flash[:success] = "Event Log added!"
+        # redirect_to request.referrer
+      else
+        # flash[:danger] = "Failed to add event log!"
+        # redirect_to request.referrer
+      end
     end
+
   end
 
   def update
@@ -36,8 +40,11 @@ class EventsController < ApplicationController
     @opportunity.timelines.create!(tactivity: "event",
     nactivity: @event.description, action: "deleted event", user_id: current_user.id)
 
-    flash[:success] = "Event log deleted!"
-    redirect_to request.referrer
+    respond_to do |format|
+      format.js
+    end
+    # flash[:success] = "Event log deleted!"
+    # redirect_to request.referrer
   end
 
   def update_event_status
@@ -54,8 +61,11 @@ class EventsController < ApplicationController
       action: "updated event status from Not Attend to Attended for event", user_id: current_user.id)
     end
 
-    flash[:success] = "Event log updated!"
-    redirect_to request.referrer
+    respond_to do |format|
+      format.js
+    end
+    # flash[:success] = "Event log updated!"
+    # redirect_to request.referrer
   end
 
   private
