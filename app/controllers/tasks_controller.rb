@@ -5,17 +5,19 @@ class TasksController < ApplicationController
   def create
     @task = @opportunity.tasks.build(params_task)
 
-    if @task.save
+      if @task.save
 
-      @opportunity.timelines.create!(tactivity: "task",
-      nactivity: @task.description, action: "created task", user_id: current_user.id)
+        @opportunity.timelines.create!(tactivity: "task",
+        nactivity: @task.description, action: "created task", user_id: current_user.id)
 
-      flash[:success] = "Task Log added!"
-      redirect_to request.referrer
-    else
-      flash[:danger] = "Failed to add task log!"
-      redirect_to request.referrer
-    end
+        flash[:success] = "Task Log added!"
+        redirect_to request.referrer
+
+      else
+        flash[:danger] = "Failed to add task log!"
+        redirect_to request.referrer
+      end
+
   end
 
   def update

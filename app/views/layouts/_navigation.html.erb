@@ -13,6 +13,7 @@
         Local Basic CRM
         <% end %>
 
+        <% if user_signed_in? %>
         <div class="navbar-nav" style="margin-top: -15px; width: 40%;">
         <%= simple_form_for :search, method: :get do |f| %>
         <%= f.input :query, placeholder: "Search Local Basic CRM" %>
@@ -21,12 +22,10 @@
 
         <div class="collapse navbar-collapse" id="crm-menu">
             <ul class="nav navbar-nav navbar-right">
-              <% if user_signed_in? %>
 
                 <li><%= link_to 'Dashboards', dashboards_path %></li>
                 <li><%= link_to 'Opportunities', opportunities_path %></li>
                 <li><%= link_to 'Contacts', contacts_path %></li>
-                <li><%= link_to 'Activities', activities_path %></li>
 
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -41,9 +40,8 @@
                     <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
                   </ul>
                 </li>
-              <% end %>
             </ul>
         </div>
-
+        <% end %>
     </div>
 </nav>

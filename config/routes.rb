@@ -4,13 +4,13 @@ Rails.application.routes.draw do
 
   resources :dashboards
   resources :opportunities do
+    resources :timelines
     resources :stages
     resources :tasks
     resources :calls
     resources :events
     resources :notes
   end
-  resources :activities
   resources :contacts
 
   resources :users

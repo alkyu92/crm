@@ -57,8 +57,12 @@ ActiveRecord::Schema.define(version: 20170802095341) do
   end
 
   create_table "documents", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "doc_file_name"
+    t.string   "doc_content_type"
+    t.integer  "doc_file_size"
+    t.datetime "doc_updated_at"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -88,6 +92,7 @@ ActiveRecord::Schema.define(version: 20170802095341) do
     t.string   "probability"
     t.string   "amount"
     t.text     "description"
+    t.text     "contacts"
     t.string   "loss_reason"
     t.date     "close_date"
     t.integer  "user_id"

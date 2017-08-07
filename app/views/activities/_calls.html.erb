@@ -46,7 +46,8 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li><%= link_to 'Edit Call', '#', data: {toggle: "modal", target: "#actCall"} %></li>
-                    <li><%= link_to 'Delete Call', opportunity_call_path(call), method: :delete %></li>
+                    <li><%= link_to 'Delete Call', opportunity_call_path(@opportunity, call),
+                    method: :delete, remote: true %></li>
                   </ul>
                 </div>
             </div>

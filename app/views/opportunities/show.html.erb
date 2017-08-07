@@ -45,7 +45,7 @@
 
 <hr>
 
-<%= render 'opportunity_stages'%>
+<%= render 'stages/opportunity_stages'%>
 
 <hr>
 
@@ -53,7 +53,7 @@
     <div class="row">
         <div class="col-lg-12">
             <ul class="nav nav-tabs">
-              <li class="active"><%= link_to 'Activities', '#opportunityActivities',
+                <li class="active"><%= link_to 'Activities', '#opportunityActivities',
               data: {toggle: "tab", target: "#opportunityActivities"} %></li>
                 <li><%= link_to 'Details', '#opportunityDetails',
                 data: {toggle: "tab", target: "#opportunityDetails"} %></li>
@@ -74,39 +74,17 @@
     <div class="row">
 
         <div class="col-lg-6">
-          <div class="tab-content">
-          <%= render 'opportunity_activities' %>
-          <%= render 'opportunity_details' %>
-          <%= render 'opportunity_notes' %>
-          <%= render 'opportunity_contacts' %>
-          <%= render 'opportunity_docs' %>
-        </div>
+            <div class="tab-content">
+                <%= render 'activities/index' %>
+                <%= render 'details' %>
+                <%= render 'notes/related_notes' %>
+                <%= render 'contacts/related_contacts' %>
+                <%= render 'documents/related_docs' %>
+            </div>
         </div>
 
         <div class="col-lg-6">
-            <h4>Timeline &middot History</h4>
-            <% @opportunity.timelines.order('created_at DESC').each do |timeline| %>
-            <div class="panel panel-default panel-body">
-                <div class="media">
-                    <div class="media-left" style="padding-top: 6px;">
-                        <%= image_tag('http://placehold.it/25x25', class: "media-object")%>
-                    </div>
-                    <div class="media-body">
-                        <small>
-                            <%= link_to timeline.user.name, user_path(timeline.user.id) %>
-                            <%= timeline.action %>
-                            <strong><%= timeline.nactivity %></strong>
-                        </small>
-                        <h5 style="margin-top: -2px;">
-                            <small>
-                              <%= timeline.created_at.strftime('%d %b %Y') %>
-                              &middot
-                              <%= time_ago_in_words(timeline.created_at) %> ago
-                            </small>
-                            <h5></div>
-                        </div>
-                    </div>
-                    <% end %>
-                </div>
-            </div>
+            <%= render 'timelines/index' %>
         </div>
+    </div>
+</div>

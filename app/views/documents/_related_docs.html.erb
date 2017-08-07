@@ -5,6 +5,7 @@
     <%= simple_form_for :doc do |f| %>
     <%= f.label "Upload Documents" %>
     <%= file_field_tag "pics_doc[]",type: :image, multiple: true %>
+    <%= f.hint "Can upload multiple files"%>
     <% end %>
   </div>
 

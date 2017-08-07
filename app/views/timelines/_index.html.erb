@@ -1,0 +1,39 @@
+<h4>Timeline &middot History</h4>
+
+<% if @opportunity.timelines.blank? %>
+<p>Every changes regarding opportunities will be recorded here.</p>
+<% else %>
+
+<% @opportunity.timelines.order('created_at DESC').each do |timeline| %>
+<div class="panel panel-default panel-body">
+    <div class="media">
+        <div class="media-left" style="padding-top: 6px;">
+            <%= image_tag('http://placehold.it/25x25', class: "media-object")%>
+        </div>
+        <div class="media-body">
+            <small>
+                <%= link_to timeline.user.name, user_path(timeline.user.id) %>
+                <%= timeline.action %>
+                <strong><%= timeline.nactivity %></strong>
+                <div class="pull-right">
+                <%= link_to opportunity_timeline_path(@opportunity, timeline),
+                method: :delete do %>
+                <i class="fa fa-times"></i>
+                <% end %>
+              </div>
+            </small>
+            <h5 style="margin-top: -2px;">
+                <small>
+                    <%= timeline.created_at.strftime('%d %b %Y') %>
+                    &middot
+                    <%= time_ago_in_words(timeline.created_at) %>
+                    ago
+                </small>
+
+                <h5>
+
+            </div>
+            </div>
+        </div>
+        <% end %>
+<% end %>
