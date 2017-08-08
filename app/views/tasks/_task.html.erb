@@ -1,21 +1,25 @@
+<% if @opportunity.tasks.blank? %>
+  No tasks created yet.
+<% else %>
+
 <h4>Tasks</h4>
-  <ul class="list-group">
-<li class="list-group-item">
-<div class="row">
-  <div class="col-lg-5">
-    <strong>Description</strong>
-  </div>
-  <div class="col-lg-3">
-    <strong>Due date</strong>
-  </div>
-  <div class="col-lg-2">
-    <strong>Status</strong>
-  </div>
-  <div class="col-lg-2">
-    <strong>Action</strong>
-  </div>
-</div>
-</li>
+<ul class="list-group">
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col-lg-5">
+                <strong>Description</strong>
+            </div>
+            <div class="col-lg-3">
+                <strong>Due date</strong>
+            </div>
+            <div class="col-lg-2">
+                <strong>Status</strong>
+            </div>
+            <div class="col-lg-2">
+                <strong>Action</strong>
+            </div>
+        </div>
+    </li>
 
 <% @opportunity.tasks.order('created_at DESC').each do |task| %>
 <li class="list-group-item">
@@ -24,18 +28,19 @@
             <%= task.description %>
         </div>
         <div class="col-lg-3">
-          <% if task.due_date.blank? %>
-          <span style="color: red;">Date not specified</span>
-          <% else %>
+            <% if task.due_date.blank? %>
+            <span style="color: red;">Date not specified</span>
+        <% else %>
             <% if task.due_date > Time.now %>
             <%= task.due_date.strftime('%d %b %Y') %><br>
             <small>
-              (<%= distance_of_time_in_words(task.due_date, Time.now)%> left)
+                (<%= distance_of_time_in_words(task.due_date, Time.now)%>
+                left)
             </small>
-            <% else %>
+        <% else %>
             <span style="color: red;">Date overdue</span>
             <% end %>
-          <% end %>
+            <% end %>
         </div>
         <div class="col-lg-2">
             <% if task.complete == false %>
@@ -45,23 +50,24 @@
             <% end %>
         </div>
         <div class="col-lg-2">
-          <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
-            <i class="caret"></i>
-          </a>
-          <ul class="dropdown-menu">
+            <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+                <i class="caret"></i>
+            </a>
+            <ul class="dropdown-menu">
             <li>
-              <% if task.complete == false %>
-              <%= link_to 'Mark as Completed', update_task_status_path(@opportunity, task), remote: true %>
-              <% else %>
-              <%= link_to 'Mark as Incomplete', update_task_status_path(@opportunity, task), remote: true %>
-              <% end %>
+                <% if task.complete == false %>
+                <%= link_to 'Mark as Completed', update_task_status_path(@opportunity, task), remote: true %>
+            <% else %>
+                <%= link_to 'Mark as Incomplete', update_task_status_path(@opportunity, task), remote: true %>
+                <% end %>
             </li>
             <li><%= link_to 'Edit Task', '#', data: {toggle: "modal", target: "#act"} %></li>
             <li><%= link_to 'Delete Task', opportunity_task_path(@opportunity, task),
             method: :delete, remote: true %></li>
-          </ul>
-        </div>
+        </ul>
     </div>
+</div>
 </li>
 <% end %>
 </ul>
+<% end %>

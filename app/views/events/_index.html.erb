@@ -1,9 +1,7 @@
 <div id="event_list" class="tab-pane fade in">
-    <% if @opportunity.events.blank? %>
-    No event created yet.
-    <% else %>
+
     <div class="event">
       <%= render 'events/event' %>
     </div>
-    <% end %>
+
 </div>

@@ -11,5 +11,9 @@ class TimelinesController < ApplicationController
 
   def find_timeline
     @timeline = Timeline.find(params[:id])
+
+  rescue ActiveRecord::RecordNotFound
+    flash[:danger] = "Can't find records!"
+    redirect_to root_path
   end
 end

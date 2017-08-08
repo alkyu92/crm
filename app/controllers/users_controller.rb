@@ -12,5 +12,9 @@ class UsersController < ApplicationController
 
   def find_user
     @user = User.find(params[:id])
+
+  rescue ActiveRecord::RecordNotFound
+    flash[:danger] = "Can't find records!"
+    redirect_to root_path
   end
 end

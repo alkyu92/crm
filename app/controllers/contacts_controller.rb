@@ -48,5 +48,9 @@ class ContactsController < ApplicationController
 
   def find_contact
     @contact = Contact.find(params[:id])
+
+  rescue ActiveRecord::RecordNotFound
+    flash[:danger] = "Can't find records!"
+    redirect_to root_path
   end
 end

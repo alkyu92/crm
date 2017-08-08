@@ -5,7 +5,6 @@ class TasksController < ApplicationController
   def create
     @task = @opportunity.tasks.build(params_task)
 
-    respond_to do |format|
       if @task.save
 
         @opportunity.timelines.create!(tactivity: "task",
@@ -14,13 +13,14 @@ class TasksController < ApplicationController
         # flash[:success] = "Task Log added!"
         # redirect_to request.referrer
 
-        format.js
-
       else
         # flash[:danger] = "Failed to add task log!"
         # redirect_to request.referrer
       end
-    end
+
+      respond_to do |format|
+        format.js
+      end
 
   end
 
@@ -82,5 +82,9 @@ class TasksController < ApplicationController
 
   def find_task
     @task = Task.find(params[:id])
+
+  rescue ActiveRecord::RecordNotFound
+    flash[:danger] = "Can't find records!"
+    redirect_to root_path
   end
 end

@@ -47,9 +47,17 @@ class NotesController < ApplicationController
 
   def find_opportunity
     @opportunity = Opportunity.find(params[:opportunity_id])
+
+  rescue ActiveRecord::RecordNotFound
+    flash[:danger] = "Can't find records!"
+    redirect_to root_path
   end
 
   def find_note
     @note = Note.find(params[:id])
+
+  rescue ActiveRecord::RecordNotFound
+    flash[:danger] = "Can't find records!"
+    redirect_to root_path
   end
 end

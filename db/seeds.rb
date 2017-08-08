@@ -38,7 +38,7 @@ end
 
 ops = Opportunity.all
 ops.each do |op|
-  for i in 1..20 do
+  for i in 1..10 do
     op.stages.create!(name: "Stage" + i.to_s)
   end
 end

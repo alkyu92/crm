@@ -95,10 +95,10 @@ ActiveRecord::Schema.define(version: 20170802095341) do
 
   create_table "stages", force: :cascade do |t|
     t.string   "name"
-    t.boolean  "complete",       default: false
+    t.string   "status",         default: "Waiting", null: false
     t.integer  "opportunity_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.index ["opportunity_id"], name: "index_stages_on_opportunity_id"
   end
 

@@ -31,18 +31,10 @@ class StagesController < ApplicationController
   end
 
   def update_stage_status
-    if @stage.complete == true
-      @stage.update_attributes(complete: false)
-
-      @opportunity.timelines.create!(tactivity: "stage", nactivity: @stage.name,
-      action: "changed stage status from Completed to In Progress", user_id: current_user.id)
-
-      #@opportunity.update_attributes(stage_id: @stage.id) #set current_stage
-    else
-      @stage.update_attributes(complete: true)
-
-      @opportunity.timelines.create!(tactivity: "stage", nactivity: @stage.name,
-      action: "changed stage status from In Progress to Completed", user_id: current_user.id)
+    if @stage.status == "In Progress"
+      update_status("In Progress", "Completed")
+    elsif @stage.status == "Completed"
+      update_status("Completed", "In Progress")
     end
 
     respond_to do |format|
@@ -57,11 +49,24 @@ class StagesController < ApplicationController
     params.require(:stage).permit(:name)
   end
 
+  def update_status(previous,current)
+    @stage.update_attributes(status: current)
+
+    @opportunity.timelines.create!(tactivity: "stage", nactivity: @stage.name,
+    action: "changed stage status from #{previous} to #{current}", user_id: current_user.id)
+  end
+
   def find_opportunity
     @opportunity = Opportunity.find(params[:opportunity_id])
+    rescue ActiveRecord::RecordNotFound
+    flash[:danger] = "Can't find records!"
+    redirect_to root_path
   end
 
   def find_stage
     @stage = Stage.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+    flash[:danger] = "Can't find records!"
+    redirect_to root_path
   end
 end
