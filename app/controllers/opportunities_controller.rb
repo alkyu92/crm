@@ -30,6 +30,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def update
+    
     if @opportunity.update(params_opportunity)
 
       if params[:docs]
@@ -39,9 +40,13 @@ class OpportunitiesController < ApplicationController
       end
 
       if params[:attached]
-        params[:attached].each { |doc|
-          @opportunity.documents.where(id: doc.id).destroy_all
+        params[:attached].each { |attach|
+          @opportunity.documents.where(id: attach).destroy_all
         }
+      end
+
+      if params[:delete_all]
+        @opportunity.documents.destroy_all
       end
 
       flash[:success] = "Opportunity entry updated!"

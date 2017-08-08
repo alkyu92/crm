@@ -27,9 +27,25 @@
     <%= f.input :description %>
     <%= f.input :loss_reason %>
 
+    <hr>
     <%= f.label "Upload Documents" %>
     <%= file_field_tag "docs[]",type: :file, multiple: true %>
     <%= f.hint "Can upload multiple files"%>
+
+    <% if @opportunity.documents.blank? %>
+    There are no documents uploaded yet.
+    <% else %>
+      <% @opportunity.documents.each do |document| %>
+      <%= check_box_tag "attached[]", document.id %>
+      <%= link_to document.doc_file_name, document.doc.url %>
+      <br>
+      <% end %>
+      <br>
+      <p>Check the box(es) to <span style="color: red;">DELETE</span> attachment(s) or</p>
+      <%= check_box_tag "delete_all" %>
+      DELETE ALL
+      <p>to delete <span style="color: red;">ALL</span> attachments</p>
+    <% end %>
       </div>
       <div class="modal-footer">
         <%= f.button :submit, class: "btn-success" %>

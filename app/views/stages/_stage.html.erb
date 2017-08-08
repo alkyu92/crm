@@ -31,10 +31,13 @@
 
                         <% if stage.status == "In Progress" %>
                         <li><%= link_to 'Mark as Completed', update_stage_status_path(@opportunity, stage),
-                  remote: true, method: :get %></li>
+                        remote: true, method: :get %></li>
                         <% elsif stage.status == "Completed" %>
                         <li><%= link_to 'Mark as In Progress', update_stage_status_path(@opportunity, stage),
-                  remote: true, method: :get %></li>
+                        remote: true, method: :get %></li>
+                        <% elsif stage.status == "Waiting" %>
+                        <li><%= link_to 'Mark as In Progress', update_stage_status_path(@opportunity, stage),
+                        remote: true, method: :get %></li>
                         <% end %>
 
                         <li><%= link_to 'Edit', '#',data: {toggle: "modal", target: "#oppEditModalStage"} %></li>
@@ -45,20 +48,15 @@
 
                 <br>
 
-                <% if stage.status == "Waiting" %>
-                <small>Waiting for previous stage</small>
-                <br><br>
-                  <% if previous_status == "Completed" %>
-                    <% current_status = "In Progress" %>
-                  <% end %>
-                <% else %>
-                  <% if stage.status == "In Progress" %>
-                    <small>In Progress</small>
-                    <br><br>
-                  <% else %>
-                    <small>Completed</small>
-                    <br><br>
-                  <% end %>
+                <% if stage.status == "Completed" %>
+                  <small>Completed</small>
+                  <br><br>
+                <% elsif stage.status == "In Progress" %>
+                  <small>In Progress</small>
+                  <br><br>
+                <% elsif stage.status == "Waiting" %>
+                  <small>Waiting for previous stage</small>
+                  <br><br>
                 <% end %>
 
                 <% previous_status = current_status %>

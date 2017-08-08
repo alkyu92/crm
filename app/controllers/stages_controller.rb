@@ -1,7 +1,7 @@
 class StagesController < ApplicationController
   before_action :find_opportunity
   before_action :find_stage, only: [:destroy, :update_stage_status]
- 
+
   def create
     @stage = @opportunity.stages.build(params_stage)
 
@@ -36,6 +36,9 @@ class StagesController < ApplicationController
       elsif @stage.status == "Completed"
         update_status("Completed", "In Progress")
         format.js { flash[:success] = "Stage status updated from Completed to In Progress!" }
+      elsif @stage.status == "Waiting"
+        update_status("Waiting", "In Progress")
+        format.js { flash[:success] = "Stage status updated from Waiting to In Progress!" }
       end
     end
 
