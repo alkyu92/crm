@@ -5,22 +5,15 @@ class TasksController < ApplicationController
   def create
     @task = @opportunity.tasks.build(params_task)
 
+    respond_to do |format|
       if @task.save
-
         @opportunity.timelines.create!(tactivity: "task",
         nactivity: @task.description, action: "created task", user_id: current_user.id)
-
-        # flash[:success] = "Task Log added!"
-        # redirect_to request.referrer
-
+        format.js { flash[:success] = "Task log added!" }
       else
-        # flash[:danger] = "Failed to add task log!"
-        # redirect_to request.referrer
+        format.js { flash[:danger] = "Failed to add task log!" }
       end
-
-      respond_to do |format|
-        format.js
-      end
+    end
 
   end
 
@@ -40,31 +33,27 @@ class TasksController < ApplicationController
     @task.destroy
     @opportunity.timelines.create!(tactivity: "task",
     nactivity: @task.description, action: "deleted task", user_id: current_user.id)
-    # flash[:success] = "Task log deleted!"
-    # redirect_to request.referrer
     respond_to do |format|
-      format.js
+      format.js { flash[:success] = "Task log deleted!" }
     end
   end
 
   def update_task_status
+    respond_to do |format|
     if @task.complete == true
       @task.update_attributes(complete: false)
       @opportunity.timelines.create!(tactivity: "task",
       nactivity: @task.description,
       action: "updated task status from Completed to Incomplete for task", user_id: current_user.id)
+      format.js { flash[:success] = "Task log status updated from Completed to Incomplete!" }
     else
       @task.update_attributes(complete: true)
       @opportunity.timelines.create!(tactivity: "task",
       nactivity: @task.description,
       action: "updated task status from Incomplete to Completed for task", user_id: current_user.id)
+      format.js { flash[:success] = "Task log status updated from Incomplete to Completed!" }
     end
-
-    respond_to do |format|
-      format.js
     end
-    # flash[:success] = "Task log status updated!"
-    # redirect_to request.referrer
   end
 
   private

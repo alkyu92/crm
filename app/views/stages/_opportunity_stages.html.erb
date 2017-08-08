@@ -10,6 +10,7 @@
             <div class="text-center">
                 <strong>Opportunity Stages</strong>
             </div>
+
         </div>
         <br>
         <div class="stage">
@@ -22,7 +23,7 @@
     <div class="row pull-right">
         <div class="col-lg-12">
             <%= link_to 'Add Stage','#', class: "btn btn-default",
-          data: {toggle: "modal", target: "#opportunityModalStage"} %>
+          data: {toggle: "modal", target: "#opportunityModalStage"}, remote: true %>
         </div>
     </div>
 </div>
@@ -38,7 +39,7 @@
                 <h4 class="modal-title">Create New Stage</h4>
             </div>
             <div class="modal-body">
-                <%= simple_form_for [@opportunity, @stage, Stage.new] do |f| %>
+                <%= simple_form_for [@opportunity, @stage, Stage.new], remote: true do |f| %>
                 <%= f.input :name, label: "Stage Name", autofocus: true, hint: "required" %>
             </div>
             <div class="modal-footer">

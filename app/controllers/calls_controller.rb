@@ -9,13 +9,9 @@ class CallsController < ApplicationController
       if @call.save
         @opportunity.timelines.create!(tactivity: "call log",
         nactivity: @call.description, action: "created call log", user_id: current_user.id)
-
-        format.js
-        # flash[:success] = "Call Log created!"
-        # redirect_to request.referrer
+        format.js { flash[:success] = "Call log created!" }
       else
-        # flash[:danger] = "Failed to create call log!"
-        # redirect_to request.referrer
+        format.js { flash[:danger] = "Failed to create call log!" }
       end
     end
 
@@ -39,10 +35,8 @@ class CallsController < ApplicationController
     @opportunity.timelines.create!(tactivity: "call log",
     nactivity: @call.description, action: "deleted call log", user_id: current_user.id)
     respond_to do |format|
-      format.js
+      format.js { flash[:success] = "Call log deleted!" }
     end
-    # flash[:success] = "Call log deleted!"
-    # redirect_to request.referrer
   end
 
   private

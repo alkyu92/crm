@@ -9,13 +9,9 @@ class EventsController < ApplicationController
       if @event.save
         @opportunity.timelines.create!(tactivity: "event",
         nactivity: @event.description, action: "created event", user_id: current_user.id)
-
-        format.js
-        # flash[:success] = "Event Log added!"
-        # redirect_to request.referrer
+        format.js { flash[:success] = "Event log created!" }
       else
-        # flash[:danger] = "Failed to add event log!"
-        # redirect_to request.referrer
+        format.js { flash[:success] = "Failed to create event log!" }
       end
     end
 
@@ -41,31 +37,28 @@ class EventsController < ApplicationController
     nactivity: @event.description, action: "deleted event", user_id: current_user.id)
 
     respond_to do |format|
-      format.js
+      format.js { flash[:success] = "Event log deleted!" }
     end
-    # flash[:success] = "Event log deleted!"
-    # redirect_to request.referrer
   end
 
   def update_event_status
-    if @event.complete == true
-      @event.update_attributes(complete: false)
-
-      @opportunity.timelines.create!(tactivity: "event",
-      nactivity: @event.description,
-      action: "updated event status from Attended to Not Attend for event", user_id: current_user.id)
-    else
-      @event.update_attributes(complete: true)
-      @opportunity.timelines.create!(tactivity: "event",
-      nactivity: @event.description,
-      action: "updated event status from Not Attend to Attended for event", user_id: current_user.id)
-    end
 
     respond_to do |format|
-      format.js
+      if @event.complete == true
+        @event.update_attributes(complete: false)
+
+        @opportunity.timelines.create!(tactivity: "event",
+        nactivity: @event.description,
+        action: "updated event status from Attended to Not Attend for event", user_id: current_user.id)
+        format.js { flash[:success] = "Event status changed from Attended to Not Attend!" }
+      else
+        @event.update_attributes(complete: true)
+        @opportunity.timelines.create!(tactivity: "event",
+        nactivity: @event.description,
+        action: "updated event status from Not Attend to Attended for event", user_id: current_user.id)
+        format.js { flash[:success] = "Event status changed from Not Attend to Attended!" }
+      end
     end
-    # flash[:success] = "Event log updated!"
-    # redirect_to request.referrer
   end
 
   private

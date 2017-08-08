@@ -5,16 +5,16 @@ class StagesController < ApplicationController
   def create
     @stage = @opportunity.stages.build(params_stage)
 
-    if @stage.save
-      @opportunity.timelines.create!(tactivity: "stage", nactivity: @stage.name,
-      action: "created stage", user_id: current_user.id)
-
-      flash[:success] = "Stages added!"
-      redirect_to request.referrer
-    else
-      flash[:danger] = "Failed to add stages!"
-      redirect_to request.referrer
+    respond_to do |format|
+      if @stage.save
+        @opportunity.timelines.create!(tactivity: "stage", nactivity: @stage.name,
+        action: "created stage", user_id: current_user.id)
+        format.js { flash[:success] = "Opportunity stage created!" }
+      else
+        format.js { flash[:danger] = "Failed to create opportunity stage!" }
+      end
     end
+
   end
 
   def destroy
@@ -24,24 +24,21 @@ class StagesController < ApplicationController
     action: "deleted stage", user_id: current_user.id)
 
     respond_to do |format|
-      format.js
+      format.js { flash[:success] = "Opportunity stage deleted!" }
     end
-    # flash[:success] = "Opportunity stage deleted!"
-    # redirect_to request.referrer
   end
 
   def update_stage_status
-    if @stage.status == "In Progress"
-      update_status("In Progress", "Completed")
-    elsif @stage.status == "Completed"
-      update_status("Completed", "In Progress")
-    end
-
     respond_to do |format|
-      format.js
+      if @stage.status == "In Progress"
+        update_status("In Progress", "Completed")
+        format.js { flash[:success] = "Stage status updated from In Progress to Completed!" }
+      elsif @stage.status == "Completed"
+        update_status("Completed", "In Progress")
+        format.js { flash[:success] = "Stage status updated from Completed to In Progress!" }
+      end
     end
 
-    # redirect_to request.referrer
   end
 
   private

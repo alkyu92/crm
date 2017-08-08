@@ -1,7 +1,8 @@
-<% if @opportunity.events.blank? %>
-  No event created yet.
-<% else %>
 <h4>Events</h4>
+<div id="notice-event"></div>
+<% if @opportunity.events.blank? %>
+No event created yet.
+<% else %>
 <ul class="list-group">
     <li class="list-group-item">
         <div class="row">
