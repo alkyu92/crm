@@ -25,20 +25,3 @@ status_arr = ['Open', 'Closed']
 status_arr.each do |name|
   Status.create!(name: name)
 end
-
-account_arr = ['a', 'b', 'c']
-account_arr.each do |name|
-  Account.create!(name: name)
-end
-
-opportunity_arr = ['opportunity one', 'opportunity two', 'opportunity three']
-opportunity_arr.each do |op|
-  Opportunity.create!(name: op, user_id: 1)
-end
-
-ops = Opportunity.all
-ops.each do |op|
-  for i in 1..10 do
-    op.stages.create!(name: "Stage" + i.to_s)
-  end
-end

@@ -14,8 +14,10 @@ ActiveRecord::Schema.define(version: 20170802095341) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
   create_table "calls", force: :cascade do |t|
@@ -36,10 +38,10 @@ ActiveRecord::Schema.define(version: 20170802095341) do
     t.string   "email"
     t.string   "phone"
     t.string   "address"
-    t.integer  "user_id"
+    t.integer  "account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_contacts_on_user_id"
+    t.index ["account_id"], name: "index_contacts_on_account_id"
   end
 
   create_table "documents", force: :cascade do |t|

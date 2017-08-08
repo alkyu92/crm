@@ -1,5 +1,6 @@
 class OpportunitiesController < ApplicationController
-  before_action :find_opportunity, only: [:show, :edit, :update, :destroy]
+  before_action :find_opportunity,
+  only: [:show, :edit, :update, :destroy]
 
   def index
     @opportunities = Opportunity.all
@@ -36,11 +37,11 @@ class OpportunitiesController < ApplicationController
 
     if @opportunity.update(params_opportunity)
 
-      if params[:docs]
-        params[:docs].each { |doc|
-          @opportunity.documents.create!(doc: doc)
-        }
-      end
+        if params[:docs]
+          params[:docs].each { |doc|
+            @opportunity.documents.create!(doc: doc)
+          }
+        end
 
       if params[:attached]
         params[:attached].each { |attach|
@@ -51,6 +52,7 @@ class OpportunitiesController < ApplicationController
       if params[:delete_all]
         @opportunity.documents.destroy_all
       end
+
 
       @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.name,
       action: "updated opportunity", user_id: current_user.id)
@@ -70,6 +72,14 @@ class OpportunitiesController < ApplicationController
 
     flash[:success] = "Opportunity entry deleted!"
     redirect_to opportunities_path
+  end
+
+  def delete_attachment
+    @opportunity = Opportunity.find(params[:opportunity_id])
+    @opportunity.documents.find(params[:id]).destroy
+    respond_to do |format|
+      format.js { flash[:success] = "Attachment deleted!" }
+    end
   end
 
   private

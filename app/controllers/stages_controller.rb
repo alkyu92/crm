@@ -35,7 +35,7 @@ class StagesController < ApplicationController
         format.js { flash[:success] = "Stage status updated from In Progress to Completed!" }
       elsif @stage.status == "Completed"
         update_status("Completed", "In Progress")
-        @opportunity.update_attributes(stage_id: @stage.id)
+        @opportunity.update_attributes(stage_id: @stage.id) # current stage
         format.js { flash[:success] = "Stage status updated from Completed to In Progress!" }
       elsif @stage.status == "Waiting"
         update_status("Waiting", "In Progress")
@@ -53,7 +53,7 @@ class StagesController < ApplicationController
   def update_status(previous,current)
     @stage.update_attributes(status: current)
     @opportunity.timelines.create!(tactivity: "stage", nactivity: @stage.name,
-    action: "changed stage status from #{previous} to #{current}", user_id: current_user.id)
+    action: "changed stage status from #{previous} to #{current} for", user_id: current_user.id)
   end
 
   def find_opportunity

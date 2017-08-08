@@ -1,0 +1,46 @@
+<div id="notice-doc"></div>
+<div class="row">
+<% if @opportunity.documents.blank? %>
+<div class="col-lg-12">
+    <p>There are no documents uploaded yet.</p>
+</div>
+<% else %>
+
+<% @opportunity.documents.each_with_index do |document, index| %>
+<% if (index+1) % 4 == 0 %>
+<div class="row">
+    <% end %>
+    <div class="col-lg-3 text-center">
+        <br>
+        <a href="#" data-toggle="modal" data-target="#modal-agreement">
+            <%= image_tag(document.doc.url(:thumb), class: "img-responsive img-center") %>
+        </a>
+        <%= link_to opportunity_delete_attachment_path(@opportunity, document), remote: true do %>
+          <i class="fa fa-times"></i>
+        <% end %>
+
+    </div>
+
+    <% if (index+1) % 4 == 0 %>
+</div>
+<% end %>
+
+<div class="modal fade" id="modal-agreement">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <object type="application/pdf" data="<%= document.doc.url%>" width="100%" height="500" style="height: 85vh;">No Support</object>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<% end %>
+
+<% end %>
+</div>

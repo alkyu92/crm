@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
   resources :dashboards
   resources :opportunities do
+
+    get '/delete_attachment/:id',
+    to: 'opportunities#delete_attachment', as: :delete_attachment
+
     resources :timelines
     resources :stages
     resources :tasks
