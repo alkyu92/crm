@@ -5,22 +5,22 @@ class NotesController < ApplicationController
   def create
     @note = @opportunity.notes.build(params_note)
 
-    if @note.save
-      @opportunity.timelines.create!(tactivity: "note",
-      nactivity: @note.description, action: "created note", user_id: current_user.id)
-
-      flash[:success] = "Note Log added!"
-      redirect_to request.referrer
-    else
-      flash[:danger] = "Failed to add note log!"
-      redirect_to request.referrer
+    respond_to do |format|
+      if @note.save
+        @opportunity.timelines.create!(tactivity: "note",
+        nactivity: @note.title, action: "created note", user_id: current_user.id)
+        format.js { flash[:success] = "Note log added!" }
+      else
+        format.js { flash[:danger] = "Failed to add note log!" }
+      end
     end
+
   end
 
   def update
     if @note.update(params_note)
       @opportunity.timelines.create!(tactivity: "note",
-      nactivity: @note.description, action: "updated note", user_id: current_user.id)
+      nactivity: @note.title, action: "updated note", user_id: current_user.id)
 
       flash[:success] = "Note entry created!"
       redirect_to request.referrer
@@ -34,10 +34,11 @@ class NotesController < ApplicationController
     @note.destroy
 
     @opportunity.timelines.create!(tactivity: "note",
-    nactivity: @note.description, action: "deleted note", user_id: current_user.id)
+    nactivity: @note.title, action: "deleted note", user_id: current_user.id)
 
-    flash[:success] = "Note log deleted!"
-    redirect_to request.referrer
+    respond_to do |format|
+      format.js { flash[:success] = "Note log deleted!" }
+    end
   end
 
   private

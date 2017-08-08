@@ -1,0 +1,32 @@
+<h4>Notes</h4>
+<div id="notice-note"></div>
+<% if @opportunity.notes.blank? %>
+No notes submitted yet.
+<% else %>
+<div class="row">
+    <% @opportunity.notes.each do |note| %>
+    <div class="col-lg-6 panel panel-body">
+        <%= link_to note.title.truncate(40), '#' %>
+        <h5><small>
+          Created
+          <%= time_ago_in_words(note.created_at) %>
+          ago
+        </small></h5>
+        <div class="pull-right">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="caret"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li><%= link_to 'Edit', '#',
+              data: {toggle: "modal", target: "#oppEditModalStage"} %></li>
+                <li><%= link_to 'Delete',
+              opportunity_note_path(@opportunity, note), method: :delete, remote: true %></li>
+            </ul>
+        </div>
+
+        <br>
+        <%= note.description.truncate(100) %>
+    </div>
+    <% end %>
+</div>
+<% end %>

@@ -1,5 +1,12 @@
 <div class="tab-pane fade in" id="opportunityDetails">
-    <h4>Opportunity Details</h4>
+
+      <h4>Opportunity Details</h4>
+      <div class="row">
+        <div class="btn-group col-lg-4" style="padding-top: 10px;">
+            <%= link_to 'Edit', '#', class: "btn btn-default form-control",
+            data: {toggle: "modal", target: "#opportunityModalForm"}%>
+        </div>
+      </div>
     <br>
     <small>Opportunity Name</small>
     <h4><%= @opportunity.name %></h4>
@@ -9,7 +16,7 @@
     <h4><%= @opportunity.account_id %></h4>
     <br>
 
-    <small>Type</small>
+    <small>Business Type</small>
     <h4><%= @opportunity.business_type %></h4>
     <br>
 
