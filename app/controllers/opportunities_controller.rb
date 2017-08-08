@@ -18,6 +18,9 @@ class OpportunitiesController < ApplicationController
     @opportunity = current_user.opportunities.build(params_opportunity)
 
     if @opportunity.save
+      @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.name,
+      action: "created opportunity", user_id: current_user.id)
+
       flash[:success] = "Opportunity entry created!"
       redirect_to @opportunity
     else
@@ -30,7 +33,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def update
-    
+
     if @opportunity.update(params_opportunity)
 
       if params[:docs]
@@ -49,6 +52,9 @@ class OpportunitiesController < ApplicationController
         @opportunity.documents.destroy_all
       end
 
+      @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.name,
+      action: "updated opportunity", user_id: current_user.id)
+
       flash[:success] = "Opportunity entry updated!"
       redirect_to @opportunity
     else
@@ -59,6 +65,9 @@ class OpportunitiesController < ApplicationController
 
   def destroy
     @opportunity.destroy
+    @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.name,
+    action: "deleted opportunity", user_id: current_user.id)
+
     flash[:success] = "Opportunity entry deleted!"
     redirect_to opportunities_path
   end

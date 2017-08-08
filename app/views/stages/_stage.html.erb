@@ -5,7 +5,7 @@
 
 <% @opportunity.stages.each_with_index do |stage, index| %>
 
-<% current_status = stage.status %>
+  <% current_status = stage.name %>
 
 <% if (index+1) % 6 == 0 %>
 <div class="row">
