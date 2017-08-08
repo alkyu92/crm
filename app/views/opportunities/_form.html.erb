@@ -10,7 +10,7 @@
         <h4 class="modal-title"><%= yield :form_title %></h4>
       </div>
       <div class="modal-body">
-        <%= simple_form_for @opportunity do |f| %>
+        <%= simple_form_for @opportunity, html: {multipart: true} do |f| %>
         <%= f.input :name, label: "Opportunity Name", autofocus: true %>
         <div class="row">
         <div class="col-lg-6">
@@ -26,6 +26,10 @@
     <%= f.input :amount %>
     <%= f.input :description %>
     <%= f.input :loss_reason %>
+
+    <%= f.label "Upload Documents" %>
+    <%= file_field_tag "docs[]",type: :file, multiple: true %>
+    <%= f.hint "Can upload multiple files"%>
       </div>
       <div class="modal-footer">
         <%= f.button :submit, class: "btn-success" %>

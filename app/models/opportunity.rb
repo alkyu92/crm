@@ -7,6 +7,7 @@ class Opportunity < ApplicationRecord
   has_many :calls, dependent: :destroy
   has_many :timelines, dependent: :destroy
   has_many :notes, dependent: :destroy
+  has_many :documents, dependent: :destroy
 
   serialize :contacts, Array
 end

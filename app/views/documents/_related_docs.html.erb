@@ -2,19 +2,25 @@
   <h4>Opportunity Related Documents</h4>
 
   <div class="panel panel-default panel-body">
-    <%= simple_form_for :doc do |f| %>
-    <%= f.label "Upload Documents" %>
-    <%= file_field_tag "pics_doc[]",type: :image, multiple: true %>
-    <%= f.hint "Can upload multiple files"%>
-    <% end %>
+
+    <%= link_to 'Add documents', '#', data: {toggle: "modal", target: "#opportunityModalForm"} %>
   </div>
 
   <div class="row">
-        <% for i in 1..6 do %>
-        <div class="col-lg-3">
+    <% if @opportunity.documents.blank? %>
+    <p>There are no documents uploaded yet.</p>
+    <% else %>
+        <% @opportunity.documents.each do |document| %>
+        <div class="col-lg-3 text-center">
             <br>
-            <%= image_tag('http://placehold.it/200x250', class: "img-responsive img-center")%>
+            <%= link_to document.doc.url do %>
+              <%= image_tag(document.doc.url(:thumb), class: "img-responsive img-center") %>
+            <% end %>
+            <%= check_box_tag "attached[]", document.id %>
         </div>
         <% end %>
-      </div>
+        <p>Check the box(es) to <span style="color: red;">DELETE</span> attachment(s)</p>
+    <% end %>
+  </div>
+
 </div>

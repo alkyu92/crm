@@ -31,6 +31,19 @@ class OpportunitiesController < ApplicationController
 
   def update
     if @opportunity.update(params_opportunity)
+
+      if params[:docs]
+        params[:docs].each { |doc|
+          @opportunity.documents.create!(doc: doc)
+        }
+      end
+
+      if params[:attached]
+        params[:attached].each { |doc|
+          @opportunity.documents.where(id: doc.id).destroy_all
+        }
+      end
+
       flash[:success] = "Opportunity entry updated!"
       redirect_to @opportunity
     else
@@ -57,7 +70,8 @@ class OpportunitiesController < ApplicationController
                                          :description,
                                          :loss_reason,
                                          :close_date,
-                                         :next_step
+                                         :document,
+                                         documents_attributes: [ doc: [] ]
                                         )
   end
 

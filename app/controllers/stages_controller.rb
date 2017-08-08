@@ -1,7 +1,7 @@
 class StagesController < ApplicationController
   before_action :find_opportunity
   before_action :find_stage, only: [:destroy, :update_stage_status]
-
+ 
   def create
     @stage = @opportunity.stages.build(params_stage)
 

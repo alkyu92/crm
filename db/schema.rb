@@ -47,8 +47,10 @@ ActiveRecord::Schema.define(version: 20170802095341) do
     t.string   "doc_content_type"
     t.integer  "doc_file_size"
     t.datetime "doc_updated_at"
+    t.integer  "opportunity_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.index ["opportunity_id"], name: "index_documents_on_opportunity_id"
   end
 
   create_table "events", force: :cascade do |t|
