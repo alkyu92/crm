@@ -12,7 +12,7 @@
     <% end %>
     <div class="col-lg-3 text-center">
         <br>
-        <a href="#" data-toggle="modal" data-target="#modal-agreement">
+        <a href="#" data-toggle="modal" data-target="#modal-agreement-<%= document.id %>">
             <%= image_tag(document.doc.url(:thumb), class: "img-responsive img-center") %>
         </a>
         <%= link_to opportunity_delete_attachment_path(@opportunity, document), remote: true do %>
@@ -25,7 +25,7 @@
 </div>
 <% end %>
 
-<div class="modal fade" id="modal-agreement">
+<div class="modal fade" id="modal-agreement-<%= document.id %>">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">

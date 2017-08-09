@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
   before_action :find_contact, only: [:show, :update, :destroy]
+
   def index
     @contacts = Contact.all
   end
@@ -9,7 +10,10 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @contact = current_user.contacts.build(params_contact)
+    @account = Account.find(params[:account_id])
+    @contact = @account.contacts.build(params_contact)
+    @contact.user_id = current_user.id
+    
     respond_to do |format|
       if @contact.save
         format.js { flash[:success] = "Contact created!" }

@@ -9,12 +9,13 @@
                 <h4 class="modal-title">Create New Contact</h4>
             </div>
             <div class="modal-body">
-                <%= simple_form_for [@contact, Contact.new] do |f| %>
+                <%= simple_form_for [@account, @contact, Contact.new],remote: true do |f| %>
                 <div class="row">
                     <div class="col-lg-6">
                         <h4>Contact Details</h4>
                         <br>
-                        <%= f.association :account, include_blank: "Choose Account", label: false %>
+                        <%#= f.association :account, include_blank: "Choose Account",
+                        label: false, label_method: lambda { |account| "#{account.account_name}" } %>
                         <%= f.input :name, label: false, placeholder: "Name" %>
                         <%= f.input :title, label: false, placeholder: "Position title" %>
                         <%= f.input :department, label: false, placeholder: "Department" %>

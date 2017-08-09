@@ -28,16 +28,21 @@
                     <div class="col-lg-6">
                         <h4>Opportunity Details</h4>
                         <br>
-                        <%= f.input :name, label: false, placeholder: "Opportunity name", autofocus: true %>
-                        <%= f.input :business_type, label: false, placeholder: "Business type" %>
-                        <%= f.association :account, label: false, include_blank: "Choose account", label_method: lambda { |account| "#{account.account_name}" } %>
-                        <%= f.input :probability, label: false, placeholder: "Probability in percentage" %>
+                        <%= f.input :name, label: false, hint: "required",
+                        placeholder: "Opportunity name", autofocus: true %>
+                        <%= f.association :account, label: false,
+                        include_blank: "Choose related account", hint: "required",
+                        label_method: lambda { |account| "#{account.account_name}" } %>
+                        <%= f.input :business_type, label: false,
+                        placeholder: "Business type" %>
+                        <%= f.input :probability, label: false,
+                        placeholder: "Probability in percentage" %>
                         <%= f.input :close_date, as: :date_time_picker %>
                     </div>
                     <div class="col-lg-6">
                         <br><br><br>
                         <%= f.input :amount, label: false, placeholder: "Opportunity amount" %>
-                        <%= f.input :description, input_html: {rows: 7}, label: false,
+                        <%= f.input :description, input_html: {rows: 8}, label: false,
   placeholder: "Opportunity description" %>
                         <%= f.input :loss_reason, label: false, placeholder: "Loss reason" %>
                     </div>

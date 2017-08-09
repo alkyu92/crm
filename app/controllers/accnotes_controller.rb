@@ -5,13 +5,14 @@ class AccaccnotesController < ApplicationController
   def create
     @accnote = @account.accnotes.build(params_accnote)
 
-    respond_to do |format|
+    #respond_to do |format|
       if @accnote.save
         @account.timelines.create!(tactivity: "note",
         nactivity: @accnote.title, action: "created note", user_id: current_user.id)
-        format.js { flash[:success] = "Note log added!" }
+        #format.js { flash[:success] = "Note log added!" }
+        redirect_to root_path
       else
-        format.js { flash[:danger] = "Failed to add note log!" }
+        #format.js { flash[:danger] = "Failed to add note log!" }
       end
     end
 
@@ -47,7 +48,7 @@ class AccaccnotesController < ApplicationController
   end
 
   def find_account
-    @account = account.find(params[:account_id])
+    @account = Account.find(params[:account_id])
 
   rescue ActiveRecord::RecordNotFound
     flash[:danger] = "Can't find records!"

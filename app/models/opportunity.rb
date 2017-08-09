@@ -10,5 +10,7 @@ class Opportunity < ApplicationRecord
   has_many :notes, dependent: :destroy
   has_many :documents, dependent: :destroy
 
+  validates :name, presence: true
+
   serialize :contacts, Array
 end

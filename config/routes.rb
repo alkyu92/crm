@@ -3,11 +3,11 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :dashboards
-  resources :opportunities do
 
+  resources :opportunities do
+    resources :contacts
     get '/delete_attachment/:id',
     to: 'opportunities#delete_attachment', as: :delete_attachment
-
     resources :timelines
     resources :stages
     resources :tasks
@@ -16,12 +16,10 @@ Rails.application.routes.draw do
     resources :notes
   end
 
-  resources :contacts
-
   resources :accounts do
+    resources :contacts
     get '/delete_attachment/:id',
     to: 'accounts#delete_attachment', as: :delete_attachment
-
     resources :acctimelines
     resources :accnotes
   end
