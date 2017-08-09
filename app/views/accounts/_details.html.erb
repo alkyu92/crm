@@ -13,59 +13,167 @@
     <div class="row">
       <div class="col-lg-6">
     <small>Account Name</small>
-    <h4><%= @account.account_name %></h4>
+    <h4>
+    <% if @account.account_name.blank? %>
+    <span style="color: red;">
+      Account name not specified
+    </span>
+    <% else %>
+    <%= @account.account_name %>
+    <% end %>
+    </h4>
     <br>
 
     <small>Account Type</small>
-    <h4><%= @account.account_type %></h4>
+    <h4>
+      <% if @account.account_name.blank? %>
+      <span style="color: red;">
+        Account type not specified
+      </span>
+      <% else %>
+      <%= @account.account_type %>
+      <% end %>
+    </h4>
     <br>
 
     <small>Website</small>
-    <h4><a href="http://<%= @account.website %>" target="_blank">
+    <h4>
+      <% if @account.website.blank? %>
+      <span style="color: red;">
+        Website not specified
+      </span>
+      <% else %>
+      <a href="http://<%= @account.website %>" target="_blank">
       <%= @account.website %>
-    </a></h4>
+      </a>
+      <% end %>
+    </h4>
     <br>
 
     <small>Phone</small>
-    <h4><%= @account.phone %></h4>
+    <h4>
+      <% if @account.phone.blank? %>
+      <span style="color: red;">
+        Phone not specified
+      </span>
+      <% else %>
+      <%= @account.phone %>
+      <% end %>
+    </h4>
     <br>
 
     <small>Fax</small>
-    <h4><%= @account.fax %></h4>
+    <h4>
+      <% if @account.fax.blank? %>
+      <span style="color: red;">
+        Fax not specified
+      </span>
+      <% else %>
+      <%= @account.fax %>
+      <% end %>
+    </h4>
     <br>
 
     <small>Industry</small>
-    <h4><%= @account.industry %></h4>
+    <h4>
+      <% if @account.industry.blank? %>
+      <span style="color: red;">
+        Industry not specified
+      </span>
+      <% else %>
+      <%= @account.industry %>
+      <% end %>
+    </h4>
     <br>
 
     <small>Number of employees</small>
-    <h4><%= @account.number_of_employee %></h4>
+    <h4>
+      <% if @account.number_of_employee.blank? %>
+      <span style="color: red;">
+        Number of employee not specified
+      </span>
+      <% else %>
+      <%= @account.number_of_employee %>
+      <% end %>
+    </h4>
     <br>
   </div>
 
     <div class="col-lg-6">
     <small>Billing Address</small>
     <h4>
-      <%= @account.billing_street %>
-      <%= @account.billing_city %>,
-      <%= @account.billing_state %>,
-      <%= @account.billing_postal_code %>
-      <%= @account.billing_country %>
+      <% if (@account.billing_street &&
+             @account.billing_city &&
+             @account.billing_state &&
+             @account.billing_postal_code &&
+             @account.billing_country).blank? %>
+      <span style="color: red;">
+        Billing address not specified
+      </span>
+      <% else %>
+
+        <% if @account.billing_street != "" %>
+          <%= @account.billing_street %>
+        <% end %>
+        <% if @account.billing_city != "" %>
+          <%= @account.billing_city %>,
+        <% end %>
+        <% if @account.billing_state != "" %>
+          <%= @account.billing_state %>,
+        <% end %>
+        <% if @account.billing_postal_code != "" %>
+          <%= @account.billing_postal_code %>
+        <% end %>
+        <% if @account.billing_country != "" %>
+          <%= @account.billing_country %>
+        <% end %>
+
+      <% end %>
     </h4>
     <br>
 
     <small>Shipping Address</small>
     <h4>
-      <%= @account.shipping_street %>
-      <%= @account.shipping_city %>,
-      <%= @account.shipping_state %>,
-      <%= @account.shipping_postal_code %>
-      <%= @account.shipping_country %>
+      <% if (@account.shipping_street &&
+             @account.shipping_city &&
+             @account.shipping_state &&
+             @account.shipping_postal_code &&
+             @account.shipping_country).blank? %>
+      <span style="color: red;">
+        Shipping address not specified
+      </span>
+      <% else %>
+
+        <% if @account.shipping_street != "" %>
+          <%= @account.shipping_street %>
+        <% end %>
+        <% if @account.shipping_city != "" %>
+          <%= @account.shipping_city %>,
+        <% end %>
+        <% if @account.shipping_state != "" %>
+          <%= @account.shipping_state %>,
+        <% end %>
+        <% if @account.shipping_postal_code != "" %>
+          <%= @account.shipping_postal_code %>
+        <% end %>
+        <% if @account.shipping_country != "" %>
+          <%= @account.shipping_country %>
+        <% end %>
+
+      <% end %>
     </h4>
     <br>
 
     <small>Description</small>
-    <h4><%= @account.description %></h4>
+    <h4>
+      <% if @account.description.blank? %>
+      <span style="color: red;">
+        Description not specified
+      </span>
+      <% else %>
+      <%= @account.description %>
+      <% end %>
+    </h4>
 
   </div>
   </div>

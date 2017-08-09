@@ -32,16 +32,33 @@ data: {confirm: "Are you sure?"},class: "btn btn-default" %>
     </div>
     <div class="col-lg-3">
         <strong>Billing Address</strong>
-        <% if @account.billing_street.blank? %>
-        <p style="color: red;">Billing address not specified</p>
-    <% else %>
-        <p>
-          <%= @account.billing_street %>
-          <%= @account.billing_city %>,
-          <%= @account.billing_state %>,
-          <%= @account.billing_postal_code %>
-          <%= @account.billing_country %>
-        </p>
+        <br>
+        <% if (@account.billing_street &&
+               @account.billing_city &&
+               @account.billing_state &&
+               @account.billing_postal_code &&
+               @account.billing_country).blank? %>
+        <span style="color: red;">
+          Billing address not specified
+        </span>
+        <% else %>
+
+          <% if @account.billing_street != "" %>
+            <%= @account.billing_street %>
+          <% end %>
+          <% if @account.billing_city != "" %>
+            <%= @account.billing_city %>,
+          <% end %>
+          <% if @account.billing_state != "" %>
+            <%= @account.billing_state %>,
+          <% end %>
+          <% if @account.billing_postal_code != "" %>
+            <%= @account.billing_postal_code %>
+          <% end %>
+          <% if @account.billing_country != "" %>
+            <%= @account.billing_country %>
+          <% end %>
+
         <% end %>
     </div>
     <div class="col-lg-3">
@@ -82,6 +99,7 @@ data: {confirm: "Are you sure?"},class: "btn btn-default" %>
       <div class="col-lg-6">
           <div class="tab-content">
             <%= render 'details' %>
+            <%= render 'contacts/account_related_contact' %>
           </div>
       </div>
 

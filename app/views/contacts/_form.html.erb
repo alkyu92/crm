@@ -9,22 +9,33 @@
                 <h4 class="modal-title">Create New Contact</h4>
             </div>
             <div class="modal-body">
-                <%= simple_form_for @contact do |f| %>
+                <%= simple_form_for [@contact, Contact.new] do |f| %>
                 <div class="row">
                     <div class="col-lg-6">
-                        <%= f.input :name %>
-                        <%= f.input :title %>
-                        <%= f.input :department %>
-                        <%= f.input :email %>
-                        <%= f.input :phone %>
-                        <%= f.input :fax %>
+                        <h4>Contact Details</h4>
+                        <br>
+                        <%= f.association :account, include_blank: "Choose Account", label: false %>
+                        <%= f.input :name, label: false, placeholder: "Name" %>
+                        <%= f.input :title, label: false, placeholder: "Position title" %>
+                        <%= f.input :department, label: false, placeholder: "Department" %>
                     </div>
                     <div class="col-lg-6">
-                        <%= f.input :mailing_street %>
-                        <%= f.input :mailing_city %>
-                        <%= f.input :mailing_state %>
-                        <%= f.input :mailing_postal_code %>
-                        <%= f.input :mailing_country %>
+                        <%= f.input :email, label: false, placeholder: "Email" %>
+                        <%= f.input :phone, label: false, placeholder: "Phone" %>
+                        <%= f.input :fax, label: false, placeholder: "Fax" %>
+                    </div>
+                </div>
+                <h4>Mailing Address</h4>
+                <br>
+                <%= f.input :mailing_street, label: false, placeholder: "Street" %>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <%= f.input :mailing_city, label: false, placeholder: "City" %>
+                        <%= f.input :mailing_state, label: false, placeholder: "State" %>
+                    </div>
+                    <div class="col-lg-6">
+                        <%= f.input :mailing_postal_code, label: false, placeholder: "Postal code" %>
+                        <%= f.input :mailing_country, label: false, include_blank: "Choose country" %>
                     </div>
                 </div>
             </div>
@@ -34,6 +45,5 @@
                 <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
             </div>
         </div>
-
     </div>
 </div>

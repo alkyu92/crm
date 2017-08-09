@@ -7,33 +7,95 @@
             data: {toggle: "modal", target: "#opportunityModalForm"}%>
         </div>
       </div>
+
     <br>
+
+<div class="row">
+  <div class="col-lg-6">
     <small>Opportunity Name</small>
-    <h4><%= @opportunity.name %></h4>
+    <h4>
+      <% if @opportunity.name.blank? %>
+      <span style="color: red;">
+        Name not specified
+      </span>
+      <% else %>
+      <%= @opportunity.name %>
+      <% end %>
+    </h4>
     <br>
 
     <small>Account</small>
-    <h4><%= @opportunity.account_id %></h4>
+    <h4>
+      <% if @opportunity.account_id.blank? %>
+      <span style="color: red;">
+        Account not specified
+      </span>
+      <% else %>
+      <%= @opportunity.account_id %>
+      <% end %>
+    </h4>
     <br>
 
     <small>Business Type</small>
-    <h4><%= @opportunity.business_type %></h4>
+    <h4>
+      <% if @opportunity.business_type.blank? %>
+      <span style="color: red;">
+        Business type not specified
+      </span>
+      <% else %>
+      <%= @opportunity.business_type %>
+      <% end %>
+    </h4>
     <br>
 
     <small>Probability</small>
-    <h4><%= @opportunity.probability %></h4>
+    <h4>
+      <% if @opportunity.probability.blank? %>
+      <span style="color: red;">
+        Probability not specified
+      </span>
+      <% else %>
+      <%= @opportunity.probability %>
+      <% end %>
+    </h4>
     <br>
-
+  </div>
+  <div class="col-lg-6">
     <small>Amount</small>
-    <h4><%= @opportunity.amount %></h4>
+    <h4>
+      <% if @opportunity.amount.blank? %>
+      <span style="color: red;">
+        Amount not specified
+      </span>
+      <% else %>
+      <%= @opportunity.amount %>
+      <% end %>
+    </h4>
     <br>
 
     <small>Description</small>
-    <h4><%= @opportunity.description %></h4>
+    <h4>
+      <% if @opportunity.description.blank? %>
+      <span style="color: red;">
+        Description not specified
+      </span>
+      <% else %>
+      <%= @opportunity.description %>
+      <% end %>
+    </h4>
     <br>
 
     <small>Loss Reason</small>
-    <h4><%= @opportunity.loss_reason %></h4>
-    <br>
+    <h4>
+      <% if @opportunity.loss_reason.blank? %>
+      <span style="color: red;">
+        Loss reason not specified
+      </span>
+      <% else %>
+      <%= @opportunity.loss_reason %>
+      <% end %>
+    </h4>
+  </div>
+  </div>
 
 </div>
