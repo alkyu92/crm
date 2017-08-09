@@ -1,101 +1,103 @@
 <div class="tab-pane fade in" id="opportunityDetails">
 
-      <h4>Opportunity Details</h4>
-      <div class="row">
-        <div class="btn-group col-lg-4" style="padding-top: 10px;">
-            <%= link_to 'Edit', '#', class: "btn btn-default form-control",
+    <div class="row">
+        <div class="col-lg-8">
+            <h4>Opportunity Details</h4>
+        </div>
+        <div class="col-lg-4">
+            <%= link_to 'Edit Details', '#', class: "btn btn-default form-control",
             data: {toggle: "modal", target: "#opportunityModalForm"}%>
         </div>
-      </div>
+    </div>
 
-    <br>
+    <hr>
 
-<div class="row">
-  <div class="col-lg-6">
-    <small>Opportunity Name</small>
-    <h4>
-      <% if @opportunity.name.blank? %>
-      <span style="color: red;">
-        Name not specified
-      </span>
-      <% else %>
-      <%= @opportunity.name %>
-      <% end %>
-    </h4>
-    <br>
+    <div class="row">
+        <div class="col-lg-6">
+            <small>Opportunity Name</small>
+            <h4>
+                <% if @opportunity.name.blank? %>
+                <span style="color: red;">
+                    Name not specified
+                </span>
+            <% else %>
+                <%= @opportunity.name %>
+                <% end %>
+            </h4>
+            <br>
 
-    <small>Account</small>
-    <h4>
-      <% if @opportunity.account_id.blank? %>
-      <span style="color: red;">
-        Account not specified
-      </span>
-      <% else %>
-      <%= @opportunity.account_id %>
-      <% end %>
-    </h4>
-    <br>
+            <small>Account</small>
+            <h4>
+                <% if @opportunity.account_id.blank? %>
+                <span style="color: red;">
+                    Account not specified
+                </span>
+            <% else %>
+                <%= @opportunity.account_id %>
+                <% end %>
+            </h4>
+            <br>
 
-    <small>Business Type</small>
-    <h4>
-      <% if @opportunity.business_type.blank? %>
-      <span style="color: red;">
-        Business type not specified
-      </span>
-      <% else %>
-      <%= @opportunity.business_type %>
-      <% end %>
-    </h4>
-    <br>
+            <small>Business Type</small>
+            <h4>
+                <% if @opportunity.business_type.blank? %>
+                <span style="color: red;">
+                    Business type not specified
+                </span>
+            <% else %>
+                <%= @opportunity.business_type %>
+                <% end %>
+            </h4>
+            <br>
 
-    <small>Probability</small>
-    <h4>
-      <% if @opportunity.probability.blank? %>
-      <span style="color: red;">
-        Probability not specified
-      </span>
-      <% else %>
-      <%= @opportunity.probability %>
-      <% end %>
-    </h4>
-    <br>
-  </div>
-  <div class="col-lg-6">
-    <small>Amount</small>
-    <h4>
-      <% if @opportunity.amount.blank? %>
-      <span style="color: red;">
-        Amount not specified
-      </span>
-      <% else %>
-      <%= @opportunity.amount %>
-      <% end %>
-    </h4>
-    <br>
+            <small>Probability</small>
+            <h4>
+                <% if @opportunity.probability.blank? %>
+                <span style="color: red;">
+                    Probability not specified
+                </span>
+            <% else %>
+                <%= @opportunity.probability %>
+                <% end %>
+            </h4>
+            <br>
+        </div>
+        <div class="col-lg-6">
+            <small>Amount</small>
+            <h4>
+                <% if @opportunity.amount.blank? %>
+                <span style="color: red;">
+                    Amount not specified
+                </span>
+            <% else %>
+                <%= @opportunity.amount %>
+                <% end %>
+            </h4>
+            <br>
 
-    <small>Description</small>
-    <h4>
-      <% if @opportunity.description.blank? %>
-      <span style="color: red;">
-        Description not specified
-      </span>
-      <% else %>
-      <%= @opportunity.description %>
-      <% end %>
-    </h4>
-    <br>
+            <small>Description</small>
+            <h4>
+                <% if @opportunity.description.blank? %>
+                <span style="color: red;">
+                    Description not specified
+                </span>
+            <% else %>
+                <%= @opportunity.description %>
+                <% end %>
+            </h4>
+            <br>
 
-    <small>Loss Reason</small>
-    <h4>
-      <% if @opportunity.loss_reason.blank? %>
-      <span style="color: red;">
-        Loss reason not specified
-      </span>
-      <% else %>
-      <%= @opportunity.loss_reason %>
-      <% end %>
-    </h4>
-  </div>
-  </div>
+            <small>Loss Reason</small>
+            <h4>
+                <% if @opportunity.loss_reason.blank? %>
+                <span style="color: red;">
+                    Loss reason not specified
+                </span>
+            <% else %>
+                <%= @opportunity.loss_reason %>
+                <% end %>
+            </h4>
+        </div>
+    </div>
 
 </div>

@@ -1,5 +1,6 @@
 class Opportunity < ApplicationRecord
   belongs_to :user
+  belongs_to :account
 
   has_many :stages, dependent: :destroy
   has_many :tasks, dependent: :destroy

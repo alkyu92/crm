@@ -7,8 +7,6 @@ class OpportunitiesController < ApplicationController
     @opportunity = current_user.opportunities.build
 
     @stages = Stage.all
-
-    @accounts = Account.all
   end
 
   def show

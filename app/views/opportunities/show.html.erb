@@ -23,10 +23,10 @@
             <small>Account</small>
             <br>
             <h4>
-                <% if @opportunity.account_id.blank? %>
+                <% if @opportunity.account.blank? %>
                 <span style="color: red;">Account not assigned</span>
             <% else %>
-                <%= Account.find_by_id(@opportunity.account_id).name %>
+                <%= @opportunity.account.account_name %>
                 <% end %>
             </h4>
         </div>

@@ -18,8 +18,7 @@
           <br>
           <%= f.input :name, label: false, placeholder: "Opportunity name", autofocus: true %>
           <%= f.input :business_type, label: false, placeholder: "Business type" %>
-          <%= f.input :account_id, collection: @accounts, value_method: :id, label: false,
-          input_selected: @opportunity.account_id ,include_blank: "Choose account" %>
+          <%= f.association :account, label: false, include_blank: "Choose account" %>
         <%= f.input :probability, label: false, placeholder: "Probability in percentage" %>
         <%= f.input :close_date, as: :date_time_picker %>
       </div>

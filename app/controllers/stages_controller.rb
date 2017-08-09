@@ -35,11 +35,11 @@ class StagesController < ApplicationController
         format.js { flash[:success] = "Stage status updated from In Progress to Completed!" }
       elsif @stage.status == "Completed"
         update_status("Completed", "In Progress")
-        @opportunity.update_attributes(stage_id: @stage.id) # current stage
+        @opportunity.update_attributes(current_stage: @stage.name) # current stage
         format.js { flash[:success] = "Stage status updated from Completed to In Progress!" }
       elsif @stage.status == "Waiting"
         update_status("Waiting", "In Progress")
-        @opportunity.update_attributes(stage_id: @stage.id)
+        @opportunity.update_attributes(current_stage: @stage.name)
         format.js { flash[:success] = "Stage status updated from Waiting to In Progress!" }
       end
     end

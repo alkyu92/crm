@@ -15,15 +15,15 @@
         <% if opportunity.account_id.blank? %>
           <span style="color: red;">Account not specified</span>
         <% else %>
-          <%= Account.find_by_id(opportunity.account_id).name %>
+          <%= opportunity.account.account_name %>
         <% end %>
     </div>
     <div class="col-lg-2">
         <!-- Current Stage -->
-        <% if opportunity.stage_id.blank? %>
+        <% if opportunity.current_stage.blank? %>
           <span style="color: red;">Current stage not specified</span>
         <% else %>
-          <%= Stage.find_by_id(opportunity.stage_id).name %>
+          <%= opportunity.current_stage %>
         <% end %>
     </div>
     <div class="col-lg-2">

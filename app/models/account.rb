@@ -3,4 +3,5 @@ class Account < ApplicationRecord
 
   has_many :contacts
   has_many :acctimelines
+  has_many :opportunities
 end

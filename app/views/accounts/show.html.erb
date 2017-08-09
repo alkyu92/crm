@@ -1,112 +1,112 @@
 <div class="container">
-<div class="row">
-    <div class="col-lg-10">
-        <h3>
-          <%= @account.account_name %>
-          <small>Account</small>
-        </h3>
-    </div>
-    <div class="col-lg-2">
-        <div class="btn-group pull-right" style="padding-top: 15px;">
-            <%= link_to 'Edit', '#', class: "btn btn-default",
+    <div class="row">
+        <div class="col-lg-10">
+            <h3>
+                <%= @account.account_name %>
+                <small>Account</small>
+            </h3>
+        </div>
+        <div class="col-lg-2">
+            <div class="btn-group pull-right" style="padding-top: 15px;">
+                <%= link_to 'Edit', '#', class: "btn btn-default",
       data: {toggle: "modal", target: "#accountModalForm"}%>
-            <%= link_to 'Delete', account_path(@account), method: :delete,
+                <%= link_to 'Delete', account_path(@account), method: :delete,
 data: {confirm: "Are you sure?"},class: "btn btn-default" %>
+            </div>
         </div>
     </div>
-</div>
 
-<% provide(:form_title, 'Edit Account Entry')%>
-<%= render 'form' %>
+    <% provide(:form_title, 'Edit Account Entry')%>
+    <%= render 'form' %>
 
-<hr>
+    <hr>
 
-<div class="row">
-    <div class="col-lg-3">
-        <strong>Phone number</strong>
-        <% if @account.phone.blank? %>
-        <p style="color: red;">Phone number not specified</p>
-    <% else %>
-        <p><%= @account.phone %></p>
-        <% end %>
-    </div>
-    <div class="col-lg-3">
-        <strong>Billing Address</strong>
-        <br>
-        <% if (@account.billing_street &&
+    <div class="row">
+        <div class="col-lg-3">
+            <strong>Phone number</strong>
+            <% if @account.phone.blank? %>
+            <p style="color: red;">Phone number not specified</p>
+        <% else %>
+            <p><%= @account.phone %></p>
+            <% end %>
+        </div>
+        <div class="col-lg-3">
+            <strong>Billing Address</strong>
+            <br>
+            <% if (@account.billing_street &&
                @account.billing_city &&
                @account.billing_state &&
                @account.billing_postal_code &&
                @account.billing_country).blank? %>
-        <span style="color: red;">
-          Billing address not specified
-        </span>
+            <span style="color: red;">
+                Billing address not specified
+            </span>
         <% else %>
 
-          <% if @account.billing_street != "" %>
+            <% if @account.billing_street != "" %>
             <%= @account.billing_street %>
-          <% end %>
-          <% if @account.billing_city != "" %>
+            <% end %>
+            <% if @account.billing_city != "" %>
             <%= @account.billing_city %>,
-          <% end %>
-          <% if @account.billing_state != "" %>
+            <% end %>
+            <% if @account.billing_state != "" %>
             <%= @account.billing_state %>,
-          <% end %>
-          <% if @account.billing_postal_code != "" %>
+            <% end %>
+            <% if @account.billing_postal_code != "" %>
             <%= @account.billing_postal_code %>
-          <% end %>
-          <% if @account.billing_country != "" %>
+            <% end %>
+            <% if @account.billing_country != "" %>
             <%= @account.billing_country %>
-          <% end %>
+            <% end %>
 
-        <% end %>
-    </div>
-    <div class="col-lg-3">
-        <strong>Website</strong>
-        <% if @account.website.blank? %>
-        <p style="color: red;">Phone number not specified</p>
-    <% else %>
-        <br>
-        <a href="http://<%= @account.website %>" target="_blank">
-          <%= @account.website %>
-        </a>
-        <% end %>
-    </div>
-    <div class="col-lg-3"></div>
-</div>
-
-<hr>
-
-<div class="row">
-    <div class="col-lg-12">
-        <ul class="nav nav-tabs">
-            <li class="active"><%= link_to 'Details', '#accountDetails',
-          data: {toggle: "tab", target: "#accountDetails"} %></li>
-            <li><%= link_to 'Notes', '#accountNotes',
-          data: {toggle: "tab", target: "#accountNotes"} %></li>
-            <li><%= link_to 'Related Contacts', '#accountContacts',
-          data: {toggle: "tab", target: "#accountContacts"} %></li>
-            <li><%= link_to 'Related Documents', '#accountDocs',
-          data: {toggle: "tab", target: "#accountDocs"} %></li>
-        </ul>
-    </div>
-</div>
-
-<br>
-
-  <div class="row">
-
-      <div class="col-lg-6">
-          <div class="tab-content">
-            <%= render 'details' %>
-            <%= render 'contacts/account_related_contact' %>
-          </div>
-      </div>
-
-      <div class="col-lg-6">
-        <div class="timelines">
-          <%= render 'timelines/timelines_account' %>
+            <% end %>
         </div>
-      </div>
-  </div>
+        <div class="col-lg-3">
+            <strong>Website</strong>
+            <% if @account.website.blank? %>
+            <p style="color: red;">Phone number not specified</p>
+        <% else %>
+            <br>
+            <a href="http://<%= @account.website %>" target="_blank">
+                <%= @account.website %>
+            </a>
+            <% end %>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><%= link_to 'Details', '#accountDetails',
+          data: {toggle: "tab", target: "#accountDetails"} %></li>
+                <li><%= link_to 'Related Contacts', '#accountContacts',
+        data: {toggle: "tab", target: "#accountContacts"} %></li>
+                <li><%= link_to 'Notes', '#accountNotes',
+          data: {toggle: "tab", target: "#accountNotes"} %></li>
+                <li><%= link_to 'Related Documents', '#accountDocs',
+          data: {toggle: "tab", target: "#accountDocs"} %></li>
+            </ul>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+
+        <div class="col-lg-6">
+            <div class="tab-content">
+                <%= render 'details' %>
+                <%= render 'contacts/account_related_contact' %>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="timelines">
+                <%= render 'timelines/timelines_account' %>
+            </div>
+        </div>
+    </div>
 </div>
