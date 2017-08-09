@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :notes
   end
   resources :contacts
-
+  resources :accounts
   resources :users
 
   get '/search', to: 'search#search', as: :search

@@ -1,0 +1,24 @@
+
+<!-- Modal -->
+<div id="accountModalForm" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create New Account</h4>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for @account do |f| %>
+        <%= f.input :name %>
+      </div>
+      <div class="modal-footer">
+        <%= f.button :submit, class: "btn-success" %>
+        <% end %>
+        <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+      </div>
+    </div>
+
+  </div>
+</div>
