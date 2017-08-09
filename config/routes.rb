@@ -9,14 +9,20 @@ Rails.application.routes.draw do
     to: 'opportunities#delete_attachment', as: :delete_attachment
 
     resources :timelines
+
     resources :stages
     resources :tasks
     resources :calls
     resources :events
     resources :notes
   end
+
   resources :contacts
-  resources :accounts
+
+  resources :accounts do
+    resources :acctimelines
+  end
+
   resources :users
 
   get '/search', to: 'search#search', as: :search

@@ -1,7 +1,7 @@
 
 <!-- Modal -->
 <div id="opportunityModalForm" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog" style="width: 1000px;">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -11,24 +11,29 @@
       </div>
       <div class="modal-body">
         <%= simple_form_for @opportunity, html: {multipart: true} do |f| %>
-        <%= f.input :name, label: "Opportunity Name", autofocus: true %>
+
         <div class="row">
         <div class="col-lg-6">
-        <%= f.input :business_type %>
-        <%= f.input :probability, placeholder: "in percentage" %>
-      </div>
-      <div class="col-lg-6">
-        <%= f.input :account_id, collection: @accounts, value_method: :id,
-        input_selected: @opportunity.account_id ,include_blank: false %>
+          <h4>Opportunity Details</h4>
+          <br>
+          <%= f.input :name, label: false, placeholder: "Opportunity name", autofocus: true %>
+          <%= f.input :business_type, label: false, placeholder: "Business type" %>
+          <%= f.input :account_id, collection: @accounts, value_method: :id, label: false,
+          input_selected: @opportunity.account_id ,include_blank: "Choose account" %>
+        <%= f.input :probability, label: false, placeholder: "Probability in percentage" %>
         <%= f.input :close_date, as: :date_time_picker %>
       </div>
+      <div class="col-lg-6">
+        <br><br><br>
+        <%= f.input :amount, label: false, placeholder: "Opportunity amount" %>
+        <%= f.input :description, input_html: {rows: 7}, label: false,
+        placeholder: "Opportunity description" %>
+        <%= f.input :loss_reason, label: false, placeholder: "Loss reason" %>
+      </div>
     </div>
-    <%= f.input :amount %>
-    <%= f.input :description %>
-    <%= f.input :loss_reason %>
-
     <hr>
-    <%= f.label "Upload Documents" %>
+    <h4>Documents Upload</h4>
+    <br>
     <%= file_field_tag "docs[]",type: :file, multiple: true %>
     <%= f.hint "Can upload multiple files"%>
 

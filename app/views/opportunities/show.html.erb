@@ -1,7 +1,10 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-10">
-            <h3><%= @opportunity.name %></h3>
+            <h3>
+                <%= @opportunity.name %>
+                <small>Opportunity</small>
+            </h3>
         </div>
         <div class="col-lg-2">
             <div class="btn-group pull-right" style="padding-top: 10px;">
@@ -42,11 +45,11 @@
             <small>Amount</small>
             <br>
             <h4>
-              <% if @opportunity.amount.blank? %>
+                <% if @opportunity.amount.blank? %>
                 <span style="color: red;">Amount not specified</span>
-              <% else %>
+            <% else %>
                 <%= @opportunity.amount %>
-              <% end %>
+                <% end %>
             </h4>
         </div>
         <div class="col-lg-3">
@@ -55,15 +58,13 @@
             <h4><%= @opportunity.user.name %></h4>
         </div>
     </div>
-</div>
 
-<hr>
+    <hr>
 
-<%= render 'stages/opportunity_stages'%>
+    <%= render 'stages/opportunity_stages'%>
 
-<hr>
+    <hr>
 
-<div class="container">
     <div class="row">
         <div class="col-lg-12">
             <ul class="nav nav-tabs">
@@ -80,11 +81,9 @@
             </ul>
         </div>
     </div>
-</div>
 
-<br>
+    <br>
 
-<div class="container">
     <div class="row">
 
         <div class="col-lg-6">
@@ -98,9 +97,9 @@
         </div>
 
         <div class="col-lg-6">
-          <div class="timelines">
-            <%= render 'timelines/timelines_index' %>
-          </div>
+            <div class="timelines">
+                <%= render 'timelines/timelines_index' %>
+            </div>
         </div>
     </div>
 </div>

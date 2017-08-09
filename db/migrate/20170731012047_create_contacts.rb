@@ -6,7 +6,13 @@ class CreateContacts < ActiveRecord::Migration[5.0]
       t.string :department
       t.string :email
       t.string :phone
-      t.string :address
+      t.string :fax
+
+      t.string :mailing_street
+      t.string :mailing_city
+      t.string :mailing_state
+      t.string :mailing_postal_code
+      t.string :mailing_country
 
       t.references :account, foreign_key: true
       t.timestamps

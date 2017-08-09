@@ -28,6 +28,7 @@ gem 'paperclip', '~> 5.1'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.2'
 gem 'figaro', '~> 1.1', '>= 1.1.1'
 gem 'kaminari'
+gem 'country_select'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

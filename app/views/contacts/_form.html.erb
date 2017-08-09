@@ -1,31 +1,39 @@
-
 <!-- Modal -->
 <div id="contactModalForm" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+    <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Create New Contact</h4>
-      </div>
-      <div class="modal-body">
-        <%= simple_form_for @contact do |f| %>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create New Contact</h4>
+            </div>
+            <div class="modal-body">
+                <%= simple_form_for @contact do |f| %>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <%= f.input :name %>
+                        <%= f.input :title %>
+                        <%= f.input :department %>
+                        <%= f.input :email %>
+                        <%= f.input :phone %>
+                        <%= f.input :fax %>
+                    </div>
+                    <div class="col-lg-6">
+                        <%= f.input :mailing_street %>
+                        <%= f.input :mailing_city %>
+                        <%= f.input :mailing_state %>
+                        <%= f.input :mailing_postal_code %>
+                        <%= f.input :mailing_country %>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <%= f.button :submit, class: "btn-success" %>
+                <% end %>
+                <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+            </div>
+        </div>
 
-        <%= f.input :name %>
-        <%= f.input :title %>
-        <%= f.input :department %>
-        <%= f.input :email %>
-        <%= f.input :phone %>
-        <%= f.input :address %>
-
-      </div>
-      <div class="modal-footer">
-        <%= f.button :submit, class: "btn-success" %>
-        <% end %>
-        <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
-      </div>
     </div>
-
-  </div>
 </div>

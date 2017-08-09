@@ -1,24 +1,78 @@
-
 <!-- Modal -->
 <div id="accountModalForm" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+    <div class="modal-dialog" style="width: 1000px;">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Create New Account</h4>
-      </div>
-      <div class="modal-body">
-        <%= simple_form_for @account do |f| %>
-        <%= f.input :name %>
-      </div>
-      <div class="modal-footer">
-        <%= f.button :submit, class: "btn-success" %>
-        <% end %>
-        <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
-      </div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><%= yield :form_title %></h4>
+            </div>
+            <div class="modal-body">
+                <%= simple_form_for @account do |f| %>
+                <div class="row">
+                    <div class="col-lg-6">
+                      <h4>Account Details</h4>
+                      <br>
+                        <%= f.input :account_name, label: false, autofocus: true,
+                        placeholder: "Account name" %>
+                        <%= f.input :account_type, label: false, placeholder: "Account type" %>
+                        <%= f.input :website, label: false, placeholder: "Website" %>
+                        <%= f.input :phone, label: false, placeholder: "Phone number" %>
+                        <%= f.input :fax, label: false, placeholder: "Fax number" %>
+                    </div>
+                    <div class="col-lg-6">
+                      <br><br><br>
+                        <%= f.input :description, input_html: {rows: 6},
+                        label: false, placeholder: "Account description" %>
+                        <%= f.input :industry, label: false, placeholder: "Type of industry" %>
+                        <%= f.input :number_of_employee, label: false,
+                        placeholder: "Number of employee" %>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4>Billing Address</h4>
+                        <br>
+                        <%= f.input :billing_street, label: false, placeholder: "Billing street" %>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <%= f.input :billing_city, label: false, placeholder: "Billing city" %>
+                                <%= f.input :billing_state, label: false, placeholder: "Billing state" %>
+                            </div>
+                            <div class="col-lg-6">
+                                <%= f.input :billing_postal_code, label: false,
+                                placeholder: "Billing postal code" %>
+                                <%= f.input :billing_country, label: false,
+                                include_blank: "Billing country" %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h4>Shipping Address</h4>
+                        <br>
+                        <%= f.input :shipping_street, label: false, placeholder: "Shipping street" %>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <%= f.input :shipping_city, label: false, placeholder: "Shipping city" %>
+                                <%= f.input :shipping_state, label: false, placeholder: "Shipping state" %>
+                            </div>
+                            <div class="col-lg-6">
+                                <%= f.input :shipping_postal_code, label: false, placeholder: "Shipping postal code" %>
+                                <%= f.input :shipping_country, label: false, include_blank: "Shipping country" %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <%= f.button :submit, class: "btn-success" %>
+                <% end %>
+                <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+            </div>
+        </div>
+
     </div>
-
-  </div>
 </div>

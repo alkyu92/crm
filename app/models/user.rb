@@ -7,5 +7,7 @@ class User < ApplicationRecord
   has_many :activities
   has_many :opportunities
   has_many :accounts
+  
   has_many :timelines
+  has_many :acctimelines
 end

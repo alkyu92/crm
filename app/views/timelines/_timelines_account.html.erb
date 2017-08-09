@@ -1,10 +1,10 @@
-<h4>Opportunity Timeline &middot History</h4>
-<% op = @opportunity.timelines.order('created_at DESC').includes(:user) %>
-<% if op.blank? %>
-<p>Every changes regarding opportunities will be recorded here.</p>
+<h4>Account Timeline &middot History</h4>
+<% acc = @account.acctimelines.order('created_at DESC').includes(:user) %>
+<% if acc.blank? %>
+<p>Every changes regarding accounts will be recorded here.</p>
 <% else %>
 
-<% op.each do |timeline| %>
+<% acc.each do |timeline| %>
 <div class="panel panel-default panel-body">
     <div class="media">
         <div class="media-left" style="padding-top: 6px;">
@@ -16,11 +16,11 @@
                 <%= timeline.action %>
                 <strong><%= timeline.nactivity.truncate(50) %></strong>
                 <div class="pull-right">
-                <%= link_to opportunity_timeline_path(@opportunity, timeline),
+                    <%= link_to account_acctimeline_path(@account, timeline),
                 method: :delete do %>
-                <i class="fa fa-times"></i>
-                <% end %>
-              </div>
+                    <i class="fa fa-times"></i>
+                    <% end %>
+                </div>
             </small>
             <h5 style="margin-top: -2px;">
                 <small>
@@ -29,11 +29,8 @@
                     <%= time_ago_in_words(timeline.created_at) %>
                     ago
                 </small>
-
-                <h5>
-
-            </div>
+                <h5></div>
             </div>
         </div>
         <% end %>
-<% end %>
+        <% end %>

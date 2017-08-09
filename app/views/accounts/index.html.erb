@@ -16,13 +16,26 @@ There are no accounts created yet.
 <% else %>
 <div class="row">
   <div class="col-lg-1">
+    <strong>ID</strong>
   </div>
-  <div class="col-lg-9">
+  <div class="col-lg-2">
     <strong>Name</strong>
   </div>
+  <div class="col-lg-2">
+    <strong>Phone</strong>
+  </div>
+  <div class="col-lg-2">
+    <strong>Industry</strong>
+  </div>
+  <div class="col-lg-2">
+    <strong>Type</strong>
+  </div>
+  <div class="col-lg-1"></div>
   <div class="col-lg-2">
     <strong>Action</strong>
   </div>
 </div>
+<div id="account">
   <%= render @accounts %>
+</div>
 <% end %>

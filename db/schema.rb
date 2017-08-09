@@ -10,14 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802095341) do
+ActiveRecord::Schema.define(version: 20170809022957) do
 
   create_table "accounts", force: :cascade do |t|
-    t.string   "name"
+    t.string   "account_name"
+    t.string   "account_type"
+    t.string   "website"
+    t.text     "description"
+    t.string   "phone"
+    t.string   "fax"
+    t.string   "industry"
+    t.integer  "number_of_employee"
+    t.string   "billing_street"
+    t.string   "billing_city"
+    t.string   "billing_state"
+    t.string   "billing_postal_code"
+    t.string   "billing_country"
+    t.string   "shipping_street"
+    t.string   "shipping_city"
+    t.string   "shipping_state"
+    t.string   "shipping_postal_code"
+    t.string   "shipping_country"
+    t.integer  "user_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
+
+  create_table "acctimelines", force: :cascade do |t|
+    t.string   "tactivity"
+    t.string   "nactivity"
+    t.string   "action"
+    t.integer  "account_id"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_accounts_on_user_id"
+    t.index ["account_id"], name: "index_acctimelines_on_account_id"
+    t.index ["user_id"], name: "index_acctimelines_on_user_id"
   end
 
   create_table "calls", force: :cascade do |t|
@@ -37,10 +66,15 @@ ActiveRecord::Schema.define(version: 20170802095341) do
     t.string   "department"
     t.string   "email"
     t.string   "phone"
-    t.string   "address"
+    t.string   "fax"
+    t.string   "mailing_street"
+    t.string   "mailing_city"
+    t.string   "mailing_state"
+    t.string   "mailing_postal_code"
+    t.string   "mailing_country"
     t.integer  "account_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.index ["account_id"], name: "index_contacts_on_account_id"
   end
 
