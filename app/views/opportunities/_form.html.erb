@@ -1,63 +1,86 @@
-
 <!-- Modal -->
 <div id="opportunityModalForm" class="modal fade" role="dialog">
-  <div class="modal-dialog" style="width: 1000px;">
+    <div class="modal-dialog" style="width: 1000px;">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><%= yield :form_title %></h4>
-      </div>
-      <div class="modal-body">
-        <%= simple_form_for @opportunity, html: {multipart: true} do |f| %>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><%= yield :form_title %></h4>
+            </div>
 
-        <div class="row">
-        <div class="col-lg-6">
-          <h4>Opportunity Details</h4>
-          <br>
-          <%= f.input :name, label: false, placeholder: "Opportunity name", autofocus: true %>
-          <%= f.input :business_type, label: false, placeholder: "Business type" %>
-          <%= f.association :account, label: false, include_blank: "Choose account" %>
-        <%= f.input :probability, label: false, placeholder: "Probability in percentage" %>
-        <%= f.input :close_date, as: :date_time_picker %>
-      </div>
-      <div class="col-lg-6">
-        <br><br><br>
-        <%= f.input :amount, label: false, placeholder: "Opportunity amount" %>
-        <%= f.input :description, input_html: {rows: 7}, label: false,
-        placeholder: "Opportunity description" %>
-        <%= f.input :loss_reason, label: false, placeholder: "Loss reason" %>
-      </div>
+            <% if @accounts.blank? %>
+            <div class="modal-body">
+
+            <div class="text-center">
+                <h3>Create account first before create opportunity</h3>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+          </div>
+        <% else %>
+            <div class="modal-body">
+
+                <%= simple_form_for @opportunity, html: {multipart: true} do |f| %>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4>Opportunity Details</h4>
+                        <br>
+                        <%= f.input :name, label: false, placeholder: "Opportunity name", autofocus: true %>
+                        <%= f.input :business_type, label: false, placeholder: "Business type" %>
+                        <%= f.association :account, label: false, include_blank: "Choose account", label_method: lambda { |account| "#{account.account_name}" } %>
+                        <%= f.input :probability, label: false, placeholder: "Probability in percentage" %>
+                        <%= f.input :close_date, as: :date_time_picker %>
+                    </div>
+                    <div class="col-lg-6">
+                        <br><br><br>
+                        <%= f.input :amount, label: false, placeholder: "Opportunity amount" %>
+                        <%= f.input :description, input_html: {rows: 7}, label: false,
+  placeholder: "Opportunity description" %>
+                        <%= f.input :loss_reason, label: false, placeholder: "Loss reason" %>
+                    </div>
+                </div>
+                <hr>
+                <h4>Documents Upload</h4>
+                <br>
+                <%= file_field_tag "docs[]",type: :file, multiple: true %>
+                <%= f.hint "Can upload multiple files"%>
+
+                <% if @opportunity.documents.blank? %>
+                There are no documents uploaded yet.
+            <% else %>
+                <% @opportunity.documents.each do |document| %>
+                <%= check_box_tag "attached[]", document.id %>
+                <%= link_to document.doc_file_name, document.doc.url %>
+                <br>
+                <% end %>
+                <!-- @opportunity.documents.each -->
+                <br>
+                <p>Check the box(es) to
+                    <span style="color: red;">DELETE</span>
+                    attachment(s) or</p>
+                <%= check_box_tag "delete_all" %>
+                DELETE ALL
+                <p>to delete
+                    <span style="color: red;">ALL</span>
+                    attachments</p>
+                <% end %>
+                <!-- @opportunity.documents.blank? -->
+
+            </div>
+            <div class="modal-footer">
+                <%= f.button :submit, class: "btn-success" %>
+                <% end %>
+                <!-- simple_form_for -->
+
+                <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+            </div>
+            <% end %>
+            <!-- @accounts.blank? -->
+
+        </div>
+
     </div>
-    <hr>
-    <h4>Documents Upload</h4>
-    <br>
-    <%= file_field_tag "docs[]",type: :file, multiple: true %>
-    <%= f.hint "Can upload multiple files"%>
-
-    <% if @opportunity.documents.blank? %>
-    There are no documents uploaded yet.
-    <% else %>
-      <% @opportunity.documents.each do |document| %>
-      <%= check_box_tag "attached[]", document.id %>
-      <%= link_to document.doc_file_name, document.doc.url %>
-      <br>
-      <% end %>
-      <br>
-      <p>Check the box(es) to <span style="color: red;">DELETE</span> attachment(s) or</p>
-      <%= check_box_tag "delete_all" %>
-      DELETE ALL
-      <p>to delete <span style="color: red;">ALL</span> attachments</p>
-    <% end %>
-      </div>
-      <div class="modal-footer">
-        <%= f.button :submit, class: "btn-success" %>
-        <% end %>
-
-        <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
-      </div>
-    </div>
-
-  </div>
 </div>

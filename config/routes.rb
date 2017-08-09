@@ -9,7 +9,6 @@ Rails.application.routes.draw do
     to: 'opportunities#delete_attachment', as: :delete_attachment
 
     resources :timelines
-
     resources :stages
     resources :tasks
     resources :calls
@@ -20,7 +19,11 @@ Rails.application.routes.draw do
   resources :contacts
 
   resources :accounts do
+    get '/delete_attachment/:id',
+    to: 'accounts#delete_attachment', as: :delete_attachment
+
     resources :acctimelines
+    resources :accnotes
   end
 
   resources :users

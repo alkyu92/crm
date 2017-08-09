@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170809022957) do
+ActiveRecord::Schema.define(version: 20170809062339) do
+
+  create_table "accdocuments", force: :cascade do |t|
+    t.string   "accdoc_file_name"
+    t.string   "accdoc_content_type"
+    t.integer  "accdoc_file_size"
+    t.datetime "accdoc_updated_at"
+    t.integer  "account_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["account_id"], name: "index_accdocuments_on_account_id"
+  end
+
+  create_table "accnotes", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "account_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["account_id"], name: "index_accnotes_on_account_id"
+  end
 
   create_table "accounts", force: :cascade do |t|
     t.string   "account_name"
@@ -110,7 +130,7 @@ ActiveRecord::Schema.define(version: 20170809022957) do
 
   create_table "opportunities", force: :cascade do |t|
     t.string   "name"
-    t.integer  "current_stage"
+    t.string   "current_stage"
     t.string   "business_type"
     t.string   "probability"
     t.string   "amount"

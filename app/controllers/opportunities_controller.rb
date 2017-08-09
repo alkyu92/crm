@@ -7,10 +7,11 @@ class OpportunitiesController < ApplicationController
     @opportunity = current_user.opportunities.build
 
     @stages = Stage.all
+    @accounts = Account.all
   end
 
   def show
-
+    @accounts = Account.all
   end
 
   def create
@@ -24,11 +25,8 @@ class OpportunitiesController < ApplicationController
       redirect_to @opportunity
     else
       flash[:danger] = "Failed to create opportunity entry!"
-      render 'new'
+      redirect_to opportunities_path
     end
-  end
-
-  def edit
   end
 
   def update
@@ -59,15 +57,12 @@ class OpportunitiesController < ApplicationController
       redirect_to @opportunity
     else
       flash[:danger] = "Failed to update opportunity!"
-      render 'edit'
+      redirect_to @opportunity
     end
   end
 
   def destroy
     @opportunity.destroy
-    @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.name,
-    action: "deleted opportunity", user_id: current_user.id)
-
     flash[:success] = "Opportunity entry deleted!"
     redirect_to opportunities_path
   end

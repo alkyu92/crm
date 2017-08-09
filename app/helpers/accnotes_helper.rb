@@ -1,0 +1,2 @@
+module AccnotesHelper
+end

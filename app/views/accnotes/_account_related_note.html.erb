@@ -1,0 +1,15 @@
+<div class="tab-pane fade in" id="accountNotes">
+    <h4>Account Notes</h4>
+    <div class="panel panel-default panel-body">
+        <%= simple_form_for [@account, @accnote, Accnote.new], remote: true do |f| %>
+        <%= f.input :title %>
+        <%= f.input :description %>
+        <%= f.button :submit %>
+        <% end %>
+    </div>
+    <br>
+
+    <div class="note">
+      <%= render 'accnotes/account_note' %>
+    </div>
+</div>

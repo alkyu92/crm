@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  before_action :find_account, only: [:show, :edit, :update, :destroy]
+  before_action :find_account, only: [:show, :update, :destroy]
 
   def index
     @accounts = Account.all
@@ -20,15 +20,19 @@ class AccountsController < ApplicationController
       redirect_to @account
     else
       flash[:danger] = "Failed to create account entry!"
-      render 'new'
+      redirect_to accounts_path
     end
-  end
-
-  def edit
   end
 
   def update
     if @account.update(params_account)
+
+      if params[:accdocs]
+        params[:accdocs].each { |accdoc|
+          @account.accdocuments.create!( accdoc: accdoc )
+        }
+      end
+      
       @account.acctimelines.create!(tactivity: "account", nactivity: @account.account_name,
       action: "updated account", user_id: current_user.id)
 
@@ -36,15 +40,12 @@ class AccountsController < ApplicationController
       redirect_to @account
     else
       flash[:danger] = "Failed to update account!"
-      render 'edit'
+      redirect_to @account
     end
   end
 
   def destroy
     @account.destroy
-    @account.acctimelines.create!(tactivity: "account", nactivity: @account.account_name,
-    action: "deleted account", user_id: current_user.id)
-
     flash[:success] = "Account entry deleted!"
     redirect_to accounts_path
   end
@@ -69,7 +70,10 @@ class AccountsController < ApplicationController
                                     :shipping_city,
                                     :shipping_state,
                                     :shipping_postal_code,
-                                    :shipping_country)
+                                    :shipping_country,
+                                    :accdocument,
+                                    accdocuments_attributes: [ accdoc: [] ]
+                                    )
   end
 
   def find_account
