@@ -18,15 +18,14 @@ class NotesController < ApplicationController
   end
 
   def update
-    if @note.update(params_note)
-      @opportunity.timelines.create!(tactivity: "note",
-      nactivity: @note.title, action: "updated note", user_id: current_user.id)
-
-      flash[:success] = "Note entry created!"
-      redirect_to request.referrer
-    else
-      flash[:danger] = "Failed to create note entry!"
-      redirect_to request.referrer
+    respond_to do |format|
+      if @note.update(params_note)
+        @opportunity.timelines.create!(tactivity: "note",
+        nactivity: @note.title, action: "updated note", user_id: current_user.id)
+        format.js { flash[:success] = "Note entry created!" }
+      else
+        format.js { flash[:danger] = "Failed to create note entry!" }
+      end
     end
   end
 

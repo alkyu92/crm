@@ -18,16 +18,16 @@ class CallsController < ApplicationController
   end
 
   def update
-    if @call.update(params_call)
-      @opportunity.timelines.create!(tactivity: "call log",
-      nactivity: @call.description, action: "updated call log", user_id: current_user.id)
-
-      flash[:success] = "Call entry updated!"
-      redirect_to request.referrer
-    else
-      flash[:danger] = "Failed to update call entry!"
-      redirect_to request.referrer
+    respond_to do |format|
+      if @call.update(params_call)
+        @opportunity.timelines.create!(tactivity: "call log",
+        nactivity: @call.description, action: "updated call log", user_id: current_user.id)
+        format.js { flash[:success] = "Call entry updated!" }
+      else
+        format.js { flash[:danger] = "Failed to update call entry!" }
+      end
     end
+
   end
 
   def destroy

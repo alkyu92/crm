@@ -18,15 +18,14 @@ class EventsController < ApplicationController
   end
 
   def update
-    if @event.update(params_event)
-      @opportunity.timelines.create!(tactivity: "event",
-      nactivity: @event.description, action: "updated event", user_id: current_user.id)
-
-      flash[:success] = "Event entry created!"
-      redirect_to request.referrer
-    else
-      flash[:danger] = "Failed to create event entry!"
-      redirect_to request.referrer
+    respond_to do |format|
+      if @event.update(params_event)
+        @opportunity.timelines.create!(tactivity: "event",
+        nactivity: @event.description, action: "updated event", user_id: current_user.id)
+        format.js { flash[:success] = "Event entry updated!" }
+      else
+        format.js { flash[:danger] = "Failed to update event entry!" }
+      end
     end
   end
 

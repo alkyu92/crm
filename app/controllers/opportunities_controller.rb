@@ -1,9 +1,9 @@
 class OpportunitiesController < ApplicationController
+  before_action :find_all_opportunities, except: [:show, :update]
   before_action :find_opportunity,
   only: [:show, :edit, :update, :destroy]
 
   def index
-    @opportunities = Opportunity.all
     @opportunity = current_user.opportunities.build
 
     @stages = Stage.all
@@ -17,16 +17,16 @@ class OpportunitiesController < ApplicationController
   def create
     @opportunity = current_user.opportunities.build(params_opportunity)
 
-    if @opportunity.save
-      @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.name,
-      action: "created opportunity", user_id: current_user.id)
-
-      flash[:success] = "Opportunity entry created!"
-      redirect_to @opportunity
-    else
-      flash[:danger] = "Failed to create opportunity entry!"
-      redirect_to opportunities_path
+    respond_to do |format|
+      if @opportunity.save
+        @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.name,
+        action: "created opportunity", user_id: current_user.id)
+        format.js { flash[:success] = "Opportunity entry created!" }
+      else
+        format.js { flash[:danger] = "Failed to create opportunity entry!" }
+      end
     end
+
   end
 
   def update
@@ -62,8 +62,9 @@ class OpportunitiesController < ApplicationController
 
   def destroy
     @opportunity.destroy
-    flash[:success] = "Opportunity entry deleted!"
-    redirect_to opportunities_path
+    respond_to do |format|
+      format.js { flash[:success] = "Opportunity entry deleted!" }
+    end
   end
 
   def delete_attachment
@@ -97,6 +98,10 @@ class OpportunitiesController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     flash[:danger] = "Record not found!"
     redirect_to opportunities_path
+  end
+
+  def find_all_opportunities
+    @opportunities = Opportunity.all.includes(:account)
   end
 
 end

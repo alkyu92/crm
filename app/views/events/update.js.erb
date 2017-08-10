@@ -1,7 +1,6 @@
 $('.modal').modal('hide');
 $('body').removeClass('modal-open');
 $('.modal-backdrop').remove();
-
+$('.event').html("<%= j (render 'events/event') %>");
 $('.timelines').html("<%= j (render 'timelines/timelines_index') %>");
-$('.task').html("<%= j (render 'tasks/task') %>");
-$('#notice-task').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
+$('#notice-event').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();

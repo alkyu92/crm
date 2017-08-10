@@ -1,0 +1,5 @@
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();
+$('.modal').modal('hide');
+$('.call').html("<%= j (render 'calls/call') %>");
+$('#notice-call').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
