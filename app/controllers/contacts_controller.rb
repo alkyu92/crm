@@ -16,6 +16,8 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
+        @opportunity.timelines.create!(tactivity: "contact",
+        nactivity: @contact.name, action: "created contact", user_id: current_user.id)
         format.js { flash[:success] = "Contact created!" }
       else
         format.js { flash[:danger] = "Failed to create contact!" }
@@ -27,6 +29,8 @@ class ContactsController < ApplicationController
   def update
     respond_to do |format|
       if @contact.update(params_contact)
+        @opportunity.timelines.create!(tactivity: "contact",
+        nactivity: @contact.name, action: "updated contact", user_id: current_user.id)
         format.js { flash[:success] = "Contact updated!" }
       else
         format.js { flash[:danger] = "Failed to update contact!" }
@@ -37,7 +41,8 @@ class ContactsController < ApplicationController
 
   def destroy
     @contact.destroy
-
+    @opportunity.timelines.create!(tactivity: "contact",
+    nactivity: @contact.name, action: "deleted contact", user_id: current_user.id)
     respond_to do |format|
       format.js { flash[:success] = "Contact deleted!" }
     end

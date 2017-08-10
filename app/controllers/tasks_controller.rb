@@ -18,15 +18,21 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task.update(params_task)
-      @opportunity.timelines.create!(tactivity: "task",
-      nactivity: @task.description, action: "updated task", user_id: current_user.id)
-      flash[:success] = "Task updated!"
-      redirect_to request.referrer
-    else
-      flash[:danger] = "Failed to update task!"
-      redirect_to request.referrer
+    respond_to do |format|
+      if @task.update(params_task)
+
+        @opportunity.timelines.create!(tactivity: "task",
+        nactivity: @task.description, action: "updated task", user_id: current_user.id)
+        format.js { flash[:success] = "Task updated!" }
+        #
+        # redirect_to request.referrer
+      else
+        format.js { flash[:danger] = "Failed to update task!" }
+        #
+        # redirect_to request.referrer
+      end
     end
+
   end
 
   def destroy

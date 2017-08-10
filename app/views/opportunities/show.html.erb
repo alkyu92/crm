@@ -1,64 +1,14 @@
 <div class="container">
-    <div class="row">
-        <div class="col-lg-10">
-            <h3>
-                <%= @opportunity.name %>
-                <small>Opportunity</small>
-            </h3>
-        </div>
-        <div class="col-lg-2">
-            <div class="btn-group pull-right" style="padding-top: 10px;">
-                <%= link_to 'Edit', '#', class: "btn btn-default",
-                data: {toggle: "modal", target: "#opportunityModalForm"}%>
-                <%= link_to 'Delete', opportunity_path(@opportunity), method: :delete,
-    data: {confirm: "Are you sure?"},class: "btn btn-default" %>
-            </div>
-        </div>
+    <div id="op-title">
+      <%= render 'opportunities/op_title' %>
     </div>
     <% provide(:form_title, 'Edit Opportunity Entry')%>
     <%= render 'form' %>
     <br>
-    <div class="row">
-        <div class="col-lg-3">
-            <small>Account</small>
-            <br>
-            <h4>
-                <% if @opportunity.account.blank? %>
-                <span style="color: red;">Account not assigned</span>
-            <% else %>
-                <%= @opportunity.account.account_name %>
-                <% end %>
-            </h4>
-        </div>
-        <div class="col-lg-3">
-            <small>Due Date</small>
-            <br>
-            <h4>
-                <% if @opportunity.close_date.blank? %>
-                <span style="color: red;">Date not specified</span>
-            <% else %>
-                <%= @opportunity.close_date.strftime('%d %b %Y') %>
-                <% end %>
-            </h4>
-        </div>
-        <div class="col-lg-3">
-            <small>Amount</small>
-            <br>
-            <h4>
-                <% if @opportunity.amount.blank? %>
-                <span style="color: red;">Amount not specified</span>
-            <% else %>
-                <%= @opportunity.amount %>
-                <% end %>
-            </h4>
-        </div>
-        <div class="col-lg-3">
-            <small>Opportunity Owner</small>
-            <br>
-            <h4><%= @opportunity.user.name %></h4>
-        </div>
-    </div>
 
+    <div id="op-header">
+    <%= render 'opportunities/op_header' %>
+  </div>
     <hr>
 
     <%= render 'stages/opportunity_stages'%>

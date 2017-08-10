@@ -2,7 +2,7 @@
     <h4>Opportunity Related Documents</h4>
 
     <div class="panel panel-default panel-body">
-        <%= simple_form_for @opportunity, html: {multipart: true} do |f| %>
+        <%= simple_form_for @opportunity, html: {multipart: true}, remote: true do |f| %>
         <%= f.input :name, as: :hidden %>
         <%= f.label "Upload Documents" %>
         <%= file_field_tag "docs[]",type: :file, multiple: true %>

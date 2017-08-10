@@ -25,7 +25,7 @@ class AccountsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
+    #respond_to do |format|
       if @account.update(params_account)
 
         if params[:accdocs]
@@ -36,12 +36,12 @@ class AccountsController < ApplicationController
 
         @account.acctimelines.create!(tactivity: "account", nactivity: @account.account_name,
         action: "updated account", user_id: current_user.id)
-
-        format.js { flash[:success] = "Account entry updated!" }
+        redirect_to root_path
+        #format.js { flash[:success] = "Account entry updated!" }
       else
-        format.js { flash[:danger] = "Failed to update account entry!" }
+        #format.js { flash[:danger] = "Failed to update account entry!" }
       end
-    end
+    #end
   end
 
   def destroy

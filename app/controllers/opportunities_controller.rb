@@ -30,35 +30,34 @@ class OpportunitiesController < ApplicationController
   end
 
   def update
+    respond_to do |format|
+      if @opportunity.update(params_opportunity)
 
-    if @opportunity.update(params_opportunity)
+          if params[:docs]
+            params[:docs].each { |doc|
+              @opportunity.documents.create!(doc: doc)
+            }
+          end
 
-        if params[:docs]
-          params[:docs].each { |doc|
-            @opportunity.documents.create!(doc: doc)
+        if params[:attached]
+          params[:attached].each { |attach|
+            @opportunity.documents.where(id: attach).destroy_all
           }
         end
 
-      if params[:attached]
-        params[:attached].each { |attach|
-          @opportunity.documents.where(id: attach).destroy_all
-        }
+        if params[:delete_all]
+          @opportunity.documents.destroy_all
+        end
+
+        @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.name,
+        action: "updated opportunity", user_id: current_user.id)
+
+        format.js { flash[:success] = "Opportunity entry updated!" }
+      else
+        format.js { flash[:danger] = "Failed to update opportunity!" }
       end
-
-      if params[:delete_all]
-        @opportunity.documents.destroy_all
-      end
-
-
-      @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.name,
-      action: "updated opportunity", user_id: current_user.id)
-
-      flash[:success] = "Opportunity entry updated!"
-      redirect_to @opportunity
-    else
-      flash[:danger] = "Failed to update opportunity!"
-      redirect_to @opportunity
     end
+
   end
 
   def destroy

@@ -22,7 +22,7 @@
         <% else %>
             <div class="modal-body">
 
-                <%= simple_form_for @opportunity, html: {multipart: true} do |f| %>
+                <%= simple_form_for @opportunity, html: {multipart: true}, remote: true do |f| %>
 
                 <div class="row">
                     <div class="col-lg-4">

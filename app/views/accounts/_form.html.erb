@@ -9,7 +9,7 @@
                 <h4 class="modal-title"><%= yield :form_title %></h4>
             </div>
             <div class="modal-body">
-                <%= simple_form_for @account, remote: true do |f| %>
+                <%= simple_form_for @account do |f| %>
                 <div class="row">
                     <div class="col-lg-4">
                       <h4>Account Details</h4>
