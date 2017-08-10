@@ -3,14 +3,16 @@ class TimelinesController < ApplicationController
 
   def destroy
     @timeline.destroy
-    flash[:success] = "Timeline deleted!"
-    redirect_to request.referrer
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
 
   def find_timeline
-    @timeline = Timeline.find(params[:id])
+    @opportunity = Opportunity.find(params[:opportunity_id])
+    @timeline = @opportunity.timelines.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
     flash[:danger] = "Can't find records!"

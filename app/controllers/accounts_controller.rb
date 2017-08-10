@@ -32,7 +32,7 @@ class AccountsController < ApplicationController
           @account.accdocuments.create!( accdoc: accdoc )
         }
       end
-      
+
       @account.acctimelines.create!(tactivity: "account", nactivity: @account.account_name,
       action: "updated account", user_id: current_user.id)
 
@@ -48,6 +48,14 @@ class AccountsController < ApplicationController
     @account.destroy
     flash[:success] = "Account entry deleted!"
     redirect_to accounts_path
+  end
+
+  def delete_attachment
+    @account = Account.find(params[:account_id])
+    @account.accdocuments.find(params[:id]).destroy
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

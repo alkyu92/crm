@@ -17,7 +17,7 @@
                 <strong><%= timeline.nactivity.truncate(50) %></strong>
                 <div class="pull-right">
                 <%= link_to opportunity_timeline_path(@opportunity, timeline),
-                method: :delete do %>
+                method: :delete, remote: true do %>
                 <i class="fa fa-times"></i>
                 <% end %>
               </div>

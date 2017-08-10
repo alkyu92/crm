@@ -3,14 +3,16 @@ class AcctimelinesController < ApplicationController
 
   def destroy
     @acctimeline.destroy
-    flash[:success] = "Timeline deleted!"
-    redirect_to request.referrer
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
 
   def find_acctimeline
-    @acctimeline = Acctimeline.find(params[:id])
+    @account = Account.find(params[:account_id])
+    @acctimeline = @account.acctimelines.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
     flash[:danger] = "Can't find records!"
