@@ -9,8 +9,9 @@ class Opportunity < ApplicationRecord
   has_many :timelines, dependent: :destroy
   has_many :notes, dependent: :destroy
   has_many :documents, dependent: :destroy
+  has_many :contacts
 
   validates :name, presence: true
 
-  serialize :contacts, Array
+  serialize :contacts, Array # for tagging contacts
 end

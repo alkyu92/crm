@@ -1,25 +1,40 @@
-<div class="row">
-  <div class="col-lg-1">
-    <%= contact.id %>
-  </div>
-<div class="col-lg-3">
-<%= contact.name %>
+<%# if @opportunity.contacts.blank? %>
+<div class="col-lg-12">
+No contacts added yet.
 </div>
-<div class="col-lg-3">
-<%= contact.email %>
-</div>
-<div class="col-lg-3">
-<%= contact.phone %>
-</div>
-<div class="col-lg-2">
-  <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
-    <i class="caret"></i>
-  </a>
-  <ul class="dropdown-menu">
-    <li><%= link_to 'Show', contact_path(contact) %></li>
-    <li><%= link_to 'Edit', '#', data: {toggle: "modal", target: "#contactModalForm"} %></li>
-    <li><%= link_to 'Delete', contact_path(contact), method: :delete,
-    data: {confirm: "Are you sure?"} %></li>
-  </ul>
-</div>
-</div>
+<%# else %>
+    <% @opportunity.contacts.each do |contact| %>
+    <div class="col-lg-6">
+        <br>
+        <div class="media">
+            <div class="media-left">
+                <%= image_tag('http://placehold.it/43x43', class: "media-object") %>
+            </div>
+            <div class="media-body">
+                <h5 class="media-heading">
+                    <%= contact.name %>
+                    <%= link_to opportunity_contact_path(@opportunity, contact),
+                    method: :delete, remote: true do %>
+                    <i class="fa fa-times pull-right"></i>
+                    <% end %>
+                    <br>
+                    <small><%= contact.title %></small><br>
+                    <small><%= contact.department %></small>
+                </h5>
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <i class="fa fa-envelope">
+                  <%= contact.email %>
+                </i><br>
+                <i class="fa fa-phone">
+                  <%= contact.phone %>
+                </i>
+            </div>
+        </div>
+    </div>
+    <% end %>
+<%# end %>

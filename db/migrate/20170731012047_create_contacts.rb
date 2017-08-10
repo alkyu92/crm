@@ -14,7 +14,7 @@ class CreateContacts < ActiveRecord::Migration[5.0]
       t.string :mailing_postal_code
       t.string :mailing_country
 
-      t.references :account, foreign_key: true
+      t.references :opportunity, foreign_key: true
       t.references :user, foreign_key: true
       t.timestamps
     end

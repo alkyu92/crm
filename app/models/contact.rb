@@ -1,4 +1,4 @@
 class Contact < ApplicationRecord
-  belongs_to :account
+  belongs_to :opportunity
   belongs_to :user
 end

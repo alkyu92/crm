@@ -13,8 +13,9 @@ class AccaccnotesController < ApplicationController
         redirect_to root_path
       else
         #format.js { flash[:danger] = "Failed to add note log!" }
+        redirect_to root_path
       end
-    end
+    #end
 
   end
 

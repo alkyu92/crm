@@ -92,11 +92,11 @@ ActiveRecord::Schema.define(version: 20170809062339) do
     t.string   "mailing_state"
     t.string   "mailing_postal_code"
     t.string   "mailing_country"
-    t.integer  "account_id"
+    t.integer  "opportunity_id"
     t.integer  "user_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.index ["account_id"], name: "index_contacts_on_account_id"
+    t.index ["opportunity_id"], name: "index_contacts_on_opportunity_id"
     t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 

@@ -10,10 +10,10 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @account = Account.find(params[:account_id])
-    @contact = @account.contacts.build(params_contact)
+    @opportunity = Opportunity.find(params[:opportunity_id])
+    @contact = @opportunity.contacts.build(params_contact)
     @contact.user_id = current_user.id
-    
+
     respond_to do |format|
       if @contact.save
         format.js { flash[:success] = "Contact created!" }
@@ -37,6 +37,7 @@ class ContactsController < ApplicationController
 
   def destroy
     @contact.destroy
+
     respond_to do |format|
       format.js { flash[:success] = "Contact deleted!" }
     end
@@ -59,6 +60,7 @@ class ContactsController < ApplicationController
   end
 
   def find_contact
-    @contact = Contact.find(params[:id])
+    @opportunity = Opportunity.find(params[:opportunity_id])
+    @contact = @opportunity.contacts.find(params[:id])
   end
 end
