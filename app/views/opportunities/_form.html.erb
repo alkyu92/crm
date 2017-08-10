@@ -12,38 +12,41 @@
             <% if @accounts.blank? %>
             <div class="modal-body">
 
-            <div class="text-center">
-                <h3>Create account first before create opportunity</h3>
+                <div class="text-center">
+                    <h3>Create account first before create opportunity</h3>
+                </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
-          </div>
+            <div class="modal-footer">
+                <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+            </div>
         <% else %>
             <div class="modal-body">
 
                 <%= simple_form_for @opportunity, html: {multipart: true} do |f| %>
 
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <h4>Opportunity Details</h4>
                         <br>
-                        <%= f.input :name, label: "Opportunity Name", hint: "required",
+                        <%= f.input :name, label: "Opportunity Name",
                         placeholder: "Opportunity name", autofocus: true %>
                         <%= f.association :account, label: "Account Name",
-                        include_blank: "Choose related account", hint: "required",
+                        include_blank: "Choose related account",
                         label_method: lambda { |account| "#{account.account_name}" } %>
+                        <%= f.input :close_date, as: :date_time_picker %>
+                    </div>
+                    <div class="col-lg-4">
+                        <br><br><br>
                         <%= f.input :business_type, label: "Business Type",
                         placeholder: "Business type" %>
                         <%= f.input :probability, label: "Probability",
                         placeholder: "Probability in percentage" %>
-                        <%= f.input :close_date, as: :date_time_picker %>
-                    </div>
-                    <div class="col-lg-6">
-                        <br><br><br>
                         <%= f.input :amount, label: "Amount", placeholder: "Opportunity amount" %>
-                        <%= f.input :description, input_html: {rows: 11}, label: "Description",
-  placeholder: "Opportunity description" %>
+                    </div>
+                    <div class="col-lg-4">
+                        <br><br><br>
+                        <%= f.input :description, input_html: {rows: 5}, label: "Description",
+                        placeholder: "Opportunity description" %>
                         <%= f.input :loss_reason, label: "Loss Reason", placeholder: "Loss reason" %>
                     </div>
                 </div>

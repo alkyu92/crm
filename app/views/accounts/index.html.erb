@@ -1,3 +1,6 @@
+<div id="notice-acc">
+<%= render 'layouts/message' %>
+</div>
 <div class="row">
     <div class="col-lg-10">
         <h1>Accounts</h1>
@@ -13,30 +16,28 @@
 <%= render 'form' %>
 
 <% if @accounts.blank? %>
-There are no accounts created yet.
+There are no accounts registered yet.
 <% else %>
 <div class="row">
-  <div class="col-lg-1">
-    <strong>ID</strong>
-  </div>
-  <div class="col-lg-2">
-    <strong>Name</strong>
-  </div>
-  <div class="col-lg-2">
-    <strong>Phone</strong>
-  </div>
-  <div class="col-lg-2">
-    <strong>Industry</strong>
-  </div>
-  <div class="col-lg-2">
-    <strong>Type</strong>
-  </div>
-  <div class="col-lg-1"></div>
-  <div class="col-lg-2">
-    <strong>Action</strong>
-  </div>
+    <div class="col-lg-1">
+        <strong>ID</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Name</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Phone</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Industry</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Type</strong>
+    </div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-2">
+        <strong>Action</strong>
+    </div>
 </div>
-<div id="account">
-  <%= render @accounts %>
-</div>
+<%= render @accounts %>
 <% end %>

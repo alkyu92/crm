@@ -50,17 +50,6 @@
             </h4>
             <br>
 
-            <small>Probability</small>
-            <h4>
-                <% if @opportunity.probability.blank? %>
-                <span style="color: red;">
-                    Probability not specified
-                </span>
-            <% else %>
-                <%= @opportunity.probability %>
-                <% end %>
-            </h4>
-            <br>
         </div>
         <div class="col-lg-6">
             <small>Amount</small>
@@ -75,14 +64,14 @@
             </h4>
             <br>
 
-            <small>Description</small>
+            <small>Probability</small>
             <h4>
-                <% if @opportunity.description.blank? %>
+                <% if @opportunity.probability.blank? %>
                 <span style="color: red;">
-                    Description not specified
+                    Probability not specified
                 </span>
             <% else %>
-                <%= @opportunity.description %>
+                <%= @opportunity.probability %>
                 <% end %>
             </h4>
             <br>
@@ -98,6 +87,21 @@
                 <% end %>
             </h4>
         </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <small>Description</small>
+        <h4>
+            <% if @opportunity.description.blank? %>
+            <span style="color: red;">
+                Description not specified
+            </span>
+        <% else %>
+            <%= @opportunity.description %>
+            <% end %>
+        </h4>
+        <br>
+      </div>
     </div>
 
 </div>

@@ -9,25 +9,29 @@
                 <h4 class="modal-title"><%= yield :form_title %></h4>
             </div>
             <div class="modal-body">
-                <%= simple_form_for @account do |f| %>
+                <%= simple_form_for @account, remote: true do |f| %>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                       <h4>Account Details</h4>
                       <br>
                         <%= f.input :account_name, label: "Account Name", autofocus: true,
-                        placeholder: "Account name", hint: "required" %>
+                        placeholder: "Account name"%>
                         <%= f.input :account_type, label: "Account Type", placeholder: "Account type" %>
-                        <%= f.input :website, label: "Website", placeholder: "Website" %>
-                        <%= f.input :phone, label: "Phone", placeholder: "Phone number" %>
-                        <%= f.input :fax, label: "Fax", placeholder: "Fax number" %>
-                    </div>
-                    <div class="col-lg-6">
-                      <br><br><br>
-                        <%= f.input :description, input_html: {rows: 9},
-                        label: "Description", placeholder: "Account description" %>
                         <%= f.input :industry, label: "Industry", placeholder: "Type of industry" %>
-                        <%= f.input :number_of_employee, label: "Number of employee",
-                        placeholder: "Number of employee" %>
+                    </div>
+                    <div class="col-lg-4">
+                      <br><br><br>
+                      <%= f.input :website, label: "Website", placeholder: "Website" %>
+                      <%= f.input :phone, label: "Phone", placeholder: "Phone number" %>
+                      <%= f.input :fax, label: "Fax", placeholder: "Fax number" %>
+
+                    </div>
+                    <div class="col-lg-4">
+                      <br><br><br>
+                      <%= f.input :description, input_html: {rows: 5},
+                      label: "Description", placeholder: "Account description" %>
+                      <%= f.input :number_of_employee, label: "Number of employee",
+                      placeholder: "Number of employee" %>
                     </div>
                 </div>
                 <hr>
@@ -73,7 +77,15 @@
                         </div>
                     </div>
                 </div>
-
+                <hr>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h4>Upload Documents</h4>
+                    <br>
+                    <%= file_field_tag "accdocs[]",type: :file, multiple: true %>
+                    <%= f.hint "Can upload multiple files. Only pdf/doc type"%>
+                  </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <%= f.button :submit, class: "btn-success" %>

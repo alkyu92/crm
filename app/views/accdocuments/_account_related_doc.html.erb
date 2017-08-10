@@ -2,7 +2,7 @@
     <h4>Account Related Documents</h4>
 
     <div class="panel panel-default panel-body">
-        <%= simple_form_for [@account], html: {multipart: true} do |f| %>
+        <%= simple_form_for [@account], html: {multipart: true}, remote: true do |f| %>
         <%= f.input :account_name, as: :hidden %>
         <%= f.label "Upload Documents" %>
         <%= file_field_tag "accdocs[]",type: :file, multiple: true %>

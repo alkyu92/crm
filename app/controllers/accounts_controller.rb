@@ -25,22 +25,22 @@ class AccountsController < ApplicationController
   end
 
   def update
-    if @account.update(params_account)
+    respond_to do |format|
+      if @account.update(params_account)
 
-      if params[:accdocs]
-        params[:accdocs].each { |accdoc|
-          @account.accdocuments.create!( accdoc: accdoc )
-        }
+        if params[:accdocs]
+          params[:accdocs].each { |accdoc|
+            @account.accdocuments.create!( accdoc: accdoc )
+          }
+        end
+
+        @account.acctimelines.create!(tactivity: "account", nactivity: @account.account_name,
+        action: "updated account", user_id: current_user.id)
+
+        format.js { flash[:success] = "Account entry updated!" }
+      else
+        format.js { flash[:danger] = "Failed to update account entry!" }
       end
-
-      @account.acctimelines.create!(tactivity: "account", nactivity: @account.account_name,
-      action: "updated account", user_id: current_user.id)
-
-      flash[:success] = "Account entry updated!"
-      redirect_to @account
-    else
-      flash[:danger] = "Failed to update account!"
-      redirect_to @account
     end
   end
 
@@ -54,7 +54,7 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:account_id])
     @account.accdocuments.find(params[:id]).destroy
     respond_to do |format|
-      format.js
+      format.js { flash[:success] = "Attachment deleted!" }
     end
   end
 

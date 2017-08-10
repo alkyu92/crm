@@ -1,43 +1,44 @@
 <div class="row">
-  <div class="col-lg-1">
-    <%= account.id %>
-  </div>
-  <div class="col-lg-2">
-    <% if account.account_name.blank? %>
-    <span style="color: red;">Account name not specified</span>
+    <div class="col-lg-1">
+        <%= account.id %>
+    </div>
+    <div class="col-lg-2">
+        <% if account.account_name.blank? %>
+        <span style="color: red;">Account name not specified</span>
     <% else %>
-    <%= account.account_name %>
-    <% end %>
-  </div>
-  <div class="col-lg-2">
-    <% if account.phone.blank? %>
-    <span style="color: red;">Phone not specified</span>
+        <%= account.account_name %>
+        <% end %>
+    </div>
+    <div class="col-lg-2">
+        <% if account.phone.blank? %>
+        <span style="color: red;">Phone not specified</span>
     <% else %>
-    <%= account.phone %>
-    <% end %>
-  </div>
-  <div class="col-lg-2">
-    <% if account.industry.blank? %>
-    <span style="color: red;">Industry not specified</span>
+        <%= account.phone %>
+        <% end %>
+    </div>
+    <div class="col-lg-2">
+        <% if account.industry.blank? %>
+        <span style="color: red;">Industry not specified</span>
     <% else %>
-    <%= account.industry %>
-    <% end %>
-  </div>
-  <div class="col-lg-2">
-    <% if account.account_type.blank? %>
-    <span style="color: red;">Account type not specified</span>
+        <%= account.industry %>
+        <% end %>
+    </div>
+    <div class="col-lg-2">
+        <% if account.account_type.blank? %>
+        <span style="color: red;">Account type not specified</span>
     <% else %>
-    <%= account.account_type %>
-    <% end %>
-  </div>
-  <div class="col-lg-1"></div>
-  <div class="col-lg-2">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-      <i class="caret"></i>
-    </a>
-    <ul class="dropdown-menu">
-      <li><%= link_to 'Show', account_path(account) %></li>
-      <li><%= link_to 'Delete', account_path(account), method: :delete %></li>
-    </ul>
-  </div>
+        <%= account.account_type %>
+        <% end %>
+    </div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-2">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="caret"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li><%= link_to 'Show', account_path(account) %></li>
+            <li><%= link_to 'Delete', account_path(account),
+            method: :delete, data: {confirm: "Are you sure?"} %></li>
+        </ul>
+    </div>
 </div>
