@@ -1,0 +1,32 @@
+<div class="tab-pane fade in" id="userActivities">
+<div class="row">
+<div class="col-lg-12">
+  <% if @user.opportunities.blank? %>
+  No opportunities
+  <% else %>
+
+  <h3>Opportunities Registered</h3>
+  <hr>
+  <div class="row">
+    <div class="col-lg-9">
+      <strong>Name</strong>
+    </div>
+    <div class="col-lg-3">
+      <strong>Created at</strong>
+    </div>
+  </div>
+  <% @user.opportunities.each do |op| %>
+  <div class="row">
+    <div class="col-lg-9">
+  <%= op.name %>
+</div>
+<div class="col-lg-3">
+  <%= op.created_at.strftime('%d %b %Y') %>
+</div>
+</div>
+  <% end %>
+  <% end %>
+
+</div>
+</div>
+</div>

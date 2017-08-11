@@ -1,2 +1,30 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="container" style="padding-top: 30px;">
+<div class="row">
+<div class="col-lg-3">
+  <% if @user.avatar.blank? %>
+    <%= letter_avatar_tag(@user.name, 200, class: "img-responsive img-center") %>
+  <% else %>
+    <%= image_tag(@user.avatar.url(:medium), class: "img-responsive img-center") %>
+  <% end %>
+  <h3><%= @user.name %></h3>
+
+</div>
+<div class="col-lg-9">
+  <div class="row">
+      <div class="col-lg-12">
+          <ul class="nav nav-tabs">
+            <li class="active"><%= link_to 'Details', '#userDetails',
+            data: {toggle: "tab", target: "#userDetails"} %></li>
+              <li><%= link_to 'Activities', '#userActivities',
+            data: {toggle: "tab", target: "#userActivities"} %></li>
+          </ul>
+      </div>
+  </div>
+
+  <div class="tab-content">
+    <%= render 'users/user_details' %>
+    <%= render 'users/user_activities' %>
+  </div>
+</div>
+</div>
+</div>

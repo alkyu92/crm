@@ -8,7 +8,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
 
       t.string :phone
       t.string :title
-      t.string :address
+      t.string :department
 
       ## Recoverable
       t.string   :reset_password_token
