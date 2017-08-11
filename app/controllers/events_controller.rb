@@ -9,9 +9,9 @@ class EventsController < ApplicationController
       if @event.save
         @opportunity.timelines.create!(tactivity: "event",
         nactivity: @event.description, action: "created event", user_id: current_user.id)
-        format.js { flash[:success] = "Event log created!" }
+        format.js { flash.now[:success] = "Event log created!" }
       else
-        format.js { flash[:success] = "Failed to create event log!" }
+        format.js { flash.now[:success] = "Failed to create event log!" }
       end
     end
 
@@ -22,9 +22,9 @@ class EventsController < ApplicationController
       if @event.update(params_event)
         @opportunity.timelines.create!(tactivity: "event",
         nactivity: @event.description, action: "updated event", user_id: current_user.id)
-        format.js { flash[:success] = "Event entry updated!" }
+        format.js { flash.now[:success] = "Event entry updated!" }
       else
-        format.js { flash[:danger] = "Failed to update event entry!" }
+        format.js { flash.now[:danger] = "Failed to update event entry!" }
       end
     end
   end
@@ -36,7 +36,7 @@ class EventsController < ApplicationController
     nactivity: @event.description, action: "deleted event", user_id: current_user.id)
 
     respond_to do |format|
-      format.js { flash[:success] = "Event log deleted!" }
+      format.js { flash.now[:success] = "Event log deleted!" }
     end
   end
 
@@ -49,13 +49,13 @@ class EventsController < ApplicationController
         @opportunity.timelines.create!(tactivity: "event",
         nactivity: @event.description,
         action: "updated event status from Attended to Not Attend for event", user_id: current_user.id)
-        format.js { flash[:success] = "Event status changed from Attended to Not Attend!" }
+        format.js { flash.now[:success] = "Event status changed from Attended to Not Attend!" }
       else
         @event.update_attributes(complete: true)
         @opportunity.timelines.create!(tactivity: "event",
         nactivity: @event.description,
         action: "updated event status from Not Attend to Attended for event", user_id: current_user.id)
-        format.js { flash[:success] = "Event status changed from Not Attend to Attended!" }
+        format.js { flash.now[:success] = "Event status changed from Not Attend to Attended!" }
       end
     end
   end
@@ -69,7 +69,7 @@ class EventsController < ApplicationController
     @opportunity = Opportunity.find(params[:opportunity_id])
 
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Can't find records!"
+    flash.now[:danger] = "Can't find records!"
     redirect_to root_path
   end
 
@@ -77,7 +77,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Can't find records!"
+    flash.now[:danger] = "Can't find records!"
     redirect_to root_path
   end
 end

@@ -15,7 +15,7 @@ class TimelinesController < ApplicationController
     @timeline = @opportunity.timelines.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Can't find records!"
+    flash.now[:danger] = "Can't find records!"
     redirect_to root_path
   end
 end

@@ -5,30 +5,26 @@ class AccaccnotesController < ApplicationController
   def create
     @accnote = @account.accnotes.build(params_accnote)
 
-    #respond_to do |format|
+    respond_to do |format|
       if @accnote.save
         @account.timelines.create!(tactivity: "note",
         nactivity: @accnote.title, action: "created note", user_id: current_user.id)
-        #format.js { flash[:success] = "Note log added!" }
-        redirect_to root_path
+        format.js { flash.now[:success] = "Note log added!" }
       else
-        #format.js { flash[:danger] = "Failed to add note log!" }
-        redirect_to root_path
+        format.js { flash.now[:danger] = "Failed to add note log!" }
       end
-    #end
-
+    end
   end
 
   def update
-    if @accnote.update(params_accnote)
-      @account.timelines.create!(tactivity: "note",
-      nactivity: @accnote.title, action: "updated note", user_id: current_user.id)
-
-      flash[:success] = "Accnote entry created!"
-      redirect_to request.referrer
-    else
-      flash[:danger] = "Failed to create note entry!"
-      redirect_to request.referrer
+    respond_to do |format|
+      if @accnote.update(params_accnote)
+        @account.timelines.create!(tactivity: "note",
+        nactivity: @accnote.title, action: "updated note", user_id: current_user.id)
+        format.js { flash.now[:success] = "Accnote entry created!" }
+      else
+        format.js { flash.now[:danger] = "Failed to create note entry!" }
+      end
     end
   end
 
@@ -39,7 +35,7 @@ class AccaccnotesController < ApplicationController
     nactivity: @accnote.title, action: "deleted note", user_id: current_user.id)
 
     respond_to do |format|
-      format.js { flash[:success] = "Note log deleted!" }
+      format.js { flash.now[:success] = "Note log deleted!" }
     end
   end
 
@@ -52,7 +48,7 @@ class AccaccnotesController < ApplicationController
     @account = Account.find(params[:account_id])
 
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Can't find records!"
+    flash.now[:danger] = "Can't find records!"
     redirect_to root_path
   end
 
@@ -60,7 +56,7 @@ class AccaccnotesController < ApplicationController
     @accnote = Accnote.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Can't find records!"
+    flash.now[:danger] = "Can't find records!"
     redirect_to root_path
   end
 end

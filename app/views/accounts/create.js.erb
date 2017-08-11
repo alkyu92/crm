@@ -1,0 +1,18 @@
+$('#account_account_name').val('');
+$('#account_account_type').val('');
+$('#account_industry').val('');
+$('#account_website').val('');
+$('#account_phone').val('');
+$('#account_fax').val('');
+$('#account_description').val('');
+$('#account_number_of_employee').val('');
+
+$('#account_billing_street').val('');
+$('#account_billing_city').val('');
+$('#account_billing_state').val('');
+$('#account_billing_postal_code').val('');
+$('#account_billing_country').val('');
+
+$('#accountModalForm').modal('toggle');
+$('#acc').html("<%= j (render 'accounts/acc') %>");
+$('#notice-acc').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();

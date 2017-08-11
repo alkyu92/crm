@@ -76,6 +76,7 @@ No event created yet.
                 <div class="modal-body">
                     <%= simple_form_for [@opportunity, event], remote: true do |f| %>
                     <%= f.input :description %>
+                    <%= f.input :event_date, as: :date_time_picker %>
                 </div>
                 <div class="modal-footer">
                     <%= f.button :submit, class: "btn btn-success" %>

@@ -9,9 +9,9 @@ class StagesController < ApplicationController
       if @stage.save
         @opportunity.timelines.create!(tactivity: "stage", nactivity: @stage.name,
         action: "created stage", user_id: current_user.id)
-        format.js { flash[:success] = "Opportunity stage created!" }
+        format.js { flash.now[:success] = "Opportunity stage created!" }
       else
-        format.js { flash[:danger] = "Failed to create opportunity stage!" }
+        format.js { flash.now[:danger] = "Failed to create opportunity stage!" }
       end
     end
 
@@ -24,7 +24,7 @@ class StagesController < ApplicationController
     action: "deleted stage", user_id: current_user.id)
 
     respond_to do |format|
-      format.js { flash[:success] = "Opportunity stage deleted!" }
+      format.js { flash.now[:success] = "Opportunity stage deleted!" }
     end
   end
 
@@ -32,15 +32,15 @@ class StagesController < ApplicationController
     respond_to do |format|
       if @stage.status == "In Progress"
         update_status("In Progress", "Completed")
-        format.js { flash[:success] = "Stage status updated from In Progress to Completed!" }
+        format.js { flash.now[:success] = "Stage status updated from In Progress to Completed!" }
       elsif @stage.status == "Completed"
         update_status("Completed", "In Progress")
         @opportunity.update_attributes(current_stage: @stage.name) # current stage
-        format.js { flash[:success] = "Stage status updated from Completed to In Progress!" }
+        format.js { flash.now[:success] = "Stage status updated from Completed to In Progress!" }
       elsif @stage.status == "Waiting"
         update_status("Waiting", "In Progress")
         @opportunity.update_attributes(current_stage: @stage.name)
-        format.js { flash[:success] = "Stage status updated from Waiting to In Progress!" }
+        format.js { flash.now[:success] = "Stage status updated from Waiting to In Progress!" }
       end
     end
   end
@@ -59,14 +59,14 @@ class StagesController < ApplicationController
   def find_opportunity
     @opportunity = Opportunity.find(params[:opportunity_id])
     rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Can't find records!"
+    flash.now[:danger] = "Can't find records!"
     redirect_to root_path
   end
 
   def find_stage
     @stage = Stage.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Can't find records!"
+    flash.now[:danger] = "Can't find records!"
     redirect_to root_path
   end
 end

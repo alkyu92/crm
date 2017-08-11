@@ -1,19 +1,19 @@
-class ContactsController < ApplicationController
-  before_action :find_contact, only: [:update, :destroy]
+class AcccontactsController < ApplicationController
+  before_action :find_acccontact, only: [ :update, :destroy]
 
   def index
-    @contacts = Contact.all
+    @acccontacts = Acccontact.all
   end
 
   def create
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    @contact = @opportunity.contacts.build(params_contact)
-    @contact.user_id = current_user.id
+    @account = Account.find(params[:account_id])
+    @acccontact = @account.acccontacts.build(params_acccontact)
+    @acccontact.user_id = current_user.id
 
     respond_to do |format|
-      if @contact.save
-        @opportunity.timelines.create!(tactivity: "contact",
-        nactivity: @contact.name, action: "created contact", user_id: current_user.id)
+      if @acccontact.save
+        @account.timelines.create!(tactivity: "contact",
+        nactivity: @acccontact.name, action: "created contact", user_id: current_user.id)
         format.js { flash.now[:success] = "Contact created!" }
       else
         format.js { flash.now[:danger] = "Failed to create contact!" }
@@ -24,9 +24,9 @@ class ContactsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @contact.update(params_contact)
-        @opportunity.timelines.create!(tactivity: "contact",
-        nactivity: @contact.name, action: "updated contact", user_id: current_user.id)
+      if @acccontact.update(params_acccontact)
+        @account.timelines.create!(tactivity: "contact",
+        nactivity: @acccontact.name, action: "updated contact", user_id: current_user.id)
         format.js { flash.now[:success] = "Contact updated!" }
       else
         format.js { flash.now[:danger] = "Failed to update contact!" }
@@ -36,9 +36,9 @@ class ContactsController < ApplicationController
   end
 
   def destroy
-    @contact.destroy
-    @opportunity.timelines.create!(tactivity: "contact",
-    nactivity: @contact.name, action: "deleted contact", user_id: current_user.id)
+    @acccontact.destroy
+    @account.timelines.create!(tactivity: "contact",
+    nactivity: @acccontact.name, action: "deleted contact", user_id: current_user.id)
     respond_to do |format|
       format.js { flash.now[:success] = "Contact deleted!" }
     end
@@ -46,8 +46,8 @@ class ContactsController < ApplicationController
 
   private
 
-  def params_contact
-    params.require(:contact).permit(:name,
+  def params_acccontact
+    params.require(:acccontact).permit(:name,
                                     :title,
                                     :department,
                                     :email,
@@ -60,8 +60,8 @@ class ContactsController < ApplicationController
                                     :mailing_country)
   end
 
-  def find_contact
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    @contact = @opportunity.contacts.find(params[:id])
+  def find_acccontact
+    @account = Account.find(params[:account_id])
+    @acccontact = @account.acccontacts.find(params[:id])
   end
 end

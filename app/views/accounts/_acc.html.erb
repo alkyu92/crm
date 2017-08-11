@@ -1,4 +1,43 @@
 <div class="row">
+    <div class="col-lg-10">
+        <h1>Accounts</h1>
+        <p><%= pluralize(Account.count, 'item') %></p>
+    </div>
+    <div class="col-lg-2" style="padding-top: 25px;">
+        <%= link_to 'New Account', '#', class: "btn btn-default",
+        data: {toggle: "modal", target: "#accountModalForm"} %>
+    </div>
+</div>
+<hr>
+<div id="notice-acc"></div>
+<% @accounts = Account.all %>
+<% if @accounts.blank? %>
+There are no accounts registered yet.
+<% else %>
+<div class="row">
+    <div class="col-lg-1">
+        <strong>ID</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Name</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Phone</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Industry</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Type</strong>
+    </div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-2">
+        <strong>Action</strong>
+    </div>
+</div>
+<% @accounts.each do |account| %>
+
+<div class="row">
     <div class="col-lg-1">
         <%= account.id %>
     </div>
@@ -38,7 +77,9 @@
         <ul class="dropdown-menu">
             <li><%= link_to 'Show', account_path(account) %></li>
             <li><%= link_to 'Delete', account_path(account),
-            method: :delete, data: {confirm: "Are you sure?"} %></li>
+            method: :delete, data: {confirm: "Are you sure?"},remote: true %></li>
         </ul>
     </div>
 </div>
+<% end %>
+<% end %>

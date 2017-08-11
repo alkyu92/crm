@@ -2,7 +2,6 @@ class AccountsController < ApplicationController
   before_action :find_account, only: [:show, :update, :destroy]
 
   def index
-    @accounts = Account.all
     @account = current_user.accounts.build
   end
 
@@ -12,20 +11,20 @@ class AccountsController < ApplicationController
   def create
     @account = current_user.accounts.build(params_account)
 
-    if @account.save
-      @account.acctimelines.create!(tactivity: "account", nactivity: @account.account_name,
-      action: "created account", user_id: current_user.id)
-
-      flash[:success] = "Account entry created!"
-      redirect_to @account
-    else
-      flash[:danger] = "Failed to create account entry!"
-      redirect_to accounts_path
+    respond_to do |format|
+      if @account.save
+        @account.acctimelines.create!(tactivity: "account", nactivity: @account.account_name,
+        action: "created account", user_id: current_user.id)
+        format.js { flash.now[:success] = "Account entry created!" }
+      else
+        format.js { flash.now[:danger] = "Failed to create account entry!" }
+      end
     end
+
   end
 
   def update
-    #respond_to do |format|
+    respond_to do |format|
       if @account.update(params_account)
 
         if params[:accdocs]
@@ -36,25 +35,26 @@ class AccountsController < ApplicationController
 
         @account.acctimelines.create!(tactivity: "account", nactivity: @account.account_name,
         action: "updated account", user_id: current_user.id)
-        redirect_to root_path
-        #format.js { flash[:success] = "Account entry updated!" }
+
+        format.js { flash.now[:success] = "Account entry updated!" }
       else
-        #format.js { flash[:danger] = "Failed to update account entry!" }
+        format.js { flash.now[:danger] = "Failed to update account entry!" }
       end
-    #end
+    end
   end
 
   def destroy
     @account.destroy
-    flash[:success] = "Account entry deleted!"
-    redirect_to accounts_path
+    respond_to do |format|
+      format.js { flash.now[:success] = "Account entry deleted!" }
+    end
   end
 
   def delete_attachment
     @account = Account.find(params[:account_id])
     @account.accdocuments.find(params[:id]).destroy
     respond_to do |format|
-      format.js { flash[:success] = "Attachment deleted!" }
+      format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end
 
@@ -88,7 +88,7 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Can't find records!"
+    flash.now[:danger] = "Can't find records!"
     redirect_to root_path
   end
 end

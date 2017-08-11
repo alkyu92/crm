@@ -9,7 +9,7 @@
                 <h4 class="modal-title"><%= yield :form_title %></h4>
             </div>
             <div class="modal-body">
-                <%= simple_form_for @account do |f| %>
+                <%= simple_form_for @account, remote: true do |f| %>
                 <div class="row">
                     <div class="col-lg-4">
                       <h4>Account Details</h4>
@@ -76,15 +76,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-lg-12">
-                    <h4>Upload Documents</h4>
-                    <br>
-                    <%= file_field_tag "accdocs[]",type: :file, multiple: true %>
-                    <%= f.hint "Can upload multiple files. Only pdf/doc type"%>
-                  </div>
                 </div>
             </div>
             <div class="modal-footer">

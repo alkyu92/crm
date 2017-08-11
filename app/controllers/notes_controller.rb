@@ -9,9 +9,9 @@ class NotesController < ApplicationController
       if @note.save
         @opportunity.timelines.create!(tactivity: "note",
         nactivity: @note.title, action: "created note", user_id: current_user.id)
-        format.js { flash[:success] = "Note log added!" }
+        format.js { flash.now[:success] = "Note log added!" }
       else
-        format.js { flash[:danger] = "Failed to add note log!" }
+        format.js { flash.now[:danger] = "Failed to add note log!" }
       end
     end
 
@@ -22,9 +22,9 @@ class NotesController < ApplicationController
       if @note.update(params_note)
         @opportunity.timelines.create!(tactivity: "note",
         nactivity: @note.title, action: "updated note", user_id: current_user.id)
-        format.js { flash[:success] = "Note entry created!" }
+        format.js { flash.now[:success] = "Note entry created!" }
       else
-        format.js { flash[:danger] = "Failed to create note entry!" }
+        format.js { flash.now[:danger] = "Failed to create note entry!" }
       end
     end
   end
@@ -36,7 +36,7 @@ class NotesController < ApplicationController
     nactivity: @note.title, action: "deleted note", user_id: current_user.id)
 
     respond_to do |format|
-      format.js { flash[:success] = "Note log deleted!" }
+      format.js { flash.now[:success] = "Note log deleted!" }
     end
   end
 
@@ -49,7 +49,7 @@ class NotesController < ApplicationController
     @opportunity = Opportunity.find(params[:opportunity_id])
 
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Can't find records!"
+    flash.now[:danger] = "Can't find records!"
     redirect_to root_path
   end
 
@@ -57,7 +57,7 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Can't find records!"
+    flash.now[:danger] = "Can't find records!"
     redirect_to root_path
   end
 end

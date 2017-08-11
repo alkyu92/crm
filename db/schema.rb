@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170809062339) do
+ActiveRecord::Schema.define(version: 20170810102916) do
+
+  create_table "acccontacts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "title"
+    t.string   "department"
+    t.string   "email"
+    t.string   "phone"
+    t.string   "fax"
+    t.string   "mailing_street"
+    t.string   "mailing_city"
+    t.string   "mailing_state"
+    t.string   "mailing_postal_code"
+    t.string   "mailing_country"
+    t.integer  "account_id"
+    t.integer  "user_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["account_id"], name: "index_acccontacts_on_account_id"
+    t.index ["user_id"], name: "index_acccontacts_on_user_id"
+  end
 
   create_table "accdocuments", force: :cascade do |t|
     t.string   "accdoc_file_name"

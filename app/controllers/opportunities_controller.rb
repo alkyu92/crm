@@ -21,9 +21,9 @@ class OpportunitiesController < ApplicationController
       if @opportunity.save
         @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.name,
         action: "created opportunity", user_id: current_user.id)
-        format.js { flash[:success] = "Opportunity entry created!" }
+        format.js { flash.now[:success] = "Opportunity entry created!" }
       else
-        format.js { flash[:danger] = "Failed to create opportunity entry!" }
+        format.js { flash.now[:danger] = "Failed to create opportunity entry!" }
       end
     end
 
@@ -52,9 +52,9 @@ class OpportunitiesController < ApplicationController
         @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.name,
         action: "updated opportunity", user_id: current_user.id)
 
-        format.js { flash[:success] = "Opportunity entry updated!" }
+        format.js { flash.now[:success] = "Opportunity entry updated!" }
       else
-        format.js { flash[:danger] = "Failed to update opportunity!" }
+        format.js { flash.now[:danger] = "Failed to update opportunity!" }
       end
     end
 
@@ -63,7 +63,7 @@ class OpportunitiesController < ApplicationController
   def destroy
     @opportunity.destroy
     respond_to do |format|
-      format.js { flash[:success] = "Opportunity entry deleted!" }
+      format.js { flash.now[:success] = "Opportunity entry deleted!" }
     end
   end
 
@@ -71,7 +71,7 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.find(params[:opportunity_id])
     @opportunity.documents.find(params[:id]).destroy
     respond_to do |format|
-      format.js { flash[:success] = "Attachment deleted!" }
+      format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end
 
@@ -96,7 +96,7 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.includes(:user).find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Record not found!"
+    flash.now[:danger] = "Record not found!"
     redirect_to opportunities_path
   end
 

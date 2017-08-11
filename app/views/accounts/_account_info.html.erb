@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-lg-3">
+        <strong>Phone number</strong>
+        <% if @account.phone.blank? %>
+        <p style="color: red;">Phone number not specified</p>
+    <% else %>
+        <p><%= @account.phone %></p>
+        <% end %>
+    </div>
+    <div class="col-lg-3">
+        <strong>Billing Address</strong>
+        <br>
+        <% if (@account.billing_street &&
+           @account.billing_city &&
+           @account.billing_state &&
+           @account.billing_postal_code &&
+           @account.billing_country).blank? %>
+        <span style="color: red;">
+            Billing address not specified
+        </span>
+    <% else %>
+
+        <% if @account.billing_street != "" %>
+        <%= @account.billing_street %>
+        <% end %>
+        <% if @account.billing_city != "" %>
+        <%= @account.billing_city %>,
+        <% end %>
+        <% if @account.billing_state != "" %>
+        <%= @account.billing_state %>,
+        <% end %>
+        <% if @account.billing_postal_code != "" %>
+        <%= @account.billing_postal_code %>
+        <% end %>
+        <% if @account.billing_country != "" %>
+        <%= @account.billing_country %>
+        <% end %>
+
+        <% end %>
+    </div>
+    <div class="col-lg-3">
+        <strong>Website</strong>
+        <% if @account.website.blank? %>
+        <p style="color: red;">Phone number not specified</p>
+    <% else %>
+        <br>
+        <a href="http://<%= @account.website %>" target="_blank">
+            <%= @account.website %>
+        </a>
+        <% end %>
+    </div>
+    <div class="col-lg-3"></div>
+</div>

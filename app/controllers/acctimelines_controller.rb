@@ -15,7 +15,7 @@ class AcctimelinesController < ApplicationController
     @acctimeline = @account.acctimelines.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Can't find records!"
+    flash.now[:danger] = "Can't find records!"
     redirect_to root_path
   end
 end

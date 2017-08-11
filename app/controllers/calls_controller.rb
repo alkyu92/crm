@@ -9,9 +9,9 @@ class CallsController < ApplicationController
       if @call.save
         @opportunity.timelines.create!(tactivity: "call log",
         nactivity: @call.description, action: "created call log", user_id: current_user.id)
-        format.js { flash[:success] = "Call log created!" }
+        format.js { flash.now[:success] = "Call log created!" }
       else
-        format.js { flash[:danger] = "Failed to create call log!" }
+        format.js { flash.now[:danger] = "Failed to create call log!" }
       end
     end
 
@@ -22,9 +22,9 @@ class CallsController < ApplicationController
       if @call.update(params_call)
         @opportunity.timelines.create!(tactivity: "call log",
         nactivity: @call.description, action: "updated call log", user_id: current_user.id)
-        format.js { flash[:success] = "Call entry updated!" }
+        format.js { flash.now[:success] = "Call entry updated!" }
       else
-        format.js { flash[:danger] = "Failed to update call entry!" }
+        format.js { flash.now[:danger] = "Failed to update call entry!" }
       end
     end
 
@@ -35,7 +35,7 @@ class CallsController < ApplicationController
     @opportunity.timelines.create!(tactivity: "call log",
     nactivity: @call.description, action: "deleted call log", user_id: current_user.id)
     respond_to do |format|
-      format.js { flash[:success] = "Call log deleted!" }
+      format.js { flash.now[:success] = "Call log deleted!" }
     end
   end
 
@@ -48,7 +48,7 @@ class CallsController < ApplicationController
     @opportunity = Opportunity.find(params[:opportunity_id])
 
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Can't find records!"
+    flash.now[:danger] = "Can't find records!"
     redirect_to root_path
   end
 
@@ -56,7 +56,7 @@ class CallsController < ApplicationController
     @call = Call.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Can't find records!"
+    flash.now[:danger] = "Can't find records!"
     redirect_to root_path
   end
 end
