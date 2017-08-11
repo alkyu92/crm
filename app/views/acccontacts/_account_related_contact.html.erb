@@ -1,0 +1,20 @@
+<div class="tab-pane fade in" id="accountContacts">
+
+    <div class="row">
+        <div class="col-lg-8">
+            <h4>Account Related Contacts</h4>
+        </div>
+        <div class="col-lg-4">
+            <%= link_to 'Create New Contact', '#', class: "btn btn-default form-control",
+            data: {toggle: "modal", target: "#acccontactModalForm"}%>
+        </div>
+    </div>
+
+    <%= render 'acccontacts/form' %>
+
+    <hr>
+    <div id="notice-acccontact"></div>
+    <div id="acccontact" class="row">
+        <%= render 'acccontacts/acccontact' %>
+    </div>
+</div>

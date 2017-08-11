@@ -1,4 +1,4 @@
-class AccaccnotesController < ApplicationController
+class AccnotesController < ApplicationController
   before_action :find_account
   before_action :find_accnote, only: [:update, :destroy]
 
@@ -7,7 +7,7 @@ class AccaccnotesController < ApplicationController
 
     respond_to do |format|
       if @accnote.save
-        @account.timelines.create!(tactivity: "note",
+        @account.acctimelines.create!(tactivity: "note",
         nactivity: @accnote.title, action: "created note", user_id: current_user.id)
         format.js { flash.now[:success] = "Note log added!" }
       else
@@ -19,7 +19,7 @@ class AccaccnotesController < ApplicationController
   def update
     respond_to do |format|
       if @accnote.update(params_accnote)
-        @account.timelines.create!(tactivity: "note",
+        @account.acctimelines.create!(tactivity: "note",
         nactivity: @accnote.title, action: "updated note", user_id: current_user.id)
         format.js { flash.now[:success] = "Accnote entry created!" }
       else
@@ -31,7 +31,7 @@ class AccaccnotesController < ApplicationController
   def destroy
     @accnote.destroy
 
-    @account.timelines.create!(tactivity: "note",
+    @account.acctimelines.create!(tactivity: "note",
     nactivity: @accnote.title, action: "deleted note", user_id: current_user.id)
 
     respond_to do |format|
@@ -46,10 +46,6 @@ class AccaccnotesController < ApplicationController
 
   def find_account
     @account = Account.find(params[:account_id])
-
-  rescue ActiveRecord::RecordNotFound
-    flash.now[:danger] = "Can't find records!"
-    redirect_to root_path
   end
 
   def find_accnote

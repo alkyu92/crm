@@ -8,7 +8,11 @@
     <br>
     <div class="media">
         <div class="media-left">
-            <%= image_tag('http://placehold.it/43x43', class: "media-object") %>
+          <% if contact.profile_pic.blank? %>
+          <%= letter_avatar_tag(contact.name, 43 , class: "media-object") %>
+          <% else %>
+          <%= image_tag(contact.profile_pic.url(:small), class: "media-object") %>
+          <% end %>
         </div>
         <div class="media-body">
             <h5 class="media-heading">
@@ -25,7 +29,6 @@
                     method: :delete, remote: true %></li>
                     </ul>
                 </div>
-
                 <small><%= contact.title %></small><br>
                 <small><%= contact.department %></small>
             </h5>
@@ -63,6 +66,12 @@
                     <div class="col-lg-6">
                         <h4>Contact Details</h4>
                         <br>
+                        <%= f.input :profile_pic, as: :file, label: "Upload Profile Picture" %>
+                        <% if contact.profile_pic.blank? %>
+                        There are no profile picture uploaded yet.
+                        <% else %>
+                        <%= image_tag(contact.profile_pic.url(:medium), class: "img-responsive img-center") %>
+                        <% end %>
                         <%= f.input :name, label: "Name", placeholder: "Name", autofocus: true %>
                         <div class="row">
                           <div class="col-lg-6">

@@ -22,6 +22,9 @@ There are no accounts registered yet.
         <strong>Name</strong>
     </div>
     <div class="col-lg-2">
+        <strong>Email</strong>
+    </div>
+    <div class="col-lg-1">
         <strong>Phone</strong>
     </div>
     <div class="col-lg-2">
@@ -30,13 +33,12 @@ There are no accounts registered yet.
     <div class="col-lg-2">
         <strong>Type</strong>
     </div>
-    <div class="col-lg-1"></div>
     <div class="col-lg-2">
         <strong>Action</strong>
     </div>
 </div>
 <% @accounts.each do |account| %>
-
+<hr>
 <div class="row">
     <div class="col-lg-1">
         <%= account.id %>
@@ -45,10 +47,17 @@ There are no accounts registered yet.
         <% if account.account_name.blank? %>
         <span style="color: red;">Account name not specified</span>
     <% else %>
-        <%= account.account_name %>
+        <%= link_to account.account_name, account_path(account) %>
         <% end %>
     </div>
     <div class="col-lg-2">
+      <% if account.email.blank? %>
+      <span style="color: red;">Email not specified</span>
+  <% else %>
+      <%= account.email %>
+      <% end %>
+    </div>
+    <div class="col-lg-1">
         <% if account.phone.blank? %>
         <span style="color: red;">Phone not specified</span>
     <% else %>
@@ -69,9 +78,8 @@ There are no accounts registered yet.
         <%= account.account_type %>
         <% end %>
     </div>
-    <div class="col-lg-1"></div>
     <div class="col-lg-2">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
             <i class="caret"></i>
         </a>
         <ul class="dropdown-menu">

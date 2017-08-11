@@ -14,6 +14,8 @@ class CreateAcccontacts < ActiveRecord::Migration[5.0]
       t.string :mailing_postal_code
       t.string :mailing_country
 
+      t.attachment :profile_pic
+
       t.references :account, foreign_key: true
       t.references :user, foreign_key: true
       t.timestamps

@@ -1,4 +1,12 @@
 <div class="row">
+  <div class="col-lg-3">
+    <strong>Email</strong>
+    <% if @account.email.blank? %>
+    <p style="color: red;">Email not specified</p>
+<% else %>
+    <p><%= @account.email %></p>
+    <% end %>
+  </div>
     <div class="col-lg-3">
         <strong>Phone number</strong>
         <% if @account.phone.blank? %>
@@ -49,5 +57,4 @@
         </a>
         <% end %>
     </div>
-    <div class="col-lg-3"></div>
 </div>

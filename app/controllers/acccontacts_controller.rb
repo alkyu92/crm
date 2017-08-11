@@ -12,7 +12,7 @@ class AcccontactsController < ApplicationController
 
     respond_to do |format|
       if @acccontact.save
-        @account.timelines.create!(tactivity: "contact",
+        @account.acctimelines.create!(tactivity: "contact",
         nactivity: @acccontact.name, action: "created contact", user_id: current_user.id)
         format.js { flash.now[:success] = "Contact created!" }
       else
@@ -25,7 +25,7 @@ class AcccontactsController < ApplicationController
   def update
     respond_to do |format|
       if @acccontact.update(params_acccontact)
-        @account.timelines.create!(tactivity: "contact",
+        @account.acctimelines.create!(tactivity: "contact",
         nactivity: @acccontact.name, action: "updated contact", user_id: current_user.id)
         format.js { flash.now[:success] = "Contact updated!" }
       else
@@ -37,7 +37,7 @@ class AcccontactsController < ApplicationController
 
   def destroy
     @acccontact.destroy
-    @account.timelines.create!(tactivity: "contact",
+    @account.acctimelines.create!(tactivity: "contact",
     nactivity: @acccontact.name, action: "deleted contact", user_id: current_user.id)
     respond_to do |format|
       format.js { flash.now[:success] = "Contact deleted!" }
@@ -57,7 +57,8 @@ class AcccontactsController < ApplicationController
                                     :mailing_city,
                                     :mailing_state,
                                     :mailing_postal_code,
-                                    :mailing_country)
+                                    :mailing_country,
+                                    :profile_pic)
   end
 
   def find_acccontact

@@ -18,14 +18,38 @@ No notes submitted yet.
             </a>
             <ul class="dropdown-menu">
                 <li><%= link_to 'Edit', '#',
-              data: {toggle: "modal", target: "#oppEditModalStage"} %></li>
+              data: {toggle: "modal", target: "#note-#{accnote.id}"} %></li>
                 <li><%= link_to 'Delete',
-              account_note_path(@account, accnote), method: :delete, remote: true %></li>
+              account_accnote_path(@account, accnote), method: :delete, remote: true %></li>
             </ul>
         </div>
 
         <br>
         <%= accnote.description.truncate(100) %>
+    </div>
+
+    <!-- Modal -->
+    <div id="note-<%= accnote.id %>" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Note</h4>
+                </div>
+                <div class="modal-body">
+                    <%= simple_form_for [@account, accnote],remote: true do |f| %>
+                    <%= f.input :title %>
+                    <%= f.input :description %>
+                </div>
+                <div class="modal-footer">
+                  <%= f.button :submit, class: "btn btn-success" %>
+                    <% end %>
+                    <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+                </div>
+            </div>
+        </div>
     </div>
     <% end %>
 </div>

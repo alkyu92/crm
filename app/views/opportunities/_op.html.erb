@@ -16,7 +16,9 @@
 No opportunities yet.
 <% else %>
 <div class="row">
-    <div class="col-lg-1"></div>
+    <div class="col-lg-1">
+      <strong>ID</strong>
+    </div>
     <div class="col-lg-3">
         <strong>Opportunity Name</strong>
     </div>
@@ -34,6 +36,7 @@ No opportunities yet.
     </div>
 </div>
   <% @opportunities.each do |opportunity| %>
+  <hr>
   <div class="row">
       <div class="col-lg-1">
         <%= opportunity.id %>
@@ -71,7 +74,7 @@ No opportunities yet.
         <% end %>
       </div>
       <div class="col-lg-2">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
           <i class="caret"></i>
         </a>
         <ul class="dropdown-menu">

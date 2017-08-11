@@ -24,10 +24,14 @@ ActiveRecord::Schema.define(version: 20170810102916) do
     t.string   "mailing_state"
     t.string   "mailing_postal_code"
     t.string   "mailing_country"
+    t.string   "profile_pic_file_name"
+    t.string   "profile_pic_content_type"
+    t.integer  "profile_pic_file_size"
+    t.datetime "profile_pic_updated_at"
     t.integer  "account_id"
     t.integer  "user_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.index ["account_id"], name: "index_acccontacts_on_account_id"
     t.index ["user_id"], name: "index_acccontacts_on_user_id"
   end
@@ -56,6 +60,7 @@ ActiveRecord::Schema.define(version: 20170810102916) do
     t.string   "account_name"
     t.string   "account_type"
     t.string   "website"
+    t.string   "email"
     t.text     "description"
     t.string   "phone"
     t.string   "fax"
@@ -112,10 +117,14 @@ ActiveRecord::Schema.define(version: 20170810102916) do
     t.string   "mailing_state"
     t.string   "mailing_postal_code"
     t.string   "mailing_country"
+    t.string   "profile_pic_file_name"
+    t.string   "profile_pic_content_type"
+    t.integer  "profile_pic_file_size"
+    t.datetime "profile_pic_updated_at"
     t.integer  "opportunity_id"
     t.integer  "user_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.index ["opportunity_id"], name: "index_contacts_on_opportunity_id"
     t.index ["user_id"], name: "index_contacts_on_user_id"
   end

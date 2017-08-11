@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
 
   resources :accounts do
-    resources :contacts
+    resources :acccontacts
     get '/delete_attachment/:id',
     to: 'accounts#delete_attachment', as: :delete_attachment
     resources :acctimelines

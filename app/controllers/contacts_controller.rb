@@ -57,7 +57,8 @@ class ContactsController < ApplicationController
                                     :mailing_city,
                                     :mailing_state,
                                     :mailing_postal_code,
-                                    :mailing_country)
+                                    :mailing_country,
+                                    :profile_pic)
   end
 
   def find_contact

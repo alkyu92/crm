@@ -9,11 +9,12 @@
                 <h4 class="modal-title">Create New Contact</h4>
             </div>
             <div class="modal-body">
-                <%= simple_form_for [@account, @contact, Contact.new],remote: true do |f| %>
+                <%= simple_form_for [@account, @acccontact, Acccontact.new],remote: true do |f| %>
                 <div class="row">
                     <div class="col-lg-6">
                         <h4>Contact Details</h4>
                         <br>
+                        <%= f.input :profile_pic, as: :file, label: "Upload Profile Picture" %>
                         <%= f.input :name, label: "Name", placeholder: "Name", autofocus: true %>
                         <div class="row">
                           <div class="col-lg-6">
