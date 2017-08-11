@@ -66,11 +66,11 @@
     <div class="col-lg-6">
         <small>Billing Address</small>
         <h4>
-            <% if (@account.billing_street &&
-         @account.billing_city &&
-         @account.billing_state &&
-         @account.billing_postal_code &&
-         @account.billing_country).blank? %>
+            <% if (@account.billing_street == "" &&
+         @account.billing_city == "" &&
+         @account.billing_state == "" &&
+         @account.billing_postal_code == "" &&
+         @account.billing_country == "") %>
             <span style="color: red;">
                 Billing address not specified
             </span>

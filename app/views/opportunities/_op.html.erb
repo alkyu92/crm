@@ -16,7 +16,7 @@
 No opportunities yet.
 <% else %>
 <div class="row">
-    <div class="col-lg-1">
+    <div class="col-lg-1 text-center">
       <strong>ID</strong>
     </div>
     <div class="col-lg-3">
@@ -31,14 +31,14 @@ No opportunities yet.
     <div class="col-lg-2">
         <strong>Closed Date</strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 text-center">
       <strong>Action</strong>
     </div>
 </div>
   <% @opportunities.each do |opportunity| %>
   <hr>
   <div class="row">
-      <div class="col-lg-1">
+      <div class="col-lg-1 text-center">
         <%= opportunity.id %>
       </div>
       <div class="col-lg-3">
@@ -73,7 +73,7 @@ No opportunities yet.
         <%= opportunity.close_date.strftime('%d %b %Y') %>
         <% end %>
       </div>
-      <div class="col-lg-2">
+      <div class="col-lg-2 text-center">
         <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
           <i class="caret"></i>
         </a>

@@ -67,7 +67,7 @@ No notes submitted yet.
                     <h4 class="modal-title"><%= note.title %></h4>
                 </div>
                 <div class="modal-body">
-                    <%= note.description %>
+                    <%= simple_format h(note.description) %>
                 </div>
                 <div class="modal-footer">
 

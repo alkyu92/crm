@@ -171,7 +171,11 @@
                     <div class="col-lg-5">
                         <small>Mailing Address</small>
                         <h4>
-                            <% if (contact.mailing_street && contact.mailing_city && contact.mailing_state && contact.mailing_postal_code && contact.mailing_country).blank? %>
+                            <% if (contact.mailing_street == "" &&
+                              contact.mailing_city == "" &&
+                              contact.mailing_state == "" &&
+                              contact.mailing_postal_code == "" &&
+                              contact.mailing_country == "") %>
                             <span style="color: red;">
                                 Mailing address not specified
                             </span>

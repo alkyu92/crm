@@ -58,6 +58,11 @@
                     </div>
                     <div class="col-lg-6">
                         <h4>Shipping Address</h4>
+                          <div class="pull-right">
+                        <%= link_to 'Copy from Billing Address', '#', id: "copyAddr",
+                        class: "btn btn-default" %>
+                      </div>
+
                         <br>
                         <%= f.input :shipping_street, label: "Street",
                         placeholder: "Shipping address street" %>
@@ -87,3 +92,13 @@
 
     </div>
 </div>
+
+<%= javascript_tag defer: 'defer' do %>
+$('#copyAddr').on("click", function(){
+  $('#account_shipping_street').val($('#account_billing_street').val());
+  $('#account_shipping_city').val($('#account_billing_city').val());
+  $('#account_shipping_state').val($('#account_billing_state').val());
+  $('#account_shipping_postal_code').val($('#account_billing_postal_code').val());
+  $('#account_shipping_country').val($('#account_billing_country').val());
+});
+<% end %>

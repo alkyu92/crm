@@ -15,7 +15,7 @@
 There are no accounts registered yet.
 <% else %>
 <div class="row">
-    <div class="col-lg-1">
+    <div class="col-lg-1 text-center">
         <strong>ID</strong>
     </div>
     <div class="col-lg-2">
@@ -33,14 +33,14 @@ There are no accounts registered yet.
     <div class="col-lg-2">
         <strong>Type</strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 text-center">
         <strong>Action</strong>
     </div>
 </div>
 <% @accounts.each do |account| %>
 <hr>
 <div class="row">
-    <div class="col-lg-1">
+    <div class="col-lg-1 text-center">
         <%= account.id %>
     </div>
     <div class="col-lg-2">
@@ -78,7 +78,7 @@ There are no accounts registered yet.
         <%= account.account_type %>
         <% end %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 text-center">
         <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
             <i class="caret"></i>
         </a>

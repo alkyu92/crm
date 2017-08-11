@@ -143,11 +143,33 @@
                     <div class="col-lg-5">
                         <small>Mailing Address</small>
                         <h4>
-                            <%= contact.mailing_street %>
-                            <%= contact.mailing_city %>,
-                            <%= contact.mailing_state %>,
-                            <%= contact.mailing_postal_code %>
-                            <%= contact.mailing_country %>
+                          <% if (contact.mailing_street == "" &&
+                            contact.mailing_city == "" &&
+                            contact.mailing_state == "" &&
+                            contact.mailing_postal_code == "" &&
+                            contact.mailing_country == "") %>
+                          <span style="color: red;">
+                              Mailing address not specified
+                          </span>
+                      <% else %>
+
+                          <% if contact.mailing_street != "" %>
+                          <%= contact.mailing_street %>
+                          <% end %>
+                          <% if contact.mailing_city != "" %>
+                          <%= contact.mailing_city %>,
+                          <% end %>
+                          <% if contact.mailing_state != "" %>
+                          <%= contact.mailing_state %>,
+                          <% end %>
+                          <% if contact.mailing_postal_code != "" %>
+                          <%= contact.mailing_postal_code %>
+                          <% end %>
+                          <% if contact.mailing_country != "" %>
+                          <%= contact.mailing_country %>
+                          <% end %>
+
+                          <% end %>
                         </h4>
                         <br>
 

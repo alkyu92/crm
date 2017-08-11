@@ -13,6 +13,12 @@ $('#account_billing_state').val('');
 $('#account_billing_postal_code').val('');
 $('#account_billing_country').val('');
 
+$('#account_shipping_street').val('');
+$('#account_shipping_city').val('');
+$('#account_shipping_state').val('');
+$('#account_shipping_postal_code').val('');
+$('#account_shipping_country').val('');
+
 $('#accountModalForm').modal('toggle');
 $('#acc').html("<%= j (render 'accounts/acc') %>");
 $('#notice-acc').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
