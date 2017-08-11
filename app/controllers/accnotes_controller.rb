@@ -46,6 +46,10 @@ class AccnotesController < ApplicationController
 
   def find_account
     @account = Account.find(params[:account_id])
+
+  rescue ActiveRecord::RecordNotFound
+    flash.now[:danger] = "Can't find records!"
+    redirect_to root_path
   end
 
   def find_accnote

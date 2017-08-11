@@ -8,11 +8,6 @@ No notes submitted yet.
     <div class="col-lg-6 panel panel-body">
         <%= link_to accnote.title.truncate(40), '#',
         data: {toggle: "modal", target: "#accnoteInfo-#{accnote.id}"} %>
-        <h5><small>
-          Created
-          <%= time_ago_in_words(accnote.created_at) %>
-          ago
-        </small></h5>
         <div class="pull-right">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="caret"></i>
@@ -24,7 +19,11 @@ No notes submitted yet.
               account_accnote_path(@account, accnote), method: :delete, remote: true %></li>
             </ul>
         </div>
-
+        <h5><small>
+          Created
+          <%= time_ago_in_words(accnote.created_at) %>
+          ago
+        </small></h5>
         <br>
         <%= accnote.description.truncate(100) %>
     </div>
