@@ -23,7 +23,7 @@ No tasks created yet.
 
     <% @opportunity.tasks.order('created_at DESC').each do |task| %>
     <li class="list-group-item">
-        <div class="row">
+        <div class="row task-padding" id="t<%= task.id%>">
             <div class="col-lg-5">
                 <%= task.description %>
             </div>

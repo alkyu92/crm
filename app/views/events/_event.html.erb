@@ -22,7 +22,7 @@ No event created yet.
     </li>
     <% @opportunity.events.each do |event| %>
     <li class="list-group-item">
-        <div class="row">
+        <div class="row" id="e<%= event.id %>">
             <div class="col-lg-5">
                 <%= event.description %>
             </div>

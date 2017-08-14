@@ -1,6 +1,10 @@
 class CallsController < ApplicationController
-  before_action :find_opportunity
+  before_action :find_opportunity, except: :index
   before_action :find_call, only: [:update, :destroy, :update_call_status]
+
+  def index
+    @calls = Call.all
+  end
 
   def create
     @call = @opportunity.calls.build(params_call)

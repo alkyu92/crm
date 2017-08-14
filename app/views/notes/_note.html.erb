@@ -17,17 +17,16 @@ No notes submitted yet.
             opportunity_note_path(@opportunity, note), method: :delete, remote: true %></li>
             </ul>
         </div>
-        <%= link_to note.title.truncate(40), '#',
-        data: {toggle: "modal", target: "#noteInfo-#{note.id}"} %>
+
         <h5>
+          <%= link_to note.title.truncate(40), '#',
+          data: {toggle: "modal", target: "#noteInfo-#{note.id}"} %>
             <small>
                 Created
                 <%= time_ago_in_words(note.created_at) %>
                 ago
             </small>
         </h5>
-
-        <br>
         <%= note.description.truncate(100) %>
     </div>
 
@@ -64,7 +63,10 @@ No notes submitted yet.
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"><%= note.title %></h4>
+                    <h4 class="modal-title">
+                      <small>Note</small>
+                      <br>
+                      <%= note.title %></h4>
                 </div>
                 <div class="modal-body">
                     <%= simple_format h(note.description) %>

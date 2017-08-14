@@ -24,6 +24,10 @@ Rails.application.routes.draw do
     resources :accnotes
   end
 
+  get '/tasks', to: 'tasks#index'
+  get '/calls', to: 'calls#index'
+  get '/events', to: 'events#index'
+
   resources :users
 
   get '/search', to: 'search#search', as: :search

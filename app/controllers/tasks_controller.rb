@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
-  before_action :find_opportunity
+  before_action :find_opportunity, except: :index
   before_action :find_task, only: [:update, :destroy, :update_task_status]
+
+  def index
+    @tasks = Task.all.order('due_date')
+  end
 
   def create
     @task = @opportunity.tasks.build(params_task)

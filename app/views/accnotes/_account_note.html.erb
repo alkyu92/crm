@@ -6,8 +6,7 @@ No notes submitted yet.
 <div class="row">
     <% @account.accnotes.each do |accnote| %>
     <div class="col-lg-6 panel panel-body">
-        <%= link_to accnote.title.truncate(40), '#',
-        data: {toggle: "modal", target: "#accnoteInfo-#{accnote.id}"} %>
+
         <div class="pull-right">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="caret"></i>
@@ -19,11 +18,15 @@ No notes submitted yet.
               account_accnote_path(@account, accnote), method: :delete, remote: true %></li>
             </ul>
         </div>
-        <h5><small>
-          Created
-          <%= time_ago_in_words(accnote.created_at) %>
-          ago
-        </small></h5>
+        <h5>
+            <%= link_to accnote.title.truncate(40), '#',
+          data: {toggle: "modal", target: "#accnoteInfo-#{accnote.id}"} %>
+            <small>
+                Created
+                <%= time_ago_in_words(accnote.created_at) %>
+                ago
+            </small>
+        </h5>
         <br>
         <%= accnote.description.truncate(100) %>
     </div>
@@ -44,7 +47,7 @@ No notes submitted yet.
                     <%= f.input :description %>
                 </div>
                 <div class="modal-footer">
-                  <%= f.button :submit, "Update Note",class: "btn btn-success" %>
+                    <%= f.button :submit, "Update Note",class: "btn btn-success" %>
                     <% end %>
                     <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
                 </div>
@@ -60,7 +63,11 @@ No notes submitted yet.
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"><%= accnote.title %></h4>
+                    <h4 class="modal-title">
+                        <small>Note</small>
+                        <br>
+                        <%= accnote.title %>
+                    </h4>
                 </div>
                 <div class="modal-body">
                     <%= simple_format h(accnote.description) %>

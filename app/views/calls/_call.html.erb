@@ -22,7 +22,7 @@ No call logs created yet.
     </li>
     <% @opportunity.calls.each do |call| %>
     <li class="list-group-item">
-        <div class="row">
+        <div class="row" id="c<%= call.id %>">
             <div class="col-lg-5">
                 <%= call.description %>
             </div>

@@ -1,3 +1,4 @@
+<div id="notice-contact"></div>
 <% if @opportunity.contacts.blank? %>
 <div class="col-lg-12">
     No contacts added yet.
@@ -128,15 +129,29 @@
                     </div>
                     <div class="col-lg-5">
                         <small>Name</small>
-                        <h4><%= contact.name %></h4>
+                        <h4>
+                          <% if contact.name.blank? %>
+                          <span style="color: red;">Not specified</span>
+                          <% else %>
+                          <%= contact.name %>
+                          <% end %>
+                        </h4>
                         <br>
 
                         <small>Position Title</small>
-                        <h4><%= contact.title %></h4>
+                        <h4><% if contact.title.blank? %>
+                        <span style="color: red;">Not specified</span>
+                        <% else %>
+                        <%= contact.title %>
+                        <% end %></h4>
                         <br>
 
                         <small>Department</small>
-                        <h4><%= contact.department %></h4>
+                        <h4><% if contact.department.blank? %>
+                        <span style="color: red;">Not specified</span>
+                        <% else %>
+                        <%= contact.department %>
+                        <% end %></h4>
 
                     </div>
                     <div class="col-lg-5">
@@ -148,7 +163,7 @@
                             contact.mailing_postal_code == "" &&
                             contact.mailing_country == "") %>
                           <span style="color: red;">
-                              Mailing address not specified
+                              Not specified
                           </span>
                       <% else %>
 
@@ -173,11 +188,19 @@
                         <br>
 
                         <small>Phone</small>
-                        <h4><%= contact.phone %></h4>
+                        <h4><% if contact.phone.blank? %>
+                        <span style="color: red;">Not specified</span>
+                        <% else %>
+                        <%= contact.phone %>
+                        <% end %></h4>
                         <br>
 
                         <small>Email</small>
-                        <h4><%= contact.email %></h4>
+                        <h4><% if contact.email.blank? %>
+                        <span style="color: red;">Not specified</span>
+                        <% else %>
+                        <%= contact.email %>
+                        <% end %></h4>
 
                     </div>
                 </div>

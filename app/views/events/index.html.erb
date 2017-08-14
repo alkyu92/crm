@@ -1,0 +1,31 @@
+<h2>Events List</h2>
+<%= pluralize(@events.count, 'item')%>
+<hr>
+<% if @events.blank? %>
+<p>There are no events yet.</p>
+<% else %>
+<div class="row">
+<div class="col-lg-1 text-center"><strong>ID</strong></div>
+<div class="col-lg-3"><strong>Description</strong></div>
+<div class="col-lg-2"><strong>Event Date</strong></div>
+<div class="col-lg-2"><strong>Opportunity Name</strong></div>
+<div class="col-lg-2"><strong>Account Name</strong></div>
+<div class="col-lg-2"><strong>Created At</strong></div>
+</div>
+
+<% @events.each do |event| %>
+<hr>
+<div class="row">
+  <div class="col-lg-1 text-center"><%= event.id %></div>
+  <div class="col-lg-3"><%= link_to event.description.truncate(50), opportunity_path(event.opportunity) %></div>
+<div class="col-lg-2">
+<%= event.event_date.strftime('%d %b %Y') %><br>
+(<%= distance_of_time_in_words(Time.now, event.event_date) %> left)
+</div>
+<div class="col-lg-2"><%= link_to event.opportunity.name, opportunity_path(event.opportunity) %></div>
+<div class="col-lg-2"><%= link_to event.opportunity.account.account_name,
+account_path(event.opportunity.account) %></div>
+<div class="col-lg-2"><%= event.created_at.strftime('%d %b %Y %H:%M:%S') %></div>
+</div>
+<% end %>
+<% end %>

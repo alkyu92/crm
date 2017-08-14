@@ -1,3 +1,4 @@
+<div id="notice-acccontact"></div>
 <% if @account.acccontacts.blank? %>
 <div class="col-lg-12">
     No contacts added yet.
@@ -171,11 +172,7 @@
                     <div class="col-lg-5">
                         <small>Mailing Address</small>
                         <h4>
-                            <% if (contact.mailing_street == "" &&
-                              contact.mailing_city == "" &&
-                              contact.mailing_state == "" &&
-                              contact.mailing_postal_code == "" &&
-                              contact.mailing_country == "") %>
+                            <% if (contact.mailing_street == "" && contact.mailing_city == "" && contact.mailing_state == "" && contact.mailing_postal_code == "" && contact.mailing_country == "") %>
                             <span style="color: red;">
                                 Mailing address not specified
                             </span>

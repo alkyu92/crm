@@ -1,0 +1,31 @@
+<h2>Calls List</h2>
+<%= pluralize(@calls.count, 'item')%>
+<hr>
+<% if @calls.blank? %>
+<p>There are no calls yet.</p>
+<% else %>
+<div class="row">
+<div class="col-lg-1 text-center"><strong>ID</strong></div>
+<div class="col-lg-3"><strong>Description</strong></div>
+<div class="col-lg-2"><strong>Call Date</strong></div>
+<div class="col-lg-2"><strong>Opportunity Name</strong></div>
+<div class="col-lg-2"><strong>Account Name</strong></div>
+<div class="col-lg-2"><strong>Created At</strong></div>
+</div>
+
+<% @calls.each do |call| %>
+<hr>
+<div class="row">
+  <div class="col-lg-1 text-center"><%= call.id %></div>
+  <div class="col-lg-3"><%= link_to call.description.truncate(50), opportunity_path(call.opportunity) %></div>
+<div class="col-lg-2">
+<%= call.call_datetime.strftime('%d %b %Y') %><br>
+(<%= distance_of_time_in_words(Time.now, call.call_datetime) %> left)
+</div>
+<div class="col-lg-2"><%= link_to call.opportunity.name, opportunity_path(call.opportunity) %></div>
+<div class="col-lg-2"><%= link_to call.opportunity.account.account_name,
+account_path(call.opportunity.account) %></div>
+<div class="col-lg-2"><%= call.created_at.strftime('%d %b %Y %H:%M:%S') %></div>
+</div>
+<% end %>
+<% end %>

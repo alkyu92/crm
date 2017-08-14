@@ -1,6 +1,10 @@
 class EventsController < ApplicationController
-  before_action :find_opportunity
+  before_action :find_opportunity, except: :index
   before_action :find_event, only: [:update, :destroy, :update_event_status]
+
+  def index
+    @events = Event.all.order('event_date')
+  end
 
   def create
     @event = @opportunity.events.build(params_event)

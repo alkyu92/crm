@@ -17,3 +17,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap-datetimepicker";
+
+.task-padding{
+  padding-top: 70px;
+  margin-top: -70px;
+}
