@@ -34,6 +34,8 @@
             <% end %>
         </h4>
     </div>
+
+    <% unless @opportunity.status == "Open" %>
     <div class="col-lg-2">
         <small>Close Date</small>
         <br>
@@ -45,6 +47,7 @@
             <% end %>
         </h4>
     </div>
+    <% end %>
     <div class="col-lg-2">
         <small>Opportunity Owner</small>
         <br>

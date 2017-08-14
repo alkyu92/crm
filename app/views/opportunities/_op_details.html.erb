@@ -12,14 +12,14 @@
         </h4>
         <br>
 
-        <small>Account</small>
+        <small>Account Name</small>
         <h4>
             <% if @opportunity.account_id.blank? %>
             <span style="color: red;">
                 Account not specified
             </span>
         <% else %>
-            <%= @opportunity.account_id %>
+            <%= @opportunity.account.account_name %>
             <% end %>
         </h4>
         <br>
@@ -36,6 +36,19 @@
         </h4>
         <br>
 
+        <% unless @opportunity.status == "Open" || @opportunity.status == "" %>
+        <small>Close Date</small>
+        <h4>
+            <% if @opportunity.close_date.blank? %>
+            <span style="color: red;">
+                Close Date not specified
+            </span>
+            <% else %>
+            <%= @opportunity.close_date.strftime('%d %b %Y') %>
+            <% end %>
+        </h4>
+        <% end %>
+        <br>
     </div>
     <div class="col-lg-6">
         <small>Amount</small>
@@ -58,6 +71,7 @@
             </span>
         <% else %>
             <%= @opportunity.probability %>
+            percent
             <% end %>
         </h4>
         <br>
@@ -70,6 +84,8 @@
             <span style="color: green">Closed-Win</span>
             <% elsif @opportunity.status == "Open" %>
             Open
+            <% elsif @opportunity.status == "" %>
+            <span style="color: red">Status not specified</span>
             <% end %>
         </h4>
         <br>

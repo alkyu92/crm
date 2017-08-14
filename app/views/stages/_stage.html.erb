@@ -1,91 +1,90 @@
 <div class="col-lg-12">
-<% if @opportunity.stages.blank? %>
-<br>
-<div class="text-center">
-    No stages created yet.
-</div>
-<% else %>
-<div class="row">
+    <% if @opportunity.stages.blank? %>
+    <br>
     <div class="text-center">
-        <small>Opportunity Stages</small>
+        No stages created yet.
     </div>
-</div>
-<br>
+<% else %>
+    <div class="row">
+        <div class="text-center">
+            <small>Opportunity Stages</small>
+        </div>
+    </div>
+    <br>
 
-<% previous_status = nil %>
-<% current_status = nil %>
-
-<% @opportunity.stages.each_with_index do |stage, index| %>
-
-  <% current_status = stage.name %>
-
-<% if (index+1) % 6 == 0 %>
-<div class="row">
+    <% @opportunity.stages.each_with_index do |stage, index| %>
+    <% if index == 0 && stage.status == "Waiting" %>
+      <% stage.update_attributes(current_status: true, status: "In Progress") %>
+      <% @opportunity.update_attributes(current_stage: stage.name) %>
     <% end %>
 
-    <% if stage.status == "Waiting" %>
-    <div class="col-lg-2 btn btn-default">
-        <% elsif stage.status == "Completed" %>
-        <div class="col-lg-2 btn btn-success">
-        <% elsif stage.status == "In Progress" %>
-            <div class="col-lg-2 btn btn-primary">
-                <% end %>
-                <!-- stage.status == false -->
+    <% if (index+1) % 6 == 0 %>
+    <div class="row">
+        <% end %>
 
-                <span class="pull-left badge"><%= index+1 %></span>
-                <strong><%= stage.name %></strong>
+        <% if stage.status == "Waiting" %>
+        <div class="col-lg-2 btn btn-default">
+            <% elsif stage.status == "Completed" %>
+            <div class="col-lg-2 btn btn-success">
+                <% elsif stage.status == "In Progress" %>
+                <div class="col-lg-2 btn btn-primary">
+                    <% end %>
+                    <!-- stage.status == false -->
 
-                <div class="pull-right">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="caret"></i>
-                    </a>
-                    <ul class="dropdown-menu">
+                    <span class="pull-left badge"><%= index+1 %></span>
+                    <strong><%= stage.name %></strong>
 
-                        <% if stage.status == "In Progress" %>
-                        <li><%= link_to 'Mark as Completed', update_stage_status_path(@opportunity, stage),
-                        remote: true, method: :get %></li>
-                        <% elsif stage.status == "Completed" %>
-                        <li><%= link_to 'Mark as In Progress', update_stage_status_path(@opportunity, stage),
-                        remote: true, method: :get %></li>
-                        <% elsif stage.status == "Waiting" %>
-                        <li><%= link_to 'Mark as In Progress', update_stage_status_path(@opportunity, stage),
-                        remote: true, method: :get %></li>
-                        <% end %>
+                    <div class="pull-right">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="caret"></i>
+                        </a>
+                        <ul class="dropdown-menu">
 
-                        <li><%= link_to 'Edit', '#',data: {toggle: "modal", target: "#oppEditModalStage"} %></li>
-                        <li><%= link_to 'Delete', opportunity_stage_path(@opportunity, stage),
-                    method: :delete, remote: true %></li>
-                    </ul>
+                            <% if stage.status == "Waiting" %>
+                            <li><%= link_to 'Mark as In Progress', update_stage_status_path(@opportunity, stage),
+                            remote: true, method: :get %></li>
+
+                            <% elsif stage.status == "In Progress" %>
+                            <li><%= link_to 'Mark as Completed', update_stage_status_path(@opportunity, stage),
+                            remote: true, method: :get %></li>
+
+                            <% elsif stage.status == "Completed" %>
+                            <li><%= link_to 'Mark as In Progress', update_stage_status_path(@opportunity, stage),
+                            remote: true, method: :get %></li>
+                            <% end %>
+
+                            <li><%= link_to 'Delete', opportunity_stage_path(@opportunity, stage),
+                            method: :delete, remote: true %></li>
+                        </ul>
+                    </div>
+
+                    <br>
+
+                    <% if stage.status == "Completed" %>
+                    <small>Completed</small>
+                    <br><br>
+                    <% elsif stage.status == "In Progress" %>
+                    <small>In Progress</small>
+                    <br><br>
+                    <% elsif stage.status == "Waiting" %>
+                    <small>Waiting for previous stage</small>
+                    <br><br>
+                    <% end %>
+
                 </div>
 
-                <br>
-
-                <% if stage.status == "Completed" %>
-                  <small>Completed</small>
-                  <br><br>
-                <% elsif stage.status == "In Progress" %>
-                  <small>In Progress</small>
-                  <br><br>
-                <% elsif stage.status == "Waiting" %>
-                  <small>Waiting for previous stage</small>
-                  <br><br>
-                <% end %>
-
-                <% previous_status = current_status %>
+                <% if (index+1) % 6 == 0 %>
             </div>
+            <% end %>
 
-            <% if (index+1) % 6 == 0 %>
+            <% end %>
+            <!-- @opportunity.stages.each_with_index -->
+
+            <% end %>
+            <!-- @opportunity.stages.blank? -->
         </div>
-        <% end %>
 
-        <% end %>
-        <!-- @opportunity.stages.each_with_index -->
-
-<% end %>
-<!-- @opportunity.stages.blank? -->
-</div>
-
-<div class="col-lg-12">
-<br>
-<div id="notice-stage"></div>
-</div>
+        <div class="col-lg-12">
+            <br>
+            <div id="notice-stage"></div>
+        </div>

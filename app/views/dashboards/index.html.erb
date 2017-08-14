@@ -8,6 +8,9 @@
         </div>
         <div class="panel panel-default panel-body">
             <h5>Latest Tasks List</h5>
+            <% if @tasks.blank? %>
+            No tasks created yet.
+            <% else %>
             <div class="row">
                 <div class="col-lg-4">
                     <small>Activities</small>
@@ -69,6 +72,8 @@
                 <div class="col-lg-4"><%= distance_of_time_in_words(urtask.due_date, Time.now) %></div>
                 <% end %>
             </div>
+            <% end %>
+
             <% end %>
 
             <h5><%= link_to 'View All Tasks', tasks_path, class: "pull-right" %></h5>

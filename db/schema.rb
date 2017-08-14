@@ -187,6 +187,7 @@ ActiveRecord::Schema.define(version: 20170810102916) do
   create_table "stages", force: :cascade do |t|
     t.string   "name"
     t.string   "status",         default: "Waiting", null: false
+    t.boolean  "current_status", default: false,     null: false
     t.integer  "opportunity_id"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false

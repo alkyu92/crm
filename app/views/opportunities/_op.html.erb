@@ -81,7 +81,7 @@ No opportunities yet.
         <% if opportunity.status == "Open" %>
           Open
         <% elsif opportunity.status == "Closed-Win" || opportunity.status == "Closed-Loss" %>
-          <%= opportunity.close_date %>
+          <%= opportunity.close_date.strftime('%d %b %Y') %>
         <% end %>
       </div>
       <div class="col-lg-2 text-center">
