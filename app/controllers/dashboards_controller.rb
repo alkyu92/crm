@@ -1,5 +1,7 @@
 class DashboardsController < ApplicationController
   def index
+    @opportunities = Opportunity.all
+    @tasks = Task.all
   end
 
   def show

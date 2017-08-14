@@ -70,7 +70,11 @@ class OpportunitiesController < ApplicationController
   def delete_attachment
     @opportunity = Opportunity.find(params[:opportunity_id])
     @opportunity.documents.find(params[:id]).destroy
+
     respond_to do |format|
+      @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.name,
+      action: "deleted attachment from opportunity", user_id: current_user.id)
+
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end
@@ -87,6 +91,7 @@ class OpportunitiesController < ApplicationController
                                          :description,
                                          :loss_reason,
                                          :close_date,
+                                         :status,
                                          :document,
                                          documents_attributes: [ doc: [] ]
                                         )

@@ -19,7 +19,7 @@ No opportunities yet.
     <div class="col-lg-1 text-center">
       <strong>ID</strong>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-2">
         <strong>Opportunity Name</strong>
     </div>
     <div class="col-lg-2">
@@ -29,6 +29,9 @@ No opportunities yet.
         <strong>Current Stage</strong>
     </div>
     <div class="col-lg-2">
+        <strong>Status</strong>
+    </div>
+    <div class="col-lg-1">
         <strong>Closed Date</strong>
     </div>
     <div class="col-lg-2 text-center">
@@ -41,7 +44,7 @@ No opportunities yet.
       <div class="col-lg-1 text-center">
         <%= opportunity.id %>
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-2">
           <!-- Opportunity Name -->
           <% if opportunity.name.blank? %>
             <span style="color: red;">Opportunity name not specified</span>
@@ -66,11 +69,19 @@ No opportunities yet.
           <% end %>
       </div>
       <div class="col-lg-2">
-        <!-- Closed Date -->
-        <% if opportunity.close_date.blank? %>
-        <span style="color: red;">Date not specified</span>
-        <% else %>
-        <%= opportunity.close_date.strftime('%d %b %Y') %>
+        <% if opportunity.status == "Open"%>
+        Open
+        <% elsif opportunity.status == "Closed-Win" %>
+        <span style="color: green;">Closed-Win</span>
+        <% elsif opportunity.status == "Closed-Loss" %>
+        <span style="color: ">Closed-Loss</span>
+        <% end %>
+      </div>
+      <div class="col-lg-1">
+        <% if opportunity.status == "Open" %>
+          Open
+        <% elsif opportunity.status == "Closed-Win" || opportunity.status == "Closed-Loss" %>
+          <%= opportunity.close_date %>
         <% end %>
       </div>
       <div class="col-lg-2 text-center">

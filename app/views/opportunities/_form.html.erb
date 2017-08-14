@@ -11,7 +11,6 @@
 
             <% if @accounts.blank? %>
             <div class="modal-body">
-
                 <div class="text-center">
                     <h3>Create account first before create opportunity</h3>
                 </div>
@@ -32,6 +31,8 @@
                         <%= f.association :account, label: "Account Name",
                         include_blank: "Choose related account",
                         label_method: lambda { |account| "#{account.account_name}" } %>
+                        <%= f.input :status, collection: ["Open", "Closed-Win", "Closed-Loss"],
+                        include_blank: "Choose Status" %>
                         <%= f.input :close_date, as: :date_time_picker %>
                     </div>
                     <div class="col-lg-4">
@@ -41,15 +42,16 @@
                         <%= f.input :probability, label: "Probability",
                         placeholder: "Probability in percentage" %>
                         <%= f.input :amount, label: "Amount", placeholder: "Opportunity amount" %>
+                        <%= f.input :loss_reason, label: "Loss Reason", placeholder: "Loss reason" %>
                     </div>
                     <div class="col-lg-4">
                         <br><br><br>
-                        <%= f.input :description, input_html: {rows: 5}, label: "Description",
+                        <%= f.input :description, input_html: {rows: 9}, label: "Description",
                         placeholder: "Opportunity description" %>
-                        <%= f.input :loss_reason, label: "Loss Reason", placeholder: "Loss reason" %>
+
                     </div>
                 </div>
-                
+
             </div>
             <div class="modal-footer">
                 <%= f.button :submit, class: "btn-success" %>
@@ -60,8 +62,26 @@
             </div>
             <% end %>
             <!-- @accounts.blank? -->
-
         </div>
-
     </div>
 </div>
+
+<%= javascript_tag defer: 'defer' do %>
+$('.opportunity_close_date').hide();
+$('.opportunity_loss_reason').hide();
+
+$('#opportunity_status').on("change", function(){
+  var status = $('#opportunity_status').val();
+  if(status == "Closed-Win" || status == "Closed-Loss"){
+      $('.opportunity_close_date').show();
+  } else if(status == "Open" || status == ""){
+    $('.opportunity_close_date').hide();
+  }
+
+  if(status == "Closed-Loss"){
+    $('.opportunity_loss_reason').show();
+  } else {
+    $('.opportunity_loss_reason').hide();
+  }
+});
+<% end %>

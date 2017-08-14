@@ -62,6 +62,19 @@
         </h4>
         <br>
 
+        <small>Status</small>
+        <h4>
+            <% if @opportunity.status == "Closed-Loss" %>
+            <span style="color: red;">Closed-Loss</span>
+            <% elsif @opportunity.status == "Closed-Win" %>
+            <span style="color: green">Closed-Win</span>
+            <% elsif @opportunity.status == "Open" %>
+            Open
+            <% end %>
+        </h4>
+        <br>
+
+        <% if @opportunity.status == "Closed-Loss" %>
         <small>Loss Reason</small>
         <h4>
             <% if @opportunity.loss_reason.blank? %>
@@ -72,6 +85,8 @@
             <%= @opportunity.loss_reason %>
             <% end %>
         </h4>
+        <% end %>
+
     </div>
 </div>
 <div class="row">

@@ -53,7 +53,10 @@ class AccountsController < ApplicationController
   def delete_attachment
     @account = Account.find(params[:account_id])
     @account.accdocuments.find(params[:id]).destroy
+
     respond_to do |format|
+      @account.acctimelines.create!(tactivity: "account", nactivity: @account.account_name,
+      action: "deleted attachment from account", user_id: current_user.id)
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end

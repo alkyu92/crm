@@ -10,6 +10,7 @@ class CreateOpportunities < ActiveRecord::Migration[5.0]
       t.text :contacts
       t.string :loss_reason
       t.date :close_date
+      t.string :status, default: "Open"
 
       t.references :account, foreign_key: true
       t.references :user, foreign_key: true
