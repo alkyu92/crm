@@ -7,133 +7,16 @@
             </h3>
         </div>
         <div class="panel panel-default panel-body">
-            <h5>Latest Tasks List</h5>
-            <% if @tasks.blank? %>
-            No tasks created yet.
-            <% else %>
-            <div class="row">
-                <div class="col-lg-4">
-                    <small>Activities</small>
-                </div>
-                <div class="col-lg-4">
-                    <small>Created at Date</small>
-                </div>
-                <div class="col-lg-4">
-                    <small>Created at Time</small>
-                </div>
-            </div>
-
-            <% @tasks.each do |task| %>
-            <div class="row">
-                <div class="col-lg-4"><%= link_to task.description,
-              opportunity_path(task.opportunity.id, anchor: "t#{task.id}") %></div>
-                <% if task.due_date.blank? %>
-                <div class="col-lg-4">
-                    <span style="color: red;">Not specified</span>
-                </div>
-                <div class="col-lg-4">
-                    <span style="color: red;">Not available</span>
-                </div>
-            <% else %>
-                <div class="col-lg-4"><%= task.created_at.strftime('%d %b %Y')%></div>
-                <div class="col-lg-4"><%= task.created_at.strftime('%H:%M:%S')%></div>
-                <% end %>
-            </div>
-            <% end %>
-
-            <hr>
-
-            <h5>Urgent Tasks List</h5>
-            <div class="row">
-                <div class="col-lg-4">
-                    <small>Activities</small>
-                </div>
-                <div class="col-lg-4">
-                    <small>Due date</small>
-                </div>
-                <div class="col-lg-4">
-                    <small>Time remaining</small>
-                </div>
-            </div>
-
-            <% @urgent_tasks.each do |urtask| %>
-            <div class="row">
-                <div class="col-lg-4"><%= link_to urtask.description,
-              opportunity_path(urtask.opportunity.id, anchor: "t#{urtask.id}") %></div>
-                <% if urtask.due_date.blank? %>
-                <div class="col-lg-4">
-                    <span style="color: red;">Not specified</span>
-                </div>
-                <div class="col-lg-4">
-                    <span style="color: red;">Not available</span>
-                </div>
-            <% else %>
-                <div class="col-lg-4"><%= urtask.due_date.strftime('%d %b %Y')%></div>
-                <div class="col-lg-4"><%= distance_of_time_in_words(urtask.due_date, Time.now) %></div>
-                <% end %>
-            </div>
-            <% end %>
-
-            <% end %>
-
-            <h5><%= link_to 'View All Tasks', tasks_path, class: "pull-right" %></h5>
+            <%= render 'dashboards/dashboard_tasks' %>
         </div>
     </div>
     <div class="col-lg-4">
         <div class="panel panel-default panel-body">
-            <h5>Latest Accounts List</h5>
-            <% if @accounts.blank? %>
-            No accounts created yet.
-            <% else %>
-            <div class="row">
-              <div class="col-lg-6">
-                <small>Account Name</small>
-              </div>
-              <div class="col-lg-6">
-                <small>Created at DateTime</small>
-              </div>
-            </div>
-            <% @accounts.each do |acc| %>
-            <div class="row">
-              <div class="col-lg-6">
-                <%= link_to acc.account_name, account_path(acc) %>
-              </div>
-              <div class="col-lg-6">
-                <%= acc.created_at.strftime('%d %b %Y %H:%M:%S')%>
-              </div>
-            </div>
-            <% end %>
-            <% end %>
-            <h5><%= link_to 'View All Accounts', accounts_path, class: "pull-right" %></h5>
+            <%= render 'dashboards/dashboard_accounts' %>
         </div>
     </div>
     <div class="col-lg-4">
-        <div class="panel panel-default panel-body">
-            <h5>Latest Opportunities List</h5>
-            <% if @opportunities.blank? %>
-            No opportunities registered yet.
-        <% else %>
-        <div class="row">
-          <div class="col-lg-6">
-            <small>Opportunity Name</small>
-          </div>
-          <div class="col-lg-6">
-            <small>Created at DateTime</small>
-          </div>
-        </div>
-            <% @opportunities.order('created_at DESC').take(6).each do |op| %>
-            <div class="row">
-              <div class="col-lg-6">
-                <%= link_to op.name, opportunity_path(op) %>
-              </div>
-              <div class="col-lg-6">
-                <%= op.created_at.strftime('%d %b %Y %H:%M:%S')%>
-              </div>
-            </div>
-            <% end %>
-            <% end %>
-            <h5><%= link_to 'View All Opportunities', opportunities_path, class: "pull-right" %></h5>
-        </div>
+        <%= render 'dashboards/dashboard_opportunities' %>
     </div>
     <div class="col-lg-8">
         <div class="panel panel-default panel-body">
@@ -146,103 +29,13 @@
 
 <div class="row">
     <div class="col-lg-4">
-        <div class="panel panel-default panel-body">
-            <h5>Top Accounts - <span style="color: green">Opportunity Won</span></h5>
-            <% if @opwon.blank? %>
-            There are no opportunities won yet.
-            <% else %>
-            <div class="row">
-              <div class="col-lg-4">
-                <small>Account Name</small>
-              </div>
-              <div class="col-lg-4">
-                <small>Opportunity Name</small>
-              </div>
-              <div class="col-lg-4">
-                <small>Closed-Won at</small>
-              </div>
-            </div>
-              <% @opwon.each do |won| %>
-              <div class="row">
-                <div class="col-lg-4">
-                  <%= link_to won.account.account_name, account_path(won.account) %>
-                </div>
-                <div class="col-lg-4">
-                  <%= link_to won.name, opportunity_path(won) %>
-                </div>
-                <div class="col-lg-4">
-                  <%= won.close_date.strftime('%d %b %Y') %>
-                </div>
-              </div>
-              <% end %>
-            <% end %>
-        </div>
+        <%= render 'dashboards/dashboard_topwon' %>
     </div>
     <div class="col-lg-4">
-        <div class="panel panel-default panel-body">
-            <h5>Top Accounts - <span style="color: red;">Opportunity Loss</span></h5>
-            <% if @oploss.blank? %>
-            There are no opportunities loss yet.
-            <% else %>
-            <div class="row">
-              <div class="col-lg-4">
-                <small>Account Name</small>
-              </div>
-              <div class="col-lg-4">
-                <small>Opportunity Name</small>
-              </div>
-              <div class="col-lg-4">
-                <small>Closed-Loss at</small>
-              </div>
-            </div>
-              <% @oploss.each do |loss| %>
-              <div class="row">
-                <div class="col-lg-4">
-                  <%= link_to loss.account.account_name, account_path(loss.account) %>
-                </div>
-                <div class="col-lg-4">
-                  <%= link_to loss.name, opportunity_path(loss) %>
-                </div>
-                <div class="col-lg-4">
-                  <%= loss.close_date.strftime('%d %b %Y') %>
-                </div>
-              </div>
-              <% end %>
-            <% end %>
-        </div>
+        <%= render 'dashboards/dashboard_toploss' %>
     </div>
     <div class="col-lg-4">
-        <div class="panel panel-default panel-body">
-            <h5>Closed Loss by Reason</h5>
-            <% if @oploss.blank? %>
-            There are no opportunities loss yet.
-            <% else %>
-            <div class="row">
-              <div class="col-lg-4">
-                <small>Account Name</small>
-              </div>
-              <div class="col-lg-4">
-                <small>Opportunity Name</small>
-              </div>
-              <div class="col-lg-4">
-                <small>Closed-Loss Reason</small>
-              </div>
-            </div>
-              <% @oploss.each do |loss| %>
-              <div class="row">
-                <div class="col-lg-4">
-                  <%= link_to loss.account.account_name, account_path(loss.account) %>
-                </div>
-                <div class="col-lg-4">
-                  <%= link_to loss.name, opportunity_path(loss) %>
-                </div>
-                <div class="col-lg-4">
-                  <%= loss.loss_reason %>
-                </div>
-              </div>
-              <% end %>
-            <% end %>
-        </div>
+        <%= render 'dashboards/dashboard_lossreason' %>
     </div>
 </div>
 

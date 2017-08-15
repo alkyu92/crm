@@ -1,0 +1,26 @@
+<div class="panel panel-default panel-body">
+    <h5>Latest Opportunities List</h5>
+    <% if @opportunities.blank? %>
+    No opportunities registered yet.
+<% else %>
+<div class="row">
+  <div class="col-lg-6">
+    <small>Opportunity Name</small>
+  </div>
+  <div class="col-lg-6">
+    <small>Created at DateTime</small>
+  </div>
+</div>
+    <% @opportunities.order('created_at DESC').take(6).each do |op| %>
+    <div class="row">
+      <div class="col-lg-6">
+        <%= link_to op.name, opportunity_path(op) %>
+      </div>
+      <div class="col-lg-6">
+        <%= op.created_at.strftime('%d %b %Y %H:%M:%S')%>
+      </div>
+    </div>
+    <% end %>
+    <% end %>
+    <h5><%= link_to 'View All Opportunities', opportunities_path, class: "pull-right" %></h5>
+</div>

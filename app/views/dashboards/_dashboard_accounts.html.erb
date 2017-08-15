@@ -1,0 +1,24 @@
+<h5>Latest Accounts List</h5>
+<% if @accounts.blank? %>
+No accounts created yet.
+<% else %>
+<div class="row">
+  <div class="col-lg-6">
+    <small>Account Name</small>
+  </div>
+  <div class="col-lg-6">
+    <small>Created at DateTime</small>
+  </div>
+</div>
+<% @accounts.each do |acc| %>
+<div class="row">
+  <div class="col-lg-6">
+    <%= link_to acc.account_name, account_path(acc) %>
+  </div>
+  <div class="col-lg-6">
+    <%= acc.created_at.strftime('%d %b %Y %H:%M:%S')%>
+  </div>
+</div>
+<% end %>
+<% end %>
+<h5><%= link_to 'View All Accounts', accounts_path, class: "pull-right" %></h5>

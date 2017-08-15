@@ -1,0 +1,31 @@
+<div class="panel panel-default panel-body">
+    <h5>Top Accounts - <span style="color: green">Opportunity Won</span></h5>
+    <% if @opwon.blank? %>
+    There are no opportunities won yet.
+    <% else %>
+    <div class="row">
+      <div class="col-lg-4">
+        <small>Account Name</small>
+      </div>
+      <div class="col-lg-4">
+        <small>Opportunity Name</small>
+      </div>
+      <div class="col-lg-4">
+        <small>Closed-Won at</small>
+      </div>
+    </div>
+      <% @opwon.each do |won| %>
+      <div class="row">
+        <div class="col-lg-4">
+          <%= link_to won.account.account_name, account_path(won.account) %>
+        </div>
+        <div class="col-lg-4">
+          <%= link_to won.name, opportunity_path(won) %>
+        </div>
+        <div class="col-lg-4">
+          <%= won.close_date.strftime('%d %b %Y') %>
+        </div>
+      </div>
+      <% end %>
+    <% end %>
+</div>
