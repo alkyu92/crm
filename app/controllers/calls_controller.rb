@@ -3,7 +3,7 @@ class CallsController < ApplicationController
   before_action :find_call, only: [:update, :destroy, :update_call_status]
 
   def index
-    @calls = Call.all
+    @calls = Call.all.page(params[:page]).per(10)
   end
 
   def create

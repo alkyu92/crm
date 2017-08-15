@@ -12,7 +12,7 @@
 <% tasks.each do |task| %>
 <div class="row">
     <div class="col-lg-6">
-        <%= link_to task.description, opportunity_path(task.opportunity) %>
+        <%= link_to task.description, opportunity_path(task.opportunity, anchor: "t#{task.id}") %>
     </div>
     <div class="col-lg-6">
         <% if task.due_date.blank? %>

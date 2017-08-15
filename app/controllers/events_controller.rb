@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   before_action :find_event, only: [:update, :destroy, :update_event_status]
 
   def index
-    @events = Event.all.order('event_date')
+    @events = Event.all.order('event_date').page(params[:page]).per(10)
   end
 
   def create

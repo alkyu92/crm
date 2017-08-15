@@ -14,13 +14,14 @@
             <small>
                 <%= link_to timeline.user.name, user_path(timeline.user.id) %>
                 <%= timeline.action %>
-                <strong><%= link_to timeline.nactivity.truncate(50), '#' %></strong>
+                <strong><%= link_to timeline.nactivity.truncate(50),
+                opportunity_path(timeline.opportunity) %></strong>
                 <div class="pull-right">
-                <%= link_to opportunity_timeline_path(@opportunity, timeline),
+                    <%= link_to opportunity_timeline_path(@opportunity, timeline),
                 method: :delete, remote: true do %>
-                <i class="fa fa-times"></i>
-                <% end %>
-              </div>
+                    <i class="fa fa-times"></i>
+                    <% end %>
+                </div>
             </small>
             <h5 style="margin-top: -2px;">
                 <small>
@@ -30,14 +31,12 @@
                     ago
                 </small>
 
-                <h5>
-
-            </div>
+                <h5></div>
             </div>
         </div>
         <% end %>
         <div class="text-center" id="paginator">
-        <%= page_entries_info op %><br>
-        <%= paginate op, remote: true %>
-      </div>
-<% end %>
+            <%= page_entries_info op %><br>
+            <%= paginate op, remote: true %>
+        </div>
+        <% end %>

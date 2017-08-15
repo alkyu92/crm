@@ -138,6 +138,15 @@ class OpportunitiesController < ApplicationController
       @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.status,
       action: "updated opportunity status to", user_id: current_user.id)
     end
+
+    if @opportunity.status == "Open"
+      @opportunity.close_date = nil
+      @opportunity.loss_reason = nil
+    elsif @opportunity.status == "Close-Won"
+      @opportunity.loss_reason = nil
+    end
+
+    @opportunity.save
   end
 
 end

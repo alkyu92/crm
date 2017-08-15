@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:update, :destroy, :update_task_status]
 
   def index
-    @tasks = Task.all.order('due_date')
+    @tasks = Task.all.order('due_date').page(params[:page]).per(10)
   end
 
   def create

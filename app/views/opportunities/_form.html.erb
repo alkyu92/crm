@@ -85,5 +85,29 @@ $('#opportunity_status').on("change", function(){
     $('.opportunity_loss_reason').hide();
   }
 });
+<% elsif params[:action] == "show" %>
+$('.opportunity_close_date').hide();
+$('.opportunity_loss_reason').hide();
+
+$('.opportunity_status').on("change", function(){
+  var status_val = $('#opportunity_status').val();
+  if(status_val == "Closed-Won" || status_val == "Closed-Loss"){
+    $('.opportunity_close_date').show();
+  }
+
+  if(status_val == "Closed-Loss"){
+    $('.opportunity_loss_reason').show();
+  }
+
+  if(status_val == "Closed-Won"){
+    $('.opportunity_loss_reason').hide();
+  }
+
+  if(status_val == "Open"){
+    $('.opportunity_close_date').hide();
+    $('.opportunity_loss_reason').hide();
+  }
+});
+
 <% end %>
 <% end %>

@@ -16,7 +16,7 @@ No events yet.
 <% events.each do |event| %>
 <div class="row">
     <div class="col-lg-6">
-        <%= link_to event.description, opportunity_path(event.opportunity) %>
+        <%= link_to event.description, opportunity_path(event.opportunity, anchor: "e#{event.id}") %>
     </div>
     <div class="col-lg-6">
         <% if event.event_date.blank? %>

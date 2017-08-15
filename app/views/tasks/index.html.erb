@@ -1,5 +1,11 @@
 <h2>Tasks List</h2>
 <%= pluralize(@tasks.count, 'item')%>
+
+<div class="text-center">
+<%= page_entries_info @tasks %><br>
+<%= paginate @tasks %>
+</div>
+
 <hr>
 <% if @tasks.blank? %>
 There are no tasks yet.
@@ -45,4 +51,9 @@ account_path(task.opportunity.account) %></div>
     <div class="col-lg-2"><%= task.created_at.strftime('%d %b %Y %H:%M:%S') %></div>
 </div>
 <% end %>
+<br>
+<div class="text-center">
+<%= page_entries_info @tasks %><br>
+<%= paginate @tasks %>
+</div>
 <% end %>

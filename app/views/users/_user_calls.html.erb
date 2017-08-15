@@ -15,7 +15,7 @@ No log calls yet.
 <% calls.each do |call| %>
 <div class="row">
     <div class="col-lg-6">
-        <%= link_to call.description, opportunity_path(call.opportunity) %>
+        <%= link_to call.description, opportunity_path(call.opportunity, anchor: "c#{call.id}") %>
     </div>
     <div class="col-lg-6">
         <%= call.call_datetime.strftime('%d %b %Y %H:%M:%S') %>
