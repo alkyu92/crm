@@ -1,29 +1,29 @@
 <div class="container">
 
-  <div id="acc-title">
-  <%= render 'accounts/account_title' %>
-</div>
+    <div id="acc-title">
+        <%= render 'accounts/account_title' %>
+    </div>
 
     <% provide(:form_title, 'Edit Account Entry')%>
     <%= render 'form' %>
 
     <hr>
     <div id="acc-info">
-    <%= render 'accounts/account_info' %>
-  </div>
+        <%= render 'accounts/account_info' %>
+    </div>
     <hr>
 
     <div class="row">
         <div class="col-lg-12">
             <ul class="nav nav-tabs">
                 <li class="active"><%= link_to 'Details', '#accountDetails',
-          data: {toggle: "tab", target: "#accountDetails"} %></li>
-                <li><%= link_to 'Related Contacts', '#accountContacts',
-        data: {toggle: "tab", target: "#accountContacts"} %></li>
+                data: {toggle: "tab", target: "#accountDetails"} %></li>
                 <li><%= link_to 'Notes', '#accountNotes',
-          data: {toggle: "tab", target: "#accountNotes"} %></li>
+                data: {toggle: "tab", target: "#accountNotes"} %></li>
+                <li><%= link_to 'Related Contacts', '#accountContacts',
+                data: {toggle: "tab", target: "#accountContacts"} %></li>
                 <li><%= link_to 'Related Documents', '#accountDocs',
-          data: {toggle: "tab", target: "#accountDocs"} %></li>
+                data: {toggle: "tab", target: "#accountDocs"} %></li>
             </ul>
         </div>
     </div>

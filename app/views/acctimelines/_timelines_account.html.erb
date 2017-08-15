@@ -14,7 +14,7 @@
             <small>
                 <%= link_to timeline.user.name, user_path(timeline.user.id) %>
                 <%= timeline.action %>
-                <strong><%= timeline.nactivity.truncate(50) %></strong>
+                <strong><%= link_to timeline.nactivity.truncate(50), '#' %></strong>
                 <div class="pull-right">
                     <%= link_to account_acctimeline_path(@account, timeline),
                 method: :delete, remote: true do %>

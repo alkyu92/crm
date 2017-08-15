@@ -1,0 +1,77 @@
+<h2>Contacts</h2>
+<%= pluralize(@merge.count, 'item')%>
+<hr>
+<% if @merge.blank? %>
+There are no contacts registered yet.
+<% else %>
+<div class="row">
+    <div class="col-lg-2">
+        <strong>Name</strong>
+    </div>
+    <div class="col-lg-1">
+        <strong>Title</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Department</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Email</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Phone</strong>
+    </div>
+    <div class="col-lg-3">
+        <strong>Mailing Address</strong>
+    </div>
+</div>
+<% @merge.each do |contact| %>
+<hr>
+<div class="row">
+    <div class="col-lg-2">
+        <%= contact.name %>
+    </div>
+    <div class="col-lg-1">
+        <%= contact.title %>
+    </div>
+    <div class="col-lg-2">
+        <%= contact.department %>
+    </div>
+    <div class="col-lg-2">
+        <%= contact.email %>
+    </div>
+    <div class="col-lg-2">
+        <%= contact.phone %>
+    </div>
+    <div class="col-lg-3">
+        <% if (contact.mailing_street &&
+         contact.mailing_city &&
+         contact.mailing_state &&
+         contact.mailing_postal_code &&
+         contact.mailing_country).blank? %>
+        <span style="color: red;">
+            Mailing address not specified
+        </span>
+    <% else %>
+
+        <% if contact.mailing_street != "" %>
+        <%= contact.mailing_street %>
+        <% end %>
+        <% if contact.mailing_city != "" %>
+        <%= contact.mailing_city %>,
+        <% end %>
+        <% if contact.mailing_state != "" %>
+        <%= contact.mailing_state %>,
+        <% end %>
+        <% if contact.mailing_postal_code != "" %>
+        <%= contact.mailing_postal_code %>
+        <% end %>
+        <% if contact.mailing_country != "" %>
+        <%= contact.mailing_country %>
+        <% end %>
+
+        <% end %>
+    </div>
+</div>
+<% end %>
+
+<% end %>

@@ -32,7 +32,7 @@
                         include_blank: "Choose related account",
                         label_method: lambda { |account| "#{account.account_name}" } %>
                         <%= f.input :status, collection: ["Open", "Closed-Win", "Closed-Loss"],
-                        include_blank: "Choose Status" %>
+                        include_blank: false %>
                         <%= f.input :close_date, as: :date_time_picker %>
                     </div>
                     <div class="col-lg-4">
@@ -74,7 +74,7 @@ $('#opportunity_status').on("change", function(){
   var status = $('#opportunity_status').val();
   if(status == "Closed-Win" || status == "Closed-Loss"){
       $('.opportunity_close_date').show();
-  } else if(status == "Open" || status == ""){
+  } else if(status == "Open"){
     $('.opportunity_close_date').hide();
   }
 

@@ -12,6 +12,7 @@ No notes submitted yet.
                 <i class="caret"></i>
             </a>
             <ul class="dropdown-menu">
+              <li><%= link_to 'Show', '#', data: {toggle: "modal", target: "#accnoteInfo-#{accnote.id}"}%></li>
                 <li><%= link_to 'Edit', '#',
               data: {toggle: "modal", target: "#note-#{accnote.id}"} %></li>
                 <li><%= link_to 'Delete',
