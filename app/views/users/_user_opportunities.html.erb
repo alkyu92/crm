@@ -1,4 +1,4 @@
-<% userop = @user.opportunities.page(params[:page]).per(10) %>
+<% userop = @user.opportunities.page(params[:page_op]).per(5) %>
 <% if userop.blank? %>
 <br>
 <p>No opportunities created yet.</p>
@@ -37,8 +37,6 @@
 </div>
 <% end %>
 <div class="text-center">
-    <br>
-    <%= page_entries_info userop %>
-    <%= paginate userop %>
+    <%= paginate userop, param_name: :page_op %>
 </div>
 <% end %>

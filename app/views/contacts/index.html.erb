@@ -28,19 +28,39 @@ There are no contacts registered yet.
 <hr>
 <div class="row">
     <div class="col-lg-2">
+      <% if contact.name.blank? %>
+      <span style="color: red;">Name</span>
+      <% else %>
         <%= contact.name %>
+      <% end %>
     </div>
     <div class="col-lg-1">
+      <% if contact.title.blank? %>
+      <span style="color: red;">Position title not specified</span>
+      <% else %>
         <%= contact.title %>
+      <% end %>
     </div>
     <div class="col-lg-2">
+      <% if contact.department.blank? %>
+      <span style="color: red;">Department not specified</span>
+      <% else %>
         <%= contact.department %>
+      <% end %>
     </div>
     <div class="col-lg-2">
+      <% if contact.email.blank? %>
+      <span style="color: red;">Email not specified</span>
+      <% else %>
         <%= contact.email %>
+      <% end %>
     </div>
     <div class="col-lg-2">
+      <% if contact.phone.blank? %>
+      <span style="color: red;">Phone</span>
+      <% else %>
         <%= contact.phone %>
+      <% end %>
     </div>
     <div class="col-lg-3">
         <% if (contact.mailing_street &&

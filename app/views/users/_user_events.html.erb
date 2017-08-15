@@ -1,6 +1,6 @@
 <h4>Events</h4>
 <hr>
-<% events = Event.page(params[:page]).per(5) %>
+<% events = Event.page(params[:page_event]).per(5) %>
 <% if events.blank? %>
 No events yet.
 <% else %>
@@ -16,15 +16,19 @@ No events yet.
 <% events.each do |event| %>
 <div class="row">
     <div class="col-lg-6">
-        <%= event.description %>
+        <%= link_to event.description, opportunity_path(event.opportunity) %>
     </div>
     <div class="col-lg-6">
         <% if event.event_date.blank? %>
-        Date not specified
+        <span style="color: red;">Date not specified</span>
     <% else %>
         <%= event.event_date.strftime('%d %b %Y') %>
         <% end %>
     </div>
 </div>
 <% end %>
+<br>
+<div class="text-center">
+<%= paginate events, param_name: :page_event %>
+</div>
 <% end %>

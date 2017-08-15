@@ -1,25 +1,29 @@
 <h4>Calls</h4>
 <hr>
+<% calls = Call.page(params[:page_call]).per(5) %>
+<% if calls.blank? %>
+No log calls yet.
+<% else %>
 <div class="row">
     <div class="col-lg-6">
         <strong>Description</strong>
     </div>
     <div class="col-lg-6">
-        <strong>Due Date</strong>
+        <strong>DateTime</strong>
     </div>
 </div>
-<% tasks = Task.page(params[:page]).per(5)%>
-<% tasks.each do |task| %>
+<% calls.each do |call| %>
 <div class="row">
     <div class="col-lg-6">
-        <%= task.description %>
+        <%= link_to call.description, opportunity_path(call.opportunity) %>
     </div>
     <div class="col-lg-6">
-        <% if task.due_date.blank? %>
-        Date not specified
-    <% else %>
-        <%= task.due_date.strftime('%d %b %Y') %>
-        <% end %>
+        <%= call.call_datetime.strftime('%d %b %Y %H:%M:%S') %>
     </div>
+</div>
+<% end %>
+<br>
+<div class="text-center">
+<%= paginate calls, param_name: :page_call %>
 </div>
 <% end %>

@@ -1,4 +1,4 @@
-<% useracc = @user.accounts.page(params[:page]).per(10) %>
+<% useracc = @user.accounts.page(params[:page_acc]).per(5) %>
 <% if useracc.blank? %>
 <br>
 <p>No accounts created yet.</p>
@@ -25,8 +25,6 @@
 </div>
 <% end %>
 <div class="text-center">
-    <br>
-    <%= page_entries_info useracc %>
-    <%= paginate useracc %>
+    <%= paginate useracc, param_name: :page_acc %>
 </div>
 <% end %>
