@@ -4,7 +4,7 @@
         <%= simple_form_for [@account, @accnote, Accnote.new], remote: true do |f| %>
         <%= f.input :title %>
         <%= f.input :description %>
-        <%= f.button :submit %>
+        <%= f.button :submit, "Create Note" %>
         <% end %>
     </div>
     <br>

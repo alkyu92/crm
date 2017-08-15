@@ -1,0 +1,25 @@
+<h4>Calls</h4>
+<hr>
+<div class="row">
+    <div class="col-lg-6">
+        <strong>Description</strong>
+    </div>
+    <div class="col-lg-6">
+        <strong>Due Date</strong>
+    </div>
+</div>
+<% tasks = Task.page(params[:page]).per(5)%>
+<% tasks.each do |task| %>
+<div class="row">
+    <div class="col-lg-6">
+        <%= task.description %>
+    </div>
+    <div class="col-lg-6">
+        <% if task.due_date.blank? %>
+        Date not specified
+    <% else %>
+        <%= task.due_date.strftime('%d %b %Y') %>
+        <% end %>
+    </div>
+</div>
+<% end %>

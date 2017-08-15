@@ -8,7 +8,9 @@ class ApplicationController < ActionController::Base
   protected
   def devise_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :avatar, :phone, :title, :address])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :avatar,
+                                                              :phone, :title,
+                                                              :address, :department])
   end
 
   def store_location

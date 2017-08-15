@@ -12,6 +12,8 @@
     <%= f.input :title %>
     <%= f.input :department %>
     <%= f.input :email, required: true %>
+    <%= f.input :phone %>
+    <%= f.input :address %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>

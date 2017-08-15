@@ -229,6 +229,7 @@ ActiveRecord::Schema.define(version: 20170810102916) do
     t.string   "phone"
     t.string   "title"
     t.string   "department"
+    t.string   "address"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

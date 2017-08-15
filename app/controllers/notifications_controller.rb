@@ -1,5 +1,5 @@
 class NotificationsController < ApplicationController
   def index
-    @notifications = Timeline.all + Acctimeline.all
+    @notifications = Timeline.page(params[:page]).per(10)
   end
 end

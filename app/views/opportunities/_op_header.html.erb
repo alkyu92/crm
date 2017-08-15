@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-2">
+    <div class="col-lg-3">
         <small>Account</small>
         <br>
         <h4>
@@ -27,8 +27,8 @@
         <h4>
             <% if @opportunity.status == "Closed-Loss" %>
             <span style="color: red;">Closed-Loss</span>
-            <% elsif @opportunity.status == "Closed-Win" %>
-            <span style="color: green;">Closed-Win</span>
+            <% elsif @opportunity.status == "Closed-Won" %>
+            <span style="color: green;">Closed-Won</span>
             <% elsif @opportunity.status == "Open" %>
             Open
             <% end %>
@@ -48,7 +48,7 @@
         </h4>
     </div>
     <% end %>
-    <div class="col-lg-2">
+    <div class="col-lg-3">
         <small>Opportunity Owner</small>
         <br>
         <h4><%= @opportunity.user.name %></h4>

@@ -1,5 +1,5 @@
 <h4>Opportunity Timeline &middot History</h4>
-<% op = @opportunity.timelines.order('created_at DESC').includes(:user) %>
+<% op = @opportunity.timelines.order('created_at DESC').includes(:user).page(params[:page]).per(5) %>
 <% if op.blank? %>
 <p>Every changes regarding opportunities will be recorded here.</p>
 <% else %>
@@ -36,4 +36,8 @@
             </div>
         </div>
         <% end %>
+        <div class="text-center" id="paginator">
+        <%= page_entries_info op %><br>
+        <%= paginate op, remote: true %>
+      </div>
 <% end %>

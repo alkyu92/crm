@@ -8,9 +8,13 @@
         data: {toggle: "modal", target: "#accountModalForm"} %>
     </div>
 </div>
+<div class="text-center">
+<%= page_entries_info @accounts %><br>
+<%= paginate @accounts %>
+</div>
 <hr>
 <div id="notice-acc"></div>
-<% @accounts = Account.all %>
+
 <% if @accounts.blank? %>
 There are no accounts registered yet.
 <% else %>
@@ -90,4 +94,9 @@ There are no accounts registered yet.
     </div>
 </div>
 <% end %>
+<br>
+<div class="text-center">
+<%= page_entries_info @accounts %><br>
+<%= paginate @accounts %>
+</div>
 <% end %>

@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   before_action :find_account, only: [:show, :update, :destroy]
+  before_action :find_all_account, except: [:show, :update]
 
   def index
     @account = current_user.accounts.build
@@ -89,6 +90,14 @@ class AccountsController < ApplicationController
 
   def find_account
     @account = Account.find(params[:id])
+
+  rescue ActiveRecord::RecordNotFound
+    flash.now[:danger] = "Can't find records!"
+    redirect_to root_path
+  end
+
+  def find_all_account
+    @accounts = Account.page(params[:page]).per(10)
 
   rescue ActiveRecord::RecordNotFound
     flash.now[:danger] = "Can't find records!"

@@ -1,0 +1,44 @@
+<% userop = @user.opportunities.page(params[:page]).per(10) %>
+<% if userop.blank? %>
+<br>
+<p>No opportunities created yet.</p>
+<% else %>
+<br>
+<h4>Opportunities Registered</h4>
+<hr>
+<div class="row">
+    <div class="col-lg-4">
+        <strong>Name</strong>
+    </div>
+    <div class="col-lg-4">
+        <strong>Status</strong>
+    </div>
+    <div class="col-lg-4">
+        <strong>Created at DateTime</strong>
+    </div>
+</div>
+<% userop.each do |op| %>
+<div class="row">
+    <div class="col-lg-4">
+        <%= link_to op.name, opportunity_path(op) %>
+    </div>
+    <div class="col-lg-4">
+        <% if op.status == "Closed-Loss"%>
+        <span style="color: red;"><%= op.status %></span>
+        <% elsif op.status == "Closed-Won" %>
+        <span style="color: red;"><%= op.status %></span>
+    <% else %>
+        <%= op.status %>
+        <% end %>
+    </div>
+    <div class="col-lg-4">
+        <%= op.created_at.strftime('%d %b %Y %H:%M:%S') %>
+    </div>
+</div>
+<% end %>
+<div class="text-center">
+    <br>
+    <%= page_entries_info userop %>
+    <%= paginate userop %>
+</div>
+<% end %>

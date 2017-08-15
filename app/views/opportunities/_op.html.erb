@@ -9,6 +9,10 @@
     </div>
 </div>
 
+<div class="text-center">
+<%= page_entries_info @opportunities %><br>
+<%= paginate @opportunities %>
+</div>
 <hr>
 
 <div id="notice-op"></div>
@@ -71,8 +75,8 @@ No opportunities yet.
       <div class="col-lg-2">
         <% if opportunity.status == "Open"%>
         Open
-        <% elsif opportunity.status == "Closed-Win" %>
-        <span style="color: green;">Closed-Win</span>
+        <% elsif opportunity.status == "Closed-Won" %>
+        <span style="color: green;">Closed-Won</span>
         <% elsif opportunity.status == "Closed-Loss" %>
         <span style="color: ">Closed-Loss</span>
         <% end %>
@@ -80,7 +84,7 @@ No opportunities yet.
       <div class="col-lg-1">
         <% if opportunity.status == "Open" %>
           Open
-        <% elsif opportunity.status == "Closed-Win" || opportunity.status == "Closed-Loss" %>
+        <% elsif opportunity.status == "Closed-Won" || opportunity.status == "Closed-Loss" %>
           <%= opportunity.close_date.strftime('%d %b %Y') %>
         <% end %>
       </div>
@@ -97,5 +101,9 @@ No opportunities yet.
   </div>
 
   <% end %>
-
+  <br>
+  <div class="text-center">
+  <%= page_entries_info @opportunities %><br>
+  <%= paginate @opportunities %>
+</div>
 <% end %>

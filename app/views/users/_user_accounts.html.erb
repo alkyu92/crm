@@ -1,0 +1,32 @@
+<% useracc = @user.accounts.page(params[:page]).per(10) %>
+<% if useracc.blank? %>
+<br>
+<p>No accounts created yet.</p>
+<% else %>
+<br>
+<h4>Accounts Registered</h4>
+<hr>
+<div class="row">
+    <div class="col-lg-6">
+        <strong>Account Name</strong>
+    </div>
+    <div class="col-lg-6">
+        <strong>Created at DateTime</strong>
+    </div>
+</div>
+<% useracc.each do |acc| %>
+<div class="row">
+    <div class="col-lg-6">
+        <%= link_to acc.account_name, account_path(acc) %>
+    </div>
+    <div class="col-lg-6">
+        <%= acc.created_at.strftime('%d %b %Y %H:%M:%S') %>
+    </div>
+</div>
+<% end %>
+<div class="text-center">
+    <br>
+    <%= page_entries_info useracc %>
+    <%= paginate useracc %>
+</div>
+<% end %>

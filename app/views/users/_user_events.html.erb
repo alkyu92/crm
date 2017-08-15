@@ -1,0 +1,30 @@
+<h4>Events</h4>
+<hr>
+<% events = Event.page(params[:page]).per(5) %>
+<% if events.blank? %>
+No events yet.
+<% else %>
+<div class="row">
+    <div class="col-lg-6">
+        <strong>Description</strong>
+    </div>
+    <div class="col-lg-6">
+        <strong>Due Date</strong>
+    </div>
+</div>
+
+<% events.each do |event| %>
+<div class="row">
+    <div class="col-lg-6">
+        <%= event.description %>
+    </div>
+    <div class="col-lg-6">
+        <% if event.event_date.blank? %>
+        Date not specified
+    <% else %>
+        <%= event.event_date.strftime('%d %b %Y') %>
+        <% end %>
+    </div>
+</div>
+<% end %>
+<% end %>

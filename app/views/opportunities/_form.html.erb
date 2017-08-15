@@ -31,7 +31,7 @@
                         <%= f.association :account, label: "Account Name",
                         include_blank: "Choose related account",
                         label_method: lambda { |account| "#{account.account_name}" } %>
-                        <%= f.input :status, collection: ["Open", "Closed-Win", "Closed-Loss"],
+                        <%= f.input :status, collection: ["Open", "Closed-Won", "Closed-Loss"],
                         include_blank: false %>
                         <%= f.input :close_date, as: :date_time_picker %>
                     </div>
@@ -67,6 +67,7 @@
 </div>
 
 <%= javascript_tag defer: 'defer' do %>
+<% if params[:action] == "index" %>
 $('.opportunity_close_date').hide();
 $('.opportunity_loss_reason').hide();
 
@@ -84,4 +85,5 @@ $('#opportunity_status').on("change", function(){
     $('.opportunity_loss_reason').hide();
   }
 });
+<% end %>
 <% end %>

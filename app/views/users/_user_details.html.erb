@@ -1,7 +1,60 @@
 <div class="tab-pane fade in" id="userDetails">
-<h3>User Details</h3>
-<hr>
-<i class="fa fa-envelope">
-</i>
-<%= @user.email %>
+    <br>
+    <h4>User Details</h4>
+    <hr>
+    <% if @user.email %>
+    <div class="row">
+        <div class="col-lg-1">
+            <i class="fa fa-envelope"></i>
+        </div>
+        <div class="col-lg-11">
+            <%= @user.email %>
+        </div>
+    </div>
+    <% end %>
+
+    <% if @user.phone %>
+    <div class="row">
+        <div class="col-lg-1">
+            <i class="fa fa-phone"></i>
+        </div>
+        <div class="col-lg-11">
+            <%= @user.phone %>
+        </div>
+    </div>
+    <% end %>
+
+    <% if @user.address %>
+    <div class="row">
+        <div class="col-lg-1">
+            <i class="fa fa-map-marker"></i>
+        </div>
+        <div class="col-lg-11">
+            <%= @user.address %>
+        </div>
+    </div>
+    <% end %>
+
+    <% if @user.title %>
+    <div class="row">
+        <div class="col-lg-1">
+            <i class="fa fa-id-card"></i>
+        </div>
+        <div class="col-lg-11">
+            <%= @user.title %>
+        </div>
+    </div>
+    <% end %>
+
+    <% if @user.department %>
+    <div class="row">
+        <div class="col-lg-1">
+            <i class="fa fa-building"></i>
+        </div>
+        <div class="col-lg-11">
+            <%= @user.department %>
+        </div>
+    </div>
+    <% end %>
+
 </div>

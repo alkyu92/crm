@@ -49,6 +49,7 @@
         </h4>
         <% end %>
         <br>
+
     </div>
     <div class="col-lg-6">
         <small>Amount</small>
@@ -80,8 +81,8 @@
         <h4>
             <% if @opportunity.status == "Closed-Loss" %>
             <span style="color: red;">Closed-Loss</span>
-            <% elsif @opportunity.status == "Closed-Win" %>
-            <span style="color: green">Closed-Win</span>
+            <% elsif @opportunity.status == "Closed-Won" %>
+            <span style="color: green">Closed-Won</span>
             <% elsif @opportunity.status == "Open" %>
             Open
             <% elsif @opportunity.status == "" %>
@@ -119,4 +120,19 @@
     </h4>
     <br>
   </div>
+</div>
+
+<div class="row">
+<div class="col-lg-6">
+  <small>Opportunity Created at</small>
+  <h4>
+      <%= @opportunity.created_at.strftime('%d %b %Y  %H:%M:%S') %>
+  </h4>
+</div>
+<div class="col-lg-6">
+  <small>Opportunity Updated at</small>
+  <h4>
+      <%= @opportunity.updated_at.strftime('%d %b %Y  %H:%M:%S') %>
+  </h4>
+</div>
 </div>
