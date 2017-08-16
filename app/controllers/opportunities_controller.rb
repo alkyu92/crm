@@ -25,6 +25,12 @@ class OpportunitiesController < ApplicationController
         nactivity: @opportunity.name,
         action: "created opportunity",
         user_id: current_user.id)
+
+        @opportunity.account.acctimelines.create!(
+        tactivity: "opportunity",
+        nactivity: @opportunity.name,
+        action: "created opportunity",
+        user_id: current_user.id)
         format.js { flash.now[:success] = "Opportunity entry created!" }
       else
         format.js { flash.now[:danger] = "Failed to create opportunity entry!" }
