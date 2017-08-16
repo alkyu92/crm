@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :activities
   has_many :opportunities
   has_many :accounts
-  
+
   has_many :contacts
   has_many :acccontacts
 
@@ -23,4 +23,6 @@ class User < ApplicationRecord
 
   has_many :timelines
   has_many :acctimelines
+
+  has_many :notifications, dependent: :destroy
 end

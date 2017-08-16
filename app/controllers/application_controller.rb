@@ -5,6 +5,30 @@ class ApplicationController < ActionController::Base
   before_action :devise_params, if: :devise_controller?
   after_action :store_location
 
+  # def notification(tactivity, nactivity, action)
+  #   Notification.create!(
+  #   tactivity: tactivity,
+  #   nactivity: nactivity,
+  #   action: action,
+  #   user_id: current_user.id)
+  # end
+
+  def acctimeline(nactivity, action)
+    @account.acctimelines.create!(
+    tactivity: "account",
+    nactivity: nactivity,
+    action: action,
+    user_id: current_user.id)
+  end
+
+  def timeline(nactivity, action)
+    @account.timelines.create!(
+    tactivity: "opportunity",
+    nactivity: nactivity,
+    action: action,
+    user_id: current_user.id)
+  end
+
   protected
   def devise_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])

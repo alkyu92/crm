@@ -14,11 +14,8 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        @account.acctimelines.create!(
-        tactivity: "account",
-        nactivity: @account.account_name,
-        action: "created account",
-        user_id: current_user.id)
+        acctimeline(@account.account_name, "created account")
+        # notification("account", @account.account_name, "created account")
         format.js { flash.now[:success] = "Account entry created!" }
       else
         format.js { flash.now[:danger] = "Failed to create account entry!" }
@@ -35,15 +32,9 @@ class AccountsController < ApplicationController
           params[:accdocs].each { |accdoc|
             @account.accdocuments.create!( accdoc: accdoc )
           }
-          @account.acctimelines.create!(
-          tactivity: "account",
-          nactivity: @account.account_name,
-          action: "added attachment file to account", 
-          user_id: current_user.id)
+          acctimeline(@account.account_name, "added attachment file to account")
         end
-
         save_timeline_if_any_changes
-
         format.js { flash.now[:success] = "Account entry updated!" }
       else
         format.js { flash.now[:danger] = "Failed to update account entry!" }
@@ -62,11 +53,7 @@ class AccountsController < ApplicationController
     @account.accdocuments.find(params[:id]).destroy
 
     respond_to do |format|
-      @account.acctimelines.create!(
-      tactivity: "account",
-      nactivity: @account.account_name,
-      action: "deleted attachment from account",
-      user_id: current_user.id)
+      acctimeline(@account.account_name, "deleted attachment from account")
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end
@@ -117,78 +104,49 @@ class AccountsController < ApplicationController
   def save_timeline_if_any_changes
 
     if @account.account_name_previously_changed?
-      @account.acctimelines.create!(
-      nactivity: @account.account_name,
-      action: "updated account name to",
-      user_id: current_user.id)
+      acctimeline(@account.account_name, "updated account name to")
     end
     if @account.account_type_previously_changed?
-      @account.acctimelines.create!(
-      nactivity: @account.account_type,
-      action: "updated account type to",
-      user_id: current_user.id)
+      acctimeline(@account.account_type, "updated account type to")
     end
     if @account.website_previously_changed?
-      @account.acctimelines.create!(
-      nactivity: @account.website,
-      action: "updated account website url to",
-      user_id: current_user.id)
+      acctimeline(@account.website, "updated account website url to")
     end
     if @account.email_previously_changed?
-      @account.acctimelines.create!(
-      nactivity: @account.email,
-      action: "updated account email to",
-      user_id: current_user.id)
+      acctimeline(@account.email, "updated account email to")
     end
     if @account.description_previously_changed?
-      @account.acctimelines.create!(
-      nactivity: "",
-      action: "updated account description",
-      user_id: current_user.id)
+      acctimeline("", "updated account description")
     end
     if @account.phone_previously_changed?
-      @account.acctimelines.create!(
-      nactivity: @account.phone,
-      action: "updated account phone number to",
-      user_id: current_user.id)
+      acctimeline(@account.phone, "updated account phone number to")
     end
     if @account.fax_previously_changed?
-      @account.acctimelines.create!(
-      nactivity: @account.fax,
-      action: "updated account fax number to",
-      user_id: current_user.id)
+      acctimeline(@account.fax, "updated account fax number to")
     end
     if @account.industry_previously_changed?
-      @account.acctimelines.create!(
-      nactivity: @account.industry,
-      action: "updated account industry to",
-      user_id: current_user.id)
+      acctimeline(@account.industry, "updated account industry to")
     end
     if @account.number_of_employee_previously_changed?
-      @account.acctimelines.create!(
-      nactivity: @account.number_of_employee,
-      action: "updated account number of employee to",
-      user_id: current_user.id)
+      acctimeline(@account.number_of_employee, "updated account number of employee to")
     end
     if @account.billing_street_previously_changed? ||
       @account.billing_city_previously_changed? ||
       @account.billing_state_previously_changed? ||
       @account.billing_postal_code_previously_changed? ||
       @account.billing_country_previously_changed?
-      @account.acctimelines.create!(
-      nactivity: "",
-      action: "updated account billing address",
-      user_id: current_user.id)
+
+      acctimeline("", "updated account billing address")
+
     end
     if @account.shipping_street_previously_changed? ||
       @account.shipping_city_previously_changed? ||
       @account.shipping_state_previously_changed? ||
       @account.shipping_postal_code_previously_changed? ||
       @account.shipping_country_previously_changed?
-      @account.acctimelines.create!(
-      nactivity: "",
-      action: "updated account shipping address",
-      user_id: current_user.id)
+
+      acctimeline("", "updated account shipping address")
+  
     end
   end
 end

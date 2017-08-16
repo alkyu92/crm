@@ -20,11 +20,7 @@ class OpportunitiesController < ApplicationController
 
     respond_to do |format|
       if @opportunity.save
-        @opportunity.timelines.create!(
-        tactivity: "opportunity",
-        nactivity: @opportunity.name,
-        action: "created opportunity",
-        user_id: current_user.id)
+        timeline(@opportunity.name, "created opportunity")
 
         @opportunity.account.acctimelines.create!(
         tactivity: "opportunity",
@@ -47,11 +43,7 @@ class OpportunitiesController < ApplicationController
             params[:docs].each { |doc|
               @opportunity.documents.create!(doc: doc)
             }
-            @opportunity.timelines.create!(
-            tactivity: "opportunity",
-            nactivity: @opportunity.name,
-            action: "added attachment file to opportunity",
-            user_id: current_user.id)
+            timeline(@opportunity.name, "added attachment file to opportunity")
           end
 
         if params[:attached]
@@ -65,7 +57,6 @@ class OpportunitiesController < ApplicationController
         end
 
         save_timeline_if_any_changes
-
         format.js { flash.now[:success] = "Opportunity entry updated!" }
       else
         format.js { flash.now[:danger] = "Failed to update opportunity!" }
@@ -84,12 +75,7 @@ class OpportunitiesController < ApplicationController
     @opportunity.documents.find(params[:id]).destroy
 
     respond_to do |format|
-      @opportunity.timelines.create!(
-      tactivity: "opportunity",
-      nactivity: @opportunity.name,
-      action: "deleted attachment from opportunity",
-      user_id: current_user.id)
-
+      timeline(@opportunity.name, "deleted attachment from opportunity")
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end
@@ -127,67 +113,31 @@ class OpportunitiesController < ApplicationController
 
   def save_timeline_if_any_changes
     if @opportunity.name_previously_changed?
-      @opportunity.timelines.create!(
-      tactivity: "opportunity",
-      nactivity: @opportunity.name,
-      action: "updated opportunity name to",
-      user_id: current_user.id)
+      timeline(@opportunity.name, "updated opportunity name to")
     end
     if @opportunity.current_stage_previously_changed?
-      @opportunity.timelines.create!(
-      tactivity: "opportunity",
-      nactivity: @opportunity.current,
-      action: "updated opportunity current stage to",
-      user_id: current_user.id)
+      timeline(@opportunity.current, "updated opportunity current stage to")
     end
     if @opportunity.business_type_previously_changed?
-      @opportunity.timelines.create!(
-      tactivity: "opportunity",
-      nactivity: @opportunity.business_type,
-      action: "updated opportunity business type to",
-      user_id: current_user.id)
+      timeline(@opportunity.business_type, "updated opportunity business type to")
     end
     if @opportunity.probability_previously_changed?
-      @opportunity.timelines.create!(
-      tactivity: "opportunity",
-      nactivity: @opportunity.probability,
-      action: "updated opportunity probability to",
-      user_id: current_user.id)
+      timeline(@opportunity.probability, "updated opportunity probability to")
     end
     if @opportunity.amount_previously_changed?
-      @opportunity.timelines.create!(
-      tactivity: "opportunity",
-      nactivity: @opportunity.amount,
-      action: "updated opportunity amount to",
-      user_id: current_user.id)
+      timeline(@opportunity.amount, "updated opportunity amount to")
     end
     if @opportunity.description_previously_changed?
-      @opportunity.timelines.create!(
-      tactivity: "opportunity",
-      nactivity: "",
-      action: "updated opportunity description",
-      user_id: current_user.id)
+      timeline("", "updated opportunity description")
     end
     if @opportunity.status_previously_changed?
-      @opportunity.timelines.create!(
-      tactivity: "opportunity",
-      nactivity: @opportunity.status,
-      action: "updated opportunity status to",
-      user_id: current_user.id)
+      timeline(@opportunity.status, "updated opportunity status to")
     end
     if @opportunity.close_date_previously_changed?
-      @opportunity.timelines.create!(
-      tactivity: "opportunity",
-      nactivity: @opportunity.close_date.strftime('%d %b %Y'),
-      action: "updated opportunity closed date to",
-      user_id: current_user.id)
+      timeline(@opportunity.close_date, "updated opportunity close date to")
     end
     if @opportunity.loss_reason_previously_changed?
-      @opportunity.timelines.create!(
-      tactivity: "opportunity",
-      nactivity: "",
-      action: "updated opportunity loss reason",
-      user_id: current_user.id)
+      timeline(@opportunity.loss_reason, "updated opportunity loss reason to")
     end
 
     if @opportunity.status == "Open"

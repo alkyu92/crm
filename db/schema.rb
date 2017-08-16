@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810102916) do
+ActiveRecord::Schema.define(version: 20170816080534) do
 
   create_table "acccontacts", force: :cascade do |t|
     t.string   "name"
@@ -161,6 +161,17 @@ ActiveRecord::Schema.define(version: 20170810102916) do
     t.datetime "updated_at",     null: false
     t.index ["opportunity_id"], name: "index_notes_on_opportunity_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.boolean  "read",       default: false
+    t.string   "action"
+    t.string   "nactivity"
+    t.string   "tactivity"
+    t.integer  "user_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "opportunities", force: :cascade do |t|
