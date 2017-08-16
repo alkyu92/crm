@@ -35,7 +35,7 @@
 <hr>
 <div class="row">
     <div class="col-lg-1 text-center"><%= call.id %></div>
-    <div class="col-lg-3"><%= link_to call.description.truncate(50), opportunity_path(call.opportunity) %></div>
+    <div class="col-lg-3"><%= link_to call.description.truncate(50), opportunity_path(call.opportunity, anchor: "c#{call.id}") %></div>
     <div class="col-lg-2">
         <%= call.call_datetime.strftime('%d %b %Y') %><br>
         (<%= distance_of_time_in_words(Time.now, call.call_datetime) %>

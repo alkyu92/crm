@@ -1,0 +1,17 @@
+<div class="tab-pane fade in active" id="accountOpportunities">
+    <div class="row">
+        <div class="col-lg-8">
+            <h4>Account Related Opportunities</h4>
+        </div>
+        <div class="col-lg-4">
+          <%= link_to 'Create Opportunity', '#', class: "btn btn-default form-control",
+          data: {toggle: "modal", target: "#opportunityAccountForm"}%>
+        </div>
+        <div id="notice-ops"></div>
+    </div>
+    <%= render 'opportunities/account_op_form' %>
+    <br>
+    <div id="acc-op">
+    <%= render 'opportunities/acc_op' %>
+    </div>
+</div>

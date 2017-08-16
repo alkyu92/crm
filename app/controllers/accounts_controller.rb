@@ -34,8 +34,7 @@ class AccountsController < ApplicationController
           }
         end
 
-        @account.acctimelines.create!(tactivity: "account", nactivity: @account.account_name,
-        action: "updated account", user_id: current_user.id)
+        save_timeline_if_any_changes
 
         format.js { flash.now[:success] = "Account entry updated!" }
       else
@@ -69,6 +68,7 @@ class AccountsController < ApplicationController
                                     :account_type,
                                     :website,
                                     :description,
+                                    :email,
                                     :phone,
                                     :fax,
                                     :industry,
@@ -102,5 +102,83 @@ class AccountsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     flash.now[:danger] = "Can't find records!"
     redirect_to root_path
+  end
+
+  def save_timeline_if_any_changes
+
+    if @account.account_name_previously_changed?
+      @account.acctimelines.create!(
+      nactivity: @account.account_name,
+      action: "updated account name to",
+      user_id: current_user.id)
+    end
+    if @account.account_type_previously_changed?
+      @account.acctimelines.create!(
+      nactivity: @account.account_type,
+      action: "updated account type to",
+      user_id: current_user.id)
+    end
+    if @account.website_previously_changed?
+      @account.acctimelines.create!(
+      nactivity: @account.website,
+      action: "updated account website url to",
+      user_id: current_user.id)
+    end
+    if @account.email_previously_changed?
+      @account.acctimelines.create!(
+      nactivity: @account.email,
+      action: "updated account email to",
+      user_id: current_user.id)
+    end
+    if @account.description_previously_changed?
+      @account.acctimelines.create!(
+      nactivity: "",
+      action: "updated account description",
+      user_id: current_user.id)
+    end
+    if @account.phone_previously_changed?
+      @account.acctimelines.create!(
+      nactivity: @account.phone,
+      action: "updated account phone number to",
+      user_id: current_user.id)
+    end
+    if @account.fax_previously_changed?
+      @account.acctimelines.create!(
+      nactivity: @account.fax,
+      action: "updated account fax number to",
+      user_id: current_user.id)
+    end
+    if @account.industry_previously_changed?
+      @account.acctimelines.create!(
+      nactivity: @account.industry,
+      action: "updated account industry to",
+      user_id: current_user.id)
+    end
+    if @account.number_of_employee_previously_changed?
+      @account.acctimelines.create!(
+      nactivity: @account.number_of_employee,
+      action: "updated account number of employee to",
+      user_id: current_user.id)
+    end
+    if @account.billing_street_previously_changed? ||
+      @account.billing_city_previously_changed? ||
+      @account.billing_state_previously_changed? ||
+      @account.billing_postal_code_previously_changed? ||
+      @account.billing_country_previously_changed?
+      @account.acctimelines.create!(
+      nactivity: "",
+      action: "updated account billing address",
+      user_id: current_user.id)
+    end
+    if @account.shipping_street_previously_changed? ||
+      @account.shipping_city_previously_changed? ||
+      @account.shipping_state_previously_changed? ||
+      @account.shipping_postal_code_previously_changed? ||
+      @account.shipping_country_previously_changed?
+      @account.acctimelines.create!(
+      nactivity: "",
+      action: "updated account shipping address",
+      user_id: current_user.id)
+    end
   end
 end

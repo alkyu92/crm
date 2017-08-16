@@ -8,6 +8,7 @@ class OpportunitiesController < ApplicationController
 
     @stages = Stage.all
     @accounts = Account.all
+
   end
 
   def show
@@ -83,6 +84,7 @@ class OpportunitiesController < ApplicationController
   def params_opportunity
     params.require(:opportunity).permit( :name,
                                          :stage_id,
+                                         :account,
                                          :account_id,
                                          :business_type,
                                          :probability,
@@ -112,31 +114,39 @@ class OpportunitiesController < ApplicationController
     if @opportunity.name_previously_changed?
       @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.name,
       action: "updated opportunity name to", user_id: current_user.id)
-    elsif @opportunity.current_stage_previously_changed?
+    end
+    if @opportunity.current_stage_previously_changed?
       @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.current,
       action: "updated opportunity current stage to", user_id: current_user.id)
-    elsif @opportunity.business_type_previously_changed?
+    end
+    if @opportunity.business_type_previously_changed?
       @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.business_type,
       action: "updated opportunity business type to", user_id: current_user.id)
-    elsif @opportunity.probability_previously_changed?
+    end
+    if @opportunity.probability_previously_changed?
       @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.probability,
       action: "updated opportunity probability to", user_id: current_user.id)
-    elsif @opportunity.amount_previously_changed?
+    end
+    if @opportunity.amount_previously_changed?
       @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.amount,
       action: "updated opportunity amount to", user_id: current_user.id)
-    elsif @opportunity.description_previously_changed?
+    end
+    if @opportunity.description_previously_changed?
       @opportunity.timelines.create!(tactivity: "opportunity", nactivity: "",
       action: "updated opportunity description", user_id: current_user.id)
-    elsif @opportunity.loss_reason_previously_changed?
-      @opportunity.timelines.create!(tactivity: "opportunity", nactivity: "",
-      action: "updated opportunity loss reason", user_id: current_user.id)
-    elsif @opportunity.close_date_previously_changed?
+    end
+    if @opportunity.status_previously_changed?
+      @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.status,
+      action: "updated opportunity status to", user_id: current_user.id)
+    end
+    if @opportunity.close_date_previously_changed?
       @opportunity.timelines.create!(tactivity: "opportunity",
       nactivity: @opportunity.close_date.strftime('%d %b %Y'),
       action: "updated opportunity closed date to", user_id: current_user.id)
-    elsif @opportunity.status_previously_changed?
-      @opportunity.timelines.create!(tactivity: "opportunity", nactivity: @opportunity.status,
-      action: "updated opportunity status to", user_id: current_user.id)
+    end
+    if @opportunity.loss_reason_previously_changed?
+      @opportunity.timelines.create!(tactivity: "opportunity", nactivity: "",
+      action: "updated opportunity loss reason", user_id: current_user.id)
     end
 
     if @opportunity.status == "Open"

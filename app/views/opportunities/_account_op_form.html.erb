@@ -1,0 +1,52 @@
+<!-- Modal -->
+<div id="opportunityAccountForm" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="width: 1000px;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create New Opportunity</h4>
+            </div>
+
+            <div class="modal-body">
+
+                <%= simple_form_for [@account, @opportunity, Opportunity.new], remote: true do |f| %>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h4>Opportunity Details</h4>
+                        <br>
+                        <%= f.input :name, label: "Opportunity Name",
+                        placeholder: "Opportunity name", autofocus: true %>
+                        <%= f.hidden_field :account_id, value: @account.id %>
+                        <%= f.input :status, collection: ["Open", "Closed-Won", "Closed-Loss"],
+                        include_blank: false %>
+                        <%= f.input :close_date, as: :date_time_picker %>
+                    </div>
+                    <div class="col-lg-4">
+                        <br><br><br>
+                        <%= f.input :business_type, label: "Business Type",
+                        placeholder: "Business type" %>
+                        <%= f.input :probability, label: "Probability",
+                        placeholder: "Probability in percentage" %>
+                        <%= f.input :amount, label: "Amount", placeholder: "Opportunity amount" %>
+                        <%= f.input :loss_reason, label: "Loss Reason", placeholder: "Loss reason" %>
+                    </div>
+                    <div class="col-lg-4">
+                        <br><br><br>
+                        <%= f.input :description, input_html: {rows: 9}, label: "Description",
+                        placeholder: "Opportunity description" %>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <%= f.button :submit, class: "btn-success" %>
+                <% end %>
+                <!-- simple_form_for -->
+
+                <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+            </div>
+        </div>
+    </div>
+</div>

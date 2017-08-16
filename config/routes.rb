@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     to: 'accounts#delete_attachment', as: :delete_attachment
     resources :acctimelines
     resources :accnotes
+    resources :opportunities
   end
 
   get '/tasks', to: 'tasks#index'

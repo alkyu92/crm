@@ -19,7 +19,7 @@
                 Account not specified
             </span>
         <% else %>
-            <%= @opportunity.account.account_name %>
+            <%= link_to @opportunity.account.account_name, account_path(@opportunity.account) %>
             <% end %>
         </h4>
         <br>
@@ -121,7 +121,7 @@
     <br>
   </div>
 </div>
-
+<hr>
 <div class="row">
 <div class="col-lg-6">
   <small>Opportunity Created at</small>
@@ -130,7 +130,7 @@
   </h4>
 </div>
 <div class="col-lg-6">
-  <small>Opportunity Updated at</small>
+  <small>Opportunity Last Updated at</small>
   <h4>
       <%= @opportunity.updated_at.strftime('%d %b %Y  %H:%M:%S') %>
   </h4>

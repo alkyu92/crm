@@ -33,7 +33,7 @@
 <hr>
 <div class="row">
     <div class="col-lg-1 text-center"><%= event.id %></div>
-    <div class="col-lg-3"><%= link_to event.description.truncate(50), opportunity_path(event.opportunity) %></div>
+    <div class="col-lg-3"><%= link_to event.description.truncate(50), opportunity_path(event.opportunity, anchor: "e#{event.id}") %></div>
     <div class="col-lg-2">
         <%= event.event_date.strftime('%d %b %Y') %><br>
         (<%= distance_of_time_in_words(Time.now, event.event_date) %>

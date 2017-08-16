@@ -4,7 +4,8 @@ class NotesController < ApplicationController
 
   def create
     @note = @opportunity.notes.build(params_note)
-
+    @note.user_id = current_user.id
+    
     respond_to do |format|
       if @note.save
         @opportunity.timelines.create!(tactivity: "note",

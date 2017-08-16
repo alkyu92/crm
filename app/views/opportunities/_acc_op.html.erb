@@ -1,0 +1,30 @@
+<% if @account.opportunities.blank? %>
+There are no opportunities yet.
+<% else %>
+<ul class="list-group">
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col-lg-4">
+                <strong>Opportunity Name</strong>
+            </div>
+            <div class="col-lg-4">
+                <strong>Status</strong>
+            </div>
+            <div class="col-lg-4">
+                <strong>Created at DateTime</strong>
+            </div>
+        </div>
+    </li>
+    <% @account.opportunities.each do |opportunity| %>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col-lg-4">
+                <%= link_to opportunity.name, opportunity_path(opportunity) %>
+            </div>
+            <div class="col-lg-4"><%= opportunity.status %></div>
+            <div class="col-lg-4"><%= opportunity.created_at.strftime('%d %b %Y %H:%M:%S')%></div>
+        </div>
+    </li>
+    <% end %>
+</ul>
+<% end %>

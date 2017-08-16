@@ -50,10 +50,12 @@ ActiveRecord::Schema.define(version: 20170810102916) do
   create_table "accnotes", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
+    t.integer  "user_id"
     t.integer  "account_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["account_id"], name: "index_accnotes_on_account_id"
+    t.index ["user_id"], name: "index_accnotes_on_user_id"
   end
 
   create_table "accounts", force: :cascade do |t|
@@ -83,13 +85,13 @@ ActiveRecord::Schema.define(version: 20170810102916) do
   end
 
   create_table "acctimelines", force: :cascade do |t|
-    t.string   "tactivity"
+    t.string   "tactivity",  default: "account", null: false
     t.string   "nactivity"
     t.string   "action"
     t.integer  "account_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.index ["account_id"], name: "index_acctimelines_on_account_id"
     t.index ["user_id"], name: "index_acctimelines_on_user_id"
   end
@@ -166,7 +168,6 @@ ActiveRecord::Schema.define(version: 20170810102916) do
     t.string   "probability"
     t.string   "amount"
     t.text     "description"
-    t.text     "contacts"
     t.string   "loss_reason"
     t.date     "close_date"
     t.string   "status",        default: "Open"
@@ -211,13 +212,13 @@ ActiveRecord::Schema.define(version: 20170810102916) do
   end
 
   create_table "timelines", force: :cascade do |t|
-    t.string   "tactivity"
+    t.string   "tactivity",      default: "opportunity", null: false
     t.string   "nactivity"
     t.string   "action"
     t.integer  "opportunity_id"
     t.integer  "user_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.index ["opportunity_id"], name: "index_timelines_on_opportunity_id"
     t.index ["user_id"], name: "index_timelines_on_user_id"
   end

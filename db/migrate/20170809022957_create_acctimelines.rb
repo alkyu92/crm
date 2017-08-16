@@ -1,7 +1,7 @@
 class CreateAcctimelines < ActiveRecord::Migration[5.0]
   def change
     create_table :acctimelines do |t|
-      t.string :tactivity
+      t.string :tactivity, null: false, default: "account"
       t.string :nactivity
       t.string :action
 

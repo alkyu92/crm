@@ -16,14 +16,16 @@
     <div class="row">
         <div class="col-lg-12">
             <ul class="nav nav-tabs">
-                <li class="active"><%= link_to 'Details', '#accountDetails',
-                data: {toggle: "tab", target: "#accountDetails"} %></li>
-                <li><%= link_to 'Notes', '#accountNotes',
-                data: {toggle: "tab", target: "#accountNotes"} %></li>
+                <li class="active"><%= link_to 'Related Opportunities', '#accountOpportunities',
+                data: {toggle: "tab", target: "#accountOpportunities"} %></li>
                 <li><%= link_to 'Related Contacts', '#accountContacts',
                 data: {toggle: "tab", target: "#accountContacts"} %></li>
                 <li><%= link_to 'Related Documents', '#accountDocs',
                 data: {toggle: "tab", target: "#accountDocs"} %></li>
+                <li><%= link_to 'Notes', '#accountNotes',
+                data: {toggle: "tab", target: "#accountNotes"} %></li>
+                <li><%= link_to 'Details', '#accountDetails',
+                data: {toggle: "tab", target: "#accountDetails"} %></li>
             </ul>
         </div>
     </div>
@@ -34,10 +36,11 @@
 
         <div class="col-lg-6">
             <div class="tab-content">
-                <%= render 'details' %>
+                <%= render 'opportunities/account_related_opportunities' %>
                 <%= render 'acccontacts/account_related_contact' %>
-                <%= render 'accnotes/account_related_note' %>
                 <%= render 'accdocuments/account_related_doc' %>
+                <%= render 'accnotes/account_related_note' %>
+                <%= render 'details' %>
             </div>
         </div>
 

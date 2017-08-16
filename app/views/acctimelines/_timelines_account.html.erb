@@ -8,7 +8,11 @@
 <div class="panel panel-default panel-body">
     <div class="media">
         <div class="media-left" style="padding-top: 6px;">
-            <%= image_tag('http://placehold.it/25x25', class: "media-object")%>
+          <% if timeline.user.avatar.blank? %>
+          <%= letter_avatar_tag(timeline.user.name, 25, class: "media-object")%>
+          <% else %>
+          <%= image_tag(timeline.user.avatar.url(:small), class: "media-object")%>
+          <% end %>
         </div>
         <div class="media-body">
             <small>
@@ -34,7 +38,7 @@
         </div>
         <% end %>
         <div class="text-center" id="paginator">
-            <%= page_entries_info acc %><br>
-            <%= paginate acc, remote: true %>
+          <%= page_entries_info acc %><br>
+          <%= paginate acc, remote: true %>
         </div>
         <% end %>

@@ -22,8 +22,10 @@ No notes submitted yet.
         <h5>
             <%= link_to accnote.title.truncate(40), '#',
           data: {toggle: "modal", target: "#accnoteInfo-#{accnote.id}"} %>
+          <br>
             <small>
-                Created
+                <%= accnote.user.name %>
+                &middot
                 <%= time_ago_in_words(accnote.created_at) %>
                 ago
             </small>
@@ -67,6 +69,14 @@ No notes submitted yet.
                         <small>Note</small>
                         <br>
                         <%= accnote.title %>
+                        <br>
+                        <small>
+                          Created by
+                        <%= accnote.user.name %>
+                        &middot
+                        <%= time_ago_in_words(accnote.created_at) %>
+                        ago
+                        </small>
                     </h4>
                 </div>
                 <div class="modal-body">
