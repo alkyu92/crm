@@ -67,4 +67,86 @@ No tasks created yet.
 
 <% end %>
 
-<h5><%= link_to 'View All Tasks', tasks_path, class: "pull-right" %></h5>
+<br>
+<div class="row">
+  <div class="col-lg-12 text-center">
+<h5><%= link_to 'View All Tasks', tasks_path %></h5>
+</div>
+</div>
+
+<hr>
+<% if @events.blank? %>
+No events yet.
+<% else %>
+
+<h5>Latest Events List</h5>
+<div class="row">
+    <div class="col-lg-4">
+        <small>Events</small>
+    </div>
+    <div class="col-lg-4">
+        <small>Event date</small>
+    </div>
+    <div class="col-lg-4">
+        <small>Created at</small>
+    </div>
+</div>
+
+<% @urgent_events.each do |urevent| %>
+<div class="row">
+    <div class="col-lg-4"><%= link_to urevent.description,
+  opportunity_path(urevent.opportunity.id, anchor: "e#{urevent.id}") %></div>
+    <% if urevent.event_date.blank? %>
+    <div class="col-lg-4">
+        <span style="color: red;">Not specified</span>
+    </div>
+    <div class="col-lg-4">
+        <span style="color: red;">Not available</span>
+    </div>
+<% else %>
+    <div class="col-lg-4"><%= urevent.event_date.strftime('%d %b %Y')%></div>
+    <div class="col-lg-4"><%= urevent.created_at.strftime('%d %b %Y') %></div>
+    <% end %>
+</div>
+<% end %>
+
+<hr>
+
+<h5>Urgent Events List</h5>
+<div class="row">
+    <div class="col-lg-4">
+        <small>Events</small>
+    </div>
+    <div class="col-lg-4">
+        <small>Event date</small>
+    </div>
+    <div class="col-lg-4">
+        <small>Time remaining</small>
+    </div>
+</div>
+
+<% @urgent_events.each do |urevent| %>
+<div class="row">
+    <div class="col-lg-4"><%= link_to urevent.description,
+  opportunity_path(urevent.opportunity.id, anchor: "e#{urevent.id}") %></div>
+    <% if urevent.event_date.blank? %>
+    <div class="col-lg-4">
+        <span style="color: red;">Not specified</span>
+    </div>
+    <div class="col-lg-4">
+        <span style="color: red;">Not available</span>
+    </div>
+<% else %>
+    <div class="col-lg-4"><%= urevent.event_date.strftime('%d %b %Y')%></div>
+    <div class="col-lg-4"><%= distance_of_time_in_words(urevent.event_date, Time.now) %></div>
+    <% end %>
+</div>
+<% end %>
+<% end %>
+
+<br>
+<div class="row">
+  <div class="col-lg-12 text-center">
+<h5><%= link_to 'View All Events', events_path %></h5>
+</div>
+</div>

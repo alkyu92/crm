@@ -14,8 +14,11 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        @account.acctimelines.create!(tactivity: "account", nactivity: @account.account_name,
-        action: "created account", user_id: current_user.id)
+        @account.acctimelines.create!(
+        tactivity: "account",
+        nactivity: @account.account_name,
+        action: "created account",
+        user_id: current_user.id)
         format.js { flash.now[:success] = "Account entry created!" }
       else
         format.js { flash.now[:danger] = "Failed to create account entry!" }
@@ -32,6 +35,11 @@ class AccountsController < ApplicationController
           params[:accdocs].each { |accdoc|
             @account.accdocuments.create!( accdoc: accdoc )
           }
+          @account.acctimelines.create!(
+          tactivity: "account",
+          nactivity: @account.account_name,
+          action: "added attachment file to account", 
+          user_id: current_user.id)
         end
 
         save_timeline_if_any_changes
@@ -45,9 +53,8 @@ class AccountsController < ApplicationController
 
   def destroy
     @account.destroy
-    respond_to do |format|
-      format.js { flash.now[:success] = "Account entry deleted!" }
-    end
+    flash[:success] = "Account deleted!"
+    redirect_to accounts_path
   end
 
   def delete_attachment
@@ -55,8 +62,11 @@ class AccountsController < ApplicationController
     @account.accdocuments.find(params[:id]).destroy
 
     respond_to do |format|
-      @account.acctimelines.create!(tactivity: "account", nactivity: @account.account_name,
-      action: "deleted attachment from account", user_id: current_user.id)
+      @account.acctimelines.create!(
+      tactivity: "account",
+      nactivity: @account.account_name,
+      action: "deleted attachment from account",
+      user_id: current_user.id)
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end

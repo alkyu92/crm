@@ -18,23 +18,23 @@
                         <br>
                         <%= f.input :name, label: "Opportunity Name",
                         placeholder: "Opportunity name", autofocus: true %>
+                        <%= f.input :amount, label: "Amount", placeholder: "Opportunity amount" %>
                         <%= f.hidden_field :account_id, value: @account.id %>
+                        <%= f.input :close_date, as: :date_time_picker %>
+                    </div>
+                    <div class="col-lg-4">
+                        <br><br><br>
+                        <%= f.input :probability, label: "Probability",
+                        placeholder: "Probability in percentage" %>
                         <%= f.input :status, collection: ["Open", "Closed-Won", "Closed-Loss"],
                         include_blank: false %>
-                        <%= f.input :close_date, as: :date_time_picker %>
+                        <%= f.input :loss_reason, label: "Loss Reason", placeholder: "Loss reason" %>
                     </div>
                     <div class="col-lg-4">
                         <br><br><br>
                         <%= f.input :business_type, label: "Business Type",
                         placeholder: "Business type" %>
-                        <%= f.input :probability, label: "Probability",
-                        placeholder: "Probability in percentage" %>
-                        <%= f.input :amount, label: "Amount", placeholder: "Opportunity amount" %>
-                        <%= f.input :loss_reason, label: "Loss Reason", placeholder: "Loss reason" %>
-                    </div>
-                    <div class="col-lg-4">
-                        <br><br><br>
-                        <%= f.input :description, input_html: {rows: 9}, label: "Description",
+                        <%= f.input :description, input_html: {rows: 5}, label: "Description",
                         placeholder: "Opportunity description" %>
                     </div>
                 </div>

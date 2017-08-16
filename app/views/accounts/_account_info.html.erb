@@ -18,11 +18,11 @@
     <div class="col-lg-3">
         <strong>Billing Address</strong>
         <br>
-        <% if (@account.billing_street &&
-           @account.billing_city &&
-           @account.billing_state &&
-           @account.billing_postal_code &&
-           @account.billing_country).blank? %>
+        <% if @account.billing_street.blank? &&
+           @account.billing_city.blank? &&
+           @account.billing_state.blank? &&
+           @account.billing_postal_code.blank? &&
+           @account.billing_country.blank? %>
         <span style="color: red;">
             Billing address not specified
         </span>
