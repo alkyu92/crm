@@ -4,6 +4,16 @@ class CallsController < ApplicationController
 
   def index
     @calls = Call.all.page(params[:page]).per(10)
+    @opportunity = Opportunity.find(params[:opportunity_id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.js
+    end
   end
 
   def create

@@ -2,10 +2,22 @@ class NotesController < ApplicationController
   before_action :find_opportunity
   before_action :find_note, only: [:update, :destroy]
 
+  def index
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def create
     @note = @opportunity.notes.build(params_note)
     @note.user_id = current_user.id
-    
+
     respond_to do |format|
       if @note.save
         @opportunity.timelines.create!(tactivity: "note",

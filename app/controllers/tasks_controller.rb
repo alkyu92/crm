@@ -4,6 +4,16 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all.order('due_date').page(params[:page]).per(10)
+    @opportunity = Opportunity.find(params[:opportunity_id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.js
+    end
   end
 
   def create

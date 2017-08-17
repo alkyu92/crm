@@ -58,7 +58,7 @@ No event created yet.
                     <li><%= link_to 'Edit Event', '#',
                     data: {toggle: "modal", target: "#eventModal-#{event.id}"} %></li>
                     <li><%= link_to 'Delete Event', opportunity_event_path(@opportunity, event),
-                method: :delete, remote: true %></li>
+                method: :delete, remote: true, data: {confirm: "Are you sure?"} %></li>
                 </ul>
             </div>
         </div>

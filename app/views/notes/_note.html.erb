@@ -14,7 +14,8 @@ No notes submitted yet.
                 <li><%= link_to 'Edit', '#',
             data: {toggle: "modal", target: "#noteModal-#{note.id}"} %></li>
                 <li><%= link_to 'Delete',
-            opportunity_note_path(@opportunity, note), method: :delete, remote: true %></li>
+            opportunity_note_path(@opportunity, note), method: :delete, remote: true,
+            data: {confirm: "Are you sure?"} %></li>
             </ul>
         </div>
 

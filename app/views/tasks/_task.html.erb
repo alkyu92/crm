@@ -61,9 +61,9 @@ No tasks created yet.
                         <%= link_to 'Mark as Incomplete', update_task_status_path(@opportunity, task), remote: true %>
                         <% end %>
                     </li>
-                    <li><%= link_to 'Edit Task', '#', data: {toggle: "modal", target: "#taskModal-#{task.id}"} %></li>
+                    <li><%= link_to 'Edit Task', '#', data: {toggle: "modal", target: "#taskEdit-#{task.id}"} %></li>
                     <li><%= link_to 'Delete Task', opportunity_task_path(@opportunity, task),
-            method: :delete, remote: true %></li>
+            method: :delete, remote: true, data: {confirm: "Are you sure?"} %></li>
                 </ul>
             </div>
         </div>

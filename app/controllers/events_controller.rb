@@ -4,6 +4,16 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all.order('event_date').page(params[:page]).per(10)
+    @opportunity = Opportunity.find(params[:opportunity_id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.js
+    end
   end
 
   def create

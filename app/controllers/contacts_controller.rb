@@ -3,6 +3,17 @@ class ContactsController < ApplicationController
 
   def index
     @merge = Acccontact.all + Contact.all
+    @opportunity = Opportunity.find(params[:opportunity_id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show
+    @opportunity = Opportunity.find(params[:opportunity_id])
+    respond_to do |format|
+      format.js
+    end
   end
 
   def create
