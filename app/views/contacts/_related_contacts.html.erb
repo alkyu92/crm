@@ -18,11 +18,6 @@
         <%= render 'contacts/contact' %>
     </div>
 
-    <% if @opportunity.contacts.blank? %>
-    <div class="col-lg-12">
-        No contacts added yet.
-    </div>
-    <% else %>
     <% @opportunity.contacts.each do |contact| %>
 
     <!-- Modal -->
@@ -189,8 +184,5 @@
             </div>
         </div>
     </div>
-
     <% end %>
-    <% end %>
-
 </div>

@@ -4,9 +4,6 @@
       <%= render 'tasks/task' %>
     </div>
 
-    <% if @opportunity.tasks.blank? %>
-    No tasks found.
-    <% else %>
     <% @opportunity.tasks.each do |task| %>
     <!-- Modal -->
     <div id="taskModal-<%= task.id %>" class="modal fade" role="dialog">
@@ -31,6 +28,5 @@
             </div>
         </div>
     </div>
-    <% end %>
     <% end %>
 </div>

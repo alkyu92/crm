@@ -4,9 +4,6 @@
       <%= render 'calls/call' %>
     </div>
 
-    <% if @opportunity.calls.blank? %>
-    No calls found.
-    <% else %>
       <% @opportunity.calls.each do |call| %>
       <!-- Modal -->
       <div id="call-<%= call.id %>" class="modal fade" role="dialog">
@@ -40,7 +37,5 @@
               </div>
           </div>
       </div>
-      <% end %>
     <% end %>
-
 </div>

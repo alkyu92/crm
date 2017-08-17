@@ -13,9 +13,6 @@
       <%= render 'notes/note' %>
     </div>
 
-    <% if @opportunity.notes.blank? %>
-    No notes submitted yet.
-    <% else %>
     <% @opportunity.notes.each do |note| %>
     <!-- Modal -->
     <div id="noteModal-<%= note.id %>" class="modal fade" role="dialog">
@@ -65,6 +62,5 @@
             </div>
         </div>
     </div>
-    <% end %>
     <% end %>
 </div>

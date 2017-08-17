@@ -45,4 +45,5 @@ Rails.application.routes.draw do
   to: 'events#update_event_status', as: :update_event_status
 
   root 'dashboards#index'
+  get "*path" => redirect("/")
 end

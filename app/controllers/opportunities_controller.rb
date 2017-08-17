@@ -16,8 +16,9 @@ class OpportunitiesController < ApplicationController
   end
 
   def create
-    @opportunity = current_user.opportunities.build(params_opportunity)
-
+    @account = Account.find(params[:account_id])
+    @opportunity = @account.opportunities.build(params_opportunity)
+    @opportunity.user_id = current_user.id
     respond_to do |format|
       if @opportunity.save
         timeline(@opportunity.name, "created opportunity")

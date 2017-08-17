@@ -4,9 +4,6 @@
       <%= render 'events/event' %>
     </div>
 
-    <% if @opportunity.events.blank? %>
-    No events found.
-    <% else %>
     <% @opportunity.events.each do |event| %>
     <!-- Modal -->
     <div id="eventModal-<%= event.id %>" class="modal fade" role="dialog">
@@ -32,6 +29,4 @@
         </div>
     </div>
     <% end %>
-    <% end %>
-
 </div>

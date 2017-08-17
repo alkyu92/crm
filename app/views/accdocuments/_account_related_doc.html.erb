@@ -2,11 +2,11 @@
     <h4>Account Related Documents</h4>
 
     <div class="panel panel-default panel-body">
-        <%= simple_form_for [@account], html: {multipart: true}, remote: true do |f| %>
-        <%= f.input :account_name, as: :hidden %>
+        <%= simple_form_for @account, html: {multipart: true}, remote: true do |f| %>
+        <%= f.input :website, as: :hidden %>
         <%= f.label "Upload Documents" %>
         <%= file_field_tag "accdocs[]",type: :file, multiple: true %>
-        <%= f.hint "Can upload multiple files. Only pdf/doc type"%>
+        <%= f.hint "Only pdf/doc" %>
         <%= f.button :submit, "Submit Documents" %>
         <% end %>
     </div>

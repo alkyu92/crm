@@ -19,7 +19,8 @@ $('#account_shipping_state').val('');
 $('#account_shipping_postal_code').val('');
 $('#account_shipping_country').val('');
 
-$('#accountModalForm').modal('toggle');
+$('.modal').modal('hide');
+
 $('#acc').html("<%= j (render 'accounts/acc') %>");
 $('#notice-acc').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
 $('#crm-menu').html("<%= j (render 'layouts/menu') %>");

@@ -5,7 +5,7 @@ $('#notice-acc').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut
 $('#acc-info').html("<%= j (render 'accounts/account_info') %>");
 $('#acc-title').html("<%= j (render 'accounts/account_title') %>");
 
-$('#accountModalForm').modal('hide');
+$('.modal').modal('hide');
 $('#crm-menu').html("<%= j (render 'layouts/menu') %>");
 
 $('#accdocs_').val('');
