@@ -13,8 +13,191 @@
     <%= render 'acccontacts/form' %>
 
     <hr>
-    
+
     <div id="acccontact" class="row">
         <%= render 'acccontacts/acccontact' %>
     </div>
+
+    <% if @account.acccontacts.blank? %>
+    No contacts found.
+    <% else %>
+    <% @account.acccontacts.each do |contact| %>
+    <!-- Modal -->
+    <div id="contact-<%= contact.id %>" class="modal fade" role="dialog">
+        <div class="modal-dialog" style="width: 1000px;">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Contact</h4>
+                </div>
+                <div class="modal-body">
+                    <%= simple_form_for [@account, contact],remote: true do |f| %>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h4>Contact Details</h4>
+                            <br>
+                            <%= f.input :profile_pic, as: :file, label: "Upload Profile Picture" %>
+                            <% if contact.profile_pic.blank? %>
+                            There are no profile picture uploaded yet.
+                        <% else %>
+                            <%= image_tag(contact.profile_pic.url(:medium), class: "img-responsive img-center") %>
+                            <% end %>
+                            <%= f.input :name, label: "Name", placeholder: "Name", autofocus: true %>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <%= f.input :title, label: "Position Title", placeholder: "Position title" %>
+                                    <%= f.input :department, label: "Department", placeholder: "Department" %>
+                                </div>
+                                <div class="col-lg-6">
+                                    <%= f.input :email, label: "Email", placeholder: "Email" %>
+                                    <%= f.input :phone, label: "Phone", placeholder: "Phone" %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <h4>Mailing Address</h4>
+                            <br>
+                            <%= f.input :mailing_street, label: "Street", placeholder: "Street" %>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <%= f.input :mailing_city, label: "City", placeholder: "City" %>
+                                    <%= f.input :mailing_state, label: "State", placeholder: "State" %>
+                                </div>
+                                <div class="col-lg-6">
+                                    <%= f.input :mailing_postal_code, label: "Postal Code", placeholder: "Postal code" %>
+                                    <%= f.input :mailing_country, label: "Country", include_blank: "Choose country" %>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <%= f.button :submit, "Update Contact",class: "btn-success" %>
+                    <% end %>
+                    <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="contactInfo-<%= contact.id %>" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Contact Info</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <% if contact.profile_pic.blank? %>
+                            <%= letter_avatar_tag(contact.name, 100, class: "img-responsive img-center")%>
+                        <% else %>
+                            <%= image_tag(contact.profile_pic.url(:medium), class: "img-responsive img-center")%>
+                            <% end %>
+                        </div>
+                        <div class="col-lg-5">
+                            <small>Name</small>
+                            <h4>
+                                <% if contact.name.blank? %>
+                                <span style="color: red;">
+                                    Name not specified
+                                </span>
+                            <% else %>
+                                <%= contact.name %>
+                                <% end %>
+                            </h4>
+                            <br>
+
+                            <small>Position Title</small>
+                            <h4>
+                                <% if contact.title.blank? %>
+                                <span style="color: red;">
+                                    Position title not specified
+                                </span>
+                            <% else %>
+                                <%= contact.title %>
+                                <% end %>
+                            </h4>
+                            <br>
+
+                            <small>Department</small>
+                            <h4>
+                                <% if contact.department.blank? %>
+                                <span style="color: red;">
+                                    Department not specified
+                                </span>
+                            <% else %>
+                                <%= contact.department %>
+                                <% end %>
+                            </h4>
+
+                        </div>
+                        <div class="col-lg-5">
+                            <small>Mailing Address</small>
+                            <h4>
+                                <% if (contact.mailing_street == "" && contact.mailing_city == "" && contact.mailing_state == "" && contact.mailing_postal_code == "" && contact.mailing_country == "") %>
+                                <span style="color: red;">
+                                    Mailing address not specified
+                                </span>
+                            <% else %>
+
+                                <% if contact.mailing_street != "" %>
+                                <%= contact.mailing_street %>
+                                <% end %>
+                                <% if contact.mailing_city != "" %>
+                                <%= contact.mailing_city %>,
+                                <% end %>
+                                <% if contact.mailing_state != "" %>
+                                <%= contact.mailing_state %>,
+                                <% end %>
+                                <% if contact.mailing_postal_code != "" %>
+                                <%= contact.mailing_postal_code %>
+                                <% end %>
+                                <% if contact.mailing_country != "" %>
+                                <%= contact.mailing_country %>
+                                <% end %>
+
+                                <% end %>
+                            </h4>
+                            <br>
+
+                            <small>Phone</small>
+                            <h4>
+                                <% if contact.phone.blank? %>
+                                <span style="color: red;">
+                                    Phone not specified
+                                </span>
+                            <% else %>
+                                <%= contact.phone %>
+                                <% end %></h4>
+                            <br>
+                            <small>Email</small>
+                            <h4>
+                                <% if contact.email.blank? %>
+                                <span style="color: red;">
+                                    Email not specified
+                                </span>
+                            <% else %>
+                                <%= contact.email %>
+                                <% end %>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <%= link_to 'Close', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% end %>
+    <% end %>
 </div>

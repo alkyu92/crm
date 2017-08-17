@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def timeline(nactivity, action)
-    @account.timelines.create!(
+    @opportunity.timelines.create!(
     tactivity: "opportunity",
     nactivity: nactivity,
     action: action,

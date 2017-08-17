@@ -11,8 +11,7 @@ $('#acccontact_mailing_state').val('');
 $('#acccontact_mailing_postal_code').val('');
 $('#acccontact_mailing_country').val('');
 
-//close modal form after submit
-$('#acccontactModalForm').modal('toggle');
+$('.modal').modal('hide');
 
 //refresh render to update lists
 $('#acccontact').html("<%= j (render 'acccontacts/acccontact') %>");

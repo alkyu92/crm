@@ -1,11 +1,9 @@
 <h4>Notes</h4>
 <div id="notice-note"></div>
-<% notes = @opportunity.notes %>
-<% if notes.blank? %>
+<% if @opportunity.notes.blank? %>
 No notes submitted yet.
 <% else %>
-<div class="row">
-    <% notes.each do |note| %>
+    <% @opportunity.notes.each do |note| %>
     <div class="col-lg-6 panel panel-body">
         <div class="pull-right">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -31,55 +29,5 @@ No notes submitted yet.
         </h5>
         <%= note.description.truncate(100) %>
     </div>
-
-    <!-- Modal -->
-    <div id="noteModal-<%= note.id %>" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Edit Task
-                        <%= note.id %></h4>
-                </div>
-                <div class="modal-body">
-                    <%= simple_form_for [@opportunity, note], remote: true do |f| %>
-                    <%= f.input :title %>
-                    <%= f.input :description %>
-                </div>
-                <div class="modal-footer">
-                    <%= f.button :submit, class: "btn btn-success" %>
-                    <% end %>
-                    <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"}%>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div id="noteInfo-<%= note.id %>" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">
-                      <small>Note</small>
-                      <br>
-                      <%= note.title %></h4>
-                </div>
-                <div class="modal-body">
-                    <%= simple_format h(note.description) %>
-                </div>
-                <div class="modal-footer">
-
-                    <%= link_to 'Close', '#', class: "btn btn-default", data: {dismiss: "modal"}%>
-                </div>
-            </div>
-        </div>
-    </div>
     <% end %>
-</div>
 <% end %>

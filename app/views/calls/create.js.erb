@@ -1,7 +1,10 @@
-$('.call').html("<%= j (render 'calls/call') %>");
-$('.timelines').html("<%= j (render 'timelines/timelines_index') %>");
 $('#call_description').val('');
 $('#call_call_datetime').val('');
 $('#call_duration').val('');
+
+$('.modal').modal('hide');
+
+$('.call').html("<%= j (render 'calls/call') %>");
+$('.timelines').html("<%= j (render 'timelines/timelines_index') %>");
 $('#notice-call').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
 $('#crm-menu').html("<%= j (render 'layouts/menu') %>");

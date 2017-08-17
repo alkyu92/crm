@@ -12,7 +12,7 @@ $('#contact_mailing_postal_code').val('');
 $('#contact_mailing_country').val('');
 
 //close modal form after submit
-$('#contactModalForm').modal('toggle');
+$('.modal').modal('hide');
 
 //refresh render to update lists
 $('#contact').html("<%= j (render 'contacts/contact') %>");

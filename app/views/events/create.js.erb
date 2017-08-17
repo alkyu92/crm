@@ -1,6 +1,9 @@
-$('.event').html("<%= j (render 'events/event') %>");
-$('.timelines').html("<%= j (render 'timelines/timelines_index') %>");
 $('#event_description').val('');
 $('#event_event_date').val('');
+
+$('.modal').modal('hide');
+
+$('.event').html("<%= j (render 'events/event') %>");
+$('.timelines').html("<%= j (render 'timelines/timelines_index') %>");
 $('#notice-event').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
 $('#crm-menu').html("<%= j (render 'layouts/menu') %>");

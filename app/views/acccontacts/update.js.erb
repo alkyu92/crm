@@ -1,7 +1,5 @@
 //close modal form after submit
-$('#acccontactModalForm').modal('hide');
-$('body').removeClass('modal-open');
-$('.modal-backdrop').remove();
+$('.modal').modal('hide');
 
 //refresh render to update lists
 $('#acccontact').html("<%= j (render 'acccontacts/acccontact') %>");

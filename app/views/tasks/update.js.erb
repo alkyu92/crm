@@ -1,6 +1,4 @@
 $('.modal').modal('hide');
-$('body').removeClass('modal-open');
-$('.modal-backdrop').remove();
 
 $('.timelines').html("<%= j (render 'timelines/timelines_index') %>");
 $('.task').html("<%= j (render 'tasks/task') %>");

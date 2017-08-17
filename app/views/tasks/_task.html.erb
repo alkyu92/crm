@@ -20,10 +20,10 @@ No tasks created yet.
             </div>
         </div>
     </li>
-
+</ul>
     <% @opportunity.tasks.order('created_at DESC').each do |task| %>
     <li class="list-group-item">
-        <div class="row task-padding" id="t<%= task.id%>">
+        <div class="row" id="t<%= task.id%>">
             <div class="col-lg-5">
                 <%= task.description %>
             </div>
@@ -68,30 +68,6 @@ No tasks created yet.
             </div>
         </div>
     </li>
-
-    <!-- Modal -->
-    <div id="taskModal-<%= task.id %>" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Edit Task</h4>
-                </div>
-                <div class="modal-body">
-                    <%= simple_form_for [@opportunity, task], remote: true do |f| %>
-                    <%= f.input :description, placeholder: "To-do" %>
-                    <%= f.input :due_date, as: :date_time_picker %>
-                </div>
-                <div class="modal-footer">
-                    <%= f.button :submit, class: "btn btn-success" %>
-                    <% end %>
-                    <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"}%>
-                </div>
-            </div>
-        </div>
-    </div>
     <% end %>
-</ul>
+
 <% end %>
