@@ -35,19 +35,15 @@
                 <small><%= contact.title %></small><br>
                 <small><%= contact.department %></small>
             </h5>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
             <% unless contact.email.blank? %>
             <i class="fa fa-envelope"></i>
             <%= contact.email %>
             <br>
             <% end %>
+
             <% unless contact.phone.blank? %>
             <i class="fa fa-phone"></i>
             <%= contact.phone %>
-
             <% end %>
         </div>
     </div>

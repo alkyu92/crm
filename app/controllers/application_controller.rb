@@ -29,6 +29,30 @@ class ApplicationController < ActionController::Base
     user_id: current_user.id)
   end
 
+  def timeline_task(action)
+    @opportunity.timelines.create!(
+    tactivity: "task",
+    nactivity: @task.description,
+    action: action,
+    user_id: current_user.id)
+  end
+
+  def timeline_call(action)
+    @opportunity.timelines.create!(
+    tactivity: "call",
+    nactivity: @call.description,
+    action: action,
+    user_id: current_user.id)
+  end
+
+  def timeline_event(action)
+    @opportunity.timelines.create!(
+    tactivity: "event",
+    nactivity: @event.description,
+    action: action,
+    user_id: current_user.id)
+  end
+
   protected
   def devise_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])

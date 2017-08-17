@@ -107,7 +107,18 @@ $('.opportunity_status').on("change", function(){
     $('.opportunity_close_date').hide();
     $('.opportunity_loss_reason').hide();
   }
+
 });
+
+var close_date_val = $('#opportunity_close_date').val();
+if(close_date_val){
+  $('.opportunity_close_date').show();
+}
+
+var loss_reason_val = $('#opportunity_loss_reason').val();
+if(loss_reason_val){
+  $('.opportunity_loss_reason').show();
+}
 
 <% end %>
 <% end %>

@@ -135,7 +135,7 @@ class OpportunitiesController < ApplicationController
       timeline(@opportunity.status, "updated opportunity status to")
     end
     if @opportunity.close_date_previously_changed?
-      timeline(@opportunity.close_date, "updated opportunity close date to")
+      timeline(@opportunity.close_date.strftime('%d %b %Y'), "updated opportunity close date to")
     end
     if @opportunity.loss_reason_previously_changed?
       timeline(@opportunity.loss_reason, "updated opportunity loss reason to")

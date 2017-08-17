@@ -24,6 +24,7 @@ No notes submitted yet.
           data: {toggle: "modal", target: "#accnoteInfo-#{accnote.id}"} %>
           <br>
             <small>
+                Created by
                 <%= accnote.user.name %>
                 &middot
                 <%= time_ago_in_words(accnote.created_at) %>

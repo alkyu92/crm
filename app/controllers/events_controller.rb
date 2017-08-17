@@ -11,8 +11,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        @opportunity.timelines.create!(tactivity: "event",
-        nactivity: @event.description, action: "created event", user_id: current_user.id)
+        timeline_event("created event")
         format.js { flash.now[:success] = "Event log created!" }
       else
         format.js { flash.now[:success] = "Failed to create event log!" }
@@ -24,8 +23,7 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(params_event)
-        @opportunity.timelines.create!(tactivity: "event",
-        nactivity: @event.description, action: "updated event", user_id: current_user.id)
+        timeline_event("updated event")
         format.js { flash.now[:success] = "Event entry updated!" }
       else
         format.js { flash.now[:danger] = "Failed to update event entry!" }
@@ -35,10 +33,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event.destroy
-
-    @opportunity.timelines.create!(tactivity: "event",
-    nactivity: @event.description, action: "deleted event", user_id: current_user.id)
-
+    timeline_event("deleted event")
     respond_to do |format|
       format.js { flash.now[:success] = "Event log deleted!" }
     end
@@ -49,17 +44,14 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.complete == true
         @event.update_attributes(complete: false)
-
-        @opportunity.timelines.create!(tactivity: "event",
-        nactivity: @event.description,
-        action: "updated event status from Attended to Not Attend for event", user_id: current_user.id)
-        format.js { flash.now[:success] = "Event status changed from Attended to Not Attend!" }
+        status = "updated event status from Attended to Not Attend for event"
+        timeline_event(status)
+        format.js { flash.now[:success] = status.capitalize + @event.description }
       else
         @event.update_attributes(complete: true)
-        @opportunity.timelines.create!(tactivity: "event",
-        nactivity: @event.description,
-        action: "updated event status from Not Attend to Attended for event", user_id: current_user.id)
-        format.js { flash.now[:success] = "Event status changed from Not Attend to Attended!" }
+        status = "updated event status from Not Attend to Attended for event"
+        timeline_event(status)
+        format.js { flash.now[:success] = status.capitalize + @event.description }
       end
     end
   end

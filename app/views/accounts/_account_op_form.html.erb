@@ -20,14 +20,14 @@
                         placeholder: "Opportunity name", autofocus: true %>
                         <%= f.input :amount, label: "Amount", placeholder: "Opportunity amount" %>
                         <%= f.hidden_field :account_id, value: @account.id %>
-                        <%= f.input :close_date, as: :date_time_picker %>
+                        <%= f.input :probability, label: "Probability",
+                        placeholder: "Probability in percentage" %>
                     </div>
                     <div class="col-lg-4">
                         <br><br><br>
-                        <%= f.input :probability, label: "Probability",
-                        placeholder: "Probability in percentage" %>
                         <%= f.input :status, collection: ["Open", "Closed-Won", "Closed-Loss"],
                         include_blank: false %>
+                        <%= f.input :close_date, as: :date_time_picker %>
                         <%= f.input :loss_reason, label: "Loss Reason", placeholder: "Loss reason" %>
                     </div>
                     <div class="col-lg-4">
@@ -50,3 +50,23 @@
         </div>
     </div>
 </div>
+
+<%= javascript_tag defer: 'defer' do %>
+$('.opportunity_close_date').hide();
+$('.opportunity_loss_reason').hide();
+
+$('#opportunity_status').on("change", function(){
+  var status = $('#opportunity_status').val();
+  if(status == "Closed-Won" || status == "Closed-Loss"){
+      $('.opportunity_close_date').show();
+  }else if(status == "Open"){
+    $('.opportunity_close_date').hide();
+  }
+
+  if(status == "Closed-Loss"){
+    $('.opportunity_loss_reason').show();
+  } else {
+    $('.opportunity_loss_reason').hide();
+  }
+});
+<% end %>

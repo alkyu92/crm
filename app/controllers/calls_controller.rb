@@ -11,8 +11,7 @@ class CallsController < ApplicationController
 
     respond_to do |format|
       if @call.save
-        @opportunity.timelines.create!(tactivity: "call log",
-        nactivity: @call.description, action: "created call log", user_id: current_user.id)
+        timeline_call("created call log")
         format.js { flash.now[:success] = "Call log created!" }
       else
         format.js { flash.now[:danger] = "Failed to create call log!" }
@@ -24,8 +23,7 @@ class CallsController < ApplicationController
   def update
     respond_to do |format|
       if @call.update(params_call)
-        @opportunity.timelines.create!(tactivity: "call log",
-        nactivity: @call.description, action: "updated call log", user_id: current_user.id)
+        timeline_call("updated call log")
         format.js { flash.now[:success] = "Call entry updated!" }
       else
         format.js { flash.now[:danger] = "Failed to update call entry!" }
@@ -36,8 +34,7 @@ class CallsController < ApplicationController
 
   def destroy
     @call.destroy
-    @opportunity.timelines.create!(tactivity: "call log",
-    nactivity: @call.description, action: "deleted call log", user_id: current_user.id)
+    timeline_call("deleted call log")
     respond_to do |format|
       format.js { flash.now[:success] = "Call log deleted!" }
     end

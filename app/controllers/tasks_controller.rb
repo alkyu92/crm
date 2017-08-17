@@ -11,8 +11,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        @opportunity.timelines.create!(tactivity: "task",
-        nactivity: @task.description, action: "created task", user_id: current_user.id)
+        timeline_task("created task")
         format.js { flash.now[:success] = "Task log added!" }
       else
         format.js { flash.now[:danger] = "Failed to add task log!" }
@@ -24,16 +23,10 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(params_task)
-
-        @opportunity.timelines.create!(tactivity: "task",
-        nactivity: @task.description, action: "updated task", user_id: current_user.id)
+        timeline_task("updated task")
         format.js { flash.now[:success] = "Task updated!" }
-        #
-        # redirect_to request.referrer
       else
         format.js { flash.now[:danger] = "Failed to update task!" }
-        #
-        # redirect_to request.referrer
       end
     end
 
@@ -41,8 +34,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    @opportunity.timelines.create!(tactivity: "task",
-    nactivity: @task.description, action: "deleted task", user_id: current_user.id)
+    timeline_task("deleted task")
     respond_to do |format|
       format.js { flash.now[:success] = "Task log deleted!" }
     end
@@ -52,16 +44,14 @@ class TasksController < ApplicationController
     respond_to do |format|
     if @task.complete == true
       @task.update_attributes(complete: false)
-      @opportunity.timelines.create!(tactivity: "task",
-      nactivity: @task.description,
-      action: "updated task status from Completed to Incomplete for task", user_id: current_user.id)
-      format.js { flash.now[:success] = "Task log status updated from Completed to Incomplete!" }
+      status = "updated task status from Completed to Incomplete for task "
+      timeline_task(status)
+      format.js { flash.now[:success] = status.capitalize + @task.description }
     else
       @task.update_attributes(complete: true)
-      @opportunity.timelines.create!(tactivity: "task",
-      nactivity: @task.description,
-      action: "updated task status from Incomplete to Completed for task", user_id: current_user.id)
-      format.js { flash.now[:success] = "Task log status updated from Incomplete to Completed!" }
+      status = "updated task status from Incomplete to Completed for task "
+      timeline_task(status)
+      format.js { flash.now[:success] = status.capitalize + @task.description }
     end
     end
   end

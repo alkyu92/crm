@@ -35,11 +35,15 @@
 <hr>
 <div class="row">
     <div class="col-lg-1 text-center"><%= call.id %></div>
-    <div class="col-lg-3"><%= link_to call.description.truncate(50), opportunity_path(call.opportunity, anchor: "c#{call.id}") %></div>
+    <div class="col-lg-3"><%= link_to call.description.truncate(50), opportunity_path(call.opportunity, anchor: "call-#{call.id}") %></div>
     <div class="col-lg-2">
+      <% if call.call_datetime.blank? %>
+      <span style="color: red;">Date not specified</span>
+      <% else %>
         <%= call.call_datetime.strftime('%d %b %Y') %><br>
         (<%= distance_of_time_in_words(Time.now, call.call_datetime) %>
         left)
+      <% end %>
     </div>
     <div class="col-lg-2"><%= link_to call.opportunity.name, opportunity_path(call.opportunity) %></div>
     <div class="col-lg-2"><%= link_to call.opportunity.account.account_name,

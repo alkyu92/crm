@@ -18,8 +18,8 @@
             <small>
                 <%= link_to timeline.user.name, user_path(timeline.user.id) %>
                 <%= timeline.action %>
-                <strong><%= link_to timeline.nactivity.truncate(50),
-                opportunity_path(timeline.opportunity) %></strong>
+                <%= link_to timeline.nactivity.truncate(50),
+                opportunity_path(timeline.opportunity, anchor: "#{timeline.tactivity}") %>
                 <div class="pull-right">
                     <%= link_to opportunity_timeline_path(@opportunity, timeline),
                 method: :delete, remote: true do %>
