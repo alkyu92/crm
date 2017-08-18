@@ -1,6 +1,6 @@
 <h4>Calls</h4>
 <hr>
-<% calls = Call.page(params[:page_call]).per(5) %>
+<% calls = Call.includes(:opportunity).page(params[:page_call]).per(5) %>
 <% if calls.blank? %>
 No log calls yet.
 <% else %>
@@ -15,15 +15,19 @@ No log calls yet.
 <% calls.each do |call| %>
 <div class="row">
     <div class="col-lg-6">
-        <%= link_to call.description, opportunity_path(call.opportunity, anchor: "c#{call.id}") %>
+        <%= link_to call.description, opportunity_path(call.opportunity, anchor: "call-#{call.id}") %>
     </div>
     <div class="col-lg-6">
+      <% if call.call_datetime.blank? %>
+      <span style="color: red;">Date not specified</span>
+      <% else %>
         <%= call.call_datetime.strftime('%d %b %Y %H:%M:%S') %>
+      <% end %>
     </div>
 </div>
 <% end %>
 <br>
 <div class="text-center">
-<%= paginate calls, param_name: :page_call %>
+<%= paginate calls, param_name: :page_call, remote: true %>
 </div>
 <% end %>

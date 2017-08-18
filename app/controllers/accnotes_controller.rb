@@ -2,10 +2,22 @@ class AccnotesController < ApplicationController
   before_action :find_account
   before_action :find_accnote, only: [:update, :destroy]
 
+  def index
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def create
     @accnote = @account.accnotes.build(params_accnote)
     @accnote.user_id = current_user.id
-    
+
     respond_to do |format|
       if @accnote.save
         @account.acctimelines.create!(tactivity: "note",

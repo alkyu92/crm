@@ -10,10 +10,10 @@
     <div class="col-lg-4">
         <strong>Name</strong>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-3">
         <strong>Status</strong>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-5">
         <strong>Created at DateTime</strong>
     </div>
 </div>
@@ -22,7 +22,7 @@
     <div class="col-lg-4">
         <%= link_to op.name, opportunity_path(op) %>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-3">
         <% if op.status == "Closed-Loss"%>
         <span style="color: red;"><%= op.status %></span>
         <% elsif op.status == "Closed-Won" %>
@@ -31,12 +31,12 @@
         <%= op.status %>
         <% end %>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-5">
         <%= op.created_at.strftime('%d %b %Y %H:%M:%S') %>
     </div>
 </div>
 <% end %>
 <div class="text-center">
-    <%= paginate userop, param_name: :page_op %>
+    <%= paginate userop, param_name: :page_op, remote: true %>
 </div>
 <% end %>

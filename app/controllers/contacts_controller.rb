@@ -1,8 +1,11 @@
 class ContactsController < ApplicationController
   before_action :find_contact, only: [:update, :destroy]
 
+  def contacs_all
+    @merge = Contact.all
+  end
+
   def index
-    @merge = Acccontact.all + Contact.all
     @opportunity = Opportunity.find(params[:opportunity_id])
     respond_to do |format|
       format.js

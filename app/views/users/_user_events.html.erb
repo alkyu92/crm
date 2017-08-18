@@ -1,6 +1,6 @@
 <h4>Events</h4>
 <hr>
-<% events = Event.page(params[:page_event]).per(5) %>
+<% events = Event.includes(:opportunity).page(params[:page_event]).per(5) %>
 <% if events.blank? %>
 No events yet.
 <% else %>
@@ -16,7 +16,7 @@ No events yet.
 <% events.each do |event| %>
 <div class="row">
     <div class="col-lg-6">
-        <%= link_to event.description, opportunity_path(event.opportunity, anchor: "e#{event.id}") %>
+        <%= link_to event.description, opportunity_path(event.opportunity, anchor: "event-#{event.id}") %>
     </div>
     <div class="col-lg-6">
         <% if event.event_date.blank? %>
@@ -29,6 +29,6 @@ No events yet.
 <% end %>
 <br>
 <div class="text-center">
-<%= paginate events, param_name: :page_event %>
+<%= paginate events, param_name: :page_event, remote: true %>
 </div>
 <% end %>

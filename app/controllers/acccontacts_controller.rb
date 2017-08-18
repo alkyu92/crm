@@ -3,6 +3,17 @@ class AcccontactsController < ApplicationController
 
   def index
     @acccontacts = Acccontact.all
+    @account = Account.find(params[:account_id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show
+    @account = Account.find(params[:account_id])
+    respond_to do |format|
+      format.js
+    end
   end
 
   def create
