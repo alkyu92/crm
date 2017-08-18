@@ -20,8 +20,8 @@
                 data: {toggle: "tab", target: "#accountOpportunities"} %></li>
                 <li><%= link_to 'Related Contacts', '#relatedContacts',
                 data: {toggle: "tab", target: "#relatedContacts"} %></li>
-                <li><%= link_to 'Related Documents', '#accountDocs',
-                data: {toggle: "tab", target: "#accountDocs"} %></li>
+                <li><%= link_to 'Related Documents', '#relatedDocs',
+                data: {toggle: "tab", target: "#relatedDocs"} %></li>
                 <li><%= link_to 'Notes', '#relatedNotes',
                 data: {toggle: "tab", target: "#relatedNotes"} %></li>
                 <li><%= link_to 'Details', '#accountDetails',
@@ -38,7 +38,7 @@
             <div class="tab-content">
                 <%= render 'account_related_opportunities' %>
                 <%= render 'contacts/related_contacts' %>
-                <%= render 'accdocuments/account_related_doc' %>
+                <%= render 'documents/related_docs' %>
                 <%= render 'notes/related_notes' %>
                 <%= render 'details' %>
             </div>

@@ -1,9 +1,9 @@
-<div class="tab-pane fade in" id="opportunityDocs">
-    <h4>Opportunity Related Documents</h4>
-
+<div class="tab-pane fade in" id="relatedDocs">
+    <h4>Related Documents</h4>
+    <% @subject = Account.find(params[:id]) %>
     <div class="panel panel-default panel-body">
-        <%= simple_form_for @opportunity, html: {multipart: true}, remote: true do |f| %>
-        <%= f.input :name, as: :hidden %>
+        <%= simple_form_for @subject, html: {multipart: true}, remote: true do |f| %>
+        <%= f.input :account_name, as: :hidden %>
         <%= f.label "Upload Documents" %>
         <%= file_field_tag "docs[]",type: :file, multiple: true %>
         <%= f.hint "Can upload multiple files. Only pdf/doc type"%>

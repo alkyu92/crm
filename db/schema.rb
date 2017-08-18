@@ -12,17 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20170816080534) do
 
-  create_table "accdocuments", force: :cascade do |t|
-    t.string   "accdoc_file_name"
-    t.string   "accdoc_content_type"
-    t.integer  "accdoc_file_size"
-    t.datetime "accdoc_updated_at"
-    t.integer  "account_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.index ["account_id"], name: "index_accdocuments_on_account_id"
-  end
-
   create_table "accounts", force: :cascade do |t|
     t.string   "account_name"
     t.string   "account_type"
@@ -90,10 +79,11 @@ ActiveRecord::Schema.define(version: 20170816080534) do
     t.string   "doc_content_type"
     t.integer  "doc_file_size"
     t.datetime "doc_updated_at"
-    t.integer  "opportunity_id"
+    t.string   "attchdoc_type"
+    t.integer  "attchdoc_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.index ["opportunity_id"], name: "index_documents_on_opportunity_id"
+    t.index ["attchdoc_type", "attchdoc_id"], name: "index_documents_on_attchdoc_type_and_attchdoc_id"
   end
 
   create_table "events", force: :cascade do |t|

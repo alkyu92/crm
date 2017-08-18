@@ -2,17 +2,11 @@ class ContactsController < ApplicationController
   before_action :find_contact, only: [:update, :destroy]
 
   def index
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    respond_to do |format|
-      format.js
-    end
+
   end
 
   def show
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    respond_to do |format|
-      format.js
-    end
+
   end
 
   def create
@@ -71,11 +65,8 @@ class ContactsController < ApplicationController
   end
 
   def find_contact
-    if params[:controller] == "opportunities"
-      @subject = Opportunity.find(params[:opportunity_id])
-    elsif params[:controller] == "accounts"
-      @subject = Account.find(params[:account_id])
-    end
+    @subject = Account.find(params[:account_id]) if params[:account_id]
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
 
     @contact = @subject.contacts.find(params[:id])
   end

@@ -1,5 +1,5 @@
 class Document < ApplicationRecord
-  belongs_to :opportunity
+  belongs_to :attchdoc, polymorphic: true
 
   has_attached_file :doc,
                     styles: { thumb: "200x250#" },

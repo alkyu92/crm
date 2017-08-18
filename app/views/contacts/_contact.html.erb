@@ -29,10 +29,10 @@
                         <li><%= link_to 'Edit', '#',
                       data: {toggle: "modal", target: "#contact-#{contact.id}"} %></li>
                         <li>
-                          <% if params[:controller] == "accounts" %>
+                          <% if params[:controller] == "accounts" || params[:account_id] %>
                         <%= link_to 'Delete', account_contact_path(@subject, contact),
                     method: :delete, remote: true %>
-                          <% elsif params[:controller] == "opportunities" %>
+                          <% elsif params[:controller] == "opportunities" || params[:opportunity_id] %>
                           <%= link_to 'Delete', opportunity_contact_path(@subject, contact),
                       method: :delete, remote: true %>
                           <% end %>
