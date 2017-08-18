@@ -17,18 +17,17 @@ Rails.application.routes.draw do
   end
 
   resources :accounts do
-    resources :acccontacts
+    resources :contacts
     get '/delete_attachment/:id',
     to: 'accounts#delete_attachment', as: :delete_attachment
-    resources :acctimelines
-    resources :accnotes
+    resources :timelines
+    resources :notes
     resources :opportunities
   end
 
   get '/tasks', to: 'tasks#index'
   get '/calls', to: 'calls#index'
   get '/events', to: 'events#index'
-  get '/contacts', to: 'contacts#contacts_all', as: :contacts
   get '/notifications', to: 'notifications#index'
 
   resources :users

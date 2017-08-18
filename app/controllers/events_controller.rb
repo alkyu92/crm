@@ -25,7 +25,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        timeline_event("created event")
+        #timeline_event("created event")
         format.js { flash.now[:success] = "Event log created!" }
       else
         format.js { flash.now[:success] = "Failed to create event log!" }
@@ -37,7 +37,7 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(params_event)
-        timeline_event("updated event")
+        #timeline_event("updated event")
         format.js { flash.now[:success] = "Event entry updated!" }
       else
         format.js { flash.now[:danger] = "Failed to update event entry!" }
@@ -47,7 +47,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event.destroy
-    timeline_event("deleted event")
+    #timeline_event("deleted event")
     respond_to do |format|
       format.js { flash.now[:success] = "Event log deleted!" }
     end
@@ -59,12 +59,12 @@ class EventsController < ApplicationController
       if @event.complete == true
         @event.update_attributes(complete: false)
         status = "updated event status from Attended to Not Attend for event"
-        timeline_event(status)
+        #timeline_event(status)
         format.js { flash.now[:success] = status.capitalize + @event.description }
       else
         @event.update_attributes(complete: true)
         status = "updated event status from Not Attend to Attended for event"
-        timeline_event(status)
+        #timeline_event(status)
         format.js { flash.now[:success] = status.capitalize + @event.description }
       end
     end

@@ -1,7 +1,7 @@
-<div class="tab-pane fade in" id="opportunityNotes">
-    <h4>Opportunity Notes</h4>
+<div class="tab-pane fade in" id="relatedNotes">
+    <h4>Related Notes</h4>
     <div class="panel panel-default panel-body">
-        <%= simple_form_for [@opportunity, @note, Note.new], remote: true do |f| %>
+        <%= simple_form_for [@subject, @note, Note.new], remote: true do |f| %>
         <%= f.input :title %>
         <%= f.input :description %>
         <%= f.button :submit %>
@@ -13,7 +13,7 @@
       <%= render 'notes/note' %>
     </div>
 
-    <% @opportunity.notes.each do |note| %>
+    <% @subject.notes.each do |note| %>
     <!-- Modal -->
     <div id="noteModal-<%= note.id %>" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -26,7 +26,7 @@
                         <%= note.id %></h4>
                 </div>
                 <div class="modal-body">
-                    <%= simple_form_for [@opportunity, note], remote: true do |f| %>
+                    <%= simple_form_for [@subject, note], remote: true do |f| %>
                     <%= f.input :title %>
                     <%= f.input :description %>
                 </div>

@@ -16,9 +16,11 @@ class CreateContacts < ActiveRecord::Migration[5.0]
 
       t.attachment :profile_pic
 
-      t.references :opportunity, foreign_key: true
+      t.references :assignment, polymorphic: true, index: true
+
       t.references :user, foreign_key: true
       t.timestamps
     end
+
   end
 end

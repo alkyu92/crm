@@ -1,5 +1,6 @@
 class Contact < ApplicationRecord
-  belongs_to :opportunity
+  belongs_to :assignment, polymorphic: true
+
   belongs_to :user
 
   has_attached_file :profile_pic,

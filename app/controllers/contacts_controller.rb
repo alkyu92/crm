@@ -1,10 +1,6 @@
 class ContactsController < ApplicationController
   before_action :find_contact, only: [:update, :destroy]
 
-  def contacts_all
-    @contacts = Contact.all
-  end
-
   def index
     @opportunity = Opportunity.find(params[:opportunity_id])
     respond_to do |format|
@@ -20,14 +16,15 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    @contact = @opportunity.contacts.build(params_contact)
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+    @subject = Account.find(params[:account_id]) if params[:account_id]
+
+    @contact = @subject.contacts.build(params_contact)
     @contact.user_id = current_user.id
 
     respond_to do |format|
       if @contact.save
-        @opportunity.timelines.create!(tactivity: "contact",
-        nactivity: @contact.name, action: "created contact", user_id: current_user.id)
+        #timeline(@contact.name, "created contact")
         format.js { flash.now[:success] = "Contact created!" }
       else
         format.js { flash.now[:danger] = "Failed to create contact!" }
@@ -39,8 +36,7 @@ class ContactsController < ApplicationController
   def update
     respond_to do |format|
       if @contact.update(params_contact)
-        @opportunity.timelines.create!(tactivity: "contact",
-        nactivity: @contact.name, action: "updated contact", user_id: current_user.id)
+        #timeline(@contact.name, "updated contact")
         format.js { flash.now[:success] = "Contact updated!" }
       else
         format.js { flash.now[:danger] = "Failed to update contact!" }
@@ -51,8 +47,7 @@ class ContactsController < ApplicationController
 
   def destroy
     @contact.destroy
-    @opportunity.timelines.create!(tactivity: "contact",
-    nactivity: @contact.name, action: "deleted contact", user_id: current_user.id)
+    #timeline(@contact.name, "deleted contact")
     respond_to do |format|
       format.js { flash.now[:success] = "Contact deleted!" }
     end
@@ -76,7 +71,12 @@ class ContactsController < ApplicationController
   end
 
   def find_contact
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    @contact = @opportunity.contacts.find(params[:id])
+    if params[:controller] == "opportunities"
+      @subject = Opportunity.find(params[:opportunity_id])
+    elsif params[:controller] == "accounts"
+      @subject = Account.find(params[:account_id])
+    end
+
+    @contact = @subject.contacts.find(params[:id])
   end
 end

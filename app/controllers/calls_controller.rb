@@ -25,7 +25,7 @@ class CallsController < ApplicationController
 
     respond_to do |format|
       if @call.save
-        timeline_call("created call log")
+        #timeline_call("created call log")
         format.js { flash.now[:success] = "Call log created!" }
       else
         format.js { flash.now[:danger] = "Failed to create call log!" }
@@ -37,7 +37,7 @@ class CallsController < ApplicationController
   def update
     respond_to do |format|
       if @call.update(params_call)
-        timeline_call("updated call log")
+        #timeline_call("updated call log")
         format.js { flash.now[:success] = "Call entry updated!" }
       else
         format.js { flash.now[:danger] = "Failed to update call entry!" }
@@ -48,7 +48,7 @@ class CallsController < ApplicationController
 
   def destroy
     @call.destroy
-    timeline_call("deleted call log")
+    #timeline_call("deleted call log")
     respond_to do |format|
       format.js { flash.now[:success] = "Call log deleted!" }
     end

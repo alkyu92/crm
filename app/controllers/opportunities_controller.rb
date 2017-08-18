@@ -13,6 +13,7 @@ class OpportunitiesController < ApplicationController
 
   def show
     @accounts = Account.all
+    @subject = Opportunity.find(params[:id])
   end
 
   def create
@@ -21,13 +22,13 @@ class OpportunitiesController < ApplicationController
     @opportunity.user_id = current_user.id
     respond_to do |format|
       if @opportunity.save
-        timeline(@opportunity.name, "created opportunity")
+        #timeline(@opportunity.name, "created opportunity")
 
-        @opportunity.account.acctimelines.create!(
-        tactivity: "opportunity",
-        nactivity: @opportunity.name,
-        action: "created opportunity",
-        user_id: current_user.id)
+        # @opportunity.account.timelines.create!(
+        # nactivity: @opportunity.name,
+        # action: "created opportunity",
+        # user_id: current_user.id)
+
         format.js { flash.now[:success] = "Opportunity entry created!" }
       else
         format.js { flash.now[:danger] = "Failed to create opportunity entry!" }
@@ -44,7 +45,7 @@ class OpportunitiesController < ApplicationController
             params[:docs].each { |doc|
               @opportunity.documents.create!(doc: doc)
             }
-            timeline(@opportunity.name, "added attachment file to opportunity")
+            #timeline(@opportunity.name, "added attachment file to opportunity")
           end
 
         if params[:attached]
@@ -57,7 +58,7 @@ class OpportunitiesController < ApplicationController
           @opportunity.documents.destroy_all
         end
 
-        save_timeline_if_any_changes
+        #save_timeline_if_any_changes
         format.js { flash.now[:success] = "Opportunity entry updated!" }
       else
         format.js { flash.now[:danger] = "Failed to update opportunity!" }
@@ -76,7 +77,7 @@ class OpportunitiesController < ApplicationController
     @opportunity.documents.find(params[:id]).destroy
 
     respond_to do |format|
-      timeline(@opportunity.name, "deleted attachment from opportunity")
+      #timeline(@opportunity.name, "deleted attachment from opportunity")
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end

@@ -1,9 +1,9 @@
 <h4>Notes</h4>
 <div id="notice-note"></div>
-<% if @opportunity.notes.blank? %>
+<% if @subject.notes.blank? %>
 No notes submitted yet.
 <% else %>
-    <% @opportunity.notes.each do |note| %>
+    <% @subject.notes.each do |note| %>
     <div class="col-lg-6 panel panel-body">
         <div class="pull-right">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -14,7 +14,7 @@ No notes submitted yet.
                 <li><%= link_to 'Edit', '#',
             data: {toggle: "modal", target: "#noteModal-#{note.id}"} %></li>
                 <li><%= link_to 'Delete',
-            opportunity_note_path(@opportunity, note), method: :delete, remote: true,
+            opportunity_note_path(@subject, note), method: :delete, remote: true,
             data: {confirm: "Are you sure?"} %></li>
             </ul>
         </div>

@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  before_action :find_opportunity
+  before_action :find_subject
   before_action :find_note, only: [:update, :destroy]
 
   def index
@@ -15,13 +15,15 @@ class NotesController < ApplicationController
   end
 
   def create
-    @note = @opportunity.notes.build(params_note)
+    @subject = Account.find(params[:account_id]) if params[:account_id]
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+
+    @note = @subject.notes.build(params_note)
     @note.user_id = current_user.id
 
     respond_to do |format|
       if @note.save
-        @opportunity.timelines.create!(tactivity: "note",
-        nactivity: @note.title, action: "created note", user_id: current_user.id)
+        #timeline(@note.title, "created note")
         format.js { flash.now[:success] = "Note log added!" }
       else
         format.js { flash.now[:danger] = "Failed to add note log!" }
@@ -33,8 +35,7 @@ class NotesController < ApplicationController
   def update
     respond_to do |format|
       if @note.update(params_note)
-        @opportunity.timelines.create!(tactivity: "note",
-        nactivity: @note.title, action: "updated note", user_id: current_user.id)
+        #timeline(@note.title, "updated note")
         format.js { flash.now[:success] = "Note entry created!" }
       else
         format.js { flash.now[:danger] = "Failed to create note entry!" }
@@ -44,10 +45,7 @@ class NotesController < ApplicationController
 
   def destroy
     @note.destroy
-
-    @opportunity.timelines.create!(tactivity: "note",
-    nactivity: @note.title, action: "deleted note", user_id: current_user.id)
-
+    #timeline(@note.title, "deleted note")
     respond_to do |format|
       format.js { flash.now[:success] = "Note log deleted!" }
     end
@@ -58,8 +56,9 @@ class NotesController < ApplicationController
     params.require(:note).permit(:title, :description)
   end
 
-  def find_opportunity
-    @opportunity = Opportunity.find(params[:opportunity_id])
+  def find_subject
+    @subject = Account.find(params[:account_id]) if params[:account_id]
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
 
   rescue ActiveRecord::RecordNotFound
     flash.now[:danger] = "Can't find records!"

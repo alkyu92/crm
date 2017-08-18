@@ -1,7 +1,7 @@
-<h4>Opportunity Timeline &middot History</h4>
-<% op = @opportunity.timelines.order('created_at DESC').includes(:user).page(params[:page]).per(5) %>
+<h4>Timeline &middot History</h4>
+<% op = @subject.timelines.order('created_at DESC').includes(:user).page(params[:page]).per(5) %>
 <% if op.blank? %>
-<p>Every changes regarding opportunities will be recorded here.</p>
+<p>Every changes will be recorded here.</p>
 <% else %>
 
 <% op.each do |timeline| %>
@@ -18,12 +18,28 @@
             <small>
                 <%= link_to timeline.user.name, user_path(timeline.user.id) %>
                 <%= timeline.action %>
+                <% if params[:controller] == "opportunities" || params[:opportunity_id] %>
                 <%= link_to timeline.nactivity.truncate(50),
-                opportunity_path(timeline.opportunity, anchor: "#{timeline.tactivity}") %>
+                opportunity_path(timeline.activity, anchor: "#{timeline.activity_type}") %>
+                <% elsif params[:controller] == "accounts" || params[:account_id] %>
+                <%= link_to timeline.nactivity.truncate(50),
+                account_path(timeline.activity, anchor: "#{timeline.activity_type}") %>
+                <% end %>
                 <div class="pull-right">
-                    <%= link_to opportunity_timeline_path(@opportunity, timeline),
+                    <% if params[:controller] == "opportunities" || params[:opportunity_id] %>
+
+                    <%= link_to opportunity_timeline_path(@subject, timeline),
                 method: :delete, remote: true do %>
                     <i class="fa fa-times"></i>
+                    <% end %>
+
+                    <% elsif params[:controller] == "accounts" || params[:account_id] %>
+
+                    <%= link_to account_timeline_path(@subject, timeline),
+                method: :delete, remote: true do %>
+                    <i class="fa fa-times"></i>
+                    <% end %>
+
                     <% end %>
                 </div>
             </small>

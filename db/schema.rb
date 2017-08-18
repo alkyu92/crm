@@ -12,30 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20170816080534) do
 
-  create_table "acccontacts", force: :cascade do |t|
-    t.string   "name"
-    t.string   "title"
-    t.string   "department"
-    t.string   "email"
-    t.string   "phone"
-    t.string   "fax"
-    t.string   "mailing_street"
-    t.string   "mailing_city"
-    t.string   "mailing_state"
-    t.string   "mailing_postal_code"
-    t.string   "mailing_country"
-    t.string   "profile_pic_file_name"
-    t.string   "profile_pic_content_type"
-    t.integer  "profile_pic_file_size"
-    t.datetime "profile_pic_updated_at"
-    t.integer  "account_id"
-    t.integer  "user_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.index ["account_id"], name: "index_acccontacts_on_account_id"
-    t.index ["user_id"], name: "index_acccontacts_on_user_id"
-  end
-
   create_table "accdocuments", force: :cascade do |t|
     t.string   "accdoc_file_name"
     t.string   "accdoc_content_type"
@@ -45,17 +21,6 @@ ActiveRecord::Schema.define(version: 20170816080534) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.index ["account_id"], name: "index_accdocuments_on_account_id"
-  end
-
-  create_table "accnotes", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.integer  "user_id"
-    t.integer  "account_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["account_id"], name: "index_accnotes_on_account_id"
-    t.index ["user_id"], name: "index_accnotes_on_user_id"
   end
 
   create_table "accounts", force: :cascade do |t|
@@ -82,18 +47,6 @@ ActiveRecord::Schema.define(version: 20170816080534) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.index ["user_id"], name: "index_accounts_on_user_id"
-  end
-
-  create_table "acctimelines", force: :cascade do |t|
-    t.string   "tactivity",  default: "account", null: false
-    t.string   "nactivity"
-    t.string   "action"
-    t.integer  "account_id"
-    t.integer  "user_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.index ["account_id"], name: "index_acctimelines_on_account_id"
-    t.index ["user_id"], name: "index_acctimelines_on_user_id"
   end
 
   create_table "calls", force: :cascade do |t|
@@ -123,11 +76,12 @@ ActiveRecord::Schema.define(version: 20170816080534) do
     t.string   "profile_pic_content_type"
     t.integer  "profile_pic_file_size"
     t.datetime "profile_pic_updated_at"
-    t.integer  "opportunity_id"
+    t.string   "assignment_type"
+    t.integer  "assignment_id"
     t.integer  "user_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.index ["opportunity_id"], name: "index_contacts_on_opportunity_id"
+    t.index ["assignment_type", "assignment_id"], name: "index_contacts_on_assignment_type_and_assignment_id"
     t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
@@ -155,11 +109,12 @@ ActiveRecord::Schema.define(version: 20170816080534) do
   create_table "notes", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
+    t.string   "info_type"
+    t.integer  "info_id"
     t.integer  "user_id"
-    t.integer  "opportunity_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["opportunity_id"], name: "index_notes_on_opportunity_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["info_type", "info_id"], name: "index_notes_on_info_type_and_info_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
@@ -225,14 +180,14 @@ ActiveRecord::Schema.define(version: 20170816080534) do
   end
 
   create_table "timelines", force: :cascade do |t|
-    t.string   "tactivity",      default: "opportunity", null: false
     t.string   "nactivity"
     t.string   "action"
-    t.integer  "opportunity_id"
+    t.string   "activity_type"
+    t.integer  "activity_id"
     t.integer  "user_id"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.index ["opportunity_id"], name: "index_timelines_on_opportunity_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["activity_type", "activity_id"], name: "index_timelines_on_activity_type_and_activity_id"
     t.index ["user_id"], name: "index_timelines_on_user_id"
   end
 

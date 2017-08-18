@@ -2,7 +2,7 @@
 
     <li><%= link_to 'Dashboards', dashboards_path %></li>
     <li><%= link_to 'Accounts', accounts_path %></li>
-    <li><%= link_to 'Contacts', contacts_path %></li>
+    <li><%#= link_to 'Contacts', contacts_path %></li>
     <li><%= link_to 'Opportunities', opportunities_path %></li>
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -16,8 +16,7 @@
         </ul>
     </li>
     <li class="dropdown">
-        <% @timelinesall = Timeline.all.order('created_at DESC').includes(:user) +
-        Acctimeline.all.order('created_at DESC').includes(:user) %>
+        <% @timelinesall = Timeline.all.order('created_at DESC').includes(:user) %>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-bell"></i>
             <span class="badge">

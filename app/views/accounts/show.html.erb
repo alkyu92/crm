@@ -18,12 +18,12 @@
             <ul class="nav nav-tabs">
                 <li class="active"><%= link_to 'Related Opportunities', '#accountOpportunities',
                 data: {toggle: "tab", target: "#accountOpportunities"} %></li>
-                <li><%= link_to 'Related Contacts', '#accountContacts',
-                data: {toggle: "tab", target: "#accountContacts"} %></li>
+                <li><%= link_to 'Related Contacts', '#relatedContacts',
+                data: {toggle: "tab", target: "#relatedContacts"} %></li>
                 <li><%= link_to 'Related Documents', '#accountDocs',
                 data: {toggle: "tab", target: "#accountDocs"} %></li>
-                <li><%= link_to 'Notes', '#accountNotes',
-                data: {toggle: "tab", target: "#accountNotes"} %></li>
+                <li><%= link_to 'Notes', '#relatedNotes',
+                data: {toggle: "tab", target: "#relatedNotes"} %></li>
                 <li><%= link_to 'Details', '#accountDetails',
                 data: {toggle: "tab", target: "#accountDetails"} %></li>
             </ul>
@@ -33,20 +33,20 @@
     <br>
 
     <div class="row">
-
+      <% @account = Account.find(params[:id]) %>
         <div class="col-lg-6">
             <div class="tab-content">
                 <%= render 'account_related_opportunities' %>
-                <%= render 'acccontacts/account_related_contact' %>
+                <%= render 'contacts/related_contacts' %>
                 <%= render 'accdocuments/account_related_doc' %>
-                <%= render 'accnotes/account_related_note' %>
+                <%= render 'notes/related_notes' %>
                 <%= render 'details' %>
             </div>
         </div>
 
         <div class="col-lg-6">
-            <div class="acctimelines">
-                <%= render 'acctimelines/timelines_account' %>
+            <div class="timelines">
+                <%#= render 'timelines/timelines_index' %>
             </div>
         </div>
     </div>

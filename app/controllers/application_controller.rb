@@ -5,52 +5,20 @@ class ApplicationController < ActionController::Base
   before_action :devise_params, if: :devise_controller?
   after_action :store_location
 
-  # def notification(tactivity, nactivity, action)
-  #   Notification.create!(
-  #   tactivity: tactivity,
-  #   nactivity: nactivity,
-  #   action: action,
-  #   user_id: current_user.id)
-  # end
-
-  def acctimeline(nactivity, action)
-    @account.acctimelines.create!(
-    tactivity: "account",
-    nactivity: nactivity,
-    action: action,
-    user_id: current_user.id)
-  end
-
   def timeline(nactivity, action)
-    @opportunity.timelines.create!(
-    tactivity: "opportunity",
-    nactivity: nactivity,
-    action: action,
-    user_id: current_user.id)
-  end
-
-  def timeline_task(action)
-    @opportunity.timelines.create!(
-    tactivity: "task",
-    nactivity: @task.description,
-    action: action,
-    user_id: current_user.id)
-  end
-
-  def timeline_call(action)
-    @opportunity.timelines.create!(
-    tactivity: "call",
-    nactivity: @call.description,
-    action: action,
-    user_id: current_user.id)
-  end
-
-  def timeline_event(action)
-    @opportunity.timelines.create!(
-    tactivity: "event",
-    nactivity: @event.description,
-    action: action,
-    user_id: current_user.id)
+    if params[:opportunity_id]
+      @opportunity.timelines.create!(
+      nactivity: nactivity,
+      action: action,
+      user_id: current_user.id
+      )
+    elsif params[:account_id]
+      @account.timelines.create!(
+      nactivity: nactivity,
+      action: action,
+      user_id: current_user.id
+      )
+    end
   end
 
   protected

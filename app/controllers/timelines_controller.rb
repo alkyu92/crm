@@ -18,8 +18,10 @@ class TimelinesController < ApplicationController
   private
 
   def find_timeline
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    @timeline = @opportunity.timelines.find(params[:id])
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+    @subject = Account.find(params[:account_id]) if params[:account_id]
+
+    @timeline = @subject.timelines.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
     flash.now[:danger] = "Can't find records!"
