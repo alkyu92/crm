@@ -3,11 +3,15 @@ class EventsController < ApplicationController
   before_action :find_event, only: [:update, :destroy, :update_event_status]
 
   def index
-    @events = Event.all.order('event_date').page(params[:page]).per(10)
+    @events = Event.all.includes(:opportunity).order('event_date').page(params[:page]).per(10)
+
+    if params[:opportunity_id]
     @opportunity = Opportunity.find(params[:opportunity_id])
     respond_to do |format|
       format.js
     end
+  end
+
   end
 
   def show

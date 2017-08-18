@@ -36,18 +36,17 @@
         </h4>
         <br>
 
-        <% unless @opportunity.status == "Open" || @opportunity.status == "" %>
-        <small>Close Date</small>
+        <small>Probability</small>
         <h4>
-            <% if @opportunity.close_date.blank? %>
+            <% if @opportunity.probability.blank? %>
             <span style="color: red;">
-                Close Date not specified
+                Probability not specified
             </span>
-            <% else %>
-            <%= @opportunity.close_date.strftime('%d %b %Y') %>
+        <% else %>
+            <%= @opportunity.probability %>
+            percent
             <% end %>
         </h4>
-        <% end %>
         <br>
 
     </div>
@@ -64,19 +63,6 @@
         </h4>
         <br>
 
-        <small>Probability</small>
-        <h4>
-            <% if @opportunity.probability.blank? %>
-            <span style="color: red;">
-                Probability not specified
-            </span>
-        <% else %>
-            <%= @opportunity.probability %>
-            percent
-            <% end %>
-        </h4>
-        <br>
-
         <small>Status</small>
         <h4>
             <% if @opportunity.status == "Closed-Loss" %>
@@ -89,6 +75,20 @@
             <span style="color: red">Status not specified</span>
             <% end %>
         </h4>
+        <br>
+
+        <% unless @opportunity.status == "Open" || @opportunity.status == "" %>
+        <small>Close Date</small>
+        <h4>
+            <% if @opportunity.close_date.blank? %>
+            <span style="color: red;">
+                Close Date not specified
+            </span>
+            <% else %>
+            <%= @opportunity.close_date.strftime('%d %b %Y') %>
+            <% end %>
+        </h4>
+        <% end %>
         <br>
 
         <% if @opportunity.status == "Closed-Loss" %>

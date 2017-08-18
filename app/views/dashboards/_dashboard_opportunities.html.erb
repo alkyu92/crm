@@ -11,7 +11,7 @@
     <small>Created at DateTime</small>
   </div>
 </div>
-    <% @opportunities.order('created_at DESC').take(6).each do |op| %>
+    <% @opportunities.each do |op| %>
     <div class="row">
       <div class="col-lg-6">
         <%= link_to op.name, opportunity_path(op) %>

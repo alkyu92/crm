@@ -14,7 +14,7 @@ No tasks created yet.
 <% @tasks.each do |task| %>
 <div class="row">
     <div class="col-lg-6"><%= link_to task.description,
-  opportunity_path(task.opportunity.id, anchor: "t#{task.id}") %></div>
+  opportunity_path(task.opportunity.id, anchor: "task-#{task.id}") %></div>
     <div class="col-lg-6"><%= task.created_at.strftime('%d %b %Y  %H:%M:%S')%></div>
 </div>
 <% end %>
@@ -37,7 +37,7 @@ No tasks created yet.
 <% @urgent_tasks.each do |urtask| %>
 <div class="row">
     <div class="col-lg-4"><%= link_to urtask.description,
-  opportunity_path(urtask.opportunity.id, anchor: "t#{urtask.id}") %></div>
+  opportunity_path(urtask.opportunity.id, anchor: "task-#{urtask.id}") %></div>
     <% if urtask.due_date.blank? %>
     <div class="col-lg-4">
         <span style="color: red;">Not specified</span>
@@ -82,7 +82,7 @@ No events yet.
 <% @urgent_events.each do |urevent| %>
 <div class="row">
     <div class="col-lg-4"><%= link_to urevent.description,
-  opportunity_path(urevent.opportunity.id, anchor: "e#{urevent.id}") %></div>
+  opportunity_path(urevent.opportunity.id, anchor: "event-#{urevent.id}") %></div>
     <% if urevent.event_date.blank? %>
     <div class="col-lg-4">
         <span style="color: red;">Not specified</span>
@@ -115,7 +115,7 @@ No events yet.
 <% @urgent_events.each do |urevent| %>
 <div class="row">
     <div class="col-lg-4"><%= link_to urevent.description,
-  opportunity_path(urevent.opportunity.id, anchor: "e#{urevent.id}") %></div>
+  opportunity_path(urevent.opportunity.id, anchor: "event-#{urevent.id}") %></div>
     <% if urevent.event_date.blank? %>
     <div class="col-lg-4">
         <span style="color: red;">Not specified</span>

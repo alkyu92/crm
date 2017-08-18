@@ -40,9 +40,22 @@ There are no tasks yet.
         <% if task.due_date.blank? %>
         <span style="color: red;">Date not specified</span>
     <% else %>
+        <% if task.due_date > Date.today %>
         <%= task.due_date.strftime('%d %b %Y') %><br>
         (<%= distance_of_time_in_words(Time.now, task.due_date) %>
         left)
+        <% elsif task.due_date == Date.today %>
+        <strong style="color: orange;">Today</strong>
+        <% else %>
+        <span style="color: red;">
+          Date overdue<br>
+          <%= task.due_date.strftime('%d %b %Y') %><br>
+          <small>
+          (<%= distance_of_time_in_words(Time.now, task.due_date) %>
+          ago)
+        </small>
+        </span>
+        <% end %>
         <% end %>
     </div>
     <div class="col-lg-2"><%= link_to task.opportunity.name, opportunity_path(task.opportunity) %></div>

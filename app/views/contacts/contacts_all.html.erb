@@ -1,9 +1,9 @@
 <h2>Contacts</h2>
-<%#= pluralize(@merge.count, 'item')%>
-<hr>
-<% if @merge.blank? %>
+<% if @contacts.blank? %>
 There are no contacts registered yet.
 <% else %>
+<%= pluralize(@contacts.count, 'item')%>
+<hr>
 <div class="row">
     <div class="col-lg-2">
         <strong>Name</strong>
@@ -24,7 +24,7 @@ There are no contacts registered yet.
         <strong>Mailing Address</strong>
     </div>
 </div>
-<% @merge.each do |contact| %>
+<% @contacts.each do |contact| %>
 <hr>
 <div class="row">
     <div class="col-lg-2">

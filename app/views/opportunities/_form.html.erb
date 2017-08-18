@@ -110,6 +110,14 @@ $('.opportunity_status').on("change", function(){
 
 });
 
+var status_val = $('#opportunity_status').val();
+if(status_val == "Closed-Won"){
+  $('.opportunity_close_date').show();
+}else if(status_val == "Closed-Loss"){
+  $('.opportunity_close_date').show();
+  $('.opportunity_loss_reason').show();
+}
+
 var close_date_val = $('#opportunity_close_date').val();
 if(close_date_val){
   $('.opportunity_close_date').show();

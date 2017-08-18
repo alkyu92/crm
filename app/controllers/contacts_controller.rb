@@ -1,8 +1,8 @@
 class ContactsController < ApplicationController
   before_action :find_contact, only: [:update, :destroy]
 
-  def contacs_all
-    @merge = Contact.all
+  def contacts_all
+    @contacts = Contact.all
   end
 
   def index

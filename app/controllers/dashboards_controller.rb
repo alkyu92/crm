@@ -1,6 +1,6 @@
 class DashboardsController < ApplicationController
   def index
-    @opportunities = Opportunity.all
+    @opportunities = Opportunity.all.order('created_at DESC').take(6)
 
     @accounts = Account.all.order('created_at DESC').take(6)
 

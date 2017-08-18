@@ -3,11 +3,15 @@ class CallsController < ApplicationController
   before_action :find_call, only: [:update, :destroy, :update_call_status]
 
   def index
-    @calls = Call.all.page(params[:page]).per(10)
+    @calls = Call.all.includes(:opportunity).page(params[:page]).per(10)
+
+    if params[:opportunity_id]
     @opportunity = Opportunity.find(params[:opportunity_id])
     respond_to do |format|
       format.js
     end
+  end
+
   end
 
   def show

@@ -83,7 +83,7 @@ No opportunities yet.
       </div>
       <div class="col-lg-1">
         <% if opportunity.status == "Open" %>
-          Open
+          Not available
         <% elsif opportunity.status == "Closed-Won" || opportunity.status == "Closed-Loss" %>
           <% if opportunity.close_date.blank? %>
           <span style="color: red;">Not specified</span>

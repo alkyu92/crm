@@ -3,11 +3,15 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:update, :destroy, :update_task_status]
 
   def index
-    @tasks = Task.all.order('due_date').page(params[:page]).per(10)
+    @tasks = Task.all.includes(:opportunity).order('due_date').page(params[:page]).per(10)
+
+    if params[:opportunity_id]
     @opportunity = Opportunity.find(params[:opportunity_id])
     respond_to do |format|
       format.js
     end
+  end
+
   end
 
   def show
