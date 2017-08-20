@@ -1,32 +1,21 @@
 class TasksController < ApplicationController
-  before_action :find_opportunity, except: :index
   before_action :find_task, only: [:update, :destroy, :update_task_status]
 
   def index
     @tasks = Task.all.includes(:opportunity).order('due_date').page(params[:page]).per(10)
-
-    if params[:opportunity_id]
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    respond_to do |format|
-      format.js
-    end
-  end
-
   end
 
   def show
-    respond_to do |format|
-      format.js
-    end
+
   end
 
   def create
+    @opportunity = Opportunity.find(params[:opportunity_id])
     @task = @opportunity.tasks.build(params_task)
-    @subject = @opportunity
 
     respond_to do |format|
       if @task.save
-        timeline(@task.description, "created task")
+        #timeline(@task.description, "created task")
         format.js { flash.now[:success] = "Task log added!" }
       else
         format.js { flash.now[:danger] = "Failed to add task log!" }
@@ -76,16 +65,9 @@ class TasksController < ApplicationController
     params.require(:task).permit(:description, :due_date)
   end
 
-  def find_opportunity
-    @opportunity = Opportunity.find(params[:opportunity_id])
-
-  rescue ActiveRecord::RecordNotFound
-    flash.now[:danger] = "Record not found!"
-    redirect_to opportunities_path
-  end
-
   def find_task
-    @task = Task.find(params[:id])
+    @opportunity = Opportunity.find(params[:opportunity_id])
+    @task = @opportunity.tasks.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
     flash.now[:danger] = "Can't find records!"

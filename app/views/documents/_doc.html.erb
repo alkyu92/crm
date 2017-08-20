@@ -1,7 +1,5 @@
 <div id="notice-doc"></div>
 <div class="row">
-<% @subject = Account.find(params[:id]) %>
-
 <% if @subject.documents.blank? %>
 <div class="col-lg-12">
     <p>There are no documents uploaded yet.</p>
@@ -17,10 +15,15 @@
         <a href="#" data-toggle="modal" data-target="#modal-agreement-<%= document.id %>">
             <%= image_tag(document.doc.url(:thumb), class: "img-responsive img-center") %>
         </a>
-        <%#= link_to opportunity_delete_attachment_path(@subject, document), remote: true do %>
+        <% if params[:controller] == "opportunities" %>
+        <%= link_to opportunity_delete_attachment_path(@subject, document), remote: true do %>
           <i class="fa fa-times"></i>
-        <%# end %>
-
+        <% end %>
+        <% elsif params[:controller] == "accounts" %>
+        <%= link_to account_delete_attachment_path(@subject, document), remote: true do %>
+          <i class="fa fa-times"></i>
+        <% end %>
+        <% end %>
     </div>
 
     <% if (index+1) % 4 == 0 %>

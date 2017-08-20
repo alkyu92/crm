@@ -1,26 +1,16 @@
 class EventsController < ApplicationController
-  before_action :find_opportunity, except: :index
   before_action :find_event, only: [:update, :destroy, :update_event_status]
 
   def index
     @events = Event.all.includes(:opportunity).order('event_date').page(params[:page]).per(10)
-
-    if params[:opportunity_id]
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    respond_to do |format|
-      format.js
-    end
-  end
-
   end
 
   def show
-    respond_to do |format|
-      format.js
-    end
+
   end
 
   def create
+    @opportunity = Opportunity.find(params[:opportunity_id])
     @event = @opportunity.events.build(params_event)
 
     respond_to do |format|
@@ -75,16 +65,9 @@ class EventsController < ApplicationController
     params.require(:event).permit(:description, :event_date)
   end
 
-  def find_opportunity
-    @opportunity = Opportunity.find(params[:opportunity_id])
-
-  rescue ActiveRecord::RecordNotFound
-    flash.now[:danger] = "Can't find records!"
-    redirect_to root_path
-  end
-
   def find_event
-    @event = Event.find(params[:id])
+    @opportunity = Opportunity.find(params[:opportunity_id])
+    @event = @opportunity.events.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
     flash.now[:danger] = "Can't find records!"

@@ -7,7 +7,7 @@ class AccountsController < ApplicationController
   end
 
   def show
-
+    @opportunities = Opportunity.where(account_id: @account.id)
   end
 
   def create
@@ -26,11 +26,12 @@ class AccountsController < ApplicationController
 
   def update
     respond_to do |format|
+      @subject = @account
       if @account.update(params_account)
 
-        if params[:accdocs]
-          params[:accdocs].each { |accdoc|
-            @account.accdocuments.create!( accdoc: accdoc )
+        if params[:docs]
+          params[:docs].each { |doc|
+            @account.documents.create!( doc: doc )
           }
           #timeline(@account.account_name, "added attachment file to account")
         end
@@ -50,7 +51,9 @@ class AccountsController < ApplicationController
 
   def delete_attachment
     @account = Account.find(params[:account_id])
-    @account.accdocuments.find(params[:id]).destroy
+    @account.documents.find(params[:id]).destroy
+
+    @subject = @account
 
     respond_to do |format|
       #timeline(@account.account_name, "deleted attachment from account")

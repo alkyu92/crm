@@ -1,5 +1,4 @@
 class NotesController < ApplicationController
-  before_action :find_subject
   before_action :find_note, only: [:update, :destroy]
 
   def index
@@ -56,20 +55,11 @@ class NotesController < ApplicationController
     params.require(:note).permit(:title, :description)
   end
 
-  def find_subject
+  def find_note
     @subject = Account.find(params[:account_id]) if params[:account_id]
     @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
 
-  rescue ActiveRecord::RecordNotFound
-    flash.now[:danger] = "Can't find records!"
-    redirect_to root_path
-  end
+    @note = @subject.notes.find(params[:id])
 
-  def find_note
-    @note = Note.find(params[:id])
-
-  rescue ActiveRecord::RecordNotFound
-    flash.now[:danger] = "Can't find records!"
-    redirect_to root_path
   end
 end

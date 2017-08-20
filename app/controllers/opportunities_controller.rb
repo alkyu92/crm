@@ -1,9 +1,9 @@
 class OpportunitiesController < ApplicationController
-  before_action :find_all_opportunities, except: [:show, :update]
   before_action :find_opportunity,
   only: [:show, :edit, :update, :destroy]
 
   def index
+    @opportunities = Opportunity.page(params[:page]).per(10)
     @opportunity = current_user.opportunities.build
 
     @stages = Stage.all
@@ -12,7 +12,6 @@ class OpportunitiesController < ApplicationController
   end
 
   def show
-    @accounts = Account.all
     @subject = Opportunity.find(params[:id])
   end
 
@@ -20,6 +19,7 @@ class OpportunitiesController < ApplicationController
     @account = Account.find(params[:account_id])
     @opportunity = @account.opportunities.build(params_opportunity)
     @opportunity.user_id = current_user.id
+
     respond_to do |format|
       if @opportunity.save
         #timeline(@opportunity.name, "created opportunity")
@@ -39,6 +39,8 @@ class OpportunitiesController < ApplicationController
 
   def update
     respond_to do |format|
+      @subject = @opportunity
+
       if @opportunity.update(params_opportunity)
 
           if params[:docs]
@@ -76,6 +78,8 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.find(params[:opportunity_id])
     @opportunity.documents.find(params[:id]).destroy
 
+    @subject = @opportunity
+
     respond_to do |format|
       #timeline(@opportunity.name, "deleted attachment from opportunity")
       format.js { flash.now[:success] = "Attachment deleted!" }
@@ -107,10 +111,6 @@ class OpportunitiesController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     flash.now[:danger] = "Record not found!"
     redirect_to opportunities_path
-  end
-
-  def find_all_opportunities
-    @opportunities = Opportunity.all.includes(:account).page(params[:page]).per(10)
   end
 
   def save_timeline_if_any_changes

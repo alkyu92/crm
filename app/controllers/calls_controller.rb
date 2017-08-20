@@ -1,26 +1,16 @@
 class CallsController < ApplicationController
-  before_action :find_opportunity, except: :index
   before_action :find_call, only: [:update, :destroy, :update_call_status]
 
   def index
     @calls = Call.all.includes(:opportunity).page(params[:page]).per(10)
-
-    if params[:opportunity_id]
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    respond_to do |format|
-      format.js
-    end
-  end
-
   end
 
   def show
-    respond_to do |format|
-      format.js
-    end
+
   end
 
   def create
+    @opportunity = Opportunity.find(params[:opportunity_id])
     @call = @opportunity.calls.build(params_call)
 
     respond_to do |format|
@@ -59,16 +49,9 @@ class CallsController < ApplicationController
     params.require(:call).permit(:description, :call_datetime, :duration)
   end
 
-  def find_opportunity
-    @opportunity = Opportunity.find(params[:opportunity_id])
-
-  rescue ActiveRecord::RecordNotFound
-    flash.now[:danger] = "Can't find records!"
-    redirect_to root_path
-  end
-
   def find_call
-    @call = Call.find(params[:id])
+    @opportunity = Opportunity.find(params[:opportunity_id])
+    @call = @opportunity.calls.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
     flash.now[:danger] = "Can't find records!"

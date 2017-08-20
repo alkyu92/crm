@@ -1,9 +1,14 @@
 <div class="tab-pane fade in" id="relatedDocs">
     <h4>Related Documents</h4>
-    <% @subject = Account.find(params[:id]) %>
+    <% @subject = Account.find(params[:id]) if params[:controller] == "accounts" %>
+    <% @subject = Opportunity.find(params[:id]) if params[:controller] == "opportunities" %>
+
     <div class="panel panel-default panel-body">
         <%= simple_form_for @subject, html: {multipart: true}, remote: true do |f| %>
-        <%= f.input :account_name, as: :hidden %>
+
+        <%= f.input :account_name, as: :hidden if params[:controller] == "accounts" %>
+        <%= f.input :name, as: :hidden if params[:controller] == "opportunities" %>
+
         <%= f.label "Upload Documents" %>
         <%= file_field_tag "docs[]",type: :file, multiple: true %>
         <%= f.hint "Can upload multiple files. Only pdf/doc type"%>

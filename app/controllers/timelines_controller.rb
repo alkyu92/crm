@@ -2,10 +2,7 @@ class TimelinesController < ApplicationController
   before_action :find_timeline, only: [:destroy]
 
   def show
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    respond_to do |format|
-      format.js
-    end
+
   end
 
   def destroy
