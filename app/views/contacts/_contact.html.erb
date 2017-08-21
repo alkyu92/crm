@@ -5,7 +5,7 @@
 </div>
 <% else %>
 <% @subject.contacts.each do |contact| %>
-<div class="col-lg-6">
+<div class="col-lg-6" id="relatedContacts-<%= contact.id %>">
     <br>
     <div class="media">
         <div class="media-left">

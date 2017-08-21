@@ -51,7 +51,7 @@ class ContactsController < ApplicationController
 
   def timeline_contact(action)
     @subject.timelines.create!(
-    tactivity: "contact-" + @contact.id.to_s,
+    tactivity: "relatedContacts-" + @contact.id.to_s,
     nactivity: @contact.name,
     action: action,
     user_id: current_user.id

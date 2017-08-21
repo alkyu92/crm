@@ -51,3 +51,7 @@
         </div>
     </div>
 </div>
+
+<%= javascript_tag defer: 'defer' do %>
+$('.nav-tabs a[href="' + window.location.hash.split('-')[0] + '"]').tab('show');
+<% end %>

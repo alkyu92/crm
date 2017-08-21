@@ -3,12 +3,12 @@ class StagesController < ApplicationController
   before_action :find_stage, only: [:destroy, :update_stage_status]
 
   def create
+    @subject = @opportunity
     @stage = @opportunity.stages.build(params_stage)
 
     respond_to do |format|
       if @stage.save
-        @opportunity.timelines.create!(tactivity: "stage", nactivity: @stage.name,
-        action: "created stage", user_id: current_user.id)
+        timeline_stage("created stage")
         format.js { flash.now[:success] = "Opportunity stage created!" }
       else
         format.js { flash.now[:danger] = "Failed to create opportunity stage!" }
@@ -18,17 +18,16 @@ class StagesController < ApplicationController
   end
 
   def destroy
+    @subject = @opportunity
     @stage.destroy
-
-    @opportunity.timelines.create!(tactivity: "stage", nactivity: @stage.name,
-    action: "deleted stage", user_id: current_user.id)
-
+    timeline_stage("deleted stage")
     respond_to do |format|
       format.js { flash.now[:success] = "Opportunity stage deleted!" }
     end
   end
 
   def update_stage_status
+    @subject = @opportunity
     respond_to do |format|
       if @stage.status == "In Progress"
         update_status("In Progress", "Completed", false)
@@ -46,14 +45,23 @@ class StagesController < ApplicationController
   end
 
   private
+
+  def timeline_stage(action)
+    @opportunity.timelines.create!(
+    tactivity: "stage",
+    nactivity: @stage.name,
+    action: action,
+    user_id: current_user.id
+    )
+  end
+
   def params_stage
     params.require(:stage).permit(:name)
   end
 
   def update_status(previous,current,boolean)
     @stage.update_attributes(status: current, current_status: boolean)
-    @opportunity.timelines.create!(tactivity: "stage", nactivity: @stage.name,
-    action: "changed stage status from #{previous} to #{current} for", user_id: current_user.id)
+    timeline_stage("changed stage status from #{previous} to #{current} for")
   end
 
   def find_opportunity

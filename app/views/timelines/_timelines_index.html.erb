@@ -19,27 +19,23 @@
             <small>
                 <%= link_to timeline.user.name, user_path(timeline.user.id) %>
                 <%= timeline.action %>
-                <% if params[:controller] == "opportunities" || params[:opportunity_id] %>
-                <%= link_to timeline.nactivity.truncate(50),
-                opportunity_path(timeline.activity, anchor: "#{timeline.activity_type}") %>
-                <% elsif params[:controller] == "accounts" || params[:account_id] %>
-                <%= link_to timeline.nactivity.truncate(50),
-                account_path(timeline.activity, anchor: "#{timeline.activity_type}") %>
-                <% end %>
+
+                <%= link_to timeline.nactivity.truncate(50), update_read_status_path(timeline) %>
+
                 <div class="pull-right">
                     <% if params[:controller] == "opportunities" || params[:opportunity_id] %>
 
-                    <%= link_to opportunity_timeline_path(@subject, timeline),
-                method: :delete, remote: true do %>
-                    <i class="fa fa-times"></i>
-                    <% end %>
+                      <%= link_to opportunity_timeline_path(@subject, timeline),
+                      method: :delete, remote: true do %>
+                        <i class="fa fa-times"></i>
+                      <% end %>
 
                     <% elsif params[:controller] == "accounts" || params[:account_id] %>
 
-                    <%= link_to account_timeline_path(@subject, timeline),
-                method: :delete, remote: true do %>
-                    <i class="fa fa-times"></i>
-                    <% end %>
+                      <%= link_to account_timeline_path(@subject, timeline),
+                      method: :delete, remote: true do %>
+                        <i class="fa fa-times"></i>
+                      <% end %>
 
                     <% end %>
                 </div>
@@ -51,8 +47,8 @@
                     <%= time_ago_in_words(timeline.created_at) %>
                     ago
                 </small>
-
-                <h5></div>
+                <h5>
+                </div>
             </div>
         </div>
         <% end %>
