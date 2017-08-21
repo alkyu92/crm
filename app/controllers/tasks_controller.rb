@@ -16,7 +16,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        #timeline(@task.description, "created task")
+        timeline_task("created task")
         format.js { flash.now[:success] = "Task log added!" }
       else
         format.js { flash.now[:danger] = "Failed to add task log!" }
@@ -28,7 +28,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(params_task)
-        #timeline_task("updated task")
+        timeline_task("updated task")
         format.js { flash.now[:success] = "Task updated!" }
       else
         format.js { flash.now[:danger] = "Failed to update task!" }
@@ -39,7 +39,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    #timeline_task("deleted task")
+    timeline_task("deleted task")
     respond_to do |format|
       format.js { flash.now[:success] = "Task log deleted!" }
     end
@@ -50,12 +50,12 @@ class TasksController < ApplicationController
     if @task.complete == true
       @task.update_attributes(complete: false)
       status = "updated task status from Completed to Incomplete for task "
-      #timeline_task(status)
+      timeline_task(status)
       format.js { flash.now[:success] = status.capitalize + @task.description.truncate(50) }
     else
       @task.update_attributes(complete: true)
       status = "updated task status from Incomplete to Completed for task "
-      #timeline_task(status)
+      timeline_task(status)
       format.js { flash.now[:success] = status.capitalize + @task.description.truncate(50) }
     end
     end

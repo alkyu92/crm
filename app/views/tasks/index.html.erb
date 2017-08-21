@@ -45,7 +45,8 @@ There are no tasks yet.
         (<%= distance_of_time_in_words(Time.now, task.due_date) %>
         left)
         <% elsif task.due_date == Date.today %>
-        <strong style="color: orange;">Today</strong>
+        <strong style="color: orange;">Today</strong><br>
+        <small>(<%= task.due_date.strftime('%d %b %Y') %>)</small>
         <% else %>
         <span style="color: red;">
           Date overdue<br>

@@ -1,6 +1,4 @@
 <h4>Timeline &middot History</h4>
-<% @subject = Account.find(params[:account_id]) if params[:account_id] %>
-<% @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id] %>
 
 <% op = @subject.timelines.order('created_at DESC').includes(:user).page(params[:page]).per(5) %>
 <% if op.blank? %>

@@ -1,5 +1,5 @@
 class TimelinesController < ApplicationController
-  before_action :find_timeline, only: [:destroy]
+  before_action :find_timeline
 
   def show
 

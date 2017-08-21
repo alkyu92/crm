@@ -22,7 +22,7 @@ class NotesController < ApplicationController
 
     respond_to do |format|
       if @note.save
-        #timeline(@note.title, "created note")
+        timeline_note("created note")
         format.js { flash.now[:success] = "Note log added!" }
       else
         format.js { flash.now[:danger] = "Failed to add note log!" }
@@ -34,7 +34,7 @@ class NotesController < ApplicationController
   def update
     respond_to do |format|
       if @note.update(params_note)
-        #timeline(@note.title, "updated note")
+        timeline_note("updated note")
         format.js { flash.now[:success] = "Note entry created!" }
       else
         format.js { flash.now[:danger] = "Failed to create note entry!" }
@@ -44,7 +44,7 @@ class NotesController < ApplicationController
 
   def destroy
     @note.destroy
-    #timeline(@note.title, "deleted note")
+    timeline_note("deleted note")
     respond_to do |format|
       format.js { flash.now[:success] = "Note log deleted!" }
     end
