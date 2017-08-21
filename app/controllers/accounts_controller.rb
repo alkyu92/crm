@@ -64,6 +64,15 @@ class AccountsController < ApplicationController
 
   private
 
+  def timeline_account(nactivity, action)
+    @account.timelines.create!(
+    tactivity: "account",
+    nactivity: nactivity,
+    action: action,
+    user_id: current_user.id
+    )
+  end
+
   def params_account
     params.require(:account).permit(:account_name,
                                     :account_type,

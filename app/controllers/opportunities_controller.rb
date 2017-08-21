@@ -19,16 +19,17 @@ class OpportunitiesController < ApplicationController
   def create
     @account = Account.find(params[:account_id])
     @opportunity = @account.opportunities.build(params_opportunity)
+    @subject = @opportunity
     @opportunity.user_id = current_user.id
 
     respond_to do |format|
       if @opportunity.save
-        timeline_opportunity("",@opportunity.name, "created opportunity")
 
-        # @opportunity.account.timelines.create!(
-        # nactivity: @opportunity.name,
-        # action: "created opportunity",
-        # user_id: current_user.id)
+        @opportunity.account.timelines.create!(
+        tactivity: "",
+        nactivity: @opportunity.name,
+        action: "created opportunity",
+        user_id: current_user.id)
 
         format.js { flash.now[:success] = "Opportunity entry created!" }
       else
@@ -90,6 +91,15 @@ class OpportunitiesController < ApplicationController
 
   private
 
+  def timeline_opportunity(tactivity, nactivity, action)
+    @opportunity.timelines.create!(
+    tactivity: tactivity,
+    nactivity: nactivity,
+    action: action,
+    user_id: current_user.id
+    )
+  end
+
   def params_opportunity
     params.require(:opportunity).permit( :name,
                                          :stage_id,
@@ -117,31 +127,40 @@ class OpportunitiesController < ApplicationController
 
   def save_timeline_if_any_changes
     if @opportunity.name_previously_changed?
-      timeline_opportunity("opportunityDetails", @opportunity.name, "updated opportunity name to")
+      timeline_opportunity("opportunityDetails",
+      @opportunity.name, "updated opportunity name to")
     end
     if @opportunity.current_stage_previously_changed?
-      timeline_opportunity("opportunityDetails", @opportunity.current, "updated opportunity current stage to")
+      timeline_opportunity("opportunityDetails",
+      @opportunity.current, "updated opportunity current stage to")
     end
     if @opportunity.business_type_previously_changed?
-      timeline_opportunity("opportunityDetails", @opportunity.business_type, "updated opportunity business type to")
+      timeline_opportunity("opportunityDetails",
+      @opportunity.business_type, "updated opportunity business type to")
     end
     if @opportunity.probability_previously_changed?
-      timeline_opportunity("opportunityDetails", @opportunity.probability, "updated opportunity probability to")
+      timeline_opportunity("opportunityDetails",
+      @opportunity.probability, "updated opportunity probability to")
     end
     if @opportunity.amount_previously_changed?
-      timeline_opportunity("opportunityDetails", @opportunity.amount, "updated opportunity amount to")
+      timeline_opportunity("opportunityDetails",
+      @opportunity.amount, "updated opportunity amount to")
     end
     if @opportunity.description_previously_changed?
-      timeline_opportunity("opportunityDetails", "", "updated opportunity description")
+      timeline_opportunity("opportunityDetails",
+      "", "updated opportunity description")
     end
     if @opportunity.status_previously_changed?
-      timeline_opportunity("opportunityDetails", @opportunity.status, "updated opportunity status to")
+      timeline_opportunity("opportunityDetails",
+      @opportunity.status, "updated opportunity status to")
     end
     if @opportunity.close_date_previously_changed?
-      timeline_opportunity("opportunityDetails", @opportunity.close_date.strftime('%d %b %Y'), "updated opportunity close date to")
+      timeline_opportunity("opportunityDetails",
+      @opportunity.close_date.strftime('%d %b %Y'), "updated opportunity close date to")
     end
     if @opportunity.loss_reason_previously_changed?
-      timeline_opportunity("opportunityDetails", @opportunity.loss_reason, "updated opportunity loss reason to")
+      timeline_opportunity("opportunityDetails",
+      @opportunity.loss_reason, "updated opportunity loss reason to")
     end
 
     if @opportunity.status == "Open"

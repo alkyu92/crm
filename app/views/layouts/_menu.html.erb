@@ -50,6 +50,10 @@
                         <div class="media-body">
                             <small>
                                 <strong><%= tl.user.name %></strong>
+                                <% if tl.action == "created account" %>
+                                <%= tl.action %>
+                                <strong><%= tl.nactivity %></strong>
+                                <% else %>
                                 <%= tl.action %>
                                 <strong><%= tl.nactivity %></strong>
                                 on
@@ -59,6 +63,8 @@
                                 <% elsif tl.activity_type == "Opportunity" %>
                                 <%= tl.activity_type.downcase %>
                                 <strong><%= tl.activity.name %></strong>
+                                <% end %>
+
                                 <% end %>
                                 <br>
                                 <%= time_ago_in_words(tl.created_at) %>
