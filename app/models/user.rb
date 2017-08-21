@@ -19,5 +19,9 @@ class User < ApplicationRecord
 
   has_many :timelines
 
+  has_many :tasks
+  has_many :calls
+  has_many :events
+
   has_many :notifications, dependent: :destroy
 end

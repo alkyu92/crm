@@ -44,9 +44,11 @@ ActiveRecord::Schema.define(version: 20170816080534) do
     t.datetime "call_datetime"
     t.boolean  "complete",       default: false
     t.integer  "opportunity_id"
+    t.integer  "user_id"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.index ["opportunity_id"], name: "index_calls_on_opportunity_id"
+    t.index ["user_id"], name: "index_calls_on_user_id"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -91,9 +93,11 @@ ActiveRecord::Schema.define(version: 20170816080534) do
     t.date     "event_date"
     t.boolean  "complete",       default: false
     t.integer  "opportunity_id"
+    t.integer  "user_id"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.index ["opportunity_id"], name: "index_events_on_opportunity_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -164,9 +168,11 @@ ActiveRecord::Schema.define(version: 20170816080534) do
     t.date     "due_date"
     t.boolean  "complete",       default: false
     t.integer  "opportunity_id"
+    t.integer  "user_id"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.index ["opportunity_id"], name: "index_tasks_on_opportunity_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "timelines", force: :cascade do |t|

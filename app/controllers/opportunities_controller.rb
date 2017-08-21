@@ -13,6 +13,7 @@ class OpportunitiesController < ApplicationController
 
   def show
     @subject = Opportunity.find(params[:id])
+    @accounts = Account.all
   end
 
   def create

@@ -12,6 +12,7 @@ class EventsController < ApplicationController
   def create
     @opportunity = Opportunity.find(params[:opportunity_id])
     @event = @opportunity.events.build(params_event)
+    @event.user_id = current_user.id
 
     respond_to do |format|
       if @event.save
@@ -50,12 +51,12 @@ class EventsController < ApplicationController
         @event.update_attributes(complete: false)
         status = "updated event status from Attended to Not Attend for event"
         #timeline_event(status)
-        format.js { flash.now[:success] = status.capitalize + @event.description }
+        format.js { flash.now[:success] = status.capitalize + @event.description.truncate(50) }
       else
         @event.update_attributes(complete: true)
         status = "updated event status from Not Attend to Attended for event"
         #timeline_event(status)
-        format.js { flash.now[:success] = status.capitalize + @event.description }
+        format.js { flash.now[:success] = status.capitalize + @event.description.truncate(50) }
       end
     end
   end

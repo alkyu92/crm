@@ -1,6 +1,6 @@
 <h4>Events</h4>
 <hr>
-<% events = Event.includes(:opportunity).page(params[:page_event]).per(5) %>
+<% events = @user.events.page(params[:page_event]).per(5) %>
 <% if events.blank? %>
 No events yet.
 <% else %>

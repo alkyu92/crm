@@ -6,9 +6,6 @@
                 <div id="myClock"></div>
             </h3>
         </div>
-        <div class="panel panel-default panel-body">
-            <%= render 'dashboards/dashboard_tasks' %>
-        </div>
     </div>
     <div class="col-lg-4">
         <div class="panel panel-default panel-body">
@@ -18,11 +15,31 @@
     <div class="col-lg-4">
         <%= render 'dashboards/dashboard_opportunities' %>
     </div>
-    <div class="col-lg-8">
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
         <div class="panel panel-default panel-body">
             <h5>Sales Opportunities Pipelines</h5>
-
             <h5><%= link_to 'View Report', '#', class: "pull-right" %></h5>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="panel panel-default panel-body">
+            <%= render 'dashboards/dashboard_tasks' %>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="panel panel-default panel-body">
+            <%= render 'dashboards/dashboard_calls' %>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="panel panel-default panel-body">
+            <%= render 'dashboards/dashboard_events' %>
         </div>
     </div>
 </div>

@@ -12,6 +12,7 @@ class CallsController < ApplicationController
   def create
     @opportunity = Opportunity.find(params[:opportunity_id])
     @call = @opportunity.calls.build(params_call)
+    @call.user_id = current_user.id
 
     respond_to do |format|
       if @call.save

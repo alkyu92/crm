@@ -12,6 +12,7 @@ class TasksController < ApplicationController
   def create
     @opportunity = Opportunity.find(params[:opportunity_id])
     @task = @opportunity.tasks.build(params_task)
+    @task.user_id = current_user.id
 
     respond_to do |format|
       if @task.save
@@ -50,12 +51,12 @@ class TasksController < ApplicationController
       @task.update_attributes(complete: false)
       status = "updated task status from Completed to Incomplete for task "
       #timeline_task(status)
-      format.js { flash.now[:success] = status.capitalize + @task.description }
+      format.js { flash.now[:success] = status.capitalize + @task.description.truncate(50) }
     else
       @task.update_attributes(complete: true)
       status = "updated task status from Incomplete to Completed for task "
       #timeline_task(status)
-      format.js { flash.now[:success] = status.capitalize + @task.description }
+      format.js { flash.now[:success] = status.capitalize + @task.description.truncate(50) }
     end
     end
   end

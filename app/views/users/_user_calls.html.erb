@@ -1,6 +1,6 @@
 <h4>Calls</h4>
 <hr>
-<% calls = Call.includes(:opportunity).page(params[:page_call]).per(5) %>
+<% calls = @user.calls.page(params[:page_call]).per(5) %>
 <% if calls.blank? %>
 No log calls yet.
 <% else %>
