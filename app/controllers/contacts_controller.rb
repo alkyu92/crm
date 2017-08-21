@@ -49,6 +49,15 @@ class ContactsController < ApplicationController
 
   private
 
+  def timeline_contact(action)
+    @subject.timelines.create!(
+    tactivity: "contact-" + @contact.id.to_s,
+    nactivity: @contact.name,
+    action: action,
+    user_id: current_user.id
+    )
+  end
+
   def params_contact
     params.require(:contact).permit(:name,
                                     :title,

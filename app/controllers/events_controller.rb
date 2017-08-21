@@ -11,6 +11,8 @@ class EventsController < ApplicationController
 
   def create
     @opportunity = Opportunity.find(params[:opportunity_id])
+    @subject = @opportunity
+    
     @event = @opportunity.events.build(params_event)
     @event.user_id = current_user.id
 
@@ -45,7 +47,6 @@ class EventsController < ApplicationController
   end
 
   def update_event_status
-
     respond_to do |format|
       if @event.complete == true
         @event.update_attributes(complete: false)
@@ -62,6 +63,16 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def timeline_event(action)
+    @opportunity.timelines.create!(
+    tactivity: "event-" + @event.id.to_s,
+    nactivity: @event.description.truncate(50),
+    action: action,
+    user_id: current_user.id
+    )
+  end
+
   def params_event
     params.require(:event).permit(:description, :event_date)
   end

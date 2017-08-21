@@ -43,6 +43,8 @@ Rails.application.routes.draw do
   get '/opportunities/:opportunity_id/events/:id/update_event_status',
   to: 'events#update_event_status', as: :update_event_status
 
+  get '/timelines/:id', to: 'timelines#update_read_status', as: :update_read_status
+
   root 'dashboards#index'
   get "*path" => redirect("/")
 end

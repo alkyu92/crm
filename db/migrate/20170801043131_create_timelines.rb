@@ -1,6 +1,8 @@
 class CreateTimelines < ActiveRecord::Migration[5.0]
   def change
     create_table :timelines do |t|
+      t.boolean :read, default: false
+      t.string :tactivity
       t.string :nactivity
       t.string :action
 

@@ -4,7 +4,7 @@ class NotesController < ApplicationController
   def index
     @subject = Account.find(params[:account_id]) if params[:account_id]
     @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-    
+
     respond_to do |format|
       format.js
     end
@@ -57,6 +57,16 @@ class NotesController < ApplicationController
   end
 
   private
+
+  def timeline_note(action)
+    @subject.timelines.create!(
+    tactivity: "relatedNotes-" + @note.id.to_s,
+    nactivity: @note.title,
+    action: action,
+    user_id: current_user.id
+    )
+  end
+
   def params_note
     params.require(:note).permit(:title, :description)
   end

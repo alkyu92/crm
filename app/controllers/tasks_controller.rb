@@ -11,6 +11,8 @@ class TasksController < ApplicationController
 
   def create
     @opportunity = Opportunity.find(params[:opportunity_id])
+    @subject = @opportunity
+    
     @task = @opportunity.tasks.build(params_task)
     @task.user_id = current_user.id
 
@@ -62,6 +64,16 @@ class TasksController < ApplicationController
   end
 
   private
+
+  def timeline_task(action)
+    @opportunity.timelines.create!(
+    tactivity: "task-" + @task.id.to_s,
+    nactivity: @task.description.truncate(50),
+    action: action,
+    user_id: current_user.id
+    )
+  end
+
   def params_task
     params.require(:task).permit(:description, :due_date)
   end

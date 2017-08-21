@@ -23,7 +23,7 @@ class OpportunitiesController < ApplicationController
 
     respond_to do |format|
       if @opportunity.save
-        timeline_opportunity(@opportunity.name, "created opportunity")
+        timeline_opportunity("",@opportunity.name, "created opportunity")
 
         # @opportunity.account.timelines.create!(
         # nactivity: @opportunity.name,
@@ -48,7 +48,8 @@ class OpportunitiesController < ApplicationController
             params[:docs].each { |doc|
               @opportunity.documents.create!(doc: doc)
             }
-            timeline_opportunity(@opportunity.name, "added attachment file to opportunity")
+            timeline_opportunity("relatedDocs", @opportunity.name,
+            "added attachment file to opportunity")
           end
 
         if params[:attached]
@@ -82,7 +83,7 @@ class OpportunitiesController < ApplicationController
     @subject = @opportunity
 
     respond_to do |format|
-      timeline_opportunity(@opportunity.name, "deleted attachment from opportunity")
+      timeline_opportunity("", @opportunity.name, "deleted attachment from opportunity")
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end
@@ -116,31 +117,31 @@ class OpportunitiesController < ApplicationController
 
   def save_timeline_if_any_changes
     if @opportunity.name_previously_changed?
-      timeline_opportunity(@opportunity.name, "updated opportunity name to")
+      timeline_opportunity("opportunityDetails", @opportunity.name, "updated opportunity name to")
     end
     if @opportunity.current_stage_previously_changed?
-      timeline_opportunity(@opportunity.current, "updated opportunity current stage to")
+      timeline_opportunity("opportunityDetails", @opportunity.current, "updated opportunity current stage to")
     end
     if @opportunity.business_type_previously_changed?
-      timeline_opportunity(@opportunity.business_type, "updated opportunity business type to")
+      timeline_opportunity("opportunityDetails", @opportunity.business_type, "updated opportunity business type to")
     end
     if @opportunity.probability_previously_changed?
-      timeline_opportunity(@opportunity.probability, "updated opportunity probability to")
+      timeline_opportunity("opportunityDetails", @opportunity.probability, "updated opportunity probability to")
     end
     if @opportunity.amount_previously_changed?
-      timeline_opportunity(@opportunity.amount, "updated opportunity amount to")
+      timeline_opportunity("opportunityDetails", @opportunity.amount, "updated opportunity amount to")
     end
     if @opportunity.description_previously_changed?
-      timeline_opportunity("", "updated opportunity description")
+      timeline_opportunity("opportunityDetails", "", "updated opportunity description")
     end
     if @opportunity.status_previously_changed?
-      timeline_opportunity(@opportunity.status, "updated opportunity status to")
+      timeline_opportunity("opportunityDetails", @opportunity.status, "updated opportunity status to")
     end
     if @opportunity.close_date_previously_changed?
-      timeline_opportunity(@opportunity.close_date.strftime('%d %b %Y'), "updated opportunity close date to")
+      timeline_opportunity("opportunityDetails", @opportunity.close_date.strftime('%d %b %Y'), "updated opportunity close date to")
     end
     if @opportunity.loss_reason_previously_changed?
-      timeline_opportunity(@opportunity.loss_reason, "updated opportunity loss reason to")
+      timeline_opportunity("opportunityDetails", @opportunity.loss_reason, "updated opportunity loss reason to")
     end
 
     if @opportunity.status == "Open"

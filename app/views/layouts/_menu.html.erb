@@ -16,30 +16,35 @@
         </ul>
     </li>
     <li class="dropdown">
-        <% @timelinesall = Timeline.all.order('created_at DESC').includes(:user) %>
+        <% @nav_noty = Timeline.all.order('created_at DESC').includes(:user) %>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-bell"></i>
             <span class="badge">
-              <% if @timelinesall.blank? %>
+              <% if @nav_noty.blank? %>
               0
               <% else %>
-                <%= @timelinesall.count %>
+                <%= @nav_noty.where(read: false).count %>
               <% end %>
           </span>
         </a>
         <ul class="dropdown-menu" role="menu">
-          <% if @timelinesall.blank? %>
+          <% if @nav_noty.blank? %>
           <li><a href="#">There no notifications yet.</a></li>
           <% else %>
-            <% @timelinesall.take(8).each do |tl| %>
-            <li>
-                <a href="#">
+            <% @nav_noty.take(8).each do |tl| %>
+
+              <% if tl.read == true %>
+                <li>
+              <% else %>
+                <li style="background-color: #d3d3d3;">
+              <% end %>
+                <%= link_to update_read_status_path(tl) do %>
                     <div class="media">
                         <div class="media-left">
                             <% if tl.user.avatar.blank? %>
                             <%= letter_avatar_tag(tl.user.name, 40, class: "media-object") %>
-                        <% else %>
-
+                            <% else %>
+                            <%= image_tag(tl.user.avatar.url(:noty), class: "media-object") %>
                             <% end %>
                         </div>
                         <div class="media-body">
@@ -47,15 +52,24 @@
                                 <strong><%= tl.user.name %></strong>
                                 <%= tl.action %>
                                 <strong><%= tl.nactivity %></strong>
+                                on
+                                <% if tl.activity_type == "Account" %>
+                                <%= tl.activity_type.downcase %>
+                                <strong><%= tl.activity.account_name %></strong>
+                                <% elsif tl.activity_type == "Opportunity" %>
+                                <%= tl.activity_type.downcase %>
+                                <strong><%= tl.activity.name %></strong>
+                                <% end %>
                                 <br>
                                 <%= time_ago_in_words(tl.created_at) %>
                                 ago
                             </small>
                         </div>
                     </div>
-                </a>
+                <% end %>
             </li>
             <hr style="margin-top: 5px; margin-bottom: 5px;">
+
             <% end %>
 
             <li><%= link_to 'View All', notifications_path, class: "text-center" %></li>

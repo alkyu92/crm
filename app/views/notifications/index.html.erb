@@ -14,35 +14,40 @@ There are no notifications yet.
     <div class="col-lg-3"></div>
     <div class="col-lg-6">
         <% @notifications.each do |noty| %>
+        <%= link_to update_read_status_path(noty) do %>
+        <% if noty.read == true %>
         <div class="media">
+        <% else %>
+        <div class="media" style="background-color: #d3d3d3;">
+        <% end %>
             <div class="media-left">
                 <% if noty.user.avatar.blank? %>
                 <%= letter_avatar_tag(noty.user.name, 40, class: "media-object") %>
             <% else %>
-                <%= image_tag(noty.user.avatar.url(:small), class: "media-object")%>
+                <%= image_tag(noty.user.avatar.url(:noty), class: "media-object")%>
                 <% end %>
             </div>
             <div class="media-body">
-              <h5>
-                <strong><%= noty.user.name %></strong>
-                <%= noty.action %>
-                <strong><%= noty.nactivity %></strong>
-                on
-                <%= noty.activity_type.downcase %>
-                <% if noty.activity_type == "Opportunity" %>
-                <strong><%= Opportunity.find_by_id(noty.activity_id).name %></strong>
-                <% elsif noty.activity_type == "Account" %>
-                <strong><%= Account.find_by_id(noty.activity_id).account_name %></strong>
-                <% end %>
-                <br>
+                <p>
+                    <strong><%= noty.user.name %></strong>
+                    <%= noty.action %>
+                    <strong><%= noty.nactivity %></strong>
+                    on
+                    <%= noty.activity_type.downcase %>
+                    <% if noty.activity_type == "Opportunity" %>
+                    <strong><%= noty.activity.name %></strong>
+                    <% elsif noty.activity_type == "Account" %>
+                    <strong><%= noty.activity.account_name %></strong>
+                    <% end %>
+                    <br>
                     <small>
                         <%= time_ago_in_words(noty.created_at) %>
                         ago
                     </small>
-                </h5>
+                </p>
             </div>
         </div>
-        <hr>
+        <% end %>
         <% end %>
         <div class="text-center">
             <%= page_entries_info @notifications %><br>

@@ -16,7 +16,8 @@ No tasks yet.
 <% tasks.each do |task| %>
 <div class="row">
     <div class="col-lg-6">
-        <%= link_to task.description, opportunity_path(task.opportunity, anchor: "task-#{task.id}") %>
+        <%= link_to task.description.truncate(25),
+        opportunity_path(task.opportunity, anchor: "task-#{task.id}") %>
     </div>
     <div class="col-lg-6">
         <% if task.due_date.blank? %>

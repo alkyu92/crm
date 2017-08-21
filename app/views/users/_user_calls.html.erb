@@ -15,7 +15,8 @@ No log calls yet.
 <% calls.each do |call| %>
 <div class="row">
     <div class="col-lg-6">
-        <%= link_to call.description, opportunity_path(call.opportunity, anchor: "call-#{call.id}") %>
+        <%= link_to call.description.truncate(25),
+        opportunity_path(call.opportunity, anchor: "call-#{call.id}") %>
     </div>
     <div class="col-lg-6">
       <% if call.call_datetime.blank? %>

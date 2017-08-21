@@ -7,55 +7,17 @@ class ApplicationController < ActionController::Base
 
   def timeline_account(nactivity, action)
     @account.timelines.create!(
+    tactivity: "account",
     nactivity: nactivity,
     action: action,
     user_id: current_user.id
     )
   end
 
-  def timeline_opportunity(nactivity, action)
+  def timeline_opportunity(tactivity, nactivity, action)
     @opportunity.timelines.create!(
+    tactivity: tactivity,
     nactivity: nactivity,
-    action: action,
-    user_id: current_user.id
-    )
-  end
-
-  def timeline_task(action)
-    @opportunity.timelines.create!(
-    nactivity: @task.description.truncate(50),
-    action: action,
-    user_id: current_user.id
-    )
-  end
-
-  def timeline_call(action)
-    @opportunity.timelines.create!(
-    nactivity: @call.description.truncate(50),
-    action: action,
-    user_id: current_user.id
-    )
-  end
-
-  def timeline_event(action)
-    @opportunity.timelines.create!(
-    nactivity: @event.description.truncate(50),
-    action: action,
-    user_id: current_user.id
-    )
-  end
-
-  def timeline_note(action)
-    @subject.timelines.create!(
-    nactivity: @note.title,
-    action: action,
-    user_id: current_user.id
-    )
-  end
-
-  def timeline_contact(action)
-    @subject.timelines.create!(
-    nactivity: @contact.name,
     action: action,
     user_id: current_user.id
     )

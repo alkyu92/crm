@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_attached_file :avatar,
-                    styles: {medium: "200x200#", small: "25x25#"},
+                    styles: {medium: "200x200#", small: "25x25#", noty: "40x40#"},
                     default_url: "/images/:style/missing.png",
                     dependent: :destroy
 

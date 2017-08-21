@@ -11,6 +11,8 @@ class CallsController < ApplicationController
 
   def create
     @opportunity = Opportunity.find(params[:opportunity_id])
+    @subject = @opportunity
+    
     @call = @opportunity.calls.build(params_call)
     @call.user_id = current_user.id
 
@@ -46,6 +48,16 @@ class CallsController < ApplicationController
   end
 
   private
+
+  def timeline_call(action)
+    @opportunity.timelines.create!(
+    tactivity: "call-" + @call.id.to_s,
+    nactivity: @call.description.truncate(50),
+    action: action,
+    user_id: current_user.id
+    )
+  end
+
   def params_call
     params.require(:call).permit(:description, :call_datetime, :duration)
   end
