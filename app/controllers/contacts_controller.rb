@@ -18,7 +18,7 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
-        #timeline(@contact.name, "created contact")
+        timeline_contact("created contact")
         format.js { flash.now[:success] = "Contact created!" }
       else
         format.js { flash.now[:danger] = "Failed to create contact!" }
@@ -30,7 +30,7 @@ class ContactsController < ApplicationController
   def update
     respond_to do |format|
       if @contact.update(params_contact)
-        #timeline(@contact.name, "updated contact")
+        timeline_contact("updated contact")
         format.js { flash.now[:success] = "Contact updated!" }
       else
         format.js { flash.now[:danger] = "Failed to update contact!" }
@@ -41,7 +41,7 @@ class ContactsController < ApplicationController
 
   def destroy
     @contact.destroy
-    #timeline(@contact.name, "deleted contact")
+    timeline_contact("deleted contact")
     respond_to do |format|
       format.js { flash.now[:success] = "Contact deleted!" }
     end

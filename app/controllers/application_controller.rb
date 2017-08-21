@@ -53,6 +53,14 @@ class ApplicationController < ActionController::Base
     )
   end
 
+  def timeline_contact(action)
+    @subject.timelines.create!(
+    nactivity: @contact.name,
+    action: action,
+    user_id: current_user.id
+    )
+  end
+
   protected
   def devise_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])

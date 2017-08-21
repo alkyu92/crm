@@ -54,7 +54,7 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:account_id])
     @account.documents.find(params[:id]).destroy
 
-    @subject = @account
+    @subject = Account.find(params[:account_id])
 
     respond_to do |format|
       timeline_account(@account.account_name, "deleted attachment from account")

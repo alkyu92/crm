@@ -2,12 +2,18 @@ class NotesController < ApplicationController
   before_action :find_note, only: [:update, :destroy]
 
   def index
+    @subject = Account.find(params[:account_id]) if params[:account_id]
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+    
     respond_to do |format|
       format.js
     end
   end
 
   def show
+    @subject = Account.find(params[:account_id]) if params[:account_id]
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+
     respond_to do |format|
       format.js
     end

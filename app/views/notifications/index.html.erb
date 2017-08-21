@@ -1,5 +1,4 @@
 <h2>Notifications</h2>
-<%= pluralize(@notifications.count, 'item')%>
 
 <div class="text-center">
     <%= page_entries_info @notifications %><br>
@@ -24,12 +23,23 @@ There are no notifications yet.
                 <% end %>
             </div>
             <div class="media-body">
+              <h5>
                 <strong><%= noty.user.name %></strong>
                 <%= noty.action %>
                 <strong><%= noty.nactivity %></strong>
+                on
+                <%= noty.activity_type.downcase %>
+                <% if noty.activity_type == "Opportunity" %>
+                <strong><%= Opportunity.find_by_id(noty.activity_id).name %></strong>
+                <% elsif noty.activity_type == "Account" %>
+                <strong><%= Account.find_by_id(noty.activity_id).account_name %></strong>
+                <% end %>
                 <br>
-                <%= time_ago_in_words(noty.created_at) %>
-                ago
+                    <small>
+                        <%= time_ago_in_words(noty.created_at) %>
+                        ago
+                    </small>
+                </h5>
             </div>
         </div>
         <hr>
