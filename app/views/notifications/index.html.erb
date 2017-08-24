@@ -32,12 +32,16 @@ There are no notifications yet.
                     <strong><%= noty.user.name %></strong>
                     <%= noty.action %>
                     <strong><%= noty.nactivity %></strong>
+                    <% unless noty.action == "created account" ||
+                      noty.action == "added attachment file to" %>
                     on
                     <%= noty.activity_type.downcase %>
                     <% if noty.activity_type == "Opportunity" %>
                     <strong><%= noty.activity.name %></strong>
                     <% elsif noty.activity_type == "Account" %>
                     <strong><%= noty.activity.account_name %></strong>
+                    <% end %>
+
                     <% end %>
                     <br>
                     <small>

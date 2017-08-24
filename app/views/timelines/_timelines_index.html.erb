@@ -1,6 +1,7 @@
 <h4>Timeline &middot History</h4>
 
 <% op = @subject.timelines.order('created_at DESC').includes(:user).page(params[:page]).per(5) %>
+
 <% if op.blank? %>
 <p>Every changes will be recorded here.</p>
 <% else %>
@@ -9,33 +10,42 @@
 <div class="panel panel-default panel-body">
     <div class="media">
         <div class="media-left" style="padding-top: 6px;">
-          <% if timeline.user.avatar.blank? %>
-          <%= letter_avatar_tag(timeline.user.name, 25, class: "media-object")%>
-          <% else %>
-          <%= image_tag(timeline.user.avatar.url(:small), class: "media-object")%>
-          <% end %>
+            <% if timeline.user.avatar.blank? %>
+            <%= letter_avatar_tag(timeline.user.name, 25, class: "media-object")%>
+        <% else %>
+            <%= image_tag(timeline.user.avatar.url(:small), class: "media-object")%>
+            <% end %>
         </div>
         <div class="media-body">
             <small>
                 <%= link_to timeline.user.name, user_path(timeline.user.id) %>
                 <%= timeline.action %>
-
                 <%= link_to timeline.nactivity.truncate(50), update_read_status_path(timeline) %>
-
+                <% unless timeline.action == "created account" ||
+                  timeline.action == "added attachment file to" %>
+                on
+                <% if timeline.activity_type == "Account" %>
+                <%= timeline.activity_type.downcase %>
+                <strong><%= timeline.activity.account_name %></strong>
+                <% elsif timeline.activity_type == "Opportunity" %>
+                <%= timeline.activity_type.downcase %>
+                <strong><%= timeline.activity.name %></strong>
+                <% end %>
+                <% end %>
                 <div class="pull-right">
                     <% if params[:controller] == "opportunities" || params[:opportunity_id] %>
 
-                      <%= link_to opportunity_timeline_path(@subject, timeline),
+                    <%= link_to opportunity_timeline_path(@subject, timeline),
                       method: :delete, remote: true do %>
-                        <i class="fa fa-times"></i>
-                      <% end %>
+                    <i class="fa fa-times"></i>
+                    <% end %>
 
                     <% elsif params[:controller] == "accounts" || params[:account_id] %>
 
-                      <%= link_to account_timeline_path(@subject, timeline),
+                    <%= link_to account_timeline_path(@subject, timeline),
                       method: :delete, remote: true do %>
-                        <i class="fa fa-times"></i>
-                      <% end %>
+                    <i class="fa fa-times"></i>
+                    <% end %>
 
                     <% end %>
                 </div>
@@ -47,8 +57,7 @@
                     <%= time_ago_in_words(timeline.created_at) %>
                     ago
                 </small>
-                <h5>
-                </div>
+                <h5></div>
             </div>
         </div>
         <% end %>

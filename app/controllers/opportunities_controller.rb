@@ -9,9 +9,15 @@ class OpportunitiesController < ApplicationController
     @stages = Stage.all
     @accounts = Account.all
 
+    # for AJAX
+    @subject = @opportunity
+    @account = Account.find(params[:account_id]) if params[:account_id]
+    @subject = @account
+
   end
 
   def show
+    # for AJAX
     @subject = Opportunity.find(params[:id])
     @accounts = Account.all
   end
@@ -19,7 +25,11 @@ class OpportunitiesController < ApplicationController
   def create
     @account = Account.find(params[:account_id])
     @opportunity = @account.opportunities.build(params_opportunity)
-    @subject = @opportunity
+
+    # for AJAX
+    @subject = @opportunity if params[:opportunity_id]
+    @subject = @account if params[:account_id]
+
     @opportunity.user_id = current_user.id
 
     respond_to do |format|
@@ -41,6 +51,7 @@ class OpportunitiesController < ApplicationController
 
   def update
     respond_to do |format|
+      # for AJAX
       @subject = @opportunity
 
       if @opportunity.update(params_opportunity)
