@@ -12,7 +12,7 @@ class TasksController < ApplicationController
   def create
     @opportunity = Opportunity.find(params[:opportunity_id])
     @subject = @opportunity
-    
+
     @task = @opportunity.tasks.build(params_task)
     @task.user_id = current_user.id
 
@@ -28,6 +28,9 @@ class TasksController < ApplicationController
   end
 
   def update
+    # for Ajax timelines
+    @subject = Opportunity.find(params[:opportunity_id])
+
     respond_to do |format|
       if @task.update(params_task)
         timeline_task("updated task")
@@ -40,6 +43,9 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    # for AJAX timelines
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+
     @task.destroy
     timeline_task("deleted task")
     respond_to do |format|
@@ -48,6 +54,9 @@ class TasksController < ApplicationController
   end
 
   def update_task_status
+    # for AJAX timelines
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+
     respond_to do |format|
     if @task.complete == true
       @task.update_attributes(complete: false)

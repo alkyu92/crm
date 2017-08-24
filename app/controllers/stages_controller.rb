@@ -31,14 +31,41 @@ class StagesController < ApplicationController
     respond_to do |format|
       if @stage.status == "In Progress"
         update_status("In Progress", "Completed", false)
+
+        @opportunity.stages.each do |stage|
+          if stage.id < @stage.id
+            stage.update_attributes(status: "Completed")
+          elsif stage.id > @stage.id
+            stage.update_attributes(status: "Waiting")
+          end
+        end
+
         format.js { flash.now[:success] = "Stage status updated from In Progress to Completed!" }
       elsif @stage.status == "Completed"
         update_status("Completed", "In Progress", true)
         @opportunity.update_attributes(current_stage: @stage.name) # current stage
+
+        @opportunity.stages.each do |stage|
+          if stage.id < @stage.id
+            stage.update_attributes(status: "Completed")
+          elsif stage.id > @stage.id
+            stage.update_attributes(status: "Waiting")
+          end
+        end
+
         format.js { flash.now[:success] = "Stage status updated from Completed to In Progress!" }
       elsif @stage.status == "Waiting"
         update_status("Waiting", "In Progress", true)
         @opportunity.update_attributes(current_stage: @stage.name)
+
+        @opportunity.stages.each do |stage|
+          if stage.id < @stage.id
+            stage.update_attributes(status: "Completed")
+          elsif stage.id > @stage.id
+            stage.update_attributes(status: "Waiting")
+          end
+        end
+
         format.js { flash.now[:success] = "Stage status updated from Waiting to In Progress!" }
       end
     end

@@ -44,10 +44,6 @@
                             <li><%= link_to 'Mark as In Progress', update_stage_status_path(@opportunity, stage),
                             remote: true, method: :get %></li>
 
-                            <% elsif stage.status == "In Progress" %>
-                            <li><%= link_to 'Mark as Completed', update_stage_status_path(@opportunity, stage),
-                            remote: true, method: :get %></li>
-
                             <% elsif stage.status == "Completed" %>
                             <li><%= link_to 'Mark as In Progress', update_stage_status_path(@opportunity, stage),
                             remote: true, method: :get %></li>
