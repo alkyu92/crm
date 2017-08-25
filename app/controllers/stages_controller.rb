@@ -1,9 +1,11 @@
 class StagesController < ApplicationController
   before_action :find_opportunity
-  before_action :find_stage, only: [:destroy, :update_stage_status]
+  before_action :find_stage, only: [:update, :destroy, :update_stage_status]
 
   def create
+    # for AJAX timelines
     @subject = @opportunity
+
     @stage = @opportunity.stages.build(params_stage)
 
     respond_to do |format|
@@ -17,8 +19,22 @@ class StagesController < ApplicationController
 
   end
 
+  def update
+    # for AJAX timelines
+    @subject = @opportunity
+
+    respond_to do |format|
+      if @stage.update(params_stage)
+        format.js { flash.now[:success] = "Opportunity stage updated!" }
+      else
+        format.js { flash.now[:success] = "Failed to update opportunity stage!" }
+      end
+    end
+  end
+
   def destroy
     respond_to do |format|
+      # for AJAX timelines
       @subject = @opportunity
 
       if @stage.status == "In Progress" && (@stage.id != @opportunity.stages.last.id)
@@ -42,7 +58,9 @@ class StagesController < ApplicationController
   end
 
   def update_stage_status
+    # for AJAX timelines
     @subject = @opportunity
+
     respond_to do |format|
       if @stage.status == "In Progress"
         update_status("In Progress", "Completed", false)

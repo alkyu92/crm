@@ -66,10 +66,14 @@ No opportunities yet.
       </div>
       <div class="col-lg-2">
           <!-- Current Stage -->
-          <% if opportunity.current_stage.blank? %>
-            <span style="color: red;">No stages found</span>
+          <% if opportunity.stages.blank? || opportunity.current_stage.blank? %>
+            <span style="color: red;">Not specified</span>
           <% else %>
-            <%= opportunity.current_stage %>
+            <% opportunity.stages.each do |stage| %>
+              <% if stage.status == "In Progress" %>
+                <%= stage.name %>
+              <% end %>
+            <% end %>
           <% end %>
       </div>
       <div class="col-lg-2">

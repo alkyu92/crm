@@ -32,3 +32,28 @@
         </div>
     </div>
 </div>
+
+<% @opportunity.stages.each do |stage| %>
+<!-- Modal -->
+<div id="editStage-<%= stage.id %>" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create New Stage</h4>
+            </div>
+            <div class="modal-body">
+                <%= simple_form_for [@opportunity, stage], remote: true do |f| %>
+                <%= f.input :name, label: "Stage Name", autofocus: true, hint: "required" %>
+            </div>
+            <div class="modal-footer">
+                <%= f.button :submit, class: "btn-success" %>
+                <% end %>
+                <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+            </div>
+        </div>
+    </div>
+</div>
+<% end %>

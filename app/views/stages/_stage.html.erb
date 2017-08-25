@@ -13,9 +13,10 @@
     <br>
 
     <% @opportunity.stages.each_with_index do |stage, index| %>
+
     <% if index == 0 && stage.status == "Waiting" %>
-      <% stage.update_attributes(current_status: true, status: "In Progress") %>
-      <% @opportunity.update_attributes(current_stage: stage.name) %>
+    <% stage.update_attributes(current_status: true, status: "In Progress") %>
+    <% @opportunity.update_attributes(current_stage: stage.name) %>
     <% end %>
 
     <% if (index+1) % 6 == 0 %>
@@ -34,22 +35,30 @@
                     <strong><%= stage.name %></strong>
 
                     <div class="pull-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="caret"></i>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="caret"></i>
                         </a>
                         <ul class="dropdown-menu">
-                          <% if stage.status == "In Progress" && @opportunity.stages.last.id == stage.id %>
-                          <li><%= link_to 'Mark as Completed', update_stage_status_path(@opportunity, stage),
+                            <% if stage.status == "In Progress" &&
+                              @opportunity.stages.last.id == stage.id %>
+                            <li><%= link_to 'Mark as Completed',
+                            update_stage_status_path(@opportunity, stage),
                           remote: true, method: :get %></li>
 
                             <% elsif stage.status == "Waiting" %>
-                            <li><%= link_to 'Mark as In Progress', update_stage_status_path(@opportunity, stage),
+                            <li><%= link_to 'Mark as In Progress',
+                            update_stage_status_path(@opportunity, stage),
                             remote: true, method: :get %></li>
 
                             <% elsif stage.status == "Completed" %>
-                            <li><%= link_to 'Mark as In Progress', update_stage_status_path(@opportunity, stage),
+                            <li><%= link_to 'Mark as In Progress',
+                            update_stage_status_path(@opportunity, stage),
                             remote: true, method: :get %></li>
                             <% end %>
+
+                            <li><%= link_to 'Edit', '#',
+                            data: { toggle: "modal", target: "#editStage-#{stage.id}"},
+                            remote: true %></li>
 
                             <li><%= link_to 'Delete', opportunity_stage_path(@opportunity, stage),
                             method: :delete, remote: true %></li>

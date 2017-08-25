@@ -1,0 +1,6 @@
+$('#stage').html("<%= j (render 'stages/stage') %>");
+$('#op-header').html("<%= j (render 'opportunities/op_header')%>");
+$('.timelines').html("<%= j (render 'timelines/timelines_index') %>")
+$('#notice-stage').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
+$('.modal').modal('hide');
+$('#crm-menu').html("<%= j (render 'layouts/menu') %>");

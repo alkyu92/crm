@@ -4,8 +4,19 @@
             <h4>Related Contacts</h4>
         </div>
         <div class="col-lg-4">
-            <%= link_to 'Create New Contact', '#', class: "btn btn-default form-control",
+          <a href="#", class="dropdown-toggle" data-toggle="dropdown">
+            <div class="btn btn-default">
+              Contacts
+              <i class="caret"></i>
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= link_to 'Create New Contact', '#',
             data: {toggle: "modal", target: "#contactModalForm"}%>
+            </li>
+            <li><%= link_to 'Assign Contact', '#' %></li>
+          </ul>
+
         </div>
     </div>
 
