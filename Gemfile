@@ -30,6 +30,7 @@ gem 'figaro', '~> 1.1', '>= 1.1.1'
 gem 'kaminari'
 gem 'country_select'
 gem 'remotipart', '~> 1.3'
+gem 'pry', '~> 0.10.4'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

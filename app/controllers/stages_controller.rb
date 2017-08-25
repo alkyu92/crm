@@ -18,10 +18,25 @@ class StagesController < ApplicationController
   end
 
   def destroy
-    @subject = @opportunity
-    @stage.destroy
-    timeline_stage("deleted stage")
     respond_to do |format|
+      @subject = @opportunity
+      @stage.destroy
+      if @stage.status == "In Progress"
+        @new_current_stage = @opportunity.stages.where("id > ?", @stage.id).first
+        @new_current_stage.update_attributes(status: "In Progress")
+        @opportunity.update_attributes(current_stage: @new_current_stage.name)
+
+        @opportunity.stages.each do |stage|
+          if stage.id < @new_current_stage.id
+            stage.update_attributes(status: "Completed")
+          elsif stage.id > @new_current_stage.id
+            stage.update_attributes(status: "Waiting")
+          end
+        end
+      end
+
+
+      timeline_stage("deleted stage")
       format.js { flash.now[:success] = "Opportunity stage deleted!" }
     end
   end
@@ -31,41 +46,14 @@ class StagesController < ApplicationController
     respond_to do |format|
       if @stage.status == "In Progress"
         update_status("In Progress", "Completed", false)
-
-        @opportunity.stages.each do |stage|
-          if stage.id < @stage.id
-            stage.update_attributes(status: "Completed")
-          elsif stage.id > @stage.id
-            stage.update_attributes(status: "Waiting")
-          end
-        end
-
         format.js { flash.now[:success] = "Stage status updated from In Progress to Completed!" }
       elsif @stage.status == "Completed"
         update_status("Completed", "In Progress", true)
         @opportunity.update_attributes(current_stage: @stage.name) # current stage
-
-        @opportunity.stages.each do |stage|
-          if stage.id < @stage.id
-            stage.update_attributes(status: "Completed")
-          elsif stage.id > @stage.id
-            stage.update_attributes(status: "Waiting")
-          end
-        end
-
         format.js { flash.now[:success] = "Stage status updated from Completed to In Progress!" }
       elsif @stage.status == "Waiting"
         update_status("Waiting", "In Progress", true)
         @opportunity.update_attributes(current_stage: @stage.name)
-
-        @opportunity.stages.each do |stage|
-          if stage.id < @stage.id
-            stage.update_attributes(status: "Completed")
-          elsif stage.id > @stage.id
-            stage.update_attributes(status: "Waiting")
-          end
-        end
-
         format.js { flash.now[:success] = "Stage status updated from Waiting to In Progress!" }
       end
     end
@@ -88,6 +76,13 @@ class StagesController < ApplicationController
 
   def update_status(previous,current,boolean)
     @stage.update_attributes(status: current, current_status: boolean)
+    @opportunity.stages.each do |stage|
+      if stage.id < @stage.id
+        stage.update_attributes(status: "Completed")
+      elsif stage.id > @stage.id
+        stage.update_attributes(status: "Waiting")
+      end
+    end
     timeline_stage("changed stage status from #{previous} to #{current} for")
   end
 
