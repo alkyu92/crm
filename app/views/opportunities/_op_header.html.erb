@@ -26,7 +26,7 @@
         <small>Current Stage</small>
         <br>
         <h4>
-          <% if @opportunity.stages.blank? || @opportunity.current_stage.blank? %>
+          <% if @opportunity.stages.blank? %>
             <span style="color: red;">Not specified</span>
           <% else %>
             <% @opportunity.stages.each do |stage| %>

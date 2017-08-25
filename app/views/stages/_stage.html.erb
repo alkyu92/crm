@@ -16,7 +16,6 @@
 
     <% if index == 0 && stage.status == "Waiting" %>
     <% stage.update_attributes(current_status: true, status: "In Progress") %>
-    <% @opportunity.update_attributes(current_stage: stage.name) %>
     <% end %>
 
     <% if (index+1) % 6 == 0 %>

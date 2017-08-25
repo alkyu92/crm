@@ -16,7 +16,7 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        timeline_account(@account.account_name, "created account")
+        timeline_account("account", @account.account_name, "created account")
         format.js { flash.now[:success] = "Account entry created!" }
       else
         format.js { flash.now[:danger] = "Failed to create account entry!" }
@@ -34,7 +34,7 @@ class AccountsController < ApplicationController
           params[:docs].each { |doc|
             @account.documents.create!( doc: doc )
           }
-          timeline_account(@account.account_name, "added attachment file to account")
+          timeline_account("relatedDocs", @account.account_name, "added attachment file to account")
         end
         save_timeline_if_any_changes
         format.js { flash.now[:success] = "Account entry updated!" }
@@ -57,16 +57,16 @@ class AccountsController < ApplicationController
     @subject = Account.find(params[:account_id])
 
     respond_to do |format|
-      timeline_account(@account.account_name, "deleted attachment from account")
+      timeline_account("relatedDocs", @account.account_name, "deleted attachment from account")
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end
 
   private
 
-  def timeline_account(nactivity, action)
+  def timeline_account(tactivity, nactivity, action)
     @account.timelines.create!(
-    tactivity: "account",
+    tactivity: tactivity,
     nactivity: nactivity,
     action: action,
     user_id: current_user.id
@@ -117,31 +117,39 @@ class AccountsController < ApplicationController
   def save_timeline_if_any_changes
 
     if @account.account_name_previously_changed?
-      timeline_account(@account.account_name, "updated account name to")
+      timeline_account("accountDetails",
+      @account.account_name, "updated account name to")
     end
     if @account.account_type_previously_changed?
-      timeline_account(@account.account_type, "updated account type to")
+      timeline_account("accountDetails",
+      @account.account_type, "updated account type to")
     end
     if @account.website_previously_changed?
-      timeline_account(@account.website, "updated account website url to")
+      timeline_account("accountDetails",
+      @account.website, "updated account website url to")
     end
     if @account.email_previously_changed?
-      timeline_account(@account.email, "updated account email to")
+      timeline_account("accountDetails",
+      @account.email, "updated account email to")
     end
     if @account.description_previously_changed?
-      timeline_account("", "updated account description")
+      timeline_account("accountDetails", "", "updated account description")
     end
     if @account.phone_previously_changed?
-      timeline_account(@account.phone, "updated account phone number to")
+      timeline_account("accountDetails",
+      @account.phone, "updated account phone number to")
     end
     if @account.fax_previously_changed?
-      timeline_account(@account.fax, "updated account fax number to")
+      timeline_account("accountDetails",
+      @account.fax, "updated account fax number to")
     end
     if @account.industry_previously_changed?
-      timeline_account(@account.industry, "updated account industry to")
+      timeline_account("accountDetails",
+      @account.industry, "updated account industry to")
     end
     if @account.number_of_employee_previously_changed?
-      timeline_account(@account.number_of_employee, "updated account number of employee to")
+      timeline_account("accountDetails",
+      @account.number_of_employee, "updated account number of employee to")
     end
     if @account.billing_street_previously_changed? ||
       @account.billing_city_previously_changed? ||
@@ -149,7 +157,7 @@ class AccountsController < ApplicationController
       @account.billing_postal_code_previously_changed? ||
       @account.billing_country_previously_changed?
 
-      timeline_account("", "updated account billing address")
+      timeline_account("accountDetails", "", "updated account billing address")
 
     end
     if @account.shipping_street_previously_changed? ||
@@ -158,7 +166,7 @@ class AccountsController < ApplicationController
       @account.shipping_postal_code_previously_changed? ||
       @account.shipping_country_previously_changed?
 
-      timeline_account("", "updated account shipping address")
+      timeline_account("accountDetails", "", "updated account shipping address")
 
     end
   end

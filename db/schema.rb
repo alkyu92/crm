@@ -125,7 +125,6 @@ ActiveRecord::Schema.define(version: 20170816080534) do
 
   create_table "opportunities", force: :cascade do |t|
     t.string   "name"
-    t.string   "current_stage"
     t.string   "business_type"
     t.string   "probability"
     t.string   "amount"

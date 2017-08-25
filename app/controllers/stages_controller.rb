@@ -41,7 +41,6 @@ class StagesController < ApplicationController
         @stage.destroy
         @new_current_stage = @opportunity.stages.where("id > ?", @stage.id).first
         @new_current_stage.update_attributes(status: "In Progress")
-        @opportunity.update_attributes(current_stage: @new_current_stage.name)
 
         @opportunity.stages.each do |stage|
           if stage.id < @new_current_stage.id
@@ -67,11 +66,9 @@ class StagesController < ApplicationController
         format.js { flash.now[:success] = "Stage status updated from In Progress to Completed!" }
       elsif @stage.status == "Completed"
         update_status("Completed", "In Progress", true)
-        @opportunity.update_attributes(current_stage: @stage.name) # current stage
         format.js { flash.now[:success] = "Stage status updated from Completed to In Progress!" }
       elsif @stage.status == "Waiting"
         update_status("Waiting", "In Progress", true)
-        @opportunity.update_attributes(current_stage: @stage.name)
         format.js { flash.now[:success] = "Stage status updated from Waiting to In Progress!" }
       end
     end

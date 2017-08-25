@@ -2,7 +2,6 @@ class CreateOpportunities < ActiveRecord::Migration[5.0]
   def change
     create_table :opportunities do |t|
       t.string :name
-      t.string :current_stage
       t.string :business_type
       t.string :probability
       t.string :amount
