@@ -67,9 +67,11 @@ No events yet.
 <% end %>
 <% end %>
 
+<% if @events.count == 6 %>
 <hr>
 <div class="row">
     <div class="col-lg-12 text-center">
         <h5><%= link_to 'View All Events', events_path %></h5>
     </div>
 </div>
+<% end %>

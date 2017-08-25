@@ -52,9 +52,12 @@ No tasks created yet.
 </div>
 <% end %>
 <% end %>
+
+<% if @tasks.count == 6 %>
 <hr>
 <div class="row">
     <div class="col-lg-12 text-center">
         <h5><%= link_to 'View All Tasks', tasks_path %></h5>
     </div>
 </div>
+<% end %>

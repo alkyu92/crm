@@ -9,6 +9,10 @@ class AccountsController < ApplicationController
   def show
     @opportunities = Opportunity.where(account_id: @account.id)
     @subject = Account.find(params[:id])
+
+    @account.timelines.each do |tl|
+      tl.update_attributes(read: true)
+    end
   end
 
   def create

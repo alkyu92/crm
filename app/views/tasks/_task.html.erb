@@ -23,7 +23,7 @@ No tasks created yet.
 </ul>
     <% @opportunity.tasks.order('created_at DESC').each do |task| %>
     <li class="list-group-item">
-        <div class="row anchor-padding" id="task-<%= task.id %>">
+        <div class="row" id="task-<%= task.id %>">
             <div class="col-lg-5">
                 <%= link_to task.description.truncate(50), '#', data: {toggle: "modal", target: "#taskInfo-#{task.id}"} %>
             </div>

@@ -2,59 +2,85 @@
     <br>
     <h4>User Details</h4>
     <hr>
-    <% if @user.email %>
+
     <div class="row">
         <div class="col-lg-1">
             <i class="fa fa-envelope"></i>
         </div>
         <div class="col-lg-11">
+            <% if @user.email.blank? %>
+            <%= link_to edit_user_registration_path do %>
+            <i class="fa fa-pencil"></i>
+            Edit
+            <% end %>
+        <% else %>
             <%= @user.email %>
+            <% end %>
         </div>
     </div>
-    <% end %>
 
-    <% if @user.phone %>
     <div class="row">
         <div class="col-lg-1">
             <i class="fa fa-phone"></i>
         </div>
         <div class="col-lg-11">
+            <% if @user.phone.blank? %>
+            <%= link_to edit_user_registration_path do %>
+            <i class="fa fa-pencil"></i>
+            Edit
+            <% end %>
+        <% else %>
             <%= @user.phone %>
+            <% end %>
         </div>
     </div>
-    <% end %>
 
-    <% if @user.address %>
     <div class="row">
         <div class="col-lg-1">
             <i class="fa fa-map-marker"></i>
         </div>
         <div class="col-lg-11">
+            <% if @user.address.blank? %>
+            <%= link_to edit_user_registration_path do %>
+            <i class="fa fa-pencil"></i>
+            Edit
+            <% end %>
+        <% else %>
             <%= @user.address %>
+            <% end %>
         </div>
     </div>
-    <% end %>
 
-    <% if @user.title %>
     <div class="row">
         <div class="col-lg-1">
             <i class="fa fa-id-card"></i>
         </div>
         <div class="col-lg-11">
+            <% if @user.title.blank? %>
+            <%= link_to edit_user_registration_path do %>
+            <i class="fa fa-pencil"></i>
+            Edit
+            <% end %>
+        <% else %>
             <%= @user.title %>
+            <% end %>
         </div>
     </div>
-    <% end %>
 
-    <% if @user.department %>
     <div class="row">
         <div class="col-lg-1">
             <i class="fa fa-building"></i>
         </div>
         <div class="col-lg-11">
+            <% if @user.department %>
+            <%= link_to edit_user_registration_path do %>
+            <i class="fa fa-pencil"></i>
+            Edit
+            <% end %>
+        <% else %>
             <%= @user.department %>
+            <% end %>
         </div>
     </div>
-    <% end %>
 
 </div>

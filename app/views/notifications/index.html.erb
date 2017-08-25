@@ -14,6 +14,7 @@ There are no notifications yet.
     <div class="col-lg-3"></div>
     <div class="col-lg-6">
         <% @notifications.each do |noty| %>
+        <div style="padding-top: 2px;"></div>
         <%= link_to update_read_status_path(noty) do %>
         <% if noty.read == true %>
         <div class="media">

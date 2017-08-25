@@ -20,6 +20,10 @@ class OpportunitiesController < ApplicationController
     # for AJAX
     @subject = Opportunity.find(params[:id])
     @accounts = Account.all
+
+    @opportunity.timelines.each do |tl|
+      tl.update_attributes(read: true)
+    end
   end
 
   def create
@@ -141,10 +145,6 @@ class OpportunitiesController < ApplicationController
     if @opportunity.name_previously_changed?
       timeline_opportunity("opportunityDetails",
       @opportunity.name, "updated opportunity name to")
-    end
-    if @opportunity.current_stage_previously_changed?
-      timeline_opportunity("opportunityDetails",
-      @opportunity.current, "updated opportunity current stage to")
     end
     if @opportunity.business_type_previously_changed?
       timeline_opportunity("opportunityDetails",

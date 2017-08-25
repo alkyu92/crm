@@ -30,13 +30,13 @@
     <div class="col-lg-2">
         <strong>Email</strong>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-2">
         <strong>Phone</strong>
     </div>
     <div class="col-lg-2">
         <strong>Industry</strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-1">
         <strong>Type</strong>
     </div>
     <div class="col-lg-2 text-center">
@@ -63,7 +63,7 @@
       <%= account.email %>
       <% end %>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-2">
         <% if account.phone.blank? %>
         <span style="color: red;">Not specified</span>
     <% else %>
@@ -77,7 +77,7 @@
         <%= account.industry %>
         <% end %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-1">
         <% if account.account_type.blank? %>
         <span style="color: red;">Account type not specified</span>
     <% else %>

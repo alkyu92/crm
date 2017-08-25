@@ -14,10 +14,6 @@
                     <%= f.input :name, required: true, autofocus: true %>
                     <%= f.input :title %>
                     <%= f.input :department %>
-                    <hr>
-                    <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
-                    <%= f.input :password_confirmation, required: false %>
-                    <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
                 </div>
                 <div class="col-lg-6">
                     <br><br><br>
@@ -30,6 +26,14 @@
                         <%= resource.unconfirmed_email %></p>
                     <% end %>
                 </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-lg-6">
+                <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
+                <%= f.input :password_confirmation, required: false %>
+                <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
+              </div>
             </div>
         </div>
 

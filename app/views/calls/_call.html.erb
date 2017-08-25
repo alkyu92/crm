@@ -23,7 +23,7 @@ No call logs created yet.
     </ul>
     <% @opportunity.calls.each do |call| %>
     <li class="list-group-item">
-        <div class="row anchor-padding" id="call-<%= call.id %>">
+        <div class="row" id="call-<%= call.id %>">
             <div class="col-lg-5">
                 <%= link_to call.description.truncate(50), '#',
                 data: {toggle: "modal", target: "#callInfo-#{call.id}"} %>

@@ -23,7 +23,7 @@ No event created yet.
 </ul>
 <% @opportunity.events.each do |event| %>
 <li class="list-group-item">
-    <div class="row anchor-padding" id="event-<%= event.id %>">
+    <div class="row" id="event-<%= event.id %>">
         <div class="col-lg-5">
             <%= link_to event.description.truncate(50), '#',
             data: {toggle: "modal", target: "#eventInfo-#{event.id}"} %>
