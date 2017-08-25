@@ -8,7 +8,9 @@
 
 <hr>
 <% if @calls.blank? %>
-<p>No calls yet.</p>
+<div class="text-center">
+<%= link_to 'Create Call Log through Opportunity', opportunities_path %>
+</div>
 <% else %>
 <div class="row">
     <div class="col-lg-1 text-center">

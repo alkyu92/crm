@@ -17,7 +17,9 @@
 
 <div id="notice-op"></div>
 <% if @opportunities.blank? %>
-No opportunities yet.
+<div class="text-center">
+  <%= link_to 'Create Opportunity through Account', accounts_path %>
+</div>
 <% else %>
 <div class="row">
     <div class="col-lg-1 text-center">

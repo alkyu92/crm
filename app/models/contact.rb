@@ -1,7 +1,8 @@
 class Contact < ApplicationRecord
   belongs_to :assignment, polymorphic: true
-
   belongs_to :user
+
+  validates :name, presence: true
 
   has_attached_file :profile_pic,
                     styles: { small: "43x43#", medium: "100x100>"},

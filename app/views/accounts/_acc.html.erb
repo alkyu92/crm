@@ -14,9 +14,11 @@
 </div>
 <hr>
 <div id="notice-acc"></div>
-
 <% if @accounts.blank? %>
-No accounts yet.
+<div class="text-center">
+  <%= link_to 'Create New Account', '#',
+  data: {toggle: "modal", target: "#accountModalForm"} %>
+</div>
 <% else %>
 <div class="row">
     <div class="col-lg-1 text-center">
