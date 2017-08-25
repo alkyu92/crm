@@ -20,8 +20,9 @@ class StagesController < ApplicationController
   def destroy
     respond_to do |format|
       @subject = @opportunity
-      @stage.destroy
-      if @stage.status == "In Progress"
+
+      if @stage.status == "In Progress" && (@stage.id != @opportunity.stages.last.id)
+        @stage.destroy
         @new_current_stage = @opportunity.stages.where("id > ?", @stage.id).first
         @new_current_stage.update_attributes(status: "In Progress")
         @opportunity.update_attributes(current_stage: @new_current_stage.name)
@@ -34,8 +35,7 @@ class StagesController < ApplicationController
           end
         end
       end
-
-
+      @stage.destroy
       timeline_stage("deleted stage")
       format.js { flash.now[:success] = "Opportunity stage deleted!" }
     end

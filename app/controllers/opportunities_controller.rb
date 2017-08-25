@@ -25,12 +25,13 @@ class OpportunitiesController < ApplicationController
   def create
     @account = Account.find(params[:account_id])
     @opportunity = @account.opportunities.build(params_opportunity)
+    @opportunity.user_id = current_user.id
 
     # for AJAX
     @subject = @opportunity if params[:opportunity_id]
     @subject = @account if params[:account_id]
+    @opportunities = Opportunity.page(params[:page]).per(10)
 
-    @opportunity.user_id = current_user.id
 
     respond_to do |format|
       if @opportunity.save
