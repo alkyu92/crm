@@ -1,0 +1,218 @@
+<% if @contacts.blank? %>
+<%= link_to 'Create Contacts', '#' %>
+<% else %>
+<div class="row">
+    <div class="col-lg-1 text-center">
+        <strong>ID</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Name</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Email</strong>
+    </div>
+    <div class="col-lg-1">
+        <strong>Phone</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Association</strong>
+    </div>
+    <div class="col-lg-1">
+        <strong>Position</strong>
+    </div>
+    <div class="col-lg-1">
+        <strong>Department</strong>
+    </div>
+    <div class="col-lg-2 text-center">
+        <strong>Action</strong>
+    </div>
+</div>
+<% @contacts.each do |contact| %>
+<hr>
+<div class="row">
+    <div class="col-lg-1 text-center">
+        <%= contact.id %>
+    </div>
+    <div class="col-lg-2">
+        <%= link_to contact.name, '#', data: {toggle: "modal", target: "#contactInfo-#{contact.id}"} %>
+    </div>
+    <div class="col-lg-2">
+        <% if contact.email.blank? %>
+        <span style="color: red;">
+            Not specified
+        </span>
+    <% else %>
+        <%= contact.email %>
+        <% end %>
+    </div>
+    <div class="col-lg-1">
+        <% if contact.phone.blank? %>
+        <span style="color: red;">
+            Not specified
+        </span>
+    <% else %>
+        <%= contact.phone %>
+        <% end %>
+    </div>
+    <div class="col-lg-2">
+        <% if contact.assignment_type.blank? %>
+        <span style="color: red;">
+            Not assigned
+        </span>
+    <% else %>
+        <% if contact.assignment_type == "Account" %>
+        <%= link_to contact.assignment.account_name, account_path(contact.assignment) %>
+        <br>
+        <small>Account</small>
+        <% elsif contact.assignment_type == "Opportunity" %>
+        <%= link_to contact.assignment.name, opportunity_path(contact.assignment) %>
+        <br>
+        <small>Opportunity</small>
+        <% end %>
+        <% end %>
+    </div>
+    <div class="col-lg-1">
+        <% if contact.title.blank? %>
+        <span style="color: red;">
+            Not specified
+        </span>
+    <% else %>
+        <%= contact.title %>
+        <% end %>
+    </div>
+    <div class="col-lg-1">
+        <% if contact.department.blank? %>
+        <span style="color: red;">
+            Not specified
+        </span>
+    <% else %>
+        <%= contact.department %>
+        <% end %>
+    </div>
+    <div class="col-lg-2 text-center">
+        <a href="#" class="dropdown btn btn-default" data-toggle="dropdown">
+            <i class="caret"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li><%= link_to 'Show', '#', data: {toggle: "modal", target: "#contactInfo-#{contact.id}"} %></li>
+            <li><%= link_to 'Edit', '#', data: {toggle: "modal", target: "#contact-#{contact.id}"} %></li>
+            <% if contact.assignment_type == "Account" %>
+            <li><%#= link_to 'Delete', account_contact_path(contact.assignment, contact.assignment_id), method: :delete %></li>
+            <% elsif contact.assignment_type == "Opportunity" %>
+            <li><%#= link_to 'Delete', opportunity_contact_path(contact.assignment, contact.assignment_id), method: :delete %></li>
+            <% end %>
+        </ul>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="contactInfo-<%= contact.id %>" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Contact Info</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                      <% if contact.profile_pic.blank? %>
+                      <%= letter_avatar_tag(contact.name, 100, class: "img-responsive img-center")%>
+                      <% else %>
+                        <%= image_tag(contact.profile_pic.url(:medium), class: "img-responsive img-center")%>
+                      <% end %>
+                    </div>
+                    <div class="col-lg-5">
+                        <small>Name</small>
+                        <h4>
+                          <% if contact.name.blank? %>
+                          <span style="color: red;">Not specified</span>
+                          <% else %>
+                          <%= contact.name %>
+                          <% end %>
+                        </h4>
+                        <br>
+
+                        <small>Position Title</small>
+                        <h4><% if contact.title.blank? %>
+                        <span style="color: red;">Not specified</span>
+                        <% else %>
+                        <%= contact.title %>
+                        <% end %></h4>
+                        <br>
+
+                        <small>Department</small>
+                        <h4><% if contact.department.blank? %>
+                        <span style="color: red;">Not specified</span>
+                        <% else %>
+                        <%= contact.department %>
+                        <% end %></h4>
+
+                    </div>
+                    <div class="col-lg-5">
+                        <small>Mailing Address</small>
+                        <h4>
+                          <% if (contact.mailing_street == "" &&
+                            contact.mailing_city == "" &&
+                            contact.mailing_state == "" &&
+                            contact.mailing_postal_code == "" &&
+                            contact.mailing_country == "") %>
+                          <span style="color: red;">
+                              Not specified
+                          </span>
+                      <% else %>
+
+                          <% if contact.mailing_street != "" %>
+                          <%= contact.mailing_street %>
+                          <% end %>
+                          <% if contact.mailing_city != "" %>
+                          <%= contact.mailing_city %>,
+                          <% end %>
+                          <% if contact.mailing_state != "" %>
+                          <%= contact.mailing_state %>,
+                          <% end %>
+                          <% if contact.mailing_postal_code != "" %>
+                          <%= contact.mailing_postal_code %>
+                          <% end %>
+                          <% if contact.mailing_country != "" %>
+                          <%= contact.mailing_country %>
+                          <% end %>
+
+                          <% end %>
+                        </h4>
+                        <br>
+
+                        <small>Phone</small>
+                        <h4><% if contact.phone.blank? %>
+                        <span style="color: red;">Not specified</span>
+                        <% else %>
+                        <%= contact.phone %>
+                        <% end %></h4>
+                        <br>
+
+                        <small>Email</small>
+                        <h4><% if contact.email.blank? %>
+                        <span style="color: red;">Not specified</span>
+                        <% else %>
+                        <%= contact.email %>
+                        <% end %></h4>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <%= link_to 'Close', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% end %>
+<br>
+<div class="text-center">
+    <%= page_entries_info @contacts %>
+    <%= paginate @contacts %>
+</div>
+<% end %>

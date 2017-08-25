@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
   before_action :find_contact, only: [:update, :destroy]
 
   def index
-
+    @contacts = Contact.page(params[:page]).per(10)
   end
 
   def show
@@ -28,6 +28,9 @@ class ContactsController < ApplicationController
   end
 
   def update
+    # for AJAX contacts index
+    @contacts = Contact.page(params[:page]).per(10)
+
     respond_to do |format|
       if @contact.update(params_contact)
         timeline_contact("updated contact")

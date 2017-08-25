@@ -2,7 +2,6 @@
 
     <li><%= link_to 'Dashboards', dashboards_path %></li>
     <li><%= link_to 'Accounts', accounts_path %></li>
-    <li><%#= link_to 'Contacts', contacts_path %></li>
     <li><%= link_to 'Opportunities', opportunities_path %></li>
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -15,6 +14,7 @@
             <li><%= link_to 'Events', events_path %></li>
         </ul>
     </li>
+    <li><%= link_to 'Contacts', contacts_path %></li>
     <li class="dropdown">
         <% @nav_noty = Timeline.includes(:user, :activity).order('created_at DESC') %>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">

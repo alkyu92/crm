@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   get '/tasks', to: 'tasks#index'
   get '/calls', to: 'calls#index'
+  get '/contacts', to: 'contacts#index'
   get '/events', to: 'events#index'
   get '/notifications', to: 'notifications#index'
 
