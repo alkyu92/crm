@@ -3,7 +3,7 @@ class OpportunitiesController < ApplicationController
   only: [:show, :edit, :update, :destroy]
 
   def index
-    @opportunities = Opportunity.page(params[:page]).per(10)
+    @opportunities = Opportunity.includes(:account).page(params[:page]).per(10)
     @opportunity = current_user.opportunities.build
 
     @stages = Stage.all

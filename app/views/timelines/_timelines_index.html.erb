@@ -1,6 +1,6 @@
 <h4>Timeline &middot History</h4>
 
-<% op = @subject.timelines.order('created_at DESC').includes(:user).page(params[:page]).per(5) %>
+<% op = @subject.timelines.order('created_at DESC').includes(:user, :activity).page(params[:page]).per(5) %>
 
 <% if op.blank? %>
 <p>Every changes will be recorded here.</p>
