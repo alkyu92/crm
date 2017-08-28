@@ -1,5 +1,6 @@
 class Contact < ApplicationRecord
-  belongs_to :assignment, polymorphic: true
+  belongs_to :contactable, polymorphic: true
+
   belongs_to :user
 
   validates :name, presence: true

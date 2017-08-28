@@ -60,7 +60,7 @@
                             remote: true %></li>
 
                             <li><%= link_to 'Delete', opportunity_stage_path(@opportunity, stage),
-                            method: :delete, remote: true %></li>
+                            method: :delete, remote: true, data: {confirm: "Are you sure?"} %></li>
                         </ul>
                     </div>
 

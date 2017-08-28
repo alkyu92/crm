@@ -44,17 +44,19 @@
     <% else %>
         <% if task.due_date > Date.today %>
         <%= task.due_date.strftime('%d %b %Y') %><br>
-        (<%= distance_of_time_in_words(Time.now, task.due_date) %>
-        left)
+        <small>
+          (<%= distance_of_time_in_words(Time.now, task.due_date) %>
+          left)
+        </small>
         <% elsif task.due_date == Date.today %>
         <strong style="color: orange;">Today</strong><br>
         <small>(<%= task.due_date.strftime('%d %b %Y') %>)</small>
         <% else %>
         <span style="color: red;">
-          Date overdue<br>
           <%= task.due_date.strftime('%d %b %Y') %><br>
           <small>
-          (<%= distance_of_time_in_words(Time.now, task.due_date) %>
+          (Date overdue
+          <%= distance_of_time_in_words(Time.now, task.due_date) %>
           ago)
         </small>
         </span>

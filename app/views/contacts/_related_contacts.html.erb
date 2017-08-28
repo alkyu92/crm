@@ -34,8 +34,8 @@
                     <h4 class="modal-title">Assign Contacts</h4>
                 </div>
                 <div class="modal-body">
-                  <% @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id] %>
-                  <% @subject = Account.find(params[:account_id]) if params[:account_id] %>
+                  <%# @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id] %>
+                  <%# @subject = Account.find(params[:account_id]) if params[:account_id] %>
 
                   <%= simple_form_for @subject, remote: true do |f| %>
                   <%= f.association :contacts %>

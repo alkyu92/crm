@@ -29,9 +29,17 @@
           <% if @opportunity.stages.blank? %>
             <span style="color: red;">Not specified</span>
           <% else %>
-            <% @opportunity.stages.each do |stage| %>
+            <% @opportunity.stages.each_with_index do |stage, index| %>
               <% if stage.status == "In Progress" %>
-                <%= stage.name %>
+                <%= stage.name %><br>
+                <% if stage.id == @opportunity.stages.last.id %>
+                <small>Final stage in progress</small>
+                <% else %>
+                <small>Stage <%= index+1 %> In Progress</small>
+                <% end %>
+              <% elsif stage.status == "Completed" && stage.id == @opportunity.stages.last.id %>
+                <%= stage.name %><br>
+                <small>Final stage completed</small>
               <% end %>
             <% end %>
           <% end %>

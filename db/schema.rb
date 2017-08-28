@@ -67,12 +67,12 @@ ActiveRecord::Schema.define(version: 20170816080534) do
     t.string   "profile_pic_content_type"
     t.integer  "profile_pic_file_size"
     t.datetime "profile_pic_updated_at"
-    t.string   "assignment_type"
-    t.integer  "assignment_id"
+    t.string   "contactable_type"
+    t.integer  "contactable_id"
     t.integer  "user_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.index ["assignment_type", "assignment_id"], name: "index_contacts_on_assignment_type_and_assignment_id"
+    t.index ["contactable_type", "contactable_id"], name: "index_contacts_on_contactable_type_and_contactable_id"
     t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 

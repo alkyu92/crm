@@ -8,10 +8,13 @@
             <i class="fa fa-envelope"></i>
         </div>
         <div class="col-lg-11">
-            <% if @user.email.blank? %>
+            <% if @user.email.blank? && current_user.id == @user.id %>
+            Not specified
+            <% if current_user.id == @user.id %>
             <%= link_to edit_user_registration_path do %>
             <i class="fa fa-pencil"></i>
             Edit
+            <% end %>
             <% end %>
         <% else %>
             <%= @user.email %>
@@ -24,10 +27,13 @@
             <i class="fa fa-phone"></i>
         </div>
         <div class="col-lg-11">
-            <% if @user.phone.blank? %>
+            <% if @user.phone.blank? && current_user.id == @user.id %>
+            Not specified
+            <% if current_user.id == @user.id %>
             <%= link_to edit_user_registration_path do %>
             <i class="fa fa-pencil"></i>
             Edit
+            <% end %>
             <% end %>
         <% else %>
             <%= @user.phone %>
@@ -40,10 +46,13 @@
             <i class="fa fa-map-marker"></i>
         </div>
         <div class="col-lg-11">
-            <% if @user.address.blank? %>
+            <% if @user.address.blank? && current_user.id == @user.id %>
+            Not specified
+            <% if current_user.id == @user.id %>
             <%= link_to edit_user_registration_path do %>
             <i class="fa fa-pencil"></i>
             Edit
+            <% end %>
             <% end %>
         <% else %>
             <%= @user.address %>
@@ -57,9 +66,12 @@
         </div>
         <div class="col-lg-11">
             <% if @user.title.blank? %>
+            Not specified
+            <% if current_user.id == @user.id %>
             <%= link_to edit_user_registration_path do %>
             <i class="fa fa-pencil"></i>
             Edit
+            <% end %>
             <% end %>
         <% else %>
             <%= @user.title %>
@@ -72,10 +84,14 @@
             <i class="fa fa-building"></i>
         </div>
         <div class="col-lg-11">
-            <% if @user.department %>
+
+            <% if @user.department.blank? %>
+            Not specified
+            <% if current_user.id == @user.id %>
             <%= link_to edit_user_registration_path do %>
             <i class="fa fa-pencil"></i>
             Edit
+            <% end %>
             <% end %>
         <% else %>
             <%= @user.department %>
