@@ -6,7 +6,9 @@ class ContactsController < ApplicationController
   end
 
   def show
-
+    # for AJAX contacts
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+    @subject = Account.find(params[:account_id]) if params[:account_id]
   end
 
   def create

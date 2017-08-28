@@ -61,7 +61,7 @@ class AccountsController < ApplicationController
     @subject = Account.find(params[:account_id])
 
     respond_to do |format|
-      timeline_account("relatedDocs", @account.account_name, "deleted attachment from account")
+      timeline_account("relatedDocs", @account.account_name, "deleted attachment file from account")
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end

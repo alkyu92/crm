@@ -22,7 +22,10 @@
                 <%= timeline.action %>
                 <%= link_to timeline.nactivity.truncate(50), update_read_status_path(timeline) %>
                 <% unless timeline.action == "created account" ||
-                  timeline.action == "added attachment file to" %>
+                  timeline.action == "added attachment file to account" ||
+                  timeline.action == "deleted attachment file from account" ||
+                  timeline.action == "added attachment file to opportunity" ||
+                  timeline.action == "deleted attachment file from opportunity" %>
                 on
                 <% if timeline.activity_type == "Account" %>
                 <%= timeline.activity_type.downcase %>

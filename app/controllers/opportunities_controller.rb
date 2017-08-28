@@ -100,7 +100,7 @@ class OpportunitiesController < ApplicationController
     @subject = @opportunity
 
     respond_to do |format|
-      timeline_opportunity("", @opportunity.name, "deleted attachment from opportunity")
+      timeline_opportunity("relatedDocs", @opportunity.name, "deleted attachment file from opportunity")
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end
