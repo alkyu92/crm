@@ -61,15 +61,18 @@
         </span>
     <% else %>
         <% if contact.contactable_type == "Account" %>
-        <%= link_to contact.contactable.account_name, account_path(contact.contactable) %>
+        <%= link_to contact.contactable.account_name,
+        account_path(contact.contactable, anchor: "relatedContacts-#{contact.id}") %>
         <br>
         <small>Account</small>
         <% elsif contact.contactable_type == "Opportunity" %>
-        <%= link_to contact.contactable.name, opportunity_path(contact.contactable) %>
+        <%= link_to contact.contactable.name,
+        opportunity_path(contact.contactable, anchor: "relatedContacts-#{contact.id}") %>
         <br>
         <small>Opportunity</small>
         <br><br>
-        <%= link_to contact.contactable.account.account_name, account_path(contact.contactable.account) %>
+        <%= link_to contact.contactable.account.account_name,
+        account_path(contact.contactable.account, anchor: "relatedContacts-#{contact.id}") %>
         <br>
         <small>Account</small>
         <% end %>
