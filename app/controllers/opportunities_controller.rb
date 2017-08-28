@@ -21,8 +21,12 @@ class OpportunitiesController < ApplicationController
     @subject = Opportunity.find(params[:id])
     @accounts = Account.all
 
-    @opportunity.timelines.each do |tl|
-      tl.update_attributes(read: true)
+    @opportunity.timelines.includes(:activity, :user).each do |tl|
+      if tl.read == true
+        next
+      else
+        tl.update_attributes(read: true)
+      end
     end
   end
 
@@ -94,12 +98,12 @@ class OpportunitiesController < ApplicationController
   end
 
   def delete_attachment
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    @opportunity.documents.find(params[:id]).destroy
-
-    @subject = @opportunity
-
     respond_to do |format|
+      @opportunity = Opportunity.find(params[:opportunity_id])
+      @opportunity.documents.find(params[:id]).destroy
+
+      @subject = @opportunity
+
       timeline_opportunity("relatedDocs", @opportunity.name, "deleted attachment file from opportunity")
       format.js { flash.now[:success] = "Attachment deleted!" }
     end

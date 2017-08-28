@@ -6,13 +6,16 @@
         <div class="col-lg-4">
           <a href="#", class="dropdown-toggle" data-toggle="dropdown">
             <div class="btn btn-default">
-              Contacts Action
+              Action
               <i class="caret"></i>
             </div>
           </a>
           <ul class="dropdown-menu">
             <li><%= link_to 'Create New Contact', '#',
             data: {toggle: "modal", target: "#contactModalForm"}%>
+            </li>
+            <li><%= link_to 'Assign Contact', '#',
+            data: {toggle: "modal", target: "#assignContactForm"}%>
             </li>
           </ul>
         </div>
@@ -31,14 +34,12 @@
                     <h4 class="modal-title">Assign Contacts</h4>
                 </div>
                 <div class="modal-body">
-                  <%# @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id] %>
-                  <%# @subject = Account.find(params[:account_id]) if params[:account_id] %>
-
                   <%= simple_form_for @subject, remote: true do |f| %>
-                  <%#= f.input :contacts, collection: @subject.contacts %>
+                  <%= f.input :contacts, collection: Contact.all %>
+
                 </div>
                 <div class="modal-footer">
-                  <%= f.button :submit, "Assign Contacts" %>
+                  <%= f.button :submit, "Assign Contact" %>
                   <% end %>
                     <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
                 </div>
@@ -47,66 +48,7 @@
     </div>
 
     <% @subject.contacts.each do |contact| %>
-    <!-- Modal -->
-    <div id="contact-<%= contact.id %>" class="modal fade" role="dialog">
-        <div class="modal-dialog" style="width: 1000px;">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Edit Contact</h4>
-                </div>
-                <div class="modal-body">
-                    <%= simple_form_for [@subject, contact],remote: true do |f| %>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <h4>Contact Details</h4>
-                            <br>
-                            <%= f.input :profile_pic, as: :file, label: "Upload Profile Picture" %>
-                            <% if contact.profile_pic.blank? %>
-                            There are no profile picture uploaded yet.
-                            <% else %>
-                            <%= image_tag(contact.profile_pic.url(:medium), class: "img-responsive img-center") %>
-                            <% end %>
-                            <%= f.input :name, label: "Name", placeholder: "Name", autofocus: true %>
-                            <div class="row">
-                              <div class="col-lg-6">
-                            <%= f.input :title, label: "Position Title", placeholder: "Position title" %>
-                            <%= f.input :department, label: "Department", placeholder: "Department" %>
-                          </div>
-                          <div class="col-lg-6">
-                            <%= f.input :email, label: "Email", placeholder: "Email" %>
-                            <%= f.input :phone, label: "Phone", placeholder: "Phone" %>
-                          </div>
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <h4>Mailing Address</h4>
-                          <br>
-                          <%= f.input :mailing_street, label: "Street", placeholder: "Street" %>
-                          <div class="row">
-                              <div class="col-lg-6">
-                                  <%= f.input :mailing_city, label: "City", placeholder: "City" %>
-                                  <%= f.input :mailing_state, label: "State", placeholder: "State" %>
-                              </div>
-                              <div class="col-lg-6">
-                                  <%= f.input :mailing_postal_code, label: "Postal Code", placeholder: "Postal code" %>
-                                  <%= f.input :mailing_country, label: "Country", include_blank: "Choose country" %>
-                              </div>
-                          </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <%= f.button :submit, "Update Contact",class: "btn-success" %>
-                    <% end %>
-                    <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
-                </div>
-            </div>
-        </div>
-    </div>
+    <%= render 'contacts/edit_form', contact: contact %>
     <% end %>
 
     <hr>
