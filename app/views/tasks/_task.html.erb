@@ -63,13 +63,6 @@ No tasks created yet.
                     <i class="caret"></i>
                 </a>
                 <ul class="dropdown-menu">
-                    <li>
-                        <% if task.complete == false %>
-                        <%= link_to 'Mark as Completed', update_task_status_path(@opportunity, task), remote: true %>
-                    <% else %>
-                        <%= link_to 'Mark as Incomplete', update_task_status_path(@opportunity, task), remote: true %>
-                        <% end %>
-                    </li>
                     <li><%= link_to 'Show', '#', data: {toggle: "modal", target: "#taskInfo-#{task.id}"} %></li>
                     <li><%= link_to 'Edit Task', '#', data: {toggle: "modal", target: "#taskEdit-#{task.id}"} %></li>
                     <li><%= link_to 'Delete Task', opportunity_task_path(@opportunity, task),

@@ -19,6 +19,16 @@
                     <%= simple_form_for [@opportunity, task], remote: true do |f| %>
                     <%= f.input :description, placeholder: "To-do" %>
                     <%= f.input :due_date, as: :date_time_picker %>
+                    <%= f.label "Status" %><br>
+                    <% if task.complete == false %>
+                    <h4 style="color: red;">Incomplete
+                    <%= link_to 'Mark as Completed', update_task_status_path(@opportunity, task),
+                    remote: true, class: "btn btn-default" %></h4>
+                    <% else %>
+                    <h4 style="color: green;">Completed
+                      <%= link_to 'Mark as Completed', update_task_status_path(@opportunity, task),
+                      remote: true, class: "btn btn-default" %></h4>
+                    <% end %>
                 </div>
                 <div class="modal-footer">
                     <%= f.button :submit, class: "btn btn-success" %>
