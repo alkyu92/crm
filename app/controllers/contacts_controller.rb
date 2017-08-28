@@ -47,6 +47,8 @@ class ContactsController < ApplicationController
   end
 
   def destroy
+    @contacts = Contact.page(params[:page]).per(10)
+    
     @contact.destroy
     timeline_contact("deleted contact")
     respond_to do |format|

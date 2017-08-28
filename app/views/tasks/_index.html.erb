@@ -18,7 +18,7 @@
                 <div class="modal-body">
                     <%= simple_form_for [@opportunity, task], remote: true do |f| %>
                     <%= f.input :description, placeholder: "To-do" %>
-                    <%= f.input :due_date, as: :date_time_picker %>
+                    <%= f.input :due_date %>
                 </div>
                 <div class="modal-footer">
                     <%= f.button :submit, class: "btn btn-success" %>

@@ -41,7 +41,7 @@ No tasks created yet.
                 <strong style="color: orange;">Today</strong>
             <% else %>
                 <span style="color: red;">
-                  Date overdue<br>
+                  <small>Date overdue</small><br>
                   <%= task.due_date.strftime('%d %b %Y') %><br>
                   <small>
                       (<%= distance_of_time_in_words(task.due_date, Time.now)%>
