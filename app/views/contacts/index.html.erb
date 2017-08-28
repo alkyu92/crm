@@ -27,7 +27,7 @@
                 <h4 class="modal-title">Edit Contact</h4>
             </div>
             <div class="modal-body">
-                <%= simple_form_for [contact.assignment, contact],remote: true do |f| %>
+                <%= simple_form_for [contact.contactable, contact],remote: true do |f| %>
                 <div class="row">
                     <div class="col-lg-6">
                         <h4>Contact Details</h4>

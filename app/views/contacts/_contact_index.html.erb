@@ -55,19 +55,23 @@
         <% end %>
     </div>
     <div class="col-lg-2">
-        <% if contact.assignment_type.blank? %>
+        <% if contact.contactable_type.blank? %>
         <span style="color: red;">
             Not assigned
         </span>
     <% else %>
-        <% if contact.assignment_type == "Account" %>
-        <%= link_to contact.assignment.account_name, account_path(contact.assignment) %>
+        <% if contact.contactable_type == "Account" %>
+        <%= link_to contact.contactable.account_name, account_path(contact.contactable) %>
         <br>
         <small>Account</small>
-        <% elsif contact.assignment_type == "Opportunity" %>
-        <%= link_to contact.assignment.name, opportunity_path(contact.assignment) %>
+        <% elsif contact.contactable_type == "Opportunity" %>
+        <%= link_to contact.contactable.name, opportunity_path(contact.contactable) %>
         <br>
         <small>Opportunity</small>
+        <br><br>
+        <%= link_to contact.contactable.account.account_name, account_path(contact.contactable.account) %>
+        <br>
+        <small>Account</small>
         <% end %>
         <% end %>
     </div>
@@ -96,10 +100,10 @@
         <ul class="dropdown-menu">
             <li><%= link_to 'Show', '#', data: {toggle: "modal", target: "#contactInfo-#{contact.id}"} %></li>
             <li><%= link_to 'Edit', '#', data: {toggle: "modal", target: "#contact-#{contact.id}"} %></li>
-            <% if contact.assignment_type == "Account" %>
-            <li><%#= link_to 'Delete', account_contact_path(contact.assignment, contact.assignment_id), method: :delete %></li>
-            <% elsif contact.assignment_type == "Opportunity" %>
-            <li><%#= link_to 'Delete', opportunity_contact_path(contact.assignment, contact.assignment_id), method: :delete %></li>
+            <% if contact.contactable_type == "Account" %>
+            <li><%#= link_to 'Delete', account_contact_path(contact.contactable, contact.contactable_id), method: :delete %></li>
+            <% elsif contact.contactable_type == "Opportunity" %>
+            <li><%#= link_to 'Delete', opportunity_contact_path(contact.contactable, contact.contactable_id), method: :delete %></li>
             <% end %>
         </ul>
     </div>

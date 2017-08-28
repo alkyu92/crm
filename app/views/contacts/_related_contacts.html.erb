@@ -38,8 +38,7 @@
                   <%# @subject = Account.find(params[:account_id]) if params[:account_id] %>
 
                   <%= simple_form_for @subject, remote: true do |f| %>
-                  <%= f.association :contacts %>
-
+                  <%#= f.input :contacts, collection: @subject.contacts %>
                 </div>
                 <div class="modal-footer">
                   <%= f.button :submit, "Assign Contacts" %>

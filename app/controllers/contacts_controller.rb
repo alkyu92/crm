@@ -10,8 +10,10 @@ class ContactsController < ApplicationController
   end
 
   def create
+    # for AJAX contacts
     @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
     @subject = Account.find(params[:account_id]) if params[:account_id]
+
 
     @contact = @subject.contacts.build(params_contact)
     @contact.user_id = current_user.id
