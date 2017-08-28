@@ -1,9 +1,8 @@
 <% if @contacts.blank? %>
-<%= link_to 'Create Contacts', '#' %>
 <% else %>
+<hr>
 <div class="row">
-    <div class="col-lg-1 text-center">
-        <strong>ID</strong>
+    <div class="col-lg-1">
     </div>
     <div class="col-lg-2">
         <strong>Name</strong>
@@ -31,7 +30,11 @@
 <hr>
 <div class="row">
     <div class="col-lg-1 text-center">
-        <%= contact.id %>
+        <% if contact.profile_pic.blank? %>
+        <%= letter_avatar_tag(contact.name, 43) %>
+        <% else %>
+        <%= image_tag(contact.profile_pic.url(:small)) %>
+        <% end %>
     </div>
     <div class="col-lg-2">
         <%= link_to contact.name, '#', data: {toggle: "modal", target: "#contactInfo-#{contact.id}"} %>
