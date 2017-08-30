@@ -2,7 +2,8 @@ class Opportunity < ApplicationRecord
   belongs_to :user
   belongs_to :account
 
-  has_many :contacts,   as: :contactable
+  has_many :relationships, as: :contactable
+  has_many :contacts,   through: :relationships
 
   has_many :timelines,  as: :activity,    dependent: :destroy
   has_many :notes,      as: :info,        dependent: :destroy

@@ -52,7 +52,7 @@ $(document).ready(function(){
   $('#task_due_date').datetimepicker('setStartDate', new Date());
 
   $('#call_call_datetime').datetimepicker({
-    pickerPosition: 'bottom-left',
+    pickerPosition: 'top-left',
     autoclose: true,
     todayHighlight: true,
     format: 'yyyy/mm/dd hh:ii:ss Z'
@@ -60,7 +60,7 @@ $(document).ready(function(){
   $('#call_call_datetime').datetimepicker();
 
   $('#event_event_date').datetimepicker({
-    pickerPosition: 'bottom-left',
+    pickerPosition: 'top-left',
     autoclose: true,
     todayHighlight: true,
     minView: 2,

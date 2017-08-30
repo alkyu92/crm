@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816080534) do
+ActiveRecord::Schema.define(version: 20170829043310) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "account_name"
@@ -67,12 +67,9 @@ ActiveRecord::Schema.define(version: 20170816080534) do
     t.string   "profile_pic_content_type"
     t.integer  "profile_pic_file_size"
     t.datetime "profile_pic_updated_at"
-    t.string   "contactable_type"
-    t.integer  "contactable_id"
     t.integer  "user_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.index ["contactable_type", "contactable_id"], name: "index_contacts_on_contactable_type_and_contactable_id"
     t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
@@ -144,6 +141,14 @@ ActiveRecord::Schema.define(version: 20170816080534) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer  "contact_id"
+    t.integer  "contactable_id"
+    t.string   "contactable_type"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "stages", force: :cascade do |t|

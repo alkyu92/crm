@@ -1,0 +1,50 @@
+<!-- Modal -->
+<div id="contactModalForm" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><%= yield :form_title %></h4>
+            </div>
+            <div class="modal-body">
+<%= simple_form_for [@subject, @contact, Contact.new] do |f| %>
+<h4>Contact Details</h4>
+<br>
+<%= f.input :profile_pic, as: :file, label: "Upload Profile Picture" %>
+<%= f.input :name, label: "Name", placeholder: "Name", autofocus: true %>
+<div class="row">
+    <div class="col-lg-6">
+        <%= f.input :title, label: "Position Title", placeholder: "Position title" %>
+        <%= f.input :department, label: "Department", placeholder: "Department" %>
+    </div>
+    <div class="col-lg-6">
+        <%= f.input :email, label: "Email", placeholder: "Email" %>
+        <%= f.input :phone, label: "Phone", placeholder: "Phone" %>
+    </div>
+</div>
+<hr>
+<h4>Mailing Address</h4>
+<br>
+<%= f.input :mailing_street, label: "Street", placeholder: "Street" %>
+<div class="row">
+    <div class="col-lg-6">
+        <%= f.input :mailing_city, label: "City", placeholder: "City" %>
+        <%= f.input :mailing_state, label: "State", placeholder: "State" %>
+    </div>
+    <div class="col-lg-6">
+        <%= f.input :mailing_postal_code, label: "Postal Code", placeholder: "Postal code" %>
+        <%= f.input :mailing_country, label: "Country", include_blank: "Choose country" %>
+    </div>
+</div>
+</div>
+<div class="modal-footer">
+    <%= f.button :submit, class: "btn-success" %>
+    <% end %>
+    <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+</div>
+</div>
+
+</div>
+</div>

@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <%= render 'contacts/form' %>
+    <%= render 'contacts/new_form' %>
 
     <!-- Modal -->
     <div id="assignContactForm" class="modal fade" role="dialog">
@@ -34,22 +34,13 @@
                     <h4 class="modal-title">Assign Contacts</h4>
                 </div>
                 <div class="modal-body">
-                  <%= simple_form_for @subject, remote: true do |f| %>
-                  <%= f.input :contacts, collection: Contact.all %>
 
                 </div>
                 <div class="modal-footer">
-                  <%= f.button :submit, "Assign Contact" %>
-                  <% end %>
-                    <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
                 </div>
             </div>
         </div>
     </div>
-
-    <% @subject.contacts.each do |contact| %>
-    <%= render 'contacts/edit_form', contact: contact %>
-    <% end %>
 
     <hr>
 

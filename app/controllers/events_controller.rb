@@ -1,18 +1,22 @@
 class EventsController < ApplicationController
-  before_action :find_event, only: [:update, :destroy, :update_event_status]
+  before_action :find_event, only: [:edit, :update, :destroy, :update_event_status]
 
   def index
+    # for AJAX timelines
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+
     @events = Event.all.includes(:opportunity).order('event_date').page(params[:page]).per(10)
   end
 
   def show
-
+    # for AJAX timelines
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
   end
 
   def create
     @opportunity = Opportunity.find(params[:opportunity_id])
     @subject = @opportunity
-    
+
     @event = @opportunity.events.build(params_event)
     @event.user_id = current_user.id
 
@@ -27,18 +31,36 @@ class EventsController < ApplicationController
 
   end
 
+  def edit
+
+  end
+
   def update
-    respond_to do |format|
+
       if @event.update(params_event)
+
+        if params[:attended]
+          if @event.complete == true
+            @event.update_attributes(complete: false)
+          else
+            @event.update_attributes(complete: true)
+          end
+        end
+
         timeline_event("updated event")
-        format.js { flash.now[:success] = "Event entry updated!" }
+        flash[:success] = "Event entry updated!"
+        redirect_to opportunity_path(@opportunity, anchor: "event-#{@event.id}")
       else
-        format.js { flash.now[:danger] = "Failed to update event entry!" }
+        flash[:danger] = "Failed to update event entry!"
+        redirect_to opportunity_path(@opportunity, anchor: "event-#{@event.id}")
       end
-    end
+
   end
 
   def destroy
+    # for AJAX timelines
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+
     @event.destroy
     timeline_event("deleted event")
     respond_to do |format|
@@ -47,15 +69,18 @@ class EventsController < ApplicationController
   end
 
   def update_event_status
+    # for AJAX timelines
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+
     respond_to do |format|
       if @event.complete == true
         @event.update_attributes(complete: false)
-        status = "updated event status from Attended to Not Attend for event"
+        status = "updated event status from Attended to Not Attend for event "
         timeline_event(status)
         format.js { flash.now[:success] = status.capitalize + @event.description.truncate(50) }
       else
         @event.update_attributes(complete: true)
-        status = "updated event status from Not Attend to Attended for event"
+        status = "updated event status from Not Attend to Attended for event "
         timeline_event(status)
         format.js { flash.now[:success] = status.capitalize + @event.description.truncate(50) }
       end

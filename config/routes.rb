@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get '/notifications', to: 'notifications#index'
 
   resources :users
+  resources :contacts
 
   get '/search', to: 'search#search', as: :search
 
@@ -45,6 +46,9 @@ Rails.application.routes.draw do
   to: 'events#update_event_status', as: :update_event_status
 
   get '/timelines/:id', to: 'timelines#update_read_status', as: :update_read_status
+
+  get '/contacts/:contact_id/delete_association', to: 'contacts#delete_association',
+  as: :delete_association
 
   root 'dashboards#index'
   get "*path" => redirect("/")

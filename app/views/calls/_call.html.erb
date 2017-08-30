@@ -15,7 +15,7 @@ No call logs created yet.
             <div class="col-lg-3">
                 <strong>Call Date Time</strong>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-2 text-center">
                 <strong>Action</strong>
             </div>
         </div>
@@ -43,15 +43,14 @@ No call logs created yet.
                 <%= call.call_datetime.strftime('%d %b %Y %H:%M:%S') %>
                 <% end %>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-2 text-center">
                 <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
                     <i class="caret"></i>
                 </a>
                 <ul class="dropdown-menu">
                     <li><%= link_to 'Show', '#',
                     data: {toggle: "modal", target: "#callInfo-#{call.id}"}%></li>
-                    <li><%= link_to 'Edit Call', '#',
-                    data: {toggle: "modal", target: "#callEdit-#{call.id}"} %></li>
+                    <li><%= link_to 'Edit Call', edit_opportunity_call_path(@opportunity, call) %></li>
                     <li><%= link_to 'Delete Call', opportunity_call_path(@opportunity, call),
                 method: :delete, remote: true, data: {confirm: "Are you sure?"} %></li>
                 </ul>
@@ -59,53 +58,7 @@ No call logs created yet.
         </div>
     </li>
 
-    <!-- Modal -->
-    <div id="callInfo-<%= call.id %>" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">
-                        <small>Call Log</small>
-                    </h4>
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <h4>
-                          <small>Call Datetime</small><br>
-                          <% if call.call_datetime.blank? %>
-                          <span style="color: red;">
-                            Date not specified
-                          </span>
-                          <% else %>
-                          <%= call.call_datetime.strftime('%d %b %Y %H:%M:%S') %>
-                          <% end %>
-                        </h4>
-                      </div>
-                      <div class="col-lg-6">
-                        <h4>
-                          <small>Durations</small><br>
-                          <% if call.duration.blank? %>
-                          <span style="color: red;">Not specified</span>
-                          <% else %>
-                          <%= pluralize(call.duration, 'minute') %>
-                          <% end %>
-                        </h4>
-                      </div>
-                    </div>
-                </div>
-                <div class="modal-body">
-                  <h4><small>Description</small></h4>
-                    <%= simple_format h(call.description) %>
-                </div>
-                <div class="modal-footer">
-
-                    <%= link_to 'Close', '#', class: "btn btn-default", data: {dismiss: "modal"}%>
-                </div>
-            </div>
-        </div>
-    </div>
+    <%= render 'calls/call_info', call: call %>
 
     <% end %>
 

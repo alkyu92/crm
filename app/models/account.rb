@@ -1,7 +1,8 @@
 class Account < ApplicationRecord
   belongs_to :user
 
-  has_many :contacts,   as: :contactable
+  has_many :relationships, as: :contactable
+  has_many :contacts, through: :relationships
 
   has_many :timelines,  as: :activity,    dependent: :destroy
   has_many :notes,      as: :info,        dependent: :destroy

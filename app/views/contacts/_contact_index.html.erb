@@ -1,4 +1,5 @@
 <% if @contacts.blank? %>
+
 <% else %>
 <hr>
 <div class="row">
@@ -33,13 +34,14 @@
         <% end %>
     </div>
     <div class="col-lg-2">
-      <% if contact.contactable_type == "Account" %>
-        <%= link_to contact.name, account_path(contact.contactable,
-        anchor: "relatedContacts-#{contact.id}") %>
-      <% elsif contact.contactable_type == "Opportunity" %>
-        <%= link_to contact.name, opportunity_path(contact.contactable,
-        anchor: "relatedContacts-#{contact.id}") %>
-      <% end %>
+        <% if contact.name.blank? %>
+        <span style="color: red;">
+            Not specified
+        </span>
+    <% else %>
+        <%= link_to contact.name, '#',
+          data: {toggle: "modal", target: "#contactInfo-#{contact.id}"} %>
+        <% end %>
     </div>
     <div class="col-lg-2">
         <% if contact.email.blank? %>
@@ -82,19 +84,11 @@
             <i class="caret"></i>
         </a>
         <ul class="dropdown-menu">
-            <li><%= link_to 'Show', '#', data: {toggle: "modal",
-              target: "#contactInfo-#{contact.id}"} %></li>
-            <li><%= link_to 'Edit', '#', data: {toggle: "modal",
-              target: "#contact-#{contact.id}"} %></li>
-            <% if contact.contactable_type == "Account" %>
-            <li><%= link_to 'Delete',
-            account_contact_path(contact.contactable, contact.id),
-            data: {confirm: "Are you sure?"}, method: :delete, remote: true %></li>
-            <% elsif contact.contactable_type == "Opportunity" %>
-            <li><%= link_to 'Delete',
-            opportunity_contact_path(contact.contactable, contact.id),
-            data: {confirm: "Are you sure?"}, method: :delete, remote: true %></li>
-            <% end %>
+            <li><%= link_to 'Show', '#',
+            data: {toggle: "modal", target: "#contactInfo-#{contact.id}"}%></li>
+            <li><%= link_to 'Edit', edit_contact_path(contact) %></li>
+            <li><%= link_to 'Delete', contact_path(contact), method: :delete,
+            data: { confirm: "Are you sure?" } %></li>
         </ul>
     </div>
 </div>
@@ -102,9 +96,4 @@
 <%= render 'contacts/contact_info', contact: contact %>
 
 <% end %>
-<br>
-<div class="text-center">
-    <%= page_entries_info @contacts %>
-    <%= paginate @contacts %>
-</div>
 <% end %>

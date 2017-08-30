@@ -1,12 +1,16 @@
 class TasksController < ApplicationController
-  before_action :find_task, only: [:update, :destroy, :update_task_status]
+  before_action :find_task, only: [:edit, :update, :destroy, :update_task_status]
 
   def index
+    # for AJAX timelines
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+
     @tasks = Task.all.includes(:opportunity).order('due_date').page(params[:page]).per(10)
   end
 
   def show
-
+    # for AJAX timelines
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
   end
 
   def create
@@ -27,18 +31,31 @@ class TasksController < ApplicationController
 
   end
 
+  def edit
+
+  end
+
   def update
     # for Ajax timelines
     @subject = Opportunity.find(params[:opportunity_id])
 
-    respond_to do |format|
       if @task.update(params_task)
+
+        if params[:completed]
+          if @task.complete == true
+            @task.update_attributes(complete: false)
+          else
+            @task.update_attributes(complete: true)
+          end
+        end
+
         timeline_task("updated task")
-        format.js { flash.now[:success] = "Task updated!" }
+        flash[:success] = "Task updated!"
+        redirect_to opportunity_path(@opportunity, anchor: "task-#{@task.id}")
       else
-        format.js { flash.now[:danger] = "Failed to update task!" }
+        flash[:danger] = "Failed to update task!"
+        redirect_to opportunity_path(@opportunity, anchor: "task-#{@task.id}")
       end
-    end
 
   end
 
