@@ -88,7 +88,7 @@
             data: {toggle: "modal", target: "#contactInfo-#{contact.id}"}%></li>
             <li><%= link_to 'Edit', edit_contact_path(contact) %></li>
             <li><%= link_to 'Delete', contact_path(contact), method: :delete,
-            data: { confirm: "Are you sure?" } %></li>
+            data: { confirm: "Are you sure?" }, remote: true %></li>
         </ul>
     </div>
 </div>

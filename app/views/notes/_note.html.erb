@@ -5,7 +5,7 @@ No notes submitted yet.
 <% else %>
 <% @subject.notes.each do |note| %>
 <div class="col-lg-6 panel panel-body" id="relatedNotes-<%= note.id %>">
-    <div class="pull-right">
+    <div class="dropdown pull-right">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="caret"></i>
         </a>

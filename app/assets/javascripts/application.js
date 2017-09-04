@@ -43,7 +43,7 @@ $(document).ready(function(){
   });
 
   $('#task_due_date').datetimepicker({
-    pickerPosition: 'bottom-left',
+    pickerPosition: 'top-left',
     autoclose: true,
     todayHighlight: true,
     minView: 2,

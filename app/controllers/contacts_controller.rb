@@ -30,10 +30,12 @@ class ContactsController < ApplicationController
   end
 
   def edit
+    # for index list
     @contact = Contact.find(params[:id])
   end
 
   def update
+    # for index list
     @contact = Contact.find(params[:id])
 
     if @contact.update(params_contact)
@@ -46,10 +48,19 @@ class ContactsController < ApplicationController
   end
 
   def destroy
-    @contact = Contact.find(params[:id])
-    @contact.destroy
-    flash[:success] = "Contact deleted!"
-    redirect_to request.referrer
+    if params[:account_id] || params[:opportunity_id]
+      @subject = Account.find(params[:account_id]) if params[:account_id]
+      @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+      @contact = @subject.contacts.find(params[:id])
+    else
+      @contact = Contact.find(params[:id])
+      @contacts = Contact.all # for AJAX call
+    end
+
+    respond_to do |format|
+      @contact.destroy
+      format.js { flash.now[:success] = "Contact deleted!" }
+    end
   end
 
   def delete_association

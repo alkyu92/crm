@@ -25,6 +25,7 @@ class StagesController < ApplicationController
 
     respond_to do |format|
       if @stage.update(params_stage)
+        timeline_stage("updated stage")
         format.js { flash.now[:success] = "Opportunity stage updated!" }
       else
         format.js { flash.now[:success] = "Failed to update opportunity stage!" }

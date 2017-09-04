@@ -38,6 +38,7 @@
             <% if @contact.relationships.blank? %>
             No association found
         <% else %>
+            <%#= f.association :contacts %>
             <% contactable_acc = @contact.relationships.where(contactable_type: "Account") %>
             <% unless contactable_acc.blank? %>
             <small>Account</small><br>
