@@ -27,7 +27,13 @@
                     <ul class="dropdown-menu">
                       <li><%= link_to 'Show', '#', data: {toggle: "modal",
                         target: "#contactInfo-#{contact.id}"}%></li>
-                        <li><%= link_to 'Edit', edit_contact_path(contact) %></li>
+                        <li>
+                          <% if params[:controller] == "accounts" || params[:account_id] %>
+                          <%= link_to 'Edit', edit_account_contact_path(@subject, contact) %>
+                          <% elsif params[:controller] == "opportunities" || params[:opportunity_id] %>
+                          <%= link_to 'Edit', edit_opportunity_contact_path(@subject, contact) %>
+                          <% end %>
+                        </li>
                         <li>
                           <% if params[:controller] == "accounts" || params[:account_id] %>
                           <%= link_to 'Delete', account_contact_path(@subject, contact),

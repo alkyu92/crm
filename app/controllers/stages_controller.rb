@@ -1,12 +1,9 @@
 class StagesController < ApplicationController
-  before_action :find_opportunity
+  before_action :find_subject
   before_action :find_stage, only: [:update, :destroy, :update_stage_status]
 
   def create
-    # for AJAX timelines
-    @subject = @opportunity
-
-    @stage = @opportunity.stages.build(params_stage)
+    @stage = @subject.stages.build(params_stage)
 
     respond_to do |format|
       if @stage.save
@@ -20,9 +17,6 @@ class StagesController < ApplicationController
   end
 
   def update
-    # for AJAX timelines
-    @subject = @opportunity
-
     respond_to do |format|
       if @stage.update(params_stage)
         timeline_stage("updated stage")
@@ -35,9 +29,6 @@ class StagesController < ApplicationController
 
   def destroy
     respond_to do |format|
-      # for AJAX timelines
-      @subject = @opportunity
-
       if @stage.status == "In Progress" && (@stage.id != @opportunity.stages.last.id)
         @stage.destroy
         @new_current_stage = @opportunity.stages.where("id > ?", @stage.id).first
@@ -58,9 +49,6 @@ class StagesController < ApplicationController
   end
 
   def update_stage_status
-    # for AJAX timelines
-    @subject = @opportunity
-
     respond_to do |format|
       if @stage.status == "In Progress"
         update_status("In Progress", "Completed", false)
@@ -102,8 +90,9 @@ class StagesController < ApplicationController
     timeline_stage("changed stage status from #{previous} to #{current} for")
   end
 
-  def find_opportunity
-    @opportunity = Opportunity.find(params[:opportunity_id])
+  def find_subject
+    # for AJAX call
+    @subject = Opportunity.find(params[:opportunity_id])
     rescue ActiveRecord::RecordNotFound
     flash.now[:danger] = "Can't find records!"
     redirect_to root_path

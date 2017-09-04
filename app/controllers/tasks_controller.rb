@@ -1,23 +1,17 @@
 class TasksController < ApplicationController
+  before_action :find_subject
   before_action :find_task, only: [:edit, :update, :destroy, :update_task_status]
 
   def index
-    # for AJAX timelines
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-
     @tasks = Task.all.includes(:opportunity).order('due_date').page(params[:page]).per(10)
   end
 
   def show
-    # for AJAX timelines
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+
   end
 
   def create
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    @subject = @opportunity
-
-    @task = @opportunity.tasks.build(params_task)
+    @task = @subject.tasks.build(params_task)
     @task.user_id = current_user.id
 
     respond_to do |format|
@@ -36,9 +30,6 @@ class TasksController < ApplicationController
   end
 
   def update
-    # for Ajax timelines
-    @subject = Opportunity.find(params[:opportunity_id])
-
       if @task.update(params_task)
 
         if params[:completed]
@@ -60,9 +51,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    # for AJAX timelines
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-
     @task.destroy
     timeline_task("deleted task")
     respond_to do |format|
@@ -71,9 +59,6 @@ class TasksController < ApplicationController
   end
 
   def update_task_status
-    # for AJAX timelines
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-
     respond_to do |format|
     if @task.complete == true
       @task.update_attributes(complete: false)
@@ -105,11 +90,19 @@ class TasksController < ApplicationController
   end
 
   def find_task
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    @task = @opportunity.tasks.find(params[:id])
+    find_subject
+    @task = @subject.tasks.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
-    flash.now[:danger] = "Can't find records!"
+    flash[:danger] = "Can't find records!"
+    redirect_to root_path
+  end
+
+  def find_subject
+    # for AJAX timelines
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+  rescue ActiveRecord::RecordNotFound
+    flash[:danger] = "Can't find records!"
     redirect_to root_path
   end
 end

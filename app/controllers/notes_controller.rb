@@ -1,28 +1,20 @@
 class NotesController < ApplicationController
-  before_action :find_note, only: [:update, :destroy]
+  before_action :find_subject
+  before_action :find_note, only: [:edit, :update, :destroy]
 
   def index
-    @subject = Account.find(params[:account_id]) if params[:account_id]
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-
     respond_to do |format|
       format.js
     end
   end
 
   def show
-    @subject = Account.find(params[:account_id]) if params[:account_id]
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-
     respond_to do |format|
       format.js
     end
   end
 
   def create
-    @subject = Account.find(params[:account_id]) if params[:account_id]
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-
     @note = @subject.notes.build(params_note)
     @note.user_id = current_user.id
 
@@ -37,15 +29,23 @@ class NotesController < ApplicationController
 
   end
 
+  def edit
+
+  end
+
   def update
-    respond_to do |format|
       if @note.update(params_note)
         timeline_note("updated note")
-        format.js { flash.now[:success] = "Note entry created!" }
+        flash[:success] = "Note entry created!"
+        if params[:controller] == "accounts" || params[:account_id]
+          redirect_to account_path(@subject, anchor: "relatedNotes")
+        elsif params[:controller] == "opportunities" || params[:opportunity_id]
+          redirect_to opportunity_path(@subject, anchor: "relatedNotes")
+        end
       else
-        format.js { flash.now[:danger] = "Failed to create note entry!" }
+        flash[:danger] = "Failed to create note entry!"
+        render 'edit'
       end
-    end
   end
 
   def destroy
@@ -71,11 +71,13 @@ class NotesController < ApplicationController
     params.require(:note).permit(:title, :description)
   end
 
-  def find_note
+  def find_subject
     @subject = Account.find(params[:account_id]) if params[:account_id]
     @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+  end
 
+  def find_note
+    find_subject
     @note = @subject.notes.find(params[:id])
-
   end
 end

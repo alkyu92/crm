@@ -11,8 +11,13 @@ No notes submitted yet.
         </a>
         <ul class="dropdown-menu">
             <li><%= link_to 'Show', '#', data: {toggle: "modal", target: "#noteInfo-#{note.id}"}%></li>
-            <li><%= link_to 'Edit', '#',
-            data: {toggle: "modal", target: "#editNoteModal-#{note.id}"} %></li>
+            <li>
+              <% if params[:controller] == "opportunities" || params[:opportunity_id] %>
+              <%= link_to 'Edit', edit_opportunity_note_path(@subject, note) %>
+              <% elsif params[:controller] == "accounts" || params[:account_id] %>
+              <%= link_to 'Edit', edit_account_note_path(@subject, note) %>
+              <% end %>
+            </li>
             <% if params[:controller] == "opportunities" || params[:opportunity_id] %>
             <li><%= link_to 'Delete',
             opportunity_note_path(@subject, note), method: :delete, remote: true,

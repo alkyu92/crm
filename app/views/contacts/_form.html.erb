@@ -4,7 +4,7 @@
         <div class="col-lg-6">
             <h3><%= yield :form_title %></h3>
             <hr>
-            <%= simple_form_for @contact do |f| %>
+            <%= simple_form_for [@subject, @contact] do |f| %>
             <h4>Contact Details</h4>
             <br>
             <%= f.input :profile_pic, as: :file, label: "Upload Profile Picture" %>

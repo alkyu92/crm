@@ -1,23 +1,16 @@
 class CallsController < ApplicationController
-  before_action :find_call, only: [:edit, :update, :destroy, :update_call_status]
+  before_action :find_subject
+  before_action :find_call, only: [:edit, :update, :destroy]
 
   def index
-    # for AJAX timelines
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-
     @calls = Call.all.includes(:opportunity).page(params[:page]).per(10)
   end
 
   def show
-    # for AJAX timelines
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
   end
 
   def create
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    @subject = @opportunity
-
-    @call = @opportunity.calls.build(params_call)
+    @call = @subject.calls.build(params_call)
     @call.user_id = current_user.id
 
     respond_to do |format|
@@ -32,11 +25,9 @@ class CallsController < ApplicationController
   end
 
   def edit
-
   end
 
   def update
-
       if @call.update(params_call)
         timeline_call("updated call log")
         flash[:success] = "Call entry updated!"
@@ -49,9 +40,6 @@ class CallsController < ApplicationController
   end
 
   def destroy
-    # for AJAX timelines
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-
     @call.destroy
     timeline_call("deleted call log")
     respond_to do |format|
@@ -74,12 +62,19 @@ class CallsController < ApplicationController
     params.require(:call).permit(:description, :call_datetime, :duration)
   end
 
+  def find_subject
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+  rescue ActiveRecord::RecordNotFound
+    flash[:danger] = "Can't find records!"
+    redirect_to root_path
+  end
+
   def find_call
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    @call = @opportunity.calls.find(params[:id])
+    find_subject
+    @call = @subject.calls.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
-    flash.now[:danger] = "Can't find records!"
+    flash[:danger] = "Can't find records!"
     redirect_to root_path
   end
 end

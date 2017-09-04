@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
-
+before_action :find_subject, only: [:create, :edit, :update, :destroy]
   def index
     @contacts = Contact.page(params[:page]).per(10)
   end
@@ -9,48 +9,66 @@ class ContactsController < ApplicationController
   end
 
   def create
-      @subject = Account.find(params[:account_id]) if params[:account_id]
-      @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-
       @contact = Contact.new(params_contact)
       @contact.user_id = current_user.id
 
       if @contact.save
         if params[:account_id] || params[:opportunity_id]
           @subject.relationships.create!(contact: @contact)
-          redirect_to @subject
+          timeline_contact("created contact")
+          flash[:success] = "Contact created!"
+          if params[:controller] == "accounts" || params[:account_id]
+            redirect_to account_path(@subject, anchor: "relatedContacts")
+          elsif params[:controller] == "opportunities" || params[:opportunity_id]
+            redirect_to opportunity_path(@subject, anchor: "relatedContacts")
+          end
         else
+          flash[:success] = "Contact created!"
           redirect_to contacts_path
         end
-        flash[:success] = "Contact created!"
+
       else
         flash[:danger] = "Failed to create contact!"
-        redirect_to contacts_path
+        render 'new'
       end
   end
 
   def edit
-    # for index list
-    @contact = Contact.find(params[:id])
+    if params[:account_id] || params[:opportunity_id]
+      @contact = @subject.contacts.find(params[:id])
+    else
+      @contact = Contact.find(params[:id])
+    end
   end
 
   def update
-    # for index list
-    @contact = Contact.find(params[:id])
+    if params[:account_id] || params[:opportunity_id]
+      @contact = @subject.contacts.find(params[:id])
+    else
+      @contact = Contact.find(params[:id])
+    end
 
     if @contact.update(params_contact)
-      flash[:success] = "Contact updated!"
-      redirect_to contacts_path
+      if params[:account_id] || params[:opportunity_id]
+        timeline_contact("updated contact")
+        flash[:success] = "Contact updated!"
+        if params[:controller] == "accounts" || params[:account_id]
+          redirect_to account_path(@subject, anchor: "relatedContacts")
+        elsif params[:controller] == "opportunities" || params[:opportunity_id]
+          redirect_to opportunity_path(@subject, anchor: "relatedContacts")
+        end
+      else
+        redirect_to contacts_path
+      end
     else
-      flash[:danger] = "Failed to update contact"
-      redirect_to contacts_path
+      flash[:danger] = "Failed to update contact!"
+      render 'edit'
     end
+
   end
 
   def destroy
     if params[:account_id] || params[:opportunity_id]
-      @subject = Account.find(params[:account_id]) if params[:account_id]
-      @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
       @contact = @subject.contacts.find(params[:id])
     else
       @contact = Contact.find(params[:id])
@@ -59,6 +77,9 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       @contact.destroy
+      if params[:account_id] || params[:opportunity_id]
+        timeline_contact("deleted contact")
+      end
       format.js { flash.now[:success] = "Contact deleted!" }
     end
   end
@@ -82,11 +103,18 @@ class ContactsController < ApplicationController
                                     :profile_pic)
   end
 
-  def find_contact
+  def find_subject
     @subject = Account.find(params[:account_id]) if params[:account_id]
     @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+  end
 
-    @contact = @subject.contacts.find(params[:id])
+  def timeline_contact(action)
+    @subject.timelines.create!(
+    tactivity: "relatedContacts-" + @contact.id.to_s,
+    nactivity: @contact.name,
+    action: action,
+    user_id: current_user.id
+    )
   end
 
 end

@@ -55,10 +55,9 @@ class AccountsController < ApplicationController
   end
 
   def delete_attachment
-    @account = Account.find(params[:account_id])
-    @account.documents.find(params[:id]).destroy
-
     @subject = Account.find(params[:account_id])
+    @account = @subject
+    @account.documents.find(params[:id]).destroy
 
     respond_to do |format|
       timeline_account("relatedDocs", @account.account_name, "deleted attachment file from account")

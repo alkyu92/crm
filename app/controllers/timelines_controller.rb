@@ -1,12 +1,12 @@
 class TimelinesController < ApplicationController
-  before_action :find_timeline, only: [:destroy]
+  before_action :find_subject, only: [:show, :destroy]
 
   def show
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-    @subject = Account.find(params[:account_id]) if params[:account_id]
+
   end
 
   def destroy
+    @timeline = @subject.timelines.find(params[:id])
     @timeline.destroy
     respond_to do |format|
       format.js
@@ -26,14 +26,12 @@ class TimelinesController < ApplicationController
 
   private
 
-  def find_timeline
+  def find_subject
     @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
     @subject = Account.find(params[:account_id]) if params[:account_id]
 
-    @timeline = @subject.timelines.find(params[:id])
-
   rescue ActiveRecord::RecordNotFound
-    flash.now[:danger] = "Can't find records!"
+    flash[:danger] = "Can't find records!"
     redirect_to root_path
   end
 end

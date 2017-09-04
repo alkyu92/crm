@@ -1,6 +1,4 @@
 class OpportunitiesController < ApplicationController
-  before_action :find_opportunity,
-  only: [:show, :edit, :update, :destroy]
 
   def index
     @opportunities = Opportunity.includes(:account).page(params[:page]).per(10)
@@ -21,7 +19,7 @@ class OpportunitiesController < ApplicationController
     @subject = Opportunity.find(params[:id])
     @accounts = Account.all
 
-    @opportunity.timelines.includes(:activity, :user).each do |tl|
+    @subject.timelines.includes(:activity, :user).each do |tl|
       if tl.read == true
         next
       else
@@ -59,6 +57,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def update
+    @opportunity = Opportunity.includes(:user).find(params[:id])
     respond_to do |format|
       # for AJAX
       @subject = @opportunity
@@ -92,6 +91,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def destroy
+    @opportunity = Opportunity.includes(:user).find(params[:id])
     @opportunity.destroy
     flash[:success] = "Opportunity entry deleted!"
     redirect_to opportunities_path

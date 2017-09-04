@@ -1,23 +1,17 @@
 class EventsController < ApplicationController
+  before_action :find_subject
   before_action :find_event, only: [:edit, :update, :destroy, :update_event_status]
 
   def index
-    # for AJAX timelines
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-
     @events = Event.all.includes(:opportunity).order('event_date').page(params[:page]).per(10)
   end
 
   def show
-    # for AJAX timelines
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+
   end
 
   def create
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    @subject = @opportunity
-
-    @event = @opportunity.events.build(params_event)
+    @event = @subject.events.build(params_event)
     @event.user_id = current_user.id
 
     respond_to do |format|
@@ -36,7 +30,6 @@ class EventsController < ApplicationController
   end
 
   def update
-
       if @event.update(params_event)
 
         if params[:attended]
@@ -58,9 +51,6 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    # for AJAX timelines
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-
     @event.destroy
     timeline_event("deleted event")
     respond_to do |format|
@@ -69,9 +59,6 @@ class EventsController < ApplicationController
   end
 
   def update_event_status
-    # for AJAX timelines
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-
     respond_to do |format|
       if @event.complete == true
         @event.update_attributes(complete: false)
@@ -102,9 +89,13 @@ class EventsController < ApplicationController
     params.require(:event).permit(:description, :event_date)
   end
 
+  def find_subject
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+  end
+
   def find_event
-    @opportunity = Opportunity.find(params[:opportunity_id])
-    @event = @opportunity.events.find(params[:id])
+    find_subject
+    @event = @subject.events.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
     flash.now[:danger] = "Can't find records!"
