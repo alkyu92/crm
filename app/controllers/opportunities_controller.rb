@@ -1,7 +1,7 @@
 class OpportunitiesController < ApplicationController
 
   def index
-    @opportunities = Opportunity.includes(:account).page(params[:page]).per(10)
+    @opportunities = Opportunity.includes(:account, :stages).page(params[:page]).per(10)
     @opportunity = current_user.opportunities.build
 
     @stages = Stage.all
@@ -21,11 +21,8 @@ class OpportunitiesController < ApplicationController
     @accounts = Account.all
 
     @subject.timelines.includes(:activity, :user).each do |tl|
-      if tl.read == true
-        next
-      else
-        tl.update_attributes(read: true)
-      end
+      next if tl.read == true
+      tl.update_attributes(read: true)
     end
   end
 

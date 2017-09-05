@@ -5,12 +5,15 @@ class AccountsController < ApplicationController
   end
 
   def show
-    @account = Account.find(params[:id])
+    @account = Account.includes(
+    :relationships, :opportunities, :contacts, :user).find(params[:id])
     @subject = @account
 
-    @opportunities = Opportunity.where(account_id: @account.id)
+    @opportunities = Opportunity.includes(
+    :relationships, :contacts, :user).where(account_id: @account.id)
 
-    @account.timelines.each do |tl|
+    @account.timelines.includes(:user, :activity).each do |tl|
+      next if tl.read == true
       tl.update_attributes(read: true)
     end
   end

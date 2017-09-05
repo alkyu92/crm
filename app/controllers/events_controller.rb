@@ -51,6 +51,8 @@ class EventsController < ApplicationController
   end
 
   def destroy
+    @events = Event.includes(:opportunity).order('event_date').page(params[:page]).per(10)
+    
     @event.destroy
     timeline_event("deleted event")
     respond_to do |format|

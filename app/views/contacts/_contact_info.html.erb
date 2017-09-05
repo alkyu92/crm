@@ -101,7 +101,8 @@
                         <% if contact.relationships.blank? %>
                         No association found
                     <% else %>
-                        <% contactable_acc = contact.relationships.where(contactable_type: "Account") %>
+                        <% ctct = contact.relationships.includes(:contactable) %>
+                        <% contactable_acc = ctct.where(contactable_type: "Account") %>
                         <% unless contactable_acc.blank? %>
                         <small>Account</small><br>
                         <div class="row">
@@ -115,7 +116,7 @@
                         <br>
                         <% end %>
 
-                        <% contactable_op = contact.relationships.where(contactable_type: "Opportunity")%>
+                        <% contactable_op = ctct.where(contactable_type: "Opportunity")%>
                         <% unless contactable_op.blank? %>
                         <small>Opportunity</small><br>
                         <div class="row">

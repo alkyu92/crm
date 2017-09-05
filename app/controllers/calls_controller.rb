@@ -37,6 +37,8 @@ class CallsController < ApplicationController
   end
 
   def destroy
+    @calls = Call.includes(:opportunity).page(params[:page]).per(10)
+    
     @call.destroy
     timeline_call("deleted call log")
     respond_to do |format|
@@ -62,7 +64,7 @@ class CallsController < ApplicationController
   def find_subject
     @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
     @opportunity = @subject
-    
+
   rescue ActiveRecord::RecordNotFound
     flash[:danger] = "Can't find records!"
     redirect_to root_path

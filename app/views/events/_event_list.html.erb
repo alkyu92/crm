@@ -1,0 +1,85 @@
+<div class="text-center">
+    <%= page_entries_info @events %><br>
+    <%= paginate @events %>
+</div>
+<hr>
+<% if @events.blank? %>
+<div class="text-center">
+  <%= link_to 'Create Event through Opportunity', opportunities_path %>
+</div>
+<% else %>
+<div class="row">
+    <div class="col-lg-1 text-center">
+        <strong>ID</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Description</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Event Date</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Opportunity Name</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Account Name</strong>
+    </div>
+    <div class="col-lg-1">
+        <strong>Created At DateTime</strong>
+    </div>
+    <div class="col-lg-2 text-center">
+      <strong>Action</strong>
+    </div>
+</div>
+
+<% @events.each do |event| %>
+<hr>
+<div class="row">
+    <div class="col-lg-1 text-center"><%= event.id %></div>
+    <div class="col-lg-2"><%= link_to event.description.truncate(50), opportunity_path(event.opportunity, anchor: "event-#{event.id}") %></div>
+    <div class="col-lg-2">
+        <% if event.event_date.blank? %>
+        <span style="color: red;">Date not specified</span>
+    <% else %>
+        <% if event.event_date > Date.today %>
+        <%= event.event_date.strftime('%d %b %Y') %><br>
+        <small>
+            (<%= distance_of_time_in_words(Time.now, event.event_date) %>
+            left)
+        </small>
+        <% elsif event.event_date == Date.today %>
+        <strong style="color: orange;">Today</strong><br>
+        <small>(<%= event.event_date.strftime('%d %b %Y') %>)</small>
+    <% else %>
+        <strong style="color: red;">Event passed</strong><br>
+        <small>
+            (<%= distance_of_time_in_words(Time.now, event.event_date) %>
+            ago)
+        </small>
+        <% end %>
+        <% end %>
+    </div>
+    <div class="col-lg-2"><%= link_to event.opportunity.name, opportunity_path(event.opportunity) %></div>
+    <div class="col-lg-2"><%= link_to event.opportunity.account.account_name,
+account_path(event.opportunity.account) %></div>
+    <div class="col-lg-1"><%= event.created_at.strftime('%d %b %Y %H:%M:%S') %></div>
+    <div class="col-lg-2 text-center">
+      <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+        <i class="caret"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><%= link_to 'Show', '#', data: {toggle: "modal", target: "#eventInfo-#{event.id}"} %></li>
+        <li><%= link_to 'Delete', opportunity_event_path(event.opportunity, event),
+        method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
+      </ul>
+    </div>
+</div>
+
+<%= render 'events/event_info', event: event %>
+<% end %>
+<br>
+<div class="text-center">
+    <%= page_entries_info @events %><br>
+    <%= paginate @events %>
+</div>
+<% end %>

@@ -1,8 +1,8 @@
 class DashboardsController < ApplicationController
   def index
-    @opportunities = Opportunity.order('created_at DESC').take(6)
-
-    @accounts = Account.order('created_at DESC').take(6)
+    @opportunities = Opportunity.includes(
+    :user, :account, :tasks, :calls, :events).order('created_at DESC').take(6)
+    @accounts = Account.includes(:user, :opportunities).order('created_at DESC').take(6)
 
     @tasks = Task.includes(:opportunity).order('created_at DESC').take(6)
     @urgent_tasks = Task.includes(:opportunity).order('due_date').take(6)
