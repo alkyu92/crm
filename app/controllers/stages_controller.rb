@@ -66,7 +66,7 @@ class StagesController < ApplicationController
   private
 
   def timeline_stage(action)
-    @opportunity.timelines.create!(
+    @subject.timelines.create!(
     tactivity: "stage",
     nactivity: @stage.name,
     action: action,
@@ -93,6 +93,7 @@ class StagesController < ApplicationController
   def find_subject
     # for AJAX call
     @subject = Opportunity.find(params[:opportunity_id])
+    @opportunity = @subject
     rescue ActiveRecord::RecordNotFound
     flash.now[:danger] = "Can't find records!"
     redirect_to root_path

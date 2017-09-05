@@ -17,6 +17,7 @@ class OpportunitiesController < ApplicationController
   def show
     # for AJAX
     @subject = Opportunity.find(params[:id])
+    @opportunity = @subject
     @accounts = Account.all
 
     @subject.timelines.includes(:activity, :user).each do |tl|

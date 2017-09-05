@@ -1,14 +1,14 @@
 class AccountsController < ApplicationController
-  before_action :find_account, only: [:show, :update, :destroy]
-  before_action :find_all_account, except: [:show, :update]
-
   def index
+    @accounts = Account.page(params[:page]).per(10)
     @account = current_user.accounts.build
   end
 
   def show
+    @account = Account.find(params[:id])
+    @subject = @account
+
     @opportunities = Opportunity.where(account_id: @account.id)
-    @subject = Account.find(params[:id])
 
     @account.timelines.each do |tl|
       tl.update_attributes(read: true)
@@ -16,6 +16,7 @@ class AccountsController < ApplicationController
   end
 
   def create
+    @accounts = Account.page(params[:page]).per(10)
     @account = current_user.accounts.build(params_account)
 
     respond_to do |format|
@@ -30,8 +31,9 @@ class AccountsController < ApplicationController
   end
 
   def update
+    @account = Account.find(params[:id])
+    @subject = @account
     respond_to do |format|
-      @subject = @account
       if @account.update(params_account)
 
         if params[:docs]
@@ -49,14 +51,17 @@ class AccountsController < ApplicationController
   end
 
   def destroy
+    @accounts = Account.page(params[:page]).per(10)
+    @account = Account.find(params[:id])
     @account.destroy
     flash[:success] = "Account deleted!"
     redirect_to accounts_path
   end
 
   def delete_attachment
-    @subject = Account.find(params[:account_id])
-    @account = @subject
+    @accounts = Account.page(params[:page]).per(10)
+    @account = Account.find(params[:account_id])
+    @subject = @account
     @account.documents.find(params[:id]).destroy
 
     respond_to do |format|
@@ -99,22 +104,6 @@ class AccountsController < ApplicationController
                                     :document,
                                     documents_attributes: [ doc: [] ]
                                     )
-  end
-
-  def find_account
-    @account = Account.find(params[:id])
-
-  rescue ActiveRecord::RecordNotFound
-    flash.now[:danger] = "Can't find records!"
-    redirect_to root_path
-  end
-
-  def find_all_account
-    @accounts = Account.page(params[:page]).per(10)
-
-  rescue ActiveRecord::RecordNotFound
-    flash.now[:danger] = "Can't find records!"
-    redirect_to root_path
   end
 
   def save_timeline_if_any_changes

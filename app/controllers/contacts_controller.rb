@@ -13,17 +13,12 @@ before_action :find_subject, only: [:create, :edit, :update, :destroy]
       @contact.user_id = current_user.id
 
       if @contact.save
+        flash[:success] = "Contact created!"
         if params[:account_id] || params[:opportunity_id]
           @subject.relationships.create!(contact: @contact)
           timeline_contact("created contact")
-          flash[:success] = "Contact created!"
-          if params[:controller] == "accounts" || params[:account_id]
-            redirect_to account_path(@subject, anchor: "relatedContacts")
-          elsif params[:controller] == "opportunities" || params[:opportunity_id]
-            redirect_to opportunity_path(@subject, anchor: "relatedContacts")
-          end
+          redirect_acc_or_op_path
         else
-          flash[:success] = "Contact created!"
           redirect_to contacts_path
         end
 
@@ -49,14 +44,10 @@ before_action :find_subject, only: [:create, :edit, :update, :destroy]
     end
 
     if @contact.update(params_contact)
+      flash[:success] = "Contact updated!"
       if params[:account_id] || params[:opportunity_id]
         timeline_contact("updated contact")
-        flash[:success] = "Contact updated!"
-        if params[:controller] == "accounts" || params[:account_id]
-          redirect_to account_path(@subject, anchor: "relatedContacts")
-        elsif params[:controller] == "opportunities" || params[:opportunity_id]
-          redirect_to opportunity_path(@subject, anchor: "relatedContacts")
-        end
+        redirect_acc_or_op_path
       else
         redirect_to contacts_path
       end
@@ -115,6 +106,14 @@ before_action :find_subject, only: [:create, :edit, :update, :destroy]
     action: action,
     user_id: current_user.id
     )
+  end
+
+  def redirect_acc_or_op_path
+    if params[:controller] == "accounts" || params[:account_id]
+      redirect_to account_path(@subject, anchor: "relatedContacts")
+    elsif params[:controller] == "opportunities" || params[:opportunity_id]
+      redirect_to opportunity_path(@subject, anchor: "relatedContacts")
+    end
   end
 
 end

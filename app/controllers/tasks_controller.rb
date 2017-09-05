@@ -3,11 +3,7 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:edit, :update, :destroy, :update_task_status]
 
   def index
-    @tasks = Task.all.includes(:opportunity).order('due_date').page(params[:page]).per(10)
-  end
-
-  def show
-
+    @tasks = Task.includes(:opportunity).order('due_date').page(params[:page]).per(10)
   end
 
   def create
@@ -51,6 +47,8 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    @tasks = Task.includes(:opportunity).order('due_date').page(params[:page]).per(10)
+
     @task.destroy
     timeline_task("deleted task")
     respond_to do |format|
@@ -77,7 +75,7 @@ class TasksController < ApplicationController
   private
 
   def timeline_task(action)
-    @opportunity.timelines.create!(
+    @subject.timelines.create!(
     tactivity: "task-" + @task.id.to_s,
     nactivity: @task.description.truncate(50),
     action: action,
@@ -101,6 +99,8 @@ class TasksController < ApplicationController
   def find_subject
     # for AJAX timelines
     @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+    @opportunity = @subject
+
   rescue ActiveRecord::RecordNotFound
     flash[:danger] = "Can't find records!"
     redirect_to root_path

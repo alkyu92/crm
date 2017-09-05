@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   before_action :find_event, only: [:edit, :update, :destroy, :update_event_status]
 
   def index
-    @events = Event.all.includes(:opportunity).order('event_date').page(params[:page]).per(10)
+    @events = Event.includes(:opportunity).order('event_date').page(params[:page]).per(10)
   end
 
   def show
@@ -77,7 +77,7 @@ class EventsController < ApplicationController
   private
 
   def timeline_event(action)
-    @opportunity.timelines.create!(
+    @subject.timelines.create!(
     tactivity: "event-" + @event.id.to_s,
     nactivity: @event.description.truncate(50),
     action: action,
@@ -91,6 +91,11 @@ class EventsController < ApplicationController
 
   def find_subject
     @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+    @opportunity = @subject
+
+  rescue ActiveRecord::RecordNotFound
+    flash.now[:danger] = "Can't find records!"
+    redirect_to root_path
   end
 
   def find_event

@@ -1,0 +1,97 @@
+<div class="text-center">
+<%= page_entries_info @tasks %><br>
+<%= paginate @tasks %>
+</div>
+
+<div id="notice-task">
+<%= render 'layouts/message' %>
+</div>
+
+<hr>
+
+<% if @tasks.blank? %>
+<div class="text-center">
+<%= link_to 'Create Task through Opportunity', opportunities_path %>
+</div>
+<% else %>
+<div class="row">
+    <div class="col-lg-1 text-center">
+        <strong>ID</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Description</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Due Date</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Opportunity Name</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Account Name</strong>
+    </div>
+    <div class="col-lg-1">
+        <strong>Created At DateTime</strong>
+    </div>
+    <div class="col-lg-2 text-center">
+      <strong>Action</strong>
+    </div>
+</div>
+
+<% @tasks.each do |task| %>
+<hr>
+<div class="row">
+    <div class="col-lg-1 text-center"><%= task.id %></div>
+    <div class="col-lg-2">
+      <%= link_to task.description.truncate(50),
+      opportunity_path(task.opportunity, anchor: "task-#{task.id}") %>
+    </div>
+    <div class="col-lg-2">
+        <% if task.due_date.blank? %>
+        <span style="color: red;">Date not specified</span>
+    <% else %>
+        <% if task.due_date > Date.today %>
+        <%= task.due_date.strftime('%d %b %Y') %><br>
+        <small>
+          (<%= distance_of_time_in_words(Time.now, task.due_date) %>
+          left)
+        </small>
+        <% elsif task.due_date == Date.today %>
+        <strong style="color: orange;">Today</strong><br>
+        <small>(<%= task.due_date.strftime('%d %b %Y') %>)</small>
+        <% else %>
+        <span style="color: red;">
+          <%= task.due_date.strftime('%d %b %Y') %><br>
+          <small>
+          (Date overdue
+          <%= distance_of_time_in_words(Time.now, task.due_date) %>
+          ago)
+        </small>
+        </span>
+        <% end %>
+        <% end %>
+    </div>
+    <div class="col-lg-2"><%= link_to task.opportunity.name, opportunity_path(task.opportunity) %></div>
+    <div class="col-lg-2"><%= link_to task.opportunity.account.account_name,
+account_path(task.opportunity.account) %></div>
+    <div class="col-lg-1"><%= task.created_at.strftime('%d %b %Y %H:%M:%S') %></div>
+    <div class="col-lg-2 text-center">
+      <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+        <i class="caret"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><%= link_to 'Show', '#', data: {toggle: "modal", target: "#taskInfo-#{task.id}"} %></li>
+        <li><%= link_to 'Delete', opportunity_task_path(task.opportunity, task),
+        method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
+      </ul>
+    </div>
+</div>
+
+<%= render 'tasks/task_info', task: task %>
+<% end %>
+<br>
+<div class="text-center">
+<%= page_entries_info @tasks %><br>
+<%= paginate @tasks %>
+</div>
+<% end %>
