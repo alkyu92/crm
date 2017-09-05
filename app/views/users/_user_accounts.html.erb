@@ -1,5 +1,5 @@
-<% useracc = @user.accounts.page(params[:page_acc]).per(5) %>
-<% if useracc.blank? %>
+
+<% if @useracc.blank? %>
 <br>
 <p>No accounts created yet.</p>
 <% else %>
@@ -14,7 +14,7 @@
         <strong>Created at DateTime</strong>
     </div>
 </div>
-<% useracc.each do |acc| %>
+<% @useracc.each do |acc| %>
 <div class="row">
     <div class="col-lg-6">
         <%= link_to acc.account_name, account_path(acc) %>
@@ -25,6 +25,6 @@
 </div>
 <% end %>
 <div class="text-center">
-    <%= paginate useracc, param_name: :page_acc, remote: true %>
+    <%= paginate @useracc, param_name: :page_acc, remote: true %>
 </div>
 <% end %>

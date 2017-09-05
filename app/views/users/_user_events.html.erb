@@ -1,7 +1,7 @@
 <h4>Events</h4>
 <hr>
-<% events = @user.events.page(params[:page_event]).per(5) %>
-<% if events.blank? %>
+
+<% if @events.blank? %>
 No events yet.
 <% else %>
 <div class="row">
@@ -13,7 +13,7 @@ No events yet.
     </div>
 </div>
 
-<% events.each do |event| %>
+<% @events.each do |event| %>
 <div class="row">
     <div class="col-lg-6">
         <%= link_to event.description.truncate(25),
@@ -30,6 +30,6 @@ No events yet.
 <% end %>
 <br>
 <div class="text-center">
-<%= paginate events, param_name: :page_event, remote: true %>
+<%= paginate @events, param_name: :page_event, remote: true %>
 </div>
 <% end %>

@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
 before_action :find_subject, only: [:create, :edit, :update, :destroy]
   def index
-    @contacts = Contact.page(params[:page]).per(10)
+    @contacts = Contact.includes(:relationships).page(params[:page]).per(10)
   end
 
   def new
@@ -59,11 +59,12 @@ before_action :find_subject, only: [:create, :edit, :update, :destroy]
   end
 
   def destroy
+
     if params[:account_id] || params[:opportunity_id]
       @contact = @subject.contacts.find(params[:id])
     else
       @contact = Contact.find(params[:id])
-      @contacts = Contact.all # for AJAX call
+      @contacts = Contact.includes(:relationships).page(params[:page]).per(10)
     end
 
     respond_to do |format|

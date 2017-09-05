@@ -1,7 +1,7 @@
 <h4>Calls</h4>
 <hr>
-<% calls = @user.calls.page(params[:page_call]).per(5) %>
-<% if calls.blank? %>
+
+<% if @calls.blank? %>
 No log calls yet.
 <% else %>
 <div class="row">
@@ -12,7 +12,7 @@ No log calls yet.
         <strong>DateTime</strong>
     </div>
 </div>
-<% calls.each do |call| %>
+<% @calls.each do |call| %>
 <div class="row">
     <div class="col-lg-6">
         <%= link_to call.description.truncate(25),
@@ -29,6 +29,6 @@ No log calls yet.
 <% end %>
 <br>
 <div class="text-center">
-<%= paginate calls, param_name: :page_call, remote: true %>
+<%= paginate @calls, param_name: :page_call, remote: true %>
 </div>
 <% end %>

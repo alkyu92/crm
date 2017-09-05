@@ -1,7 +1,7 @@
 <h4>Tasks</h4>
 <hr>
-<% tasks = @user.tasks.page(params[:page_task]).per(5) %>
-<% if tasks.blank? %>
+
+<% if @tasks.blank? %>
 No tasks yet.
 <% else %>
 <div class="row">
@@ -13,7 +13,7 @@ No tasks yet.
     </div>
 </div>
 
-<% tasks.each do |task| %>
+<% @tasks.each do |task| %>
 <div class="row">
     <div class="col-lg-6">
         <%= link_to task.description.truncate(25),
@@ -30,6 +30,6 @@ No tasks yet.
 <% end %>
 <br>
 <div class="text-center">
-<%= paginate tasks, param_name: :page_task, remote: true %>
+<%= paginate @tasks, param_name: :page_task, remote: true %>
 </div>
 <% end %>

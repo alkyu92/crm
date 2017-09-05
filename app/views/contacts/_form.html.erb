@@ -35,11 +35,12 @@
             </div>
             <hr>
             <h4>Association</h4>
-            <% if @contact.relationships.blank? %>
+            <% ctct = @contact.relationships.includes(:contactable) %>
+            <% if ctct.blank? %>
             No association found
         <% else %>
             <%#= f.association :contacts %>
-            <% contactable_acc = @contact.relationships.where(contactable_type: "Account") %>
+            <% contactable_acc = ctct.where(contactable_type: "Account") %>
             <% unless contactable_acc.blank? %>
             <small>Account</small><br>
             <div class="row">
@@ -58,7 +59,7 @@
             <% end %>
 
             <br>
-            <% contactable_op = @contact.relationships.where(contactable_type: "Opportunity") %>
+            <% contactable_op = ctct.where(contactable_type: "Opportunity") %>
             <% unless contactable_op.blank? %>
             <small>Opportunity</small><br>
             <div class="row">

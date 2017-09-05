@@ -1,5 +1,5 @@
-<% userop = @user.opportunities.page(params[:page_op]).per(5) %>
-<% if userop.blank? %>
+
+<% if @userop.blank? %>
 <br>
 <p>No opportunities created yet.</p>
 <% else %>
@@ -17,7 +17,7 @@
         <strong>Created at DateTime</strong>
     </div>
 </div>
-<% userop.each do |op| %>
+<% @userop.each do |op| %>
 <div class="row">
     <div class="col-lg-4">
         <%= link_to op.name, opportunity_path(op) %>
@@ -37,6 +37,6 @@
 </div>
 <% end %>
 <div class="text-center">
-    <%= paginate userop, param_name: :page_op, remote: true %>
+    <%= paginate @userop, param_name: :page_op, remote: true %>
 </div>
 <% end %>
