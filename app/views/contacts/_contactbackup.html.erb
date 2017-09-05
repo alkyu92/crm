@@ -1,0 +1,70 @@
+
+<% if @subject.contacts.blank? %>
+<div class="col-lg-12">
+    No contacts added yet.
+</div>
+<% else %>
+
+<% @subject.contacts.each do |contact| %>
+<div class="col-lg-6" id="relatedContacts-<%= contact.id %>">
+    <br>
+    <div class="media">
+        <div class="media-left">
+          <% if contact.profile_pic.blank? %>
+          <%= letter_avatar_tag(contact.name, 43 , class: "media-object") %>
+          <% else %>
+          <%= image_tag(contact.profile_pic.url(:small), class: "media-object") %>
+          <% end %>
+        </div>
+        <div class="media-body">
+            <h5 class="media-heading">
+                <%= link_to contact.name, '#',
+                data: {toggle: "modal", target: "#contactInfo-#{contact.id}"} %>
+                <div class="pull-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="caret"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><%= link_to 'Show', '#', data: {toggle: "modal",
+                        target: "#contactInfo-#{contact.id}"}%></li>
+                          <% if params[:controller] == "accounts" || params[:account_id] %>
+                          <li><%= link_to 'Edit Contact',
+                          edit_account_contact_path(@subject, contact) %></li>
+                          <li><%= link_to 'Delete Association',
+                          account_relationship_path(@subject, contact) %></li>
+                          <% elsif params[:controller] == "opportunities" || params[:opportunity_id] %>
+                          <li><%= link_to 'Edit Contact',
+                          edit_opportunity_contact_path(@subject, contact) %></li>
+                          <li><%= link_to 'Delete Association',
+                          opportunity_relationship_path(@subject, contact) %></li>
+                          <% end %>
+                    </ul>
+                </div>
+                <br>
+                <small><%= contact.title %></small><br>
+                <small><%= contact.department %></small>
+            </h5>
+            <% unless contact.email.blank? %>
+            <i class="fa fa-envelope"></i>
+              <%= contact.email %>
+            <br>
+            <% end %>
+
+            <% unless contact.phone.blank? %>
+            <i class="fa fa-phone"></i>
+                <%= contact.phone %>
+              <br>
+            <% end %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+
+        </div>
+    </div>
+</div>
+
+<%= render 'contacts/contact_info', contact: contact %>
+
+<% end %>
+<% end %>

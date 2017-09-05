@@ -1,3 +1,4 @@
-$('#index-list').html("<%= j (render 'contacts/contact_index') %>");
+$('.timelines').html("<%= j (render 'timelines/timelines_index') %>");
+$('#contact').html("<%= j (render 'contacts/contact') %>");
 $('#crm-menu').html("<%= j (render 'layouts/menu') %>");
 $('#notice-contact').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();

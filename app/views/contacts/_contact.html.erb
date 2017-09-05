@@ -1,69 +1,67 @@
 
-<% if @subject.contacts.blank? %>
+<% if @subject.relationships.blank? %>
 <div class="col-lg-12">
-    No contacts added yet.
+    No contacts association yet.
 </div>
 <% else %>
 
-<% @subject.contacts.each do |contact| %>
-<div class="col-lg-6" id="relatedContacts-<%= contact.id %>">
+<% @subject.relationships.each do |relationship| %>
+<div class="col-lg-6" id="relatedContacts-<%= relationship.contact.id %>">
     <br>
     <div class="media">
         <div class="media-left">
-          <% if contact.profile_pic.blank? %>
-          <%= letter_avatar_tag(contact.name, 43 , class: "media-object") %>
+          <% if relationship.contact.profile_pic.blank? %>
+          <%= letter_avatar_tag(relationship.contact.name, 43 , class: "media-object") %>
           <% else %>
-          <%= image_tag(contact.profile_pic.url(:small), class: "media-object") %>
+          <%= image_tag(relationship.contact.profile_pic.url(:small), class: "media-object") %>
           <% end %>
         </div>
         <div class="media-body">
             <h5 class="media-heading">
-                <%= link_to contact.name, '#',
-                data: {toggle: "modal", target: "#contactInfo-#{contact.id}"} %>
+                <%= link_to relationship.contact.name, '#',
+                data: {toggle: "modal", target: "#contactInfo-#{relationship.contact.id}"} %>
                 <div class="pull-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="caret"></i>
                     </a>
                     <ul class="dropdown-menu">
                       <li><%= link_to 'Show', '#', data: {toggle: "modal",
-                        target: "#contactInfo-#{contact.id}"}%></li>
-                        <li>
+                        target: "#contactInfo-#{relationship.contact.id}"}%></li>
                           <% if params[:controller] == "accounts" || params[:account_id] %>
-                          <%= link_to 'Edit Contact', edit_account_contact_path(@subject, contact) %>
+                          <li><%= link_to 'Edit Contact',
+                          edit_account_contact_path(@subject, relationship.contact) %></li>
+                          <li><%= link_to 'Delete Association',
+                          account_relationship_path(@subject, relationship.id),
+                          method: :delete, remote: true %></li>
                           <% elsif params[:controller] == "opportunities" || params[:opportunity_id] %>
-                          <%= link_to 'Edit Contact', edit_opportunity_contact_path(@subject, contact) %>
+                          <li><%= link_to 'Edit Contact',
+                          edit_opportunity_contact_path(@subject, relationship.contact) %></li>
+                          <li><%= link_to 'Delete Association',
+                          opportunity_relationship_path(@subject, relationship.id),
+                          method: :delete, remote: true %></li>
                           <% end %>
-                        </li>
-                        <li>
-                          <%= link_to 'Delete Association', '#' %>
-                        </li>
                     </ul>
                 </div>
                 <br>
-                <small><%= contact.title %></small><br>
-                <small><%= contact.department %></small>
+                <small><%= relationship.contact.title %></small><br>
+                <small><%= relationship.contact.department %></small>
             </h5>
-            <% unless contact.email.blank? %>
+            <% unless relationship.contact.email.blank? %>
             <i class="fa fa-envelope"></i>
-              <%= contact.email %>
+              <%= relationship.contact.email %>
             <br>
             <% end %>
 
-            <% unless contact.phone.blank? %>
+            <% unless relationship.contact.phone.blank? %>
             <i class="fa fa-phone"></i>
-                <%= contact.phone %>
+                <%= relationship.contact.phone %>
               <br>
             <% end %>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-
-        </div>
-    </div>
 </div>
 
-<%= render 'contacts/contact_info', contact: contact %>
+<%= render 'contacts/contact_info', contact: relationship.contact %>
 
 <% end %>
 <% end %>

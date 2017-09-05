@@ -49,8 +49,6 @@
                     <% catch :here do %>
                     <% @subject.contacts.each do |sbjct| %>
                       <% if sbjct.id == ct.id %>
-                      <%= check_box_tag "assigned[]", ct.id, true %>
-                      <%= ct.name %>
                       <% throw :here %>
                       <% end %>
                     <% end %>

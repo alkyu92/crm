@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   resources :opportunities do
 
+    resources :relationships, only: :destroy
+
     resources :contacts do
       resources :relationships, only: :destroy
     end
@@ -38,7 +40,7 @@ Rails.application.routes.draw do
   end
 
   resources :accounts do
-
+    resources :relationships, only: :destroy
     resources :contacts do
       resources :relationships, only: :destroy
     end
@@ -59,7 +61,6 @@ Rails.application.routes.draw do
 
   resources :users
   resources :contacts
-  resources :relationships, only: :destroy
 
   get '/search', to: 'search#search', as: :search
 
