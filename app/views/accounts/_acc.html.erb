@@ -1,19 +1,22 @@
 <div class="row">
     <div class="col-lg-10">
         <h1>Accounts</h1>
-        <p><%= pluralize(Account.count, 'item') %></p>
     </div>
     <div class="col-lg-2" style="padding-top: 25px;">
         <%= link_to 'New Account', '#', class: "btn btn-default",
         data: {toggle: "modal", target: "#accountModalForm"} %>
     </div>
 </div>
+
 <div class="text-center">
 <%= page_entries_info @accounts %><br>
 <%= paginate @accounts %>
 </div>
+
 <hr>
+
 <div id="notice-acc"></div>
+
 <% if @accounts.blank? %>
 <div class="text-center">
   <%= link_to 'Create New Account', '#',
@@ -91,7 +94,8 @@
         <ul class="dropdown-menu">
             <li><%= link_to 'Show', account_path(account) %></li>
             <li><%= link_to 'Delete', account_path(account),
-            method: :delete, data: {confirm: "Are you sure?"} %></li>
+            method: :delete, data: {confirm: "Are you sure?"},
+            remote: true %></li>
         </ul>
     </div>
 </div>

@@ -10,6 +10,8 @@ class CreateOpportunities < ActiveRecord::Migration[5.0]
       t.date :close_date
       t.string :status, default: "Open"
 
+      t.string :dummy
+
       t.references :account, foreign_key: true
       t.references :user, foreign_key: true
       t.timestamps

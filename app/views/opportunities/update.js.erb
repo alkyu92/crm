@@ -10,3 +10,7 @@ $('#opportunityModalForm').modal('hide');
 $('#crm-menu').html("<%= j (render 'layouts/menu') %>");
 
 $('#docs_').val('');
+
+$('#assignContactForm').modal('hide');
+$('#contact').html("<%= j (render 'contacts/contact') %>")
+$('#notice-contact').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();

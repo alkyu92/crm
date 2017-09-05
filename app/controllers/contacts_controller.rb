@@ -76,10 +76,6 @@ before_action :find_subject, only: [:create, :edit, :update, :destroy]
     end
   end
 
-  def delete_association
-    redirect_to request.referrer
-  end
-
   def params_contact
     params.require(:contact).permit(:name,
                                     :title,

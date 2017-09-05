@@ -1,5 +1,5 @@
 class Contact < ApplicationRecord
-  has_many :relationships
+  has_many :relationships, dependent: :destroy
   has_many :accounts, through: :relationships, source: :contactable, source_type: 'Account'
   has_many :opportunities, through: :relationships, source: :contactable, source_type: 'Opportunity'
 

@@ -23,6 +23,8 @@ class CreateAccounts < ActiveRecord::Migration[5.0]
       t.string :shipping_postal_code
       t.string :shipping_country
 
+      t.string :dummy
+
       t.references :user, foreign_key: true
       t.timestamps
     end

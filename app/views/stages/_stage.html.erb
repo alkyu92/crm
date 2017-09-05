@@ -41,17 +41,17 @@
                             <% if stage.status == "In Progress" &&
                               @opportunity.stages.last.id == stage.id %>
                             <li><%= link_to 'Mark as Completed',
-                            update_stage_status_path(@opportunity, stage),
+                            update_status_opportunity_stage_path(@opportunity, stage),
                           remote: true, method: :get %></li>
 
                             <% elsif stage.status == "Waiting" %>
                             <li><%= link_to 'Mark as In Progress',
-                            update_stage_status_path(@opportunity, stage),
+                            update_status_opportunity_stage_path(@opportunity, stage),
                             remote: true, method: :get %></li>
 
                             <% elsif stage.status == "Completed" %>
                             <li><%= link_to 'Mark as In Progress',
-                            update_stage_status_path(@opportunity, stage),
+                            update_status_opportunity_stage_path(@opportunity, stage),
                             remote: true, method: :get %></li>
                             <% end %>
 

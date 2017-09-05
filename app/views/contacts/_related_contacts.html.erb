@@ -31,12 +31,40 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Assign Contacts</h4>
+                    <h4 class="modal-title">Assign contacts to
+                      <% if params[:controller] == "accounts" %>
+                      account
+                      <%= @subject.account_name %>
+                      <% elsif params[:controller] == "opportunities" %>
+                      opportunity
+                      <%= @subject.name %>
+                      <% end %>
+                    </h4>
                 </div>
                 <div class="modal-body">
+                  <%= simple_form_for @subject, remote: true do |f| %>
+                  <%= f.input :dummy, as: :hidden %>
+
+                  <% Contact.all.each do |ct| %>
+                    <% catch :here do %>
+                    <% @subject.contacts.each do |sbjct| %>
+                      <% if sbjct.id == ct.id %>
+                      <%= check_box_tag "assigned[]", ct.id, true %>
+                      <%= ct.name %>
+                      <% throw :here %>
+                      <% end %>
+                    <% end %>
+                    <%= check_box_tag "assigned[]", ct.id %>
+                    <%= ct.name %>
+                    <br>
+                    <% end %>
+                  <% end %>
 
                 </div>
                 <div class="modal-footer">
+                  <%= f.button :submit, "Assign Contact" %>
+                  <% end %>
+                  <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
                 </div>
             </div>
         </div>

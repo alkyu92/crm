@@ -45,6 +45,14 @@ class AccountsController < ApplicationController
           }
           timeline_account("relatedDocs", @account.account_name, "added attachment file to account")
         end
+
+        if params[:assigned]
+          params[:assigned].each { |ct_id|
+            @ctct = Contact.find(ct_id)
+            @account.relationships.create!(contact: @ctct)
+          }
+        end
+
         save_timeline_if_any_changes
         format.js { flash.now[:success] = "Account entry updated!" }
       else
@@ -57,8 +65,14 @@ class AccountsController < ApplicationController
     @accounts = Account.page(params[:page]).per(10)
     @account = Account.find(params[:id])
     @account.destroy
-    flash[:success] = "Account deleted!"
-    redirect_to accounts_path
+
+    respond_to do |format|
+      format.js { flash.now[:success] = "Account deleted!" }
+      format.html {
+        flash[:success] = "Account deleted!"
+        redirect_to accounts_path
+      }
+    end
   end
 
   def delete_attachment
@@ -104,6 +118,7 @@ class AccountsController < ApplicationController
                                     :shipping_state,
                                     :shipping_postal_code,
                                     :shipping_country,
+                                    :dummy,
                                     :document,
                                     documents_attributes: [ doc: [] ]
                                     )

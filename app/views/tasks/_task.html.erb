@@ -64,10 +64,12 @@ No tasks created yet.
                 </a>
                 <ul class="dropdown-menu">
                   <% if task.complete == false %>
-                      <li><%= link_to 'Mark as Completed', update_task_status_path(@opportunity, task),
+                      <li><%= link_to 'Mark as Completed',
+                      update_task_status_opportunity_task_path(@opportunity, task),
                       remote: true %></li>
                   <% else %>
-                      <li><%= link_to 'Mark as Incomplete', update_task_status_path(@opportunity, task),
+                      <li><%= link_to 'Mark as Incomplete',
+                      update_task_status_opportunity_task_path(@opportunity, task),
                       remote: true %></li>
                   <% end %>
                     <li><%= link_to 'Show', '#', data: {toggle: "modal", target: "#taskInfo-#{task.id}"} %></li>

@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170829043310) do
     t.string   "shipping_state"
     t.string   "shipping_postal_code"
     t.string   "shipping_country"
+    t.string   "dummy"
     t.integer  "user_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
@@ -129,18 +130,13 @@ ActiveRecord::Schema.define(version: 20170829043310) do
     t.string   "loss_reason"
     t.date     "close_date"
     t.string   "status",        default: "Open"
+    t.string   "dummy"
     t.integer  "account_id"
     t.integer  "user_id"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.index ["account_id"], name: "index_opportunities_on_account_id"
     t.index ["user_id"], name: "index_opportunities_on_user_id"
-  end
-
-  create_table "priorities", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -159,12 +155,6 @@ ActiveRecord::Schema.define(version: 20170829043310) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.index ["opportunity_id"], name: "index_stages_on_opportunity_id"
-  end
-
-  create_table "statuses", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "tasks", force: :cascade do |t|

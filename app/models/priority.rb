@@ -1,2 +1,0 @@
-class Priority < ApplicationRecord
-end

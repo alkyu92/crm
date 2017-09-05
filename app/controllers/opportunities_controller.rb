@@ -8,9 +8,9 @@ class OpportunitiesController < ApplicationController
     @accounts = Account.all
 
     # for AJAX
-    @subject = @opportunity
-    @account = Account.find(params[:account_id]) if params[:account_id]
-    @subject = @account
+    #@subject = @opportunity
+    #@account = Account.find(params[:account_id]) if params[:account_id]
+    #@subject = @account
 
   end
 
@@ -18,7 +18,7 @@ class OpportunitiesController < ApplicationController
     # for AJAX
     @subject = Opportunity.find(params[:id])
     @opportunity = @subject
-    @accounts = Account.all
+    #@accounts = Account.all
 
     @subject.timelines.includes(:activity, :user).each do |tl|
       next if tl.read == true
@@ -80,6 +80,13 @@ class OpportunitiesController < ApplicationController
           @opportunity.documents.destroy_all
         end
 
+        if params[:assigned]
+          params[:assigned].each { |ct_id|
+            @ctct = Contact.find(ct_id)
+            @opportunity.relationships.create!(contact: @ctct)
+          }
+        end
+
         save_timeline_if_any_changes
         format.js { flash.now[:success] = "Opportunity entry updated!" }
       else
@@ -91,8 +98,14 @@ class OpportunitiesController < ApplicationController
   def destroy
     @opportunity = Opportunity.includes(:user).find(params[:id])
     @opportunity.destroy
-    flash[:success] = "Opportunity entry deleted!"
-    redirect_to opportunities_path
+
+    respond_to do |format|
+      format.js { flash.now[:success] = "Opportunity entry deleted!" }
+      format.html {
+        flash[:success] = "Opportunity entry deleted!"
+        redirect_to opportunities_path
+      }
+    end
   end
 
   def delete_attachment
@@ -129,6 +142,7 @@ class OpportunitiesController < ApplicationController
                                          :description,
                                          :loss_reason,
                                          :close_date,
+                                         :dummy,
                                          :status,
                                          :document,
                                          documents_attributes: [ doc: [] ]

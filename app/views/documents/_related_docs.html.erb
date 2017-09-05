@@ -5,9 +5,8 @@
 
     <div class="panel panel-default panel-body">
         <%= simple_form_for @subject, html: {multipart: true}, remote: true do |f| %>
-
-        <%= f.input :account_name, as: :hidden if params[:controller] == "accounts" %>
-        <%= f.input :name, as: :hidden if params[:controller] == "opportunities" %>
+        <!-- dummy for the sake of saving the file -->
+        <%= f.input :dummy, as: :hidden %>
 
         <%= f.label "Upload Documents" %>
         <%= file_field_tag "docs[]",type: :file, multiple: true %>

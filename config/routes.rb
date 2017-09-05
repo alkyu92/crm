@@ -5,21 +5,47 @@ Rails.application.routes.draw do
   resources :dashboards
 
   resources :opportunities do
-    resources :contacts
+
+    resources :contacts do
+      resources :relationships, only: :destroy
+    end
+
     get '/delete_attachment/:id',
     to: 'opportunities#delete_attachment', as: :delete_attachment
     resources :timelines
-    resources :stages
-    resources :tasks
+
+    resources :stages do
+      member do
+        get '/update_status', to: 'stages#update_stage_status'
+      end
+    end
+
+    resources :tasks do
+      member do
+        get '/update_task_status', to: 'tasks#update_task_status'
+      end
+    end
+
     resources :calls
-    resources :events
+
+    resources :events do
+      member do
+        get '/update_event_status', to: 'events#update_event_status'
+      end
+    end
+
     resources :notes
   end
 
   resources :accounts do
-    resources :contacts
+
+    resources :contacts do
+      resources :relationships, only: :destroy
+    end
+
     get '/delete_attachment/:id',
     to: 'accounts#delete_attachment', as: :delete_attachment
+
     resources :timelines
     resources :notes
     resources :opportunities
@@ -33,22 +59,11 @@ Rails.application.routes.draw do
 
   resources :users
   resources :contacts
+  resources :relationships, only: :destroy
 
   get '/search', to: 'search#search', as: :search
 
-  get '/opportunities/:opportunity_id/stages/:id/update_stage_status',
-  to: 'stages#update_stage_status', as: :update_stage_status
-
-  get '/opportunities/:opportunity_id/tasks/:id/update_task_status',
-  to: 'tasks#update_task_status', as: :update_task_status
-
-  get '/opportunities/:opportunity_id/events/:id/update_event_status',
-  to: 'events#update_event_status', as: :update_event_status
-
   get '/timelines/:id', to: 'timelines#update_read_status', as: :update_read_status
-
-  get '/contacts/:contact_id/delete_association', to: 'contacts#delete_association',
-  as: :delete_association
 
   root 'dashboards#index'
   get "*path" => redirect("/")
