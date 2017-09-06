@@ -4,32 +4,27 @@ No events yet.
 
 <h5>Latest Events</h5>
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-6">
         <small>Events</small>
     </div>
-    <div class="col-lg-4">
-        <small>Event date</small>
-    </div>
-    <div class="col-lg-4">
-        <small>Created at</small>
+    <div class="col-lg-6">
+        <small>Event DateTime</small>
     </div>
 </div>
 
 <% @events.each do |event| %>
 <div class="row">
-    <div class="col-lg-4"><%= link_to event.description.truncate(25),
+    <div class="col-lg-6"><%= link_to event.description.truncate(50),
   opportunity_path(event.opportunity.id, anchor: "event-#{event.id}") %></div>
-    <% if event.event_date.blank? %>
-    <div class="col-lg-4">
+
+    <div class="col-lg-6">
+      <% if event.event_date.blank? %>
         <span style="color: red;">Not specified</span>
+        <% else %>
+        <%= event.event_date.strftime('%d %b %Y')%>
+        <% end %>
     </div>
-    <div class="col-lg-4">
-        <span style="color: red;">Not available</span>
-    </div>
-<% else %>
-    <div class="col-lg-4"><%= event.event_date.strftime('%d %b %Y')%></div>
-    <div class="col-lg-4"><%= event.created_at.strftime('%d %b %Y') %></div>
-    <% end %>
+
 </div>
 <% end %>
 
@@ -40,11 +35,8 @@ No events yet.
     <div class="col-lg-4">
         <small>Events</small>
     </div>
-    <div class="col-lg-4">
-        <small>Event date</small>
-    </div>
-    <div class="col-lg-4">
-        <small>Time remaining</small>
+    <div class="col-lg-8">
+        <small>Event DateTime</small>
     </div>
 </div>
 
@@ -53,15 +45,16 @@ No events yet.
     <div class="col-lg-4"><%= link_to urevent.description.truncate(25),
   opportunity_path(urevent.opportunity.id, anchor: "event-#{urevent.id}") %></div>
     <% if urevent.event_date.blank? %>
-    <div class="col-lg-4">
+    <div class="col-lg-8">
         <span style="color: red;">Not specified</span>
     </div>
-    <div class="col-lg-4">
-        <span style="color: red;">Not available</span>
-    </div>
 <% else %>
-    <div class="col-lg-4"><%= urevent.event_date.strftime('%d %b %Y')%></div>
-    <div class="col-lg-4"><%= distance_of_time_in_words(urevent.event_date, Time.now) %></div>
+    <div class="col-lg-8">
+      <%= urevent.event_date.strftime('%d %b %Y %H:%M:%S')%>
+      <small>
+        (<%= distance_of_time_in_words(urevent.event_date, Time.now) %> left)
+      </small>
+    </div>
     <% end %>
 </div>
 <% end %>

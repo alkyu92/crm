@@ -33,7 +33,49 @@ for i in 1..15 do
 end
 
 for i in 1..10 do
-  Note.create!(title: "Sample note " + i.to_s,
+  Note.create!(
+  title: "Sample note " + i.to_s,
   description: "Sample description " + i.to_s,
   info_id: 1, info_type: "Opportunity", user_id: 1)
 end
+
+for i in 1..10 do
+  Task.create!(
+  description: "Sample task " + i.to_s,
+  due_date: 1.week.from_now, opportunity_id: 1, user_id: 1)
+end
+
+for i in 1..10 do
+  Call.create!(
+  description: "Sample call log " + i.to_s,
+  call_datetime: 1.week.from_now, duration: 5,
+  opportunity_id: 1, user_id: 1)
+end
+
+for i in 1..10 do
+  Event.create!(
+  description: "Sample event " + i.to_s,
+  event_date: 1.week.from_now, opportunity_id: 1, user_id: 1)
+end
+
+# testing timeline month display
+@op = Opportunity.first
+@op.timelines.create!(tactivity: "try",
+                      nactivity: "timeline",
+                      action: "created test",
+                      user_id: 1,
+                      activity_type: "Opportunity",
+                      activity_id: 1)
+
+@op.timelines.create!(tactivity: "try",
+                      nactivity: "timeline",
+                      action: "created test",
+                      user_id: 1,
+                      activity_type: "Opportunity",
+                      activity_id: 1,
+                      created_at: 1.month.from_now,
+                      updated_at: 1.month.from_now)
+
+# testing contact association
+@contact = Contact.first
+@op.relationships.create!(contact: @contact)

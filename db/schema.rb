@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20170829043310) do
 
   create_table "events", force: :cascade do |t|
     t.text     "description"
-    t.date     "event_date"
+    t.datetime "event_date"
     t.boolean  "complete",       default: false
     t.integer  "opportunity_id"
     t.integer  "user_id"
@@ -162,7 +162,7 @@ ActiveRecord::Schema.define(version: 20170829043310) do
 
   create_table "tasks", force: :cascade do |t|
     t.text     "description"
-    t.date     "due_date"
+    t.datetime "due_date"
     t.boolean  "complete",       default: false
     t.integer  "opportunity_id"
     t.integer  "user_id"

@@ -26,11 +26,8 @@ No tasks created yet.
     <div class="col-lg-4">
         <small>Activities</small>
     </div>
-    <div class="col-lg-4">
-        <small>Due date</small>
-    </div>
-    <div class="col-lg-4">
-        <small>Time remaining</small>
+    <div class="col-lg-8">
+        <small>Due DateTime</small>
     </div>
 </div>
 
@@ -38,16 +35,18 @@ No tasks created yet.
 <div class="row">
     <div class="col-lg-4"><%= link_to urtask.description.truncate(50),
   opportunity_path(urtask.opportunity.id, anchor: "task-#{urtask.id}") %></div>
+
     <% if urtask.due_date.blank? %>
-    <div class="col-lg-4">
+    <div class="col-lg-8">
         <span style="color: red;">Not specified</span>
     </div>
-    <div class="col-lg-4">
-        <span style="color: red;">Not available</span>
-    </div>
 <% else %>
-    <div class="col-lg-4"><%= urtask.due_date.strftime('%d %b %Y')%></div>
-    <div class="col-lg-4"><%= distance_of_time_in_words(urtask.due_date, Time.now) %></div>
+    <div class="col-lg-8">
+      <%= urtask.due_date.strftime('%d %b %Y %H:%M:%S')%>
+      <small>
+        (<%= distance_of_time_in_words(urtask.due_date, Time.now) %> left)
+      </small>
+    </div>
     <% end %>
 </div>
 <% end %>

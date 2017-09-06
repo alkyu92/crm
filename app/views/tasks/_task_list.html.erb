@@ -22,7 +22,7 @@
         <strong>Description</strong>
     </div>
     <div class="col-lg-2">
-        <strong>Due Date</strong>
+        <strong>Due DateTime</strong>
     </div>
     <div class="col-lg-2">
         <strong>Opportunity Name</strong>
@@ -51,11 +51,16 @@
         <span style="color: red;">Date not specified</span>
     <% else %>
         <% if task.due_date > Date.today %>
-        <%= task.due_date.strftime('%d %b %Y') %><br>
+        <%= task.due_date.strftime('%d %b %Y %H:%M:%S') %><br>
         <small>
-          (<%= distance_of_time_in_words(Time.now, task.due_date) %>
-          left)
-        </small>
+        (<%= distance_of_time_in_words(task.due_date, Time.now) %>
+        <% if Time.now > task.due_date %>
+        ago
+        <% elsif Time.now < task.due_date %>
+        left
+        <% end %>
+        )
+      </small>
         <% elsif task.due_date == Date.today %>
         <strong style="color: orange;">Today</strong><br>
         <small>(<%= task.due_date.strftime('%d %b %Y') %>)</small>

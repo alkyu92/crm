@@ -17,7 +17,7 @@
         <strong>Description</strong>
     </div>
     <div class="col-lg-2">
-        <strong>Call Date</strong>
+        <strong>Call DateTime</strong>
     </div>
     <div class="col-lg-2">
         <strong>Opportunity Name</strong>
@@ -42,9 +42,16 @@
       <% if call.call_datetime.blank? %>
       <span style="color: red;">Date not specified</span>
       <% else %>
-        <%= call.call_datetime.strftime('%d %b %Y') %><br>
-        (<%= distance_of_time_in_words(Time.now, call.call_datetime) %>
-        left)
+        <%= call.call_datetime.strftime('%d %b %Y %H:%M:%S') %><br>
+        <small>
+        (<%= distance_of_time_in_words(call.call_datetime, Time.now) %>
+        <% if Time.now > call.call_datetime %>
+        ago
+        <% elsif Time.now < call.call_datetime %>
+        left
+        <% end %>
+        )
+      </small>
       <% end %>
     </div>
     <div class="col-lg-2"><%= link_to call.opportunity.name, opportunity_path(call.opportunity) %></div>

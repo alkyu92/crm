@@ -21,9 +21,14 @@
                         <% if event.event_date > Date.today %>
                         <%= event.event_date.strftime('%d %b %Y') %><br>
                         <small>
-                            (<%= distance_of_time_in_words(Time.now, event.event_date) %>
-                            left)
-                        </small>
+                        (<%= distance_of_time_in_words(event.event_date, Time.now) %>
+                        <% if Time.now > event.event_date %>
+                        ago
+                        <% elsif Time.now < event.event_date %>
+                        left
+                        <% end %>
+                        )
+                      </small>
                         <% elsif event.event_date == Date.today %>
                         <strong style="color: orange;">Today</strong>
                         (<%= Time.now.strftime('%d %b %Y') %>)
