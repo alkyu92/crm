@@ -1,0 +1,12 @@
+#! /bin/sh
+
+echo "Clearing previous assets..."
+RAILS_ENV=production rake assets:clobber
+RAILS_ENV=production rake assets:clean
+
+echo "Precompiling assets..."
+RAILS_ENV=production bundle exec rake assets:precompile
+
+echo "Restarting Puma server..."
+sudo kill -9 `cat /home/pi/history/shared/pids/puma.pid`
+puma -d

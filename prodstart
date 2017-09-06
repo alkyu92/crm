@@ -1,0 +1,23 @@
+#! /bin/sh
+
+echo "Dropping production database..."
+rails db:drop RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+
+echo "Creating production database..."
+rails db:create RAILS_ENV=production
+
+echo "Production database migration..."
+rails db:migrate RAILS_ENV=production
+
+echo "Seeding production database..."
+rails db:seed RAILS_ENV=production
+
+echo "Clearing previous assets..."
+RAILS_ENV=production rake assets:clobber
+RAILS_ENV=production rake assets:clean
+
+echo "Precompiling assets..."
+RAILS_ENV=production bundle exec rake assets:precompile
+
+echo "Running server in production mode..."
+rails s -e production

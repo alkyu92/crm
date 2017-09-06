@@ -1,0 +1,3 @@
+cd /home/pi/history/
+sudo kill -9 `cat /home/pi/history/shared/pids/puma.pid`
+puma -d
