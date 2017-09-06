@@ -73,8 +73,17 @@ end
                       user_id: 1,
                       activity_type: "Opportunity",
                       activity_id: 1,
-                      created_at: 1.month.from_now,
-                      updated_at: 1.month.from_now)
+                      created_at: 1.month.ago,
+                      updated_at: 1.month.ago)
+
+@op.timelines.create!(tactivity: "try",
+                      nactivity: "timeline",
+                      action: "created test",
+                      user_id: 1,
+                      activity_type: "Opportunity",
+                      activity_id: 1,
+                      created_at: 2.month.ago,
+                      updated_at: 2.month.ago)
 
 # testing contact association
 @contact = Contact.first
