@@ -1,2 +1,2 @@
-cd /home/pi/history/
+cd /home/pi/crm/
 sudo kill -9 `cat /home/pi/crm/shared/pids/puma.pid`
