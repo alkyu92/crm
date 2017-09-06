@@ -40,20 +40,30 @@
                         <ul class="dropdown-menu">
                             <% if stage.status == "In Progress" &&
                               @opportunity.stages.last.id == stage.id %>
+
                             <li><%= link_to 'Mark as Completed',
                             update_status_opportunity_stage_path(@opportunity, stage),
-                          remote: true, method: :get %></li>
+                            remote: true, method: :get %></li>
+                            <li role="separator" class="divider"></li>
 
                             <% elsif stage.status == "Waiting" %>
+
                             <li><%= link_to 'Mark as In Progress',
                             update_status_opportunity_stage_path(@opportunity, stage),
                             remote: true, method: :get %></li>
+                            <li role="separator" class="divider"></li>
 
                             <% elsif stage.status == "Completed" %>
+
                             <li><%= link_to 'Mark as In Progress',
                             update_status_opportunity_stage_path(@opportunity, stage),
                             remote: true, method: :get %></li>
+                            <li role="separator" class="divider"></li>
+
                             <% end %>
+
+                            <li><%= link_to 'Show details', '#',
+                            data: { toggle: "modal", target: "#showStage-#{stage.id}"} %></li>
 
                             <li><%= link_to 'Edit stage name', '#',
                             data: { toggle: "modal", target: "#editStage-#{stage.id}"},
@@ -82,6 +92,52 @@
                 <% if (index+1) % 6 == 0 %>
             </div>
             <% end %>
+
+            <!-- Modal -->
+            <div id="showStage-<%= stage.id %>" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">
+                                <small>Stage Details</small>
+                                <br>
+                                <%= stage.name %></h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-lg-6">
+                          <small>Stage Status</small>
+                          <h4><%= stage.status %>
+                          <% if stage.status == "Waiting" %>
+                          for previous stage
+                          <% end %>
+                          </h4>
+                          <br>
+
+
+                        </div>
+                        <div class="col-lg-6">
+                          <small>Stage Created At</small>
+                          <h4><%= stage.created_at.strftime('%d %b %Y %H:%M:%S') %></h4>
+                          <br>
+
+                          <small>Stage Updated At</small>
+                          <h4><%= stage.updated_at.strftime('%d %b %Y %H:%M:%S') %></h4>
+                          <br>
+                        </div>
+                      </div>
+
+                        </div>
+                        <div class="modal-footer">
+
+                            <%= link_to 'Close', '#', class: "btn btn-default", data: {dismiss: "modal"}%>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <% end %>
             <!-- @opportunity.stages.each_with_index -->

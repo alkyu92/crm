@@ -29,15 +29,15 @@
                         target: "#contactInfo-#{relationship.contact.id}"}%></li>
                           <% if params[:controller] == "accounts" || params[:account_id] %>
                           <li><%= link_to 'Edit Contact',
-                          edit_account_contact_path(@subject, relationship.contact) %></li>
+                          edit_contact_path(relationship.contact) %></li>
                           <li><%= link_to 'Delete Association',
-                          account_relationship_path(@subject, relationship.id),
+                          destroy_relationship_contact_path(relationship.contact, relationship.id),
                           method: :delete, remote: true %></li>
                           <% elsif params[:controller] == "opportunities" || params[:opportunity_id] %>
                           <li><%= link_to 'Edit Contact',
-                          edit_opportunity_contact_path(@subject, relationship.contact) %></li>
+                          edit_contact_path(relationship.contact) %></li>
                           <li><%= link_to 'Delete Association',
-                          opportunity_relationship_path(@subject, relationship.id),
+                          destroy_relationship_contact_path(relationship.contact, relationship.id),
                           method: :delete, remote: true %></li>
                           <% end %>
                     </ul>

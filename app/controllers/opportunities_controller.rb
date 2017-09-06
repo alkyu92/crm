@@ -18,7 +18,7 @@ class OpportunitiesController < ApplicationController
     # for AJAX
     @subject = Opportunity.find(params[:id])
     @opportunity = @subject
-    #@accounts = Account.all
+    @accounts = Account.all
 
     @subject.timelines.includes(:activity, :user).each do |tl|
       next if tl.read == true
@@ -84,6 +84,7 @@ class OpportunitiesController < ApplicationController
           params[:assigned].each { |ct_id|
             @ctct = Contact.find(ct_id)
             @opportunity.relationships.create!(contact: @ctct)
+            timeline_opportunity("relatedContacts", @ctct.name, "added association")
           }
         end
 

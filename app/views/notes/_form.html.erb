@@ -6,7 +6,19 @@
         <%= simple_form_for [@subject, @note] do |f| %>
         <%= f.input :title %>
         <%= f.input :description %>
+
+        <% if params[:account_id] %>
+        <%= link_to 'Back',
+        account_path(@subject, anchor: "relatedNotes-#{@note.id}"),
+        class: "btn btn-default" %>
+        <% elsif params[:opportunity_id] %>
+        <%= link_to 'Back',
+        opportunity_path(@subject, anchor: "relatedNotes-#{@note.id}"),
+        class: "btn btn-default" %>
+        <% end %>
+
         <%= f.button :submit, class: "btn btn-success" %>
+
         <% end %>
     </div>
     <div class="col-lg-3"></div>

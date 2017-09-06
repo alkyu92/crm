@@ -1,5 +1,7 @@
 class ContactsController < ApplicationController
-before_action :find_subject, only: [:create, :edit, :update, :destroy]
+before_action :find_subject,
+only: [:create, :edit, :update, :destroy]
+
   def index
     @contacts = Contact.includes(:relationships).page(params[:page]).per(10)
   end
@@ -75,6 +77,24 @@ before_action :find_subject, only: [:create, :edit, :update, :destroy]
       format.js { flash.now[:success] = "Contact deleted!" }
     end
   end
+
+  def destroy_relationship
+    unless params[:opportunity_id] || params[:account_id]
+      @contact = Contact.find(params[:id])
+    end
+
+    @relationship = Relationship.find(params[:relationship_id])
+    @subject = @relationship.contactable
+
+    timeline_contact("deleted association")
+    @relationship.destroy
+
+    respond_to do |format|
+      format.js { flash.now[:success] = "Relationship deleted!"}
+    end
+  end
+
+  private
 
   def params_contact
     params.require(:contact).permit(:name,

@@ -1,0 +1,44 @@
+<% ctct = @contact.relationships.includes(:contactable) %>
+<% if ctct.blank? %>
+No association found
+<% else %>
+<% contactable_acc = ctct.where(contactable_type: "Account") %>
+<% unless contactable_acc.blank? %>
+<small>Account</small><br>
+<div class="row">
+    <% contactable_acc.each do |rl| %>
+    <div class="col-lg-4">
+      <div class="panel panel-default panel-body">
+        <%= link_to rl.contactable.account_name,
+        account_path(rl.contactable, anchor: "relatedContacts") %>
+        <%= link_to destroy_relationship_contact_path(rl.contactable, rl.id),
+        method: :delete, remote: true do %>
+        <i class="fa fa-times pull-right"></i>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+</div>
+<% end %>
+
+<br>
+<% contactable_op = ctct.where(contactable_type: "Opportunity") %>
+<% unless contactable_op.blank? %>
+<small>Opportunity</small><br>
+<div class="row">
+    <% contactable_op.each do |rl| %>
+    <div class="col-lg-4">
+      <div class="panel panel-default panel-body">
+        <%= link_to rl.contactable.name,
+  opportunity_path(rl.contactable, anchor: "relatedContacts") %>
+        <%= link_to destroy_relationship_contact_path(rl.contactable, rl.id),
+        method: :delete, remote: true do %>
+        <i class="fa fa-times pull-right"></i>
+        <% end %>
+    </div>
+  </div>
+    <% end %>
+</div>
+<% end %>
+
+<% end %>

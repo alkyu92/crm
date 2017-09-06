@@ -6,11 +6,7 @@ Rails.application.routes.draw do
 
   resources :opportunities do
 
-    resources :relationships, only: :destroy
-
-    resources :contacts do
-      resources :relationships, only: :destroy
-    end
+    resources :contacts
 
     get '/delete_attachment/:id',
     to: 'opportunities#delete_attachment', as: :delete_attachment
@@ -40,10 +36,8 @@ Rails.application.routes.draw do
   end
 
   resources :accounts do
-    resources :relationships, only: :destroy
-    resources :contacts do
-      resources :relationships, only: :destroy
-    end
+
+    resources :contacts
 
     get '/delete_attachment/:id',
     to: 'accounts#delete_attachment', as: :delete_attachment
@@ -60,7 +54,12 @@ Rails.application.routes.draw do
   get '/notifications', to: 'notifications#index'
 
   resources :users
-  resources :contacts
+  resources :contacts do
+    member do
+      delete '/destroy_relationship/:relationship_id',
+      to: 'contacts#destroy_relationship', as: :destroy_relationship
+    end
+  end
 
   get '/search', to: 'search#search', as: :search
 

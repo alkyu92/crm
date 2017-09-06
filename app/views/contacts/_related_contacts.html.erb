@@ -45,6 +45,7 @@
                   <%= simple_form_for @subject, remote: true do |f| %>
                   <%= f.input :dummy, as: :hidden %>
 
+                  <% @collect = [] %>
                   <% Contact.all.each do |ct| %>
                     <% catch :here do %>
                     <% @subject.contacts.each do |sbjct| %>
@@ -52,11 +53,13 @@
                       <% throw :here %>
                       <% end %>
                     <% end %>
-                    <%= check_box_tag "assigned[]", ct.id %>
-                    <%= ct.name %>
-                    <br>
+                    <% @collect << ct %>
                     <% end %>
                   <% end %>
+
+                  <%= select_tag 'assigned[]',
+                  options_from_collection_for_select(@collect, :id, :name),
+                  multiple: true, class: 'multiselectuser form-control' %>
 
                 </div>
                 <div class="modal-footer">

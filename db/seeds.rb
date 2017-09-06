@@ -16,18 +16,24 @@ user_arr.each do |key, value|
                 password_confirmation: value[3])
 end
 
-for i in 1..10 do
-  Contact.create!(name: "Mark " + i.to_s, user_id: 1)
+for i in 1..100 do
+  Contact.create!(name: "Person " + i.to_s, user_id: 1)
 end
 
-for i in 1..10 do
+for i in 1..100 do
   Account.create!(account_name: "Acc " + i.to_s, user_id: 1)
 end
 
-for i in 1..10 do
+for i in 1..100 do
   Opportunity.create!(name: "Op " + i.to_s, user_id: 1, account_id: 1)
 end
 
 for i in 1..8 do
   Stage.create!(name: "Stage " + i.to_s, opportunity_id: 1)
+end
+
+for i in 1..10 do
+  Note.create!(title: "Sample note " + i.to_s,
+  description: "Sample description " + i.to_s,
+  info_id: 1, info_type: "Opportunity", user_id: 1)
 end
