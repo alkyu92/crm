@@ -4,7 +4,10 @@ class CreateStages < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :status, null: false, default: "Waiting"
       t.boolean :current_status, null: false, default: false
-      
+      t.integer :updated_by_id
+
+      t.references :user, foreign_key: true
+
       t.references :opportunity, foreign_key: true
       t.timestamps
     end

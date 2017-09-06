@@ -6,7 +6,19 @@
 <p>Every changes will be recorded here.</p>
 <% else %>
 
+<% tldate_current = "" %>
+<% tldate_previous = "" %>
+
 <% op.each do |timeline| %>
+
+<% tldate_current = timeline.created_at.strftime('%B %Y') %>
+<% if tldate_current != tldate_previous %>
+<hr>
+<div class="text-center">
+<h3><small><%= tldate_current %></small></h3>
+</div>
+<% end %>
+
 <div class="panel panel-default panel-body">
     <div class="media">
         <div class="media-left" style="padding-top: 6px;">
@@ -63,6 +75,7 @@
                 <h5></div>
             </div>
         </div>
+        <% tldate_previous = tldate_current %>
         <% end %>
         <div class="text-center" id="paginator">
             <%= page_entries_info op %><br>

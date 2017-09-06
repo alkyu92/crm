@@ -4,6 +4,8 @@ class StagesController < ApplicationController
 
   def create
     @stage = @subject.stages.build(params_stage)
+    @stage.user_id = current_user.id
+    @stage.updated_by_id = current_user.id
 
     respond_to do |format|
       if @stage.save
@@ -19,6 +21,7 @@ class StagesController < ApplicationController
   def update
     respond_to do |format|
       if @stage.update(params_stage)
+        @stage.update_attributes(updated_by_id: current_user.id)
         timeline_stage("updated stage")
         format.js { flash.now[:success] = "Opportunity stage updated!" }
       else
@@ -52,13 +55,13 @@ class StagesController < ApplicationController
     respond_to do |format|
       if @stage.status == "In Progress"
         update_status("In Progress", "Completed", false)
-        format.js { flash.now[:success] = "Stage status updated from In Progress to Completed!" }
+        format.js { flash.now[:success] = "Stage status updated from 'In Progress' to 'Completed'!" }
       elsif @stage.status == "Completed"
         update_status("Completed", "In Progress", true)
-        format.js { flash.now[:success] = "Stage status updated from Completed to In Progress!" }
+        format.js { flash.now[:success] = "Stage status updated from 'Completed' to 'In Progress'!" }
       elsif @stage.status == "Waiting"
         update_status("Waiting", "In Progress", true)
-        format.js { flash.now[:success] = "Stage status updated from Waiting to In Progress!" }
+        format.js { flash.now[:success] = "Stage status updated from 'Waiting' to 'In Progress'!" }
       end
     end
   end
@@ -79,7 +82,8 @@ class StagesController < ApplicationController
   end
 
   def update_status(previous,current,boolean)
-    @stage.update_attributes(status: current, current_status: boolean)
+    @stage.update_attributes(status: current, current_status: boolean,
+    updated_by_id: current_user.id)
     @opportunity.stages.each do |stage|
       if stage.id < @stage.id
         stage.update_attributes(status: "Completed")
@@ -87,7 +91,7 @@ class StagesController < ApplicationController
         stage.update_attributes(status: "Waiting")
       end
     end
-    timeline_stage("changed stage status from #{previous} to #{current} for")
+    timeline_stage("changed stage status from '#{previous}' to '#{current}' for")
   end
 
   def find_subject

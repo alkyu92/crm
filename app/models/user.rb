@@ -17,6 +17,8 @@ class User < ApplicationRecord
   has_many :contacts
   has_many :notes
 
+  has_many :stages
+
   has_many :timelines
 
   has_many :tasks

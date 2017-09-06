@@ -28,8 +28,8 @@ for i in 1..100 do
   Opportunity.create!(name: "Op " + i.to_s, user_id: 1, account_id: 1)
 end
 
-for i in 1..8 do
-  Stage.create!(name: "Stage " + i.to_s, opportunity_id: 1)
+for i in 1..15 do
+  Stage.create!(name: "Stage " + i.to_s, opportunity_id: 1, user_id: 1, updated_by_id: 1)
 end
 
 for i in 1..10 do

@@ -151,10 +151,13 @@ ActiveRecord::Schema.define(version: 20170829043310) do
     t.string   "name"
     t.string   "status",         default: "Waiting", null: false
     t.boolean  "current_status", default: false,     null: false
+    t.integer  "updated_by_id"
+    t.integer  "user_id"
     t.integer  "opportunity_id"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.index ["opportunity_id"], name: "index_stages_on_opportunity_id"
+    t.index ["user_id"], name: "index_stages_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
