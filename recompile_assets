@@ -8,5 +8,5 @@ echo "Precompiling assets..."
 RAILS_ENV=production bundle exec rake assets:precompile
 
 echo "Restarting Puma server..."
-sudo kill -9 `cat /home/pi/history/shared/pids/puma.pid`
+sudo kill -9 `cat /home/pi/crm/shared/pids/puma.pid`
 puma -d
