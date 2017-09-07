@@ -19,6 +19,7 @@ No tasks created yet.
 </div>
 <% end %>
 
+<% unless @urgent_tasks.blank? %>
 <hr>
 
 <h5>Urgent Tasks</h5>
@@ -43,12 +44,13 @@ No tasks created yet.
 <% else %>
     <div class="col-lg-8">
       <%= urtask.due_date.strftime('%d %b %Y %H:%M:%S')%>
-      <small>
+      <small style="color: red;">
         (<%= distance_of_time_in_words(urtask.due_date, Time.now) %> left)
       </small>
     </div>
     <% end %>
 </div>
+<% end %>
 <% end %>
 <% end %>
 

@@ -73,7 +73,13 @@
           <% else %>
             <% opportunity.stages.each do |stage| %>
               <% if stage.status == "In Progress" %>
-                <%= stage.name %>
+                <%= stage.name %><br>
+                <small>(In Progress)</small>
+              <% elsif stage.status == "Completed" && stage.id == opportunity.stages.last.id %>
+                <span style="color: green;">
+                  <%= stage.name %><br>
+                  <small>(Final stage completed)</small>
+                </span>
               <% end %>
             <% end %>
           <% end %>

@@ -143,7 +143,6 @@ class OpportunitiesController < ApplicationController
                                          :description,
                                          :loss_reason,
                                          :close_date,
-                                         :dummy,
                                          :status,
                                          :document,
                                          documents_attributes: [ doc: [] ]

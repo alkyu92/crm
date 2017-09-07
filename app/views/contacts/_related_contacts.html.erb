@@ -23,52 +23,8 @@
 
     <%= render 'contacts/new_form' %>
 
-    <!-- Modal -->
-    <div id="assignContactForm" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Assign contacts to
-                      <% if params[:controller] == "accounts" %>
-                      account
-                      <%= @subject.account_name %>
-                      <% elsif params[:controller] == "opportunities" %>
-                      opportunity
-                      <%= @subject.name %>
-                      <% end %>
-                    </h4>
-                </div>
-                <div class="modal-body">
-                  <%= simple_form_for @subject, remote: true do |f| %>
-                  <%= f.input :dummy, as: :hidden %>
-
-                  <% @collect = [] %>
-                  <% Contact.all.each do |ct| %>
-                    <% catch :here do %>
-                    <% @subject.contacts.each do |sbjct| %>
-                      <% if sbjct.id == ct.id %>
-                      <% throw :here %>
-                      <% end %>
-                    <% end %>
-                    <% @collect << ct %>
-                    <% end %>
-                  <% end %>
-
-                  <%= select_tag 'assigned[]',
-                  options_from_collection_for_select(@collect, :id, :name),
-                  multiple: true, class: 'multiselectuser form-control' %>
-
-                </div>
-                <div class="modal-footer">
-                  <%= f.button :submit, "Assign Contact" %>
-                  <% end %>
-                  <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
-                </div>
-            </div>
-        </div>
+    <div id="assignContact">
+    <%= render 'contacts/assign_contact_form' %>
     </div>
 
     <hr>

@@ -1,0 +1,15 @@
+<% @collect = [] %>
+<% Contact.all.each do |ct| %>
+  <% catch :here do %>
+  <% @subject.contacts.each do |sbjct| %>
+    <% if sbjct.id == ct.id %>
+    <% throw :here %>
+    <% end %>
+  <% end %>
+  <% @collect << ct %>
+  <% end %>
+<% end %>
+
+<%= select_tag 'assigned[]',
+options_from_collection_for_select(@collect, :id, :name),
+multiple: true, class: 'multiselectuser form-control' %>
