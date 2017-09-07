@@ -1,11 +1,2 @@
-<% if params[:action] = "edit" %>
 $('#association').html("<%= j (render 'contacts/association') %>");
-<% end %>
-
-$('#crm-menu').html("<%= j (render 'layouts/menu') %>");
-$('#notice-contact').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
-$('#contact').html("<%= j (render 'contacts/contact') %>");
-$('.timelines').html("<%= j (render 'timelines/timelines_index') %>");
-
-$('#assigned_').val('default');
-$('#assigned_').selectpicker('refresh');
+$('#notice-association').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();

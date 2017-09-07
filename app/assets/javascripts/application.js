@@ -20,41 +20,16 @@
 
 $(document).ready(function(){
 
-  $('#opportunity_close_date').datetimepicker({
-    pickerPosition: 'bottom-left',
-    autoclose: true,
-    todayHighlight: true,
-    minView: 2,
-    format: 'yyyy/mm/dd'
-  });
-  $('#opportunity_close_date').datetimepicker('setStartDate', new Date());
+  var id = ["#task_due_date", "#call_call_datetime", "#event_event_date", "#opportunity_close_date"];
 
-  $('#activityCalendar').datetimepicker({
-    minView: 2,
-    todayHighlight: true
-  });
+  for(i = 0; i < id.length; i++){
+    $(id[i]).datetimepicker({
+      pickerPosition: 'top-left',
+      autoclose: true,
+      todayHighlight: true,
+      format: 'yyyy/mm/dd hh:ii:ss Z'
+    });
+    $(id[i]).datetimepicker('setStartDate', new Date());
+  }
 
-  $('#task_due_date').datetimepicker({
-    pickerPosition: 'top-left',
-    autoclose: true,
-    todayHighlight: true,
-    format: 'yyyy/mm/dd hh:ii:ss Z'
-  });
-  $('#task_due_date').datetimepicker('setStartDate', new Date());
-
-  $('#call_call_datetime').datetimepicker({
-    pickerPosition: 'top-left',
-    autoclose: true,
-    todayHighlight: true,
-    format: 'yyyy/mm/dd hh:ii:ss Z'
-  });
-  $('#call_call_datetime').datetimepicker();
-
-  $('#event_event_date').datetimepicker({
-    pickerPosition: 'top-left',
-    autoclose: true,
-    todayHighlight: true,
-    format: 'yyyy/mm/dd hh:ii:ss Z'
-  });
-  $('#event_event_date').datetimepicker('setStartDate', new Date());
 });

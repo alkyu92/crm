@@ -14,5 +14,9 @@ $('#accdocs_').val('');
 
 $('#contact').html("<%= j (render 'contacts/contact') %>")
 
-$('#assigned_').val('default');
-$('#assigned_').selectpicker("refresh");
+var collection = []
+collection = $('#assigned_').val();
+for(i = 0; i < collection.length; i++){
+  $('.selectpicker').find('[value=' + collection[i] +']').remove();
+  $('.selectpicker').selectpicker('refresh');
+}

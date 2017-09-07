@@ -64,7 +64,7 @@
                             <% end %>
 
                             <li><%= link_to 'Show details', '#',
-                            data: { toggle: "modal", target: "#showStage-#{stage.id}"} %></li>
+                            data: { toggle: "modal", target: "#stageInfo-#{stage.id}"} %></li>
 
                             <li><%= link_to 'Edit stage name', '#',
                             data: { toggle: "modal", target: "#editStage-#{stage.id}"},
@@ -95,7 +95,7 @@
             <% end %>
 
             <!-- Modal -->
-            <div id="showStage-<%= stage.id %>" class="modal fade" role="dialog">
+            <div id="stageInfo-<%= stage.id %>" class="modal fade" role="dialog">
                 <div class="modal-dialog">
 
                     <!-- Modal content-->
@@ -141,11 +141,9 @@
                                     <br>
                                 </div>
                                 <div class="col-lg-6">
-
                                     <small>Stage Updated At</small>
                                     <h4><%= stage.updated_at.strftime('%d %b %Y %H:%M:%S') %></h4>
                                     <br>
-
                                 </div>
                             </div>
 

@@ -86,19 +86,10 @@ only: [:create, :edit, :update, :destroy]
   end
 
   def destroy_relationship
-    unless params[:opportunity_id] || params[:account_id]
-      @contact = Contact.find(params[:id])
-    end
-
-    @relationship = Relationship.find(params[:relationship_id])
-    # need to do something here
-    #@subject = @relationship.contactable
-
-    timeline_contact("deleted association")
-    @relationship.destroy
-
     respond_to do |format|
-      format.js { flash.now[:success] = "Relationship deleted!"}
+      @contact = Contact.find(params[:id])
+      @contact.relationships.find(params[:relationship_id]).destroy
+      format.js { flash.now[:success] = "Association deleted!"}
     end
   end
 
