@@ -12,4 +12,5 @@
 
 <%= select_tag 'assigned[]',
 options_from_collection_for_select(@collect, :id, :name),
-multiple: true, class: 'multiselectuser form-control' %>
+multiple: true, class: 'multiselectuser form-control selectpicker',
+data: {live_search: true, selected_text_format: "count > 6"} %>

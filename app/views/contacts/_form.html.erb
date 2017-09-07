@@ -41,6 +41,23 @@
             </div>
 
             <hr>
+            <small>Choose Account or Opportunity to be associated with</small>
+            <select name="assigned[]" id="assigned_" class="selectpicker form-control" multiple data-live-search="true" data-selected-text-format="count > 6" data-size="10">
+
+              <optgroup label="Account">
+                <% Account.all.each do |acc| %>
+                <option value="Account,<%= acc.id%>"><%= acc.account_name %></option>
+                <% end %>
+              </optgroup>
+
+              <optgroup label="Opportunity">
+                <% Opportunity.all.each do |op| %>
+                <option value="Opportunity,<%= op.id %>"><%= op.name %></option>
+                <% end %>
+              </optgroup>
+
+            </select>
+            <hr>
             <%= link_to 'Back', contacts_path, class: "btn btn-default" %>
             <%= f.button :submit, class: "btn-success" %>
             <% end %>

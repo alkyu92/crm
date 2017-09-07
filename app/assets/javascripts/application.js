@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap-datetimepicker
+//= require bootstrap-select
 //= require jquery.remotipart
 //= require_tree .
 

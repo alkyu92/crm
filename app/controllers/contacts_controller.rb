@@ -45,6 +45,19 @@ only: [:create, :edit, :update, :destroy]
       @contact = Contact.find(params[:id])
     end
 
+    if params[:assigned]
+      params[:assigned].each do |assign|
+        if assign.split(',')[0] == "Account"
+          @sbj = Account.find(assign.split(',')[1])
+        elsif assign.split(',')[0] == "Opportunity"
+          @sbj = Opportunity.find(assign.split(',')[1])
+        end
+
+        @contact.relationships.create!(contactable: @sbj)
+        #timeline_contact("relatedContacts", @ctct.name, "added association")
+      end
+    end
+
     if @contact.update(params_contact)
       flash[:success] = "Contact updated!"
       if params[:account_id] || params[:opportunity_id]
@@ -84,6 +97,7 @@ only: [:create, :edit, :update, :destroy]
     end
 
     @relationship = Relationship.find(params[:relationship_id])
+    # need to do something here
     @subject = @relationship.contactable
 
     timeline_contact("deleted association")
