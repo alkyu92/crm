@@ -192,10 +192,10 @@ class OpportunitiesController < ApplicationController
     end
 
     if @opportunity.status == "Open"
-      @opportunity.close_date = nil
-      @opportunity.loss_reason = nil
+      @opportunity.close_date = ""
+      @opportunity.loss_reason = ""
     elsif @opportunity.status == "Close-Won"
-      @opportunity.loss_reason = nil
+      @opportunity.loss_reason = ""
     end
 
     @opportunity.save

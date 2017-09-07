@@ -10,7 +10,13 @@
   <% end %>
 <% end %>
 
-<%= select_tag 'assigned[]',
-options_from_collection_for_select(@collect, :id, :name),
-multiple: true, class: 'multiselectuser form-control selectpicker',
-data: {live_search: true, selected_text_format: "count > 6"} %>
+<small>Choose Contact to be associated with</small>
+<select name="assigned[]" id="assigned_" class="selectpicker form-control" multiple data-live-search="true" data-selected-text-format="count > 6" data-size="10">
+
+  <optgroup label="Contact">
+    <% @collect.each do |ct| %>
+    <option value="<%= ct.id %>"><%= ct.name %></option>
+    <% end %>
+  </optgroup>
+
+</select>

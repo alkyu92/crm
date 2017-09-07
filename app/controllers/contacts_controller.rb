@@ -7,6 +7,9 @@ only: [:create, :edit, :update, :destroy]
   end
 
   def new
+    @acc_collect = Account.all
+    @op_collect = Opportunity.all
+
     @contact = Contact.new
   end
 
@@ -16,6 +19,8 @@ only: [:create, :edit, :update, :destroy]
 
       if @contact.save
         flash[:success] = "Contact created!"
+        assign_contact
+
         if params[:account_id] || params[:opportunity_id]
           @subject.relationships.create!(contact: @contact)
           timeline_contact("created contact")
@@ -36,6 +41,7 @@ only: [:create, :edit, :update, :destroy]
     else
       @contact = Contact.find(params[:id])
     end
+    collection_for_association
   end
 
   def update
@@ -45,18 +51,7 @@ only: [:create, :edit, :update, :destroy]
       @contact = Contact.find(params[:id])
     end
 
-    if params[:assigned]
-      params[:assigned].each do |assign|
-        if assign.split(',')[0] == "Account"
-          @sbj = Account.find(assign.split(',')[1])
-        elsif assign.split(',')[0] == "Opportunity"
-          @sbj = Opportunity.find(assign.split(',')[1])
-        end
-
-        @contact.relationships.create!(contactable: @sbj)
-        #timeline_contact("relatedContacts", @ctct.name, "added association")
-      end
-    end
+    assign_contact
 
     if @contact.update(params_contact)
       flash[:success] = "Contact updated!"
@@ -64,13 +59,12 @@ only: [:create, :edit, :update, :destroy]
         timeline_contact("updated contact")
         redirect_acc_or_op_path
       else
-        redirect_to contacts_path
+        redirect_to contacts_path(anchor: "contactInfo-#{@contact.id}")
       end
     else
       flash[:danger] = "Failed to update contact!"
       render 'edit'
     end
-
   end
 
   def destroy
@@ -98,7 +92,7 @@ only: [:create, :edit, :update, :destroy]
 
     @relationship = Relationship.find(params[:relationship_id])
     # need to do something here
-    @subject = @relationship.contactable
+    #@subject = @relationship.contactable
 
     timeline_contact("deleted association")
     @relationship.destroy
@@ -123,6 +117,54 @@ only: [:create, :edit, :update, :destroy]
                                     :mailing_postal_code,
                                     :mailing_country,
                                     :profile_pic)
+  end
+
+  def assign_contact
+    if params[:assigned]
+      params[:assigned].each do |assign|
+        if assign.split(',')[0] == "Account"
+          @subject = Account.find(assign.split(',')[1])
+          timeline_contact("added association")
+        elsif assign.split(',')[0] == "Opportunity"
+          @subject = Opportunity.find(assign.split(',')[1])
+          timeline_contact("added association")
+        end
+
+        @contact.relationships.create!(contactable: @subject)
+
+      end
+    end
+  end
+
+  def collection_for_association
+    @acc_collect = []
+    Account.all.each do |acc|
+      catch :here do
+
+        @contact.accounts.each do |ctac|
+          if ctac.id == acc.id
+            throw :here
+          end
+        end
+        @acc_collect << acc
+
+      end
+    end
+
+    @op_collect = []
+    Opportunity.all.each do |op|
+      catch :here do
+
+        @contact.opportunities.each do |ctop|
+          if ctop.id == op.id
+            throw :here
+          end
+        end
+        @op_collect << op
+
+      end
+    end
+
   end
 
   def find_subject

@@ -55,5 +55,7 @@
 </div>
 
 <%= javascript_tag defer: 'defer' do %>
-$('.nav-tabs a[href="' + window.location.hash.split('-')[0] + '"]').tab('show');
+var locHash = window.location.hash.split('-')
+$('.nav-tabs a[href="' + locHash[0] + '"]').tab('show');
+$(locHash[0] + "Info-" + locHash[1]).modal('show');
 <% end %>

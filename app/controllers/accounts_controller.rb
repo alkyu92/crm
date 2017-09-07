@@ -50,7 +50,7 @@ class AccountsController < ApplicationController
           params[:assigned].each { |ct_id|
             @ctct = Contact.find(ct_id)
             @account.relationships.create!(contact: @ctct)
-            timeline_account("relatedDocs", @ctct.name, "added association")
+            timeline_account("relatedContacts", @ctct.name, "added association")
           }
         end
 

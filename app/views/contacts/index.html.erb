@@ -14,3 +14,10 @@
 <div id="index-list">
 <%= render 'contacts/contact_index' %>
 </div>
+
+<%= javascript_tag defer: 'defer' do %>
+var hash = window.location.hash
+$(hash).modal('show');
+
+$('#notice-contact').delay(1600).fadeOut();
+<% end %>
