@@ -1,15 +1,19 @@
-<div class="media">
-  <div class="media-left">
-    <div style="padding-top: 20px;"></div>
-    <%= letter_avatar_tag('Events', 50, class: "media-object") %>
-  </div>
-  <div class="media-body">
-  <h3>Events<br>
-    <small>Events and Functions</small>
-  </h3>
-</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="media">
+            <div class="media-left">
+                <div style="padding-top: 20px;"></div>
+                <%= letter_avatar_tag('Events', 50, class: "media-object") %>
+            </div>
+            <div class="media-body">
+                <h3>Events<br>
+                    <small>Events and Functions</small>
+                </h3>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="event-list">
-<%= render 'events/event_list' %>
+    <%= render 'events/event_list' %>
 </div>

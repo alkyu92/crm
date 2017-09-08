@@ -12,6 +12,8 @@ class DashboardsController < ApplicationController
 
     @calls = Call.includes(:opportunity).order('created_at DESC').take(6)
 
+    @contacts = Contact.all.order('created_at DESC').take(6)
+
     @opwon = Opportunity.where(status: "Closed-Won").take(6)
     @oploss = Opportunity.where(status: "Closed-Loss").take(6)
   end

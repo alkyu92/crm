@@ -1,15 +1,19 @@
-<div class="media">
-  <div class="media-left">
-    <div style="padding-top: 20px;"></div>
-    <%= letter_avatar_tag('Calls', 50, class: "media-object") %>
-  </div>
-  <div class="media-body">
-  <h3>Call Logs<br>
-    <small>Business Conversations</small>
-  </h3>
-</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="media">
+            <div class="media-left">
+                <div style="padding-top: 20px;"></div>
+                <%= letter_avatar_tag('Calls', 50, class: "media-object") %>
+            </div>
+            <div class="media-body">
+                <h3>Call Logs<br>
+                    <small>Business Conversations</small>
+                </h3>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="call-list">
-<%= render 'calls/call_list' %>
+    <%= render 'calls/call_list' %>
 </div>
