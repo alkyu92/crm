@@ -34,7 +34,7 @@
                         Account.all.collect {|acc| [acc.account_name, acc.id] }, {},
                         {class: "form-control selectpicker", data: {live_search: true}} %>
                         <br><br>
-                        
+
                         <%= f.input :status, collection: ["Open", "Closed-Won", "Closed-Loss"],
                         include_blank: false %>
                         <%= f.input :close_date, as: :date_time_picker %>
@@ -42,7 +42,8 @@
                     <div class="col-lg-4">
                         <br><br><br>
                         <%= f.input :business_type, label: "Business Type",
-                        placeholder: "Business type" %>
+                        collection: ["New business", "Existing Business"],
+                        include_blank: "Type of business" %>
                         <%= f.input :probability, label: "Probability",
                         placeholder: "Probability in percentage" %>
                         <%= f.input :amount, label: "Amount", placeholder: "Opportunity amount" %>

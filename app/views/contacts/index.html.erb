@@ -1,33 +1,30 @@
 <div class="row">
-  <div class="col-lg-10">
-    <div class="media">
-      <div class="media-left">
-        <div style="padding-top: 20px;"></div>
-        <%= letter_avatar_tag('Contacts', 50, class: "media-object") %>
-      </div>
-      <div class="media-body">
-      <h3>Contacts<br>
-        <small>Contact Addresses</small>
-      </h3>
+    <div class="col-lg-10">
+        <div class="media">
+            <div class="media-left">
+                <div style="padding-top: 20px;"></div>
+                <%= letter_avatar_tag('Contacts', 50, class: "media-object") %>
+            </div>
+            <div class="media-body">
+                <h3>Contacts<br>
+                    <small>Contact Addresses</small>
+                </h3>
+            </div>
+        </div>
     </div>
+    <div class="col-lg-2" style="padding-top: 25px;">
+        <%= link_to 'New Contact', new_contact_path, class: "btn btn-default" %>
     </div>
-</div>
-<div class="col-lg-2" style="padding-top: 25px;">
-    <%= link_to 'New Contact', new_contact_path, class: "btn btn-default" %>
-</div>
 </div>
 
 <div id="notice-contact">
-<%= render 'layouts/message' %>
+    <%= render 'layouts/message' %>
 </div>
 
 <div id="index-list">
-<%= render 'contacts/contact_index' %>
+    <%= render 'contacts/contact_index' %>
 </div>
 
 <%= javascript_tag defer: 'defer' do %>
-var hash = window.location.hash
-$(hash).modal('show');
-
-$('#notice-contact').delay(1600).fadeOut();
+var hash = window.location.hash $(hash).modal('show'); $('#notice-contact').delay(1600).fadeOut();
 <% end %>

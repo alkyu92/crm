@@ -21,41 +21,87 @@ for i in 1..100 do
 end
 
 for i in 1..100 do
-  Account.create!(account_name: "Acc " + i.to_s, user_id: 1)
+  Account.create!(
+  account_name: "Test Account Name" + i.to_s,
+  account_type: "Customer",
+  website: "www.test-website.com",
+  email: "test@example.com",
+  description: "Test account description",
+  phone: "123-456-890",
+  fax: "098-765-432",
+  industry: "Aluminium",
+  number_of_employee: 200,
+
+  billing_street: "No. 123, Jalan 123,",
+  billing_city: "Johor Bahru",
+  billing_state: "Johor",
+  billing_postal_code: "80000",
+  billing_country: "Malaysia",
+
+  shipping_street: "No. 123, Jalan 123,",
+  shipping_city: "Johor Bahru",
+  shipping_state: "Johor",
+  shipping_postal_code: "80000",
+  shipping_country: "Malaysia",
+  user_id: 1)
 end
 
 for i in 1..100 do
-  Opportunity.create!(name: "Op " + i.to_s, user_id: 1, account_id: 1)
+  Opportunity.create!(
+  name: "Op " + i.to_s,
+  business_type: "New business",
+  probability: "75%",
+  amount: "RM 1,000,000",
+  description: "Test opportunity description",
+  loss_reason: "",
+  close_date: "",
+  status: "Open",
+  user_id: 1,
+  account_id: 1)
 end
 
 for i in 1..15 do
-  Stage.create!(name: "Stage " + i.to_s, opportunity_id: 1, user_id: 1, updated_by_id: 1)
+  Stage.create!(
+  name: "Stage " + i.to_s,
+  status: "Waiting",
+  current_status: false,
+  opportunity_id: 1,
+  user_id: 1,
+  updated_by_id: 1)
 end
 
 for i in 1..10 do
   Note.create!(
   title: "Sample note " + i.to_s,
   description: "Sample description " + i.to_s,
-  info_id: 1, info_type: "Opportunity", user_id: 1)
+  info_id: 1,
+  info_type: "Opportunity",
+  user_id: 1)
 end
 
 for i in 1..10 do
   Task.create!(
   description: "Sample task " + i.to_s,
-  due_date: 1.week.from_now, opportunity_id: 1, user_id: 1)
+  due_date: 1.week.from_now,
+  opportunity_id: 1,
+  user_id: 1)
 end
 
 for i in 1..10 do
   Call.create!(
   description: "Sample call log " + i.to_s,
-  call_datetime: 1.week.from_now, duration: 5,
-  opportunity_id: 1, user_id: 1)
+  call_datetime: 1.week.from_now,
+  duration: 5,
+  opportunity_id: 1,
+  user_id: 1)
 end
 
 for i in 1..10 do
   Event.create!(
   description: "Sample event " + i.to_s,
-  event_date: 1.week.from_now, opportunity_id: 1, user_id: 1)
+  event_date: 1.week.from_now,
+  opportunity_id: 1,
+  user_id: 1)
 end
 
 # testing timeline month display
