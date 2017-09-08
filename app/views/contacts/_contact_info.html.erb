@@ -109,7 +109,7 @@
                             <% contactable_acc.each do |rl| %>
                             <div class="col-lg-4">
                                 <%= link_to rl.contactable.account_name,
-                          account_path(rl.contactable, anchor: "relatedContacts") %>
+                          account_path(rl.contactable, anchor: "relatedContacts-contactInfo-#{rl.contact.id}") %>
                             </div>
                             <% end %>
                         </div>
@@ -123,7 +123,7 @@
                             <% contactable_op.each do |rl| %>
                             <div class="col-lg-4">
                                 <%= link_to rl.contactable.name,
-                        opportunity_path(rl.contactable, anchor: "relatedContacts") %>
+                        opportunity_path(rl.contactable, anchor: "relatedContacts-contactInfo-#{rl.contact.id}") %>
                             </div>
                             <% end %>
                         </div>

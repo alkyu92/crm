@@ -1,4 +1,4 @@
-
+<div id="notice-contact"></div>
 <% if @subject.relationships.blank? %>
 <div class="col-lg-12">
     No contacts association yet.
@@ -28,17 +28,23 @@
                       <li><%= link_to 'Show', '#', data: {toggle: "modal",
                         target: "#contactInfo-#{relationship.contact.id}"}%></li>
                           <% if relationship.contactable_type == "Account" %>
-                          <li><%= link_to 'Edit Contact',
-                          edit_contact_path(relationship.contact) %></li>
-                          <li><%= link_to 'Delete Association',
-                          destroy_relationship_contact_path(relationship.contact, relationship.id),
-                          method: :delete, remote: true %></li>
+                            <li><%= link_to 'Edit Contact',
+                                edit_contact_path(relationship.contact) %>
+                            </li>
+                            <li><%= link_to 'Delete Association',
+                                destroy_relationship_account_contact_path(
+                                @subject, relationship.contact, relationship.id),
+                                method: :delete, remote: true %>
+                            </li>
                           <% elsif relationship.contactable_type == "Opportunity" %>
-                          <li><%= link_to 'Edit Contact',
-                          edit_contact_path(relationship.contact) %></li>
-                          <li><%= link_to 'Delete Association',
-                          destroy_relationship_contact_path(relationship.contact, relationship.id),
-                          method: :delete, remote: true %></li>
+                            <li><%= link_to 'Edit Contact',
+                                edit_contact_path(relationship.contact) %>
+                            </li>
+                            <li><%= link_to 'Delete Association',
+                                destroy_relationship_opportunity_contact_path(
+                                @subject, relationship.contact, relationship.id),
+                                method: :delete, remote: true %>
+                            </li>
                           <% end %>
                     </ul>
                 </div>

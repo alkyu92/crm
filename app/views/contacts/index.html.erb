@@ -1,6 +1,16 @@
 <div class="row">
   <div class="col-lg-10">
-<h2>Contacts</h2>
+    <div class="media">
+      <div class="media-left">
+        <div style="padding-top: 20px;"></div>
+        <%= letter_avatar_tag('Contacts', 50, class: "media-object") %>
+      </div>
+      <div class="media-body">
+      <h3>Contacts<br>
+        <small>Contact Addresses</small>
+      </h3>
+    </div>
+    </div>
 </div>
 <div class="col-lg-2" style="padding-top: 25px;">
     <%= link_to 'New Contact', new_contact_path, class: "btn btn-default" %>

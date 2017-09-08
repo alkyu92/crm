@@ -1,4 +1,14 @@
-<h2>Tasks List</h2>
+<div class="media">
+  <div class="media-left">
+    <div style="padding-top: 20px;"></div>
+    <%= letter_avatar_tag('Tasks', 50, class: "media-object") %>
+  </div>
+  <div class="media-body">
+  <h3>Tasks<br>
+    <small>To-dos</small>
+  </h3>
+</div>
+</div>
 
 <div class="task-list">
 <%= render 'tasks/task_list' %>

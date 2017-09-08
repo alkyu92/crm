@@ -18,7 +18,16 @@
                         Date not specified
                       </span>
                       <% else %>
-                      <%= task.due_date %>
+                      <%= task.due_date.strftime('%d %b %Y at %H:%M:%S') %>
+                      <small>
+                      (<%= distance_of_time_in_words(task.due_date, Time.now) %>
+                      <% if Time.now > task.due_date %>
+                      ago
+                      <% elsif Time.now < task.due_date %>
+                      left
+                      <% end %>
+                      )
+                    </small>
                       <% end %>
                     </h4>
                   </div>
@@ -35,7 +44,7 @@
                   <div class="col-lg-5">
                     <h4>
                       <small>Created at</small><br>
-                      <%= task.created_at.strftime('%d %b %Y %H:%M:%S')%>
+                      <%= task.created_at.strftime('%d %b %Y at %H:%M:%S')%>
                     </h4>
                   </div>
                 </div>

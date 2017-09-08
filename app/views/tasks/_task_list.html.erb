@@ -44,7 +44,7 @@
     <div class="col-lg-1 text-center"><%= task.id %></div>
     <div class="col-lg-2">
       <%= link_to task.description.truncate(50),
-      opportunity_path(task.opportunity, anchor: "task-#{task.id}") %>
+      opportunity_path(task.opportunity, anchor: "task-taskInfo-#{task.id}") %>
     </div>
     <div class="col-lg-2">
         <% if task.due_date.blank? %>

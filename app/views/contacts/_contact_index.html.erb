@@ -1,5 +1,5 @@
 <div class="text-center">
-    <%= page_entries_info @contacts %>
+    <%= page_entries_info @contacts %><br>
     <%= paginate @contacts %>
 </div>
 
@@ -101,4 +101,9 @@
 <%= render 'contacts/contact_info', contact: contact %>
 
 <% end %>
+
+<div class="text-center">
+    <%= page_entries_info @contacts %><br>
+    <%= paginate @contacts %>
+</div>
 <% end %>

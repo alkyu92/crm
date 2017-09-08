@@ -19,15 +19,6 @@
                       </span>
                       <% else %>
                       <%= call.call_datetime.strftime('%d %b %Y %H:%M:%S') %>
-                      <small>
-                      (<%= distance_of_time_in_words(call.call_datetime, Time.now) %>
-                      <% if Time.now > call.call_datetime %>
-                      ago
-                      <% elsif Time.now < call.call_datetime %>
-                      left
-                      <% end %>
-                      )
-                    </small>
                       <% end %>
                     </h4>
                   </div>

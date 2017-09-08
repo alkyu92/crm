@@ -1,6 +1,6 @@
 class ContactsController < ApplicationController
 before_action :find_subject,
-only: [:create, :edit, :update, :destroy]
+only: [:create, :edit, :update, :destroy, :destroy_relationship]
 
   def index
     @contacts = Contact.includes(:relationships).page(params[:page]).per(10)
@@ -89,6 +89,7 @@ only: [:create, :edit, :update, :destroy]
     respond_to do |format|
       @contact = Contact.find(params[:id])
       @contact.relationships.find(params[:relationship_id]).destroy
+      timeline_contact("deleted association")
       format.js { flash.now[:success] = "Association deleted!"}
     end
   end
