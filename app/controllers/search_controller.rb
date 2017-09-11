@@ -13,7 +13,7 @@ class SearchController < ApplicationController
         Event,
         Stage,
         User
-        ])
+        ]).page(params[:page]).per(10)
     end
   end
 end

@@ -17,3 +17,9 @@
 <div class="call-list">
     <%= render 'calls/call_list' %>
 </div>
+
+<%= javascript_tag defer: 'defer' do %>
+var locHash = window.location.hash.split('-')
+var id = '#' + locHash[1] + '-' + locHash[2];
+$(id).modal('show');
+<% end %>

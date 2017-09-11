@@ -7,33 +7,55 @@
 
     <% @results.each do |result| %>
 
-    <h4>
+
         <% if result._index == "accounts" %>
-        <%= link_to result.account_name, account_path(result.id) %>
+        <h4><%= link_to result.account_name, account_path(result.id) %></h4>
+        <%= result.account_type %>,
+        <%= result.description %>,
+        <%= result.email %>,
+        <%= result.phone %>
+        <br>
+
         <% elsif result._index == "contacts" %>
-        <%= link_to result.name, contacts_path %>
+        <h4><%= link_to result.name, contacts_path %></h4>
+        <%= result.title %>,
+        <%= result.department %>,
+        <%= result.email %>,
+        <%= result.phone %>
+        <br>
+
         <% elsif result._index == "opportunities" %>
-        <%= link_to result.name, opportunity_path(result.id) %>
+        <h4><%= link_to result.name, opportunity_path(result.id) %></h4>
+        <%= result.name %>,
+        <%= result.description %>,
+        <%= result.status %>,
+        <%= result.amount %>
+        <br>
+
         <% elsif result._index == "tasks" %>
-        <%= link_to result.description, tasks_path %>
+        <h4><%= link_to result.description, tasks_path(anchor: "task-taskInfo-#{result.id}") %></h4>
+
         <% elsif result._index == "calls" %>
-        <%= link_to result.description, calls_path %>
+        <h4><%= link_to result.description, calls_path(anchor: "call-callInfo-#{result.id}") %></h4>
+
         <% elsif result._index == "events" %>
-        <%= link_to result.description, events_path %>
+        <h4><%= link_to result.description, events_path(anchor: "event-eventInfo-#{result.id}") %></h4>
+
         <% elsif result._index == "stages" %>
-        <%= link_to result.name, opportunity_path(result.id) %>
+        <h4><%= link_to result.name, opportunity_path(result.id) %></h4>
+        <%= result.status %>
+        <br>
+
         <% elsif result._index == "users" %>
-        <%= link_to result.name, user_path(result.id) %>
+        <h4><%= link_to result.name, user_path(result.id) %></h4>
+
         <% end %>
-    </h4>
-
-    <% if result.try(:highlight).try(:department) %>
-    <% result.highlight.department.each do |snippet| %>
-    <p><%= snippet.html_safe %>...</p>
-    <% end %>
-    <% end %>
     <br>
-
     <% end %>
+
+    <div class="text-center">
+    <%= paginate @results %>
+    </div>
+
     <% end %>
 </div>

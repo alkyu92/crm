@@ -82,7 +82,7 @@ end
 
 for i in 1..100 do
   Opportunity.create!(
-  name: "Opportunity #{i}",
+  name: "Test Opportunity #{i}",
   business_type: "New business",
   probability: "75%",
   amount: "RM 1,000,000",
@@ -96,7 +96,7 @@ end
 
 for i in 1..15 do
   Stage.create!(
-  name: "Stage #{i}",
+  name: "Test Stage #{i}",
   status: "Waiting",
   current_status: false,
   opportunity_id: 1,
