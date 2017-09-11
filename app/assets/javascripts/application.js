@@ -32,4 +32,6 @@ $(document).ready(function(){
     $(id[i]).datetimepicker('setStartDate', new Date());
   }
 
+  $('.alert').delay(1600).fadeOut();
+
 });

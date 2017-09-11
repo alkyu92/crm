@@ -1,4 +1,7 @@
 class Account < ApplicationRecord
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+
   belongs_to :user
 
   has_many :relationships, as: :contactable
@@ -11,4 +14,26 @@ class Account < ApplicationRecord
   has_many :opportunities, dependent: :destroy
 
   validates :account_name, presence: true
+
+  def self.search(query)
+  __elasticsearch__.search(
+    {
+      query: {
+        multi_match: {
+          query: query,
+          fields: [
+            'account_name'
+          ]
+        }
+      },
+      highlight: {
+        pre_tags: ['<em>'],
+        post_tags: ['</em>'],
+        fields: {
+          account_name: {}
+        }
+      }
+    }
+  )
+end
 end

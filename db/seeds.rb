@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-user_arr = { sudo: ['sudo', 'sudo@lb.my', 123456, 123456],
+user_arr = { sudo: ['Ali', 'ali@lb.my', 123456, 123456],
              normal: ['normal', 'normal@lb.my', 123456, 123456]
             }
 user_arr.each do |key, value|
@@ -16,20 +16,54 @@ user_arr.each do |key, value|
                 password_confirmation: value[3])
 end
 
+department = [
+  "Marketing",
+  "Purchasing",
+  "Machining",
+  "Logistics",
+  "Maintenance",
+  "Planner",
+  "Quality Control",
+  "Finance",
+  "Information Management"
+]
 for i in 1..100 do
-  Contact.create!(name: "Person " + i.to_s, user_id: 1)
+  Contact.create!(
+  name: "Person #{i}",
+  title: "Employee",
+  department: department.sample,
+  email: "Person#{i}@lb.my",
+  phone: "123-456-789",
+  fax: "098-765-432",
+
+  mailing_street: "No. 123, Jalan 123,",
+  mailing_city: "Johor Bahru",
+  mailing_state: "Johor",
+  mailing_postal_code: "80000",
+  mailing_country: "Malaysia",
+
+  user_id: 1)
 end
 
+industry = [
+  "Aluminium Manufacturing",
+  "Consumer Electronics",
+  "Electrical Power Grid",
+  "Industrial Chemical",
+  "Oil and Gas",
+  "Automotive",
+  "Sport Utilities"
+]
 for i in 1..100 do
   Account.create!(
-  account_name: "Test Account Name" + i.to_s,
+  account_name: "Test Account Name #{i}",
   account_type: "Customer",
-  website: "www.test-website.com",
-  email: "test@example.com",
-  description: "Test account description",
+  website: "www.test#{i}-website.com",
+  email: "test#{i}@example.com",
+  description: "Test#{i} account description",
   phone: "123-456-890",
   fax: "098-765-432",
-  industry: "Aluminium",
+  industry: industry.sample,
   number_of_employee: 200,
 
   billing_street: "No. 123, Jalan 123,",
@@ -48,11 +82,11 @@ end
 
 for i in 1..100 do
   Opportunity.create!(
-  name: "Op " + i.to_s,
+  name: "Opportunity #{i}",
   business_type: "New business",
   probability: "75%",
   amount: "RM 1,000,000",
-  description: "Test opportunity description",
+  description: "Test#{i} opportunity description",
   loss_reason: "",
   close_date: "",
   status: "Open",
@@ -62,7 +96,7 @@ end
 
 for i in 1..15 do
   Stage.create!(
-  name: "Stage " + i.to_s,
+  name: "Stage #{i}",
   status: "Waiting",
   current_status: false,
   opportunity_id: 1,
@@ -72,8 +106,8 @@ end
 
 for i in 1..10 do
   Note.create!(
-  title: "Sample note " + i.to_s,
-  description: "Sample description " + i.to_s,
+  title: "Sample note #{i}",
+  description: "Sample description #{i}",
   info_id: 1,
   info_type: "Opportunity",
   user_id: 1)
@@ -81,7 +115,7 @@ end
 
 for i in 1..10 do
   Task.create!(
-  description: "Sample task " + i.to_s,
+  description: "Sample task #{i}",
   due_date: 1.week.from_now,
   opportunity_id: 1,
   user_id: 1)
@@ -89,7 +123,7 @@ end
 
 for i in 1..10 do
   Call.create!(
-  description: "Sample call log " + i.to_s,
+  description: "Sample call log #{i}",
   call_datetime: 1.week.from_now,
   duration: 5,
   opportunity_id: 1,
@@ -98,7 +132,7 @@ end
 
 for i in 1..10 do
   Event.create!(
-  description: "Sample event " + i.to_s,
+  description: "Sample event #{i}",
   event_date: 1.week.from_now,
   opportunity_id: 1,
   user_id: 1)

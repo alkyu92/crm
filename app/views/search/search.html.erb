@@ -1,0 +1,39 @@
+<div class="container">
+    <h3>Search Results</h3>
+    <hr>
+    <% if @results.blank? %>
+    No results match
+<% else %>
+
+    <% @results.each do |result| %>
+
+    <h4>
+        <% if result._index == "accounts" %>
+        <%= link_to result.account_name, account_path(result.id) %>
+        <% elsif result._index == "contacts" %>
+        <%= link_to result.name, contacts_path %>
+        <% elsif result._index == "opportunities" %>
+        <%= link_to result.name, opportunity_path(result.id) %>
+        <% elsif result._index == "tasks" %>
+        <%= link_to result.description, tasks_path %>
+        <% elsif result._index == "calls" %>
+        <%= link_to result.description, calls_path %>
+        <% elsif result._index == "events" %>
+        <%= link_to result.description, events_path %>
+        <% elsif result._index == "stages" %>
+        <%= link_to result.name, opportunity_path(result.id) %>
+        <% elsif result._index == "users" %>
+        <%= link_to result.name, user_path(result.id) %>
+        <% end %>
+    </h4>
+
+    <% if result.try(:highlight).try(:department) %>
+    <% result.highlight.department.each do |snippet| %>
+    <p><%= snippet.html_safe %>...</p>
+    <% end %>
+    <% end %>
+    <br>
+
+    <% end %>
+    <% end %>
+</div>

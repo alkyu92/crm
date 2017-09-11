@@ -62,9 +62,10 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/search', to: 'search#search', as: :search
   get '/timelines/:id', to: 'timelines#update_read_status', as: :update_read_status
 
   root 'dashboards#index'
+  
+  get '/search', to: 'search#search'
   get "*path" => redirect("/")
 end

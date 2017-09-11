@@ -6,6 +6,10 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
     @contacts = Contact.includes(:relationships).page(params[:page]).per(10)
   end
 
+  def show
+    find_contact
+  end
+
   def new
     @acc_collect = Account.all
     @op_collect = Opportunity.all
@@ -48,7 +52,7 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
     if params[:account_id] || params[:opportunity_id]
       @contact = @subject.contacts.find(params[:id])
     else
-      @contact = Contact.find(params[:id])
+      find_contact
     end
 
     assign_contact
@@ -72,7 +76,7 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
     if params[:account_id] || params[:opportunity_id]
       @contact = @subject.contacts.find(params[:id])
     else
-      @contact = Contact.find(params[:id])
+      find_contact
       @contacts = Contact.includes(:relationships).page(params[:page]).per(10)
     end
 
@@ -87,7 +91,7 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
 
   def destroy_relationship
     respond_to do |format|
-      @contact = Contact.find(params[:id])
+      find_contact
       @contact.relationships.find(params[:relationship_id]).destroy
       timeline_contact("deleted association")
       format.js { flash.now[:success] = "Association deleted!"}
@@ -157,6 +161,13 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
       end
     end
 
+  end
+
+  def find_contact
+    @contact = Contact.find(params[:id])
+
+  rescue ActiveRecord::RecordNotFound
+    redirect_to request.referrer
   end
 
   def find_subject

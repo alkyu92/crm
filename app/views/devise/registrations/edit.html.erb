@@ -12,14 +12,14 @@
                 <div class="col-lg-6">
                     <%= f.input :avatar, as: :file, label: "Upload Profile Picture"%>
                     <%= f.input :name, required: true, autofocus: true %>
-                    <%= f.input :title %>
-                    <%= f.input :department %>
+                    <%= f.input :title, placeholder: "Position title" %>
+                    <%= f.input :department, placeholder: "Department" %>
                 </div>
                 <div class="col-lg-6">
                     <br><br><br>
                     <%= f.input :email, required: true %>
-                    <%= f.input :phone %>
-                    <%= f.input :address %>
+                    <%= f.input :phone, placeholder: "Phone number" %>
+                    <%= f.input :address, placeholder: "Address" %>
 
                     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
                     <p>Currently waiting confirmation for:
