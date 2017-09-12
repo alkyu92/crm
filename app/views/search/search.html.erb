@@ -7,9 +7,12 @@
 
     <% @results.each do |result| %>
 
-
+    <div class="row">
+      <div class="col-lg-6">
         <% if result._index == "accounts" %>
-        <h4><%= link_to result.account_name, account_path(result.id) %></h4>
+        <h4 style="margin-bottom: 0px;"><%= link_to result.account_name, account_path(result.id) %><br>
+          <small>Account</small>
+        </h4>
         <%= result.account_type %>,
         <%= result.description %>,
         <%= result.email %>,
@@ -17,7 +20,9 @@
         <br>
 
         <% elsif result._index == "contacts" %>
-        <h4><%= link_to result.name, contacts_path %></h4>
+        <h4 style="margin-bottom: 0px;"><%= link_to result.name, contacts_path %><br>
+          <small>Contact</small>
+        </h4>
         <%= result.title %>,
         <%= result.department %>,
         <%= result.email %>,
@@ -25,31 +30,57 @@
         <br>
 
         <% elsif result._index == "opportunities" %>
-        <h4><%= link_to result.name, opportunity_path(result.id) %></h4>
-        <%= result.name %>,
-        <%= result.description %>,
-        <%= result.status %>,
-        <%= result.amount %>
+        <h4 style="margin-bottom: 0px;"><%= link_to result.name, opportunity_path(result.id) %><br>
+          <small>Opportunity</small>
+        </h4>
+        <%= result.description.truncate(200) %>,
+        Status: <%= result.status %>,
+        Amount: <%= result.amount %>
         <br>
 
         <% elsif result._index == "tasks" %>
-        <h4><%= link_to result.description, tasks_path(anchor: "task-taskInfo-#{result.id}") %></h4>
+        <h4 style="margin-bottom: 0px;">
+          <%= link_to result.description.truncate(50), tasks_path(anchor: "task-taskInfo-#{result.id}") %><br>
+          <small>Task</small>
+        </h4>
 
         <% elsif result._index == "calls" %>
-        <h4><%= link_to result.description, calls_path(anchor: "call-callInfo-#{result.id}") %></h4>
+        <h4 style="margin-bottom: 0px;">
+          <%= link_to result.description.truncate(50), calls_path(anchor: "call-callInfo-#{result.id}") %><br>
+          <small>Call</small>
+        </h4>
 
         <% elsif result._index == "events" %>
-        <h4><%= link_to result.description, events_path(anchor: "event-eventInfo-#{result.id}") %></h4>
+        <h4 style="margin-bottom: 0px;">
+          <%= link_to result.description.truncate(50), events_path(anchor: "event-eventInfo-#{result.id}") %><br>
+          <small>Event</small>
+        </h4>
 
         <% elsif result._index == "stages" %>
-        <h4><%= link_to result.name, opportunity_path(result.id) %></h4>
+        <h4 style="margin-bottom: 0px;">
+          <%= link_to result.name, opportunity_path(result.opportunity_id) %><br>
+          <small>Stage</small>
+        </h4>
+        <% if result.status == "Waiting" %>
         <%= result.status %>
+        for previous stage
+        <% else %>
+        <%= result.status %>
+        <% end %>
         <br>
 
         <% elsif result._index == "users" %>
-        <h4><%= link_to result.name, user_path(result.id) %></h4>
-
+        <h4 style="margin-bottom: 0px;">
+          <%= link_to result.name, user_path(result.id) %><br>
+          <small>User</small>
+        </h4>
+        <%= result.email %>
+        <%= result.phone %>
+        <%= result.title %>
+        <%= result.department %>
         <% end %>
+      </div>
+    </div>
     <br>
     <% end %>
 

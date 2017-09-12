@@ -31,6 +31,7 @@ gem 'kaminari'
 gem 'country_select'
 gem 'remotipart', '~> 1.3'
 gem 'pry', '~> 0.10.4'
+
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 # Use jquery as the JavaScript library

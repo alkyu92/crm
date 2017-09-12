@@ -27,7 +27,7 @@ department = [
   "Finance",
   "Information Management"
 ]
-for i in 1..100 do
+for i in 1..20 do
   Contact.create!(
   name: "Person #{i}",
   title: "Employee",
@@ -54,7 +54,7 @@ industry = [
   "Automotive",
   "Sport Utilities"
 ]
-for i in 1..100 do
+for i in 1..20 do
   Account.create!(
   account_name: "Test Account Name #{i}",
   account_type: "Customer",
@@ -80,7 +80,7 @@ for i in 1..100 do
   user_id: 1)
 end
 
-for i in 1..100 do
+for i in 1..20 do
   Opportunity.create!(
   name: "Test Opportunity #{i}",
   business_type: "New business",
@@ -104,7 +104,7 @@ for i in 1..15 do
   updated_by_id: 1)
 end
 
-for i in 1..10 do
+for i in 1..20 do
   Note.create!(
   title: "Sample note #{i}",
   description: "Sample description #{i}",
@@ -113,7 +113,7 @@ for i in 1..10 do
   user_id: 1)
 end
 
-for i in 1..10 do
+for i in 1..20 do
   Task.create!(
   description: "Sample task #{i}",
   due_date: 1.week.from_now,
@@ -121,7 +121,7 @@ for i in 1..10 do
   user_id: 1)
 end
 
-for i in 1..10 do
+for i in 1..20 do
   Call.create!(
   description: "Sample call log #{i}",
   call_datetime: 1.week.from_now,
@@ -130,7 +130,7 @@ for i in 1..10 do
   user_id: 1)
 end
 
-for i in 1..10 do
+for i in 1..20 do
   Event.create!(
   description: "Sample event #{i}",
   event_date: 1.week.from_now,
