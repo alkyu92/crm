@@ -16,7 +16,8 @@
                       <br>
                         <%= f.input :account_name, label: "Account Name", autofocus: true,
                         placeholder: "Account name"%>
-                        <%= f.input :account_type, collection: ["Customer","Competitor","Partner"],
+                        <%= f.input :account_type,
+                        collection: ["Customer","Partner", "Sub-contractor","Competitor"],
                         label: "Account Type", include_blank: "Type of account" %>
                         <%= f.input :industry, label: "Industry", placeholder: "Type of industry" %>
                         <%= f.input :number_of_employee, label: "Number of employee",

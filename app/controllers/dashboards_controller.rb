@@ -16,6 +16,9 @@ class DashboardsController < ApplicationController
 
     @opwon = Opportunity.where(status: "Closed-Won").take(6)
     @oploss = Opportunity.where(status: "Closed-Loss").take(6)
+
+    gon.won = @opwon
+    gon.loss =  @oploss
   end
 
 end
