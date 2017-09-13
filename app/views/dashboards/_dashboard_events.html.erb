@@ -52,9 +52,10 @@ No events yet.
 <% else %>
     <div class="col-lg-8">
       <%= urevent.event_date.strftime('%d %b %Y %H:%M:%S')%>
-      <small>
+      <span style="color: red;"><small>
         (<%= distance_of_time_in_words(urevent.event_date, Time.now) %> left)
-      </small>
+      </small></span>
+
     </div>
     <% end %>
 </div>

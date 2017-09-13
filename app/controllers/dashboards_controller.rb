@@ -5,10 +5,10 @@ class DashboardsController < ApplicationController
     @accounts = Account.includes(:user, :opportunities).order('created_at DESC').take(6)
 
     @tasks = Task.includes(:opportunity).order('created_at DESC').take(6)
-    @urgent_tasks = Task.includes(:opportunity).where('due_date <= ?', 1.day.from_now).take(6)
+    @urgent_tasks = Task.includes(:opportunity).where('due_date <= ?', 3.day.from_now).take(6)
 
     @events = Event.includes(:opportunity).order('created_at DESC').take(6)
-    @urgent_events = Event.includes(:opportunity).where('event_date <= ?', 1.day.from_now).take(6)
+    @urgent_events = Event.includes(:opportunity).where('event_date <= ?', 3.day.from_now).take(6)
 
     @calls = Call.includes(:opportunity).order('created_at DESC').take(6)
 
