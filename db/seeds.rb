@@ -169,10 +169,10 @@ name: "Shimano Product One Processes",
 business_type: "Opportunity",
 probability: "",
 amount: "RM 1,000,000",
-description: "FA description",
+description: "Description",
 loss_reason: "",
 close_date: "",
-status: "In Consideration",
+status: "Open",
 user_id: 1,
 account_id: 1)
 

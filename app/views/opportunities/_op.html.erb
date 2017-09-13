@@ -7,7 +7,7 @@
         </div>
         <div class="media-body">
         <h3>Opportunities / Cases<br>
-          <small>Potential Deals / Issues</small>
+          <small>Potential Deals / Issues / Processes Tracking</small>
         </h3>
       </div>
       </div>
@@ -38,11 +38,14 @@
     <div class="col-lg-2">
         <strong>Account Name</strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-1">
         <strong>Current Stage</strong>
     </div>
     <div class="col-lg-1">
         <strong>Status</strong>
+    </div>
+    <div class="col-lg-1">
+        <strong>Type</strong>
     </div>
     <div class="col-lg-2">
         <strong>Close / Solve Date</strong>
@@ -73,7 +76,7 @@
             <%= link_to opportunity.account.account_name, account_path(opportunity.account) %>
           <% end %>
       </div>
-      <div class="col-lg-2">
+      <div class="col-lg-1">
           <!-- Current Stage -->
           <% if opportunity.stages.blank? %>
             <span style="color: red;">Not specified</span>
@@ -103,6 +106,9 @@
         <% elsif opportunity.status == "Solved" %>
         <span style="color: green;">Solved</span>
         <% end %>
+      </div>
+      <div class="col-lg-1">
+        <%= opportunity.business_type %>
       </div>
       <div class="col-lg-2">
         <% if opportunity.status == "Open" || opportunity.status == "In Consideration" %>
