@@ -66,7 +66,9 @@
         </h4>
     </div>
 
-    <% if @opportunity.status == "Closed-Won" || @opportunity.status == "Closed-Loss" %>
+    <% if @opportunity.status == "Closed-Won" ||
+      @opportunity.status == "Closed-Loss" ||
+      @opportunity.status == "Solved" %>
     <div class="col-lg-2">
         <small>Close / Solve Date</small>
         <br>

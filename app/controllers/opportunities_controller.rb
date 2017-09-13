@@ -43,12 +43,12 @@ class OpportunitiesController < ApplicationController
         @opportunity.account.timelines.create!(
         tactivity: "",
         nactivity: @opportunity.name,
-        action: "created opportunity",
+        action: "created #{@opportunity.business_type}",
         user_id: current_user.id)
 
-        format.js { flash.now[:success] = "Opportunity entry created!" }
+        format.js { flash.now[:success] = "#{@opportunity.business_type} entry created!" }
       else
-        format.js { flash.now[:danger] = "Failed to create opportunity entry!" }
+        format.js { flash.now[:danger] = "Failed to create #{@opportunity.business_type} entry!" }
       end
     end
 
@@ -67,7 +67,7 @@ class OpportunitiesController < ApplicationController
               @opportunity.documents.create!(doc: doc)
             }
             timeline_opportunity("relatedDocs", @opportunity.name,
-            "added attachment file to opportunity")
+            "added attachment file to #{@opportunity.business_type}")
           end
 
         if params[:attached]
@@ -89,9 +89,9 @@ class OpportunitiesController < ApplicationController
         end
 
         save_timeline_if_any_changes
-        format.js { flash.now[:success] = "Opportunity entry updated!" }
+        format.js { flash.now[:success] = "#{@opportunity.business_type} entry updated!" }
       else
-        format.js { flash.now[:danger] = "Failed to update opportunity!" }
+        format.js { flash.now[:danger] = "Failed to update #{@opportunity.business_type}!" }
       end
     end
   end
@@ -101,9 +101,9 @@ class OpportunitiesController < ApplicationController
     @opportunity.destroy
 
     respond_to do |format|
-      format.js { flash.now[:success] = "Opportunity entry deleted!" }
+      format.js { flash.now[:success] = "#{@opportunity.business_type} entry deleted!" }
       format.html {
-        flash[:success] = "Opportunity entry deleted!"
+        flash[:success] = "#{@opportunity.business_type} entry deleted!"
         redirect_to opportunities_path
       }
     end
@@ -116,7 +116,8 @@ class OpportunitiesController < ApplicationController
 
       @subject = @opportunity
 
-      timeline_opportunity("relatedDocs", @opportunity.name, "deleted attachment file from opportunity")
+      timeline_opportunity("relatedDocs", @opportunity.name,
+      "deleted attachment file from #{@opportunity.business_type}")
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end
@@ -160,11 +161,11 @@ class OpportunitiesController < ApplicationController
   def save_timeline_if_any_changes
     if @opportunity.name_previously_changed?
       timeline_opportunity("opportunityDetails",
-      @opportunity.name, "updated opportunity name to")
+      @opportunity.name, "updated #{@opportunity.business_type} name to")
     end
     if @opportunity.business_type_previously_changed?
       timeline_opportunity("opportunityDetails",
-      @opportunity.business_type, "updated opportunity business type to")
+      @opportunity.business_type, "updated type to")
     end
     if @opportunity.probability_previously_changed?
       timeline_opportunity("opportunityDetails",
@@ -172,19 +173,22 @@ class OpportunitiesController < ApplicationController
     end
     if @opportunity.amount_previously_changed?
       timeline_opportunity("opportunityDetails",
-      @opportunity.amount, "updated opportunity amount to")
+      @opportunity.amount, "updated #{@opportunity.business_type} amount to")
     end
     if @opportunity.description_previously_changed?
       timeline_opportunity("opportunityDetails",
-      "", "updated opportunity description")
+      "", "updated #{@opportunity.business_type} description")
     end
     if @opportunity.status_previously_changed?
       timeline_opportunity("opportunityDetails",
-      @opportunity.status, "updated opportunity status to")
+      @opportunity.status, "updated #{@opportunity.business_type} status to")
     end
     if @opportunity.close_date_previously_changed?
       timeline_opportunity("opportunityDetails",
-      @opportunity.close_date.strftime('%d %b %Y'), "updated opportunity close date to")
+      @opportunity.close_date.strftime('%d %b %Y'),
+      "updated #{@opportunity.business_type} #{
+      @opportunity.business_type == "Opportunity" ? 'close' : 'solve'
+      } date to")
     end
     if @opportunity.loss_reason_previously_changed?
       timeline_opportunity("opportunityDetails",

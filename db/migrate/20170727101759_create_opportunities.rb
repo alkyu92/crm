@@ -8,7 +8,7 @@ class CreateOpportunities < ActiveRecord::Migration[5.0]
       t.text :description
       t.string :loss_reason
       t.date :close_date
-      t.string :status, default: "Open"
+      t.string :status
 
       t.string :dummy
 

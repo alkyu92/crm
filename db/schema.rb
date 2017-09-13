@@ -129,12 +129,12 @@ ActiveRecord::Schema.define(version: 20170829043310) do
     t.text     "description"
     t.string   "loss_reason"
     t.date     "close_date"
-    t.string   "status",        default: "Open"
+    t.string   "status"
     t.string   "dummy"
     t.integer  "account_id"
     t.integer  "user_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.index ["account_id"], name: "index_opportunities_on_account_id"
     t.index ["user_id"], name: "index_opportunities_on_user_id"
   end

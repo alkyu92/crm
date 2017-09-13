@@ -32,10 +32,11 @@
                         <%= f.input :business_type, label: "Type",
                         collection: ["Opportunity", "Case"], include_blank: false %>
 
-                        <div class="form-group select optional opportunity_status">
-                        <%= f.label "Status", class: "control-label select optional" %>
+                        <div class="form-group select optional opportunity_status required">
+                          <abbr title="required">*</abbr>
+                        <%= f.label "Status", class: "control-label select optional required" %>
                         <% opstatus = ["Open", "Closed-Won", "Closed-Loss"] %>
-                        <% casestatus = ["Solved", "In View"] %>
+                        <% casestatus = ["In View", "Solved"] %>
                         <select name="opportunity[status]" id="opportunity_status" class="select form-control optional">
                             <% opstatus.each do |opstat| %>
                             <option id="optop" value="<%= opstat %>"><%= opstat %></option>
@@ -58,14 +59,14 @@
                         {class: "form-control selectpicker", data: {live_search: true}} %>
                         <br><br>
                         <%= f.input :probability, label: "Probability",
-                        placeholder: "Probability in percentage" %>
+                        placeholder: "In percentage" %>
                         <%= f.input :amount, label: "Amount", placeholder: "Opportunity amount" %>
                         <%= f.input :loss_reason, label: "Loss Reason", placeholder: "Loss reason" %>
                     </div>
                     <div class="col-lg-4">
                         <br><br><br>
                         <%= f.input :description, input_html: {rows: 9}, label: "Description",
-                        placeholder: "Opportunity description" %>
+                        placeholder: "Description" %>
 
                     </div>
                 </div>
@@ -101,9 +102,11 @@ $('.opportunity_business_type').on("change", function(){
   if(type_val == "Opportunity"){
     $('#opportunity_status option[id=optcase]').hide();
     $('#opportunity_status option[id=optop]').show();
+    $('#opportunity_status').val('');
   }else if(type_val == "Case"){
     $('#opportunity_status option[id=optop]').hide();
     $('#opportunity_status option[id=optcase]').show();
+    $('#opportunity_status').val('');
   }
 });
 
