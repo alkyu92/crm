@@ -6334,13 +6334,13 @@ Completed 200 OK in 333ms (Views: 303.8ms | ActiveRecord: 5.5ms)
 
 Started PATCH "/opportunities/19" for 127.0.0.1 at 2017-09-13 11:01:40 +0800
 Processing by OpportunitiesController#update as JS
-  Parameters: {"utf8"=>"✓", "opportunity"=>{"name"=>"Test Case 1", "account_id"=>"1", "status"=>"In View", "close_date"=>"", "business_type"=>"New business", "probability"=>"75%", "amount"=>"RM 1,000,000", "loss_reason"=>"", "description"=>"Test19 opportunity description"}, "id"=>"19"}
+  Parameters: {"utf8"=>"✓", "opportunity"=>{"name"=>"Test Case 1", "account_id"=>"1", "status"=>"In Consideration", "close_date"=>"", "business_type"=>"New business", "probability"=>"75%", "amount"=>"RM 1,000,000", "loss_reason"=>"", "description"=>"Test19 opportunity description"}, "id"=>"19"}
   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
   [1m[36mOpportunity Load (0.3ms)[0m  [1m[34mSELECT  "opportunities".* FROM "opportunities" WHERE "opportunities"."id" = ? LIMIT ?[0m  [["id", 19], ["LIMIT", 1]]
   [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1[0m
   [1m[35m (0.3ms)[0m  [1m[36mbegin transaction[0m
   [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT  "accounts".* FROM "accounts" WHERE "accounts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
-  [1m[35mSQL (2.5ms)[0m  [1m[33mUPDATE "opportunities" SET "name" = ?, "status" = ?, "updated_at" = ? WHERE "opportunities"."id" = ?[0m  [["name", "Test Case 1"], ["status", "In View"], ["updated_at", "2017-09-13 11:01:40.379261"], ["id", 19]]
+  [1m[35mSQL (2.5ms)[0m  [1m[33mUPDATE "opportunities" SET "name" = ?, "status" = ?, "updated_at" = ? WHERE "opportunities"."id" = ?[0m  [["name", "Test Case 1"], ["status", "In Consideration"], ["updated_at", "2017-09-13 11:01:40.379261"], ["id", 19]]
   [1m[35m (7.5ms)[0m  [1m[36mcommit transaction[0m
   [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
   [1m[36mOpportunity Load (0.2ms)[0m  [1m[34mSELECT  "opportunities".* FROM "opportunities" WHERE "opportunities"."id" = ? LIMIT ?[0m  [["id", 19], ["LIMIT", 1]]
@@ -6350,7 +6350,7 @@ Processing by OpportunitiesController#update as JS
   [1m[35m (0.4ms)[0m  [1m[36mbegin transaction[0m
   [1m[36mOpportunity Load (0.2ms)[0m  [1m[34mSELECT  "opportunities".* FROM "opportunities" WHERE "opportunities"."id" = ? LIMIT ?[0m  [["id", 19], ["LIMIT", 1]]
   [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
-  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "timelines" ("tactivity", "nactivity", "action", "activity_type", "activity_id", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["tactivity", "opportunityDetails"], ["nactivity", "In View"], ["action", "updated opportunity status to"], ["activity_type", "Opportunity"], ["activity_id", 19], ["user_id", 1], ["created_at", "2017-09-13 11:01:40.584949"], ["updated_at", "2017-09-13 11:01:40.584949"]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "timelines" ("tactivity", "nactivity", "action", "activity_type", "activity_id", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["tactivity", "opportunityDetails"], ["nactivity", "In Consideration"], ["action", "updated opportunity status to"], ["activity_type", "Opportunity"], ["activity_id", 19], ["user_id", 1], ["created_at", "2017-09-13 11:01:40.584949"], ["updated_at", "2017-09-13 11:01:40.584949"]]
   [1m[35m (6.9ms)[0m  [1m[36mcommit transaction[0m
   [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
   [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
@@ -6643,18 +6643,18 @@ Completed 200 OK in 209ms (Views: 72.3ms | ActiveRecord: 25.7ms)
 
 Started PATCH "/opportunities/19" for 127.0.0.1 at 2017-09-13 11:07:16 +0800
 Processing by OpportunitiesController#update as JS
-  Parameters: {"utf8"=>"✓", "opportunity"=>{"name"=>"Test Case 1", "account_id"=>"1", "status"=>"In View", "close_date"=>"2017/09/14 10:10:46 MYT", "business_type"=>"New business", "probability"=>"75%", "amount"=>"RM 1,000,000", "loss_reason"=>"", "description"=>"Test19 opportunity description"}, "id"=>"19"}
+  Parameters: {"utf8"=>"✓", "opportunity"=>{"name"=>"Test Case 1", "account_id"=>"1", "status"=>"In Consideration", "close_date"=>"2017/09/14 10:10:46 MYT", "business_type"=>"New business", "probability"=>"75%", "amount"=>"RM 1,000,000", "loss_reason"=>"", "description"=>"Test19 opportunity description"}, "id"=>"19"}
   [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
   [1m[36mOpportunity Load (0.3ms)[0m  [1m[34mSELECT  "opportunities".* FROM "opportunities" WHERE "opportunities"."id" = ? LIMIT ?[0m  [["id", 19], ["LIMIT", 1]]
   [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1[0m
   [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
   [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT  "accounts".* FROM "accounts" WHERE "accounts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
-  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "opportunities" SET "status" = ?, "updated_at" = ? WHERE "opportunities"."id" = ?[0m  [["status", "In View"], ["updated_at", "2017-09-13 11:07:16.984241"], ["id", 19]]
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "opportunities" SET "status" = ?, "updated_at" = ? WHERE "opportunities"."id" = ?[0m  [["status", "In Consideration"], ["updated_at", "2017-09-13 11:07:16.984241"], ["id", 19]]
   [1m[35m (7.5ms)[0m  [1m[36mcommit transaction[0m
   [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
   [1m[36mOpportunity Load (0.3ms)[0m  [1m[34mSELECT  "opportunities".* FROM "opportunities" WHERE "opportunities"."id" = ? LIMIT ?[0m  [["id", 19], ["LIMIT", 1]]
   [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
-  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "timelines" ("tactivity", "nactivity", "action", "activity_type", "activity_id", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["tactivity", "opportunityDetails"], ["nactivity", "In View"], ["action", "updated opportunity status to"], ["activity_type", "Opportunity"], ["activity_id", 19], ["user_id", 1], ["created_at", "2017-09-13 11:07:17.036322"], ["updated_at", "2017-09-13 11:07:17.036322"]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "timelines" ("tactivity", "nactivity", "action", "activity_type", "activity_id", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["tactivity", "opportunityDetails"], ["nactivity", "In Consideration"], ["action", "updated opportunity status to"], ["activity_type", "Opportunity"], ["activity_id", 19], ["user_id", 1], ["created_at", "2017-09-13 11:07:17.036322"], ["updated_at", "2017-09-13 11:07:17.036322"]]
   [1m[35m (5.3ms)[0m  [1m[36mcommit transaction[0m
   [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
   [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "opportunities" SET "close_date" = ?, "updated_at" = ? WHERE "opportunities"."id" = ?[0m  [["close_date", nil], ["updated_at", "2017-09-13 11:07:17.050199"], ["id", 19]]
@@ -8141,7 +8141,7 @@ Completed 500 Internal Server Error in 36ms (ActiveRecord: 1.7ms)
   
 ActionView::Template::Error (undefined method `each' for "[\"Open\", \"Closed-Won\", \"Closed-Loss\"]":String):
     36:                         <% opstatus = ["Open", "Closed-Won", "Closed-Loss"] %>
-    37:                         <% casestatus = ["Solved", "In View"] %>
+    37:                         <% casestatus = ["Solved", "In Consideration"] %>
     38:                         <%= f.input :business_type,
     39:                         collection: "#{opstatus}".each { |stat| [stat] },
     40:                         include_blank: "Choose status",
@@ -16528,13 +16528,13 @@ Completed 200 OK in 599ms (Views: 580.9ms | ActiveRecord: 9.4ms)
 
 Started PATCH "/opportunities/1" for 127.0.0.1 at 2017-09-13 14:54:16 +0800
 Processing by OpportunitiesController#update as JS
-  Parameters: {"utf8"=>"✓", "opportunity"=>{"name"=>"Test Opportunity 1", "business_type"=>"Case", "status"=>"In View", "close_date"=>"", "account_id"=>"1", "probability"=>"75%", "amount"=>"RM 1,000,000", "loss_reason"=>"", "description"=>"Test1 opportunity description"}, "id"=>"1"}
+  Parameters: {"utf8"=>"✓", "opportunity"=>{"name"=>"Test Opportunity 1", "business_type"=>"Case", "status"=>"In Consideration", "close_date"=>"", "account_id"=>"1", "probability"=>"75%", "amount"=>"RM 1,000,000", "loss_reason"=>"", "description"=>"Test1 opportunity description"}, "id"=>"1"}
   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
   [1m[36mOpportunity Load (0.4ms)[0m  [1m[34mSELECT  "opportunities".* FROM "opportunities" WHERE "opportunities"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
   [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1[0m
   [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
   [1m[36mAccount Load (0.2ms)[0m  [1m[34mSELECT  "accounts".* FROM "accounts" WHERE "accounts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
-  [1m[35mSQL (1.5ms)[0m  [1m[33mUPDATE "opportunities" SET "business_type" = ?, "status" = ?, "updated_at" = ? WHERE "opportunities"."id" = ?[0m  [["business_type", "Case"], ["status", "In View"], ["updated_at", "2017-09-13 14:54:16.358461"], ["id", 1]]
+  [1m[35mSQL (1.5ms)[0m  [1m[33mUPDATE "opportunities" SET "business_type" = ?, "status" = ?, "updated_at" = ? WHERE "opportunities"."id" = ?[0m  [["business_type", "Case"], ["status", "In Consideration"], ["updated_at", "2017-09-13 14:54:16.358461"], ["id", 1]]
   [1m[35m (10.3ms)[0m  [1m[36mcommit transaction[0m
   [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
   [1m[36mOpportunity Load (0.3ms)[0m  [1m[34mSELECT  "opportunities".* FROM "opportunities" WHERE "opportunities"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
@@ -16544,7 +16544,7 @@ Processing by OpportunitiesController#update as JS
   [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
   [1m[36mOpportunity Load (0.1ms)[0m  [1m[34mSELECT  "opportunities".* FROM "opportunities" WHERE "opportunities"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
   [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
-  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "timelines" ("tactivity", "nactivity", "action", "activity_type", "activity_id", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["tactivity", "opportunityDetails"], ["nactivity", "In View"], ["action", "updated Case status to"], ["activity_type", "Opportunity"], ["activity_id", 1], ["user_id", 1], ["created_at", "2017-09-13 14:54:16.428984"], ["updated_at", "2017-09-13 14:54:16.428984"]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "timelines" ("tactivity", "nactivity", "action", "activity_type", "activity_id", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["tactivity", "opportunityDetails"], ["nactivity", "In Consideration"], ["action", "updated Case status to"], ["activity_type", "Opportunity"], ["activity_id", 1], ["user_id", 1], ["created_at", "2017-09-13 14:54:16.428984"], ["updated_at", "2017-09-13 14:54:16.428984"]]
   [1m[35m (8.1ms)[0m  [1m[36mcommit transaction[0m
   [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
   [1m[35m (0.2ms)[0m  [1m[36mcommit transaction[0m

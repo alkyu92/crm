@@ -36,7 +36,7 @@
                           <abbr title="required">*</abbr>
                         <%= f.label "Status", class: "control-label select optional required" %>
                         <% opstatus = ["Open", "Closed-Won", "Closed-Loss"] %>
-                        <% casestatus = ["In View", "Solved"] %>
+                        <% casestatus = ["In Consideration", "Solved"] %>
                         <select name="opportunity[status]" id="opportunity_status" class="select form-control optional">
                             <% opstatus.each do |opstat| %>
                             <option id="optop" value="<%= opstat %>"><%= opstat %></option>
@@ -132,7 +132,7 @@ $('.opportunity_status').on("change", function(){
     $('.opportunity_loss_reason').hide();
   }
 
-  if(status_val == "Open" || status_val == "In View"){
+  if(status_val == "Open" || status_val == "In Consideration"){
     $('.opportunity_close_date').hide();
     $('#opdate').hide();
     $('#casedate').hide();

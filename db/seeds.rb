@@ -45,6 +45,78 @@ for i in 1..20 do
   user_id: 1)
 end
 
+Account.create!(
+account_name: "Local Basic Sdn. Bhd.",
+account_type: "Partner",
+website: "www.localbasic.com.my",
+email: "test@example.com",
+description: "Company description",
+phone: "123-456-890",
+fax: "098-765-432",
+industry: "Aluminium",
+number_of_employee: 200,
+
+billing_street: "No. 123, Jalan 123,",
+billing_city: "Johor Bahru",
+billing_state: "Johor",
+billing_postal_code: "80000",
+billing_country: "Malaysia",
+
+shipping_street: "No. 123, Jalan 123,",
+shipping_city: "Johor Bahru",
+shipping_state: "Johor",
+shipping_postal_code: "80000",
+shipping_country: "Malaysia",
+user_id: 1)
+
+Account.create!(
+account_name: "Local Casting Sdn. Bhd.",
+account_type: "Partner",
+website: "www.localbasic.com.my",
+email: "test@example.com",
+description: "Company description",
+phone: "123-456-890",
+fax: "098-765-432",
+industry: "Aluminium",
+number_of_employee: 200,
+
+billing_street: "No. 123, Jalan 123,",
+billing_city: "Johor Bahru",
+billing_state: "Johor",
+billing_postal_code: "80000",
+billing_country: "Malaysia",
+
+shipping_street: "No. 123, Jalan 123,",
+shipping_city: "Johor Bahru",
+shipping_state: "Johor",
+shipping_postal_code: "80000",
+shipping_country: "Malaysia",
+user_id: 1)
+
+Account.create!(
+account_name: "Anchor",
+account_type: "Sub-contractor",
+website: "anchor.website",
+email: "test@example.com",
+description: "Company description",
+phone: "123-456-890",
+fax: "098-765-432",
+industry: "Painting",
+number_of_employee: 200,
+
+billing_street: "No. 123, Jalan 123,",
+billing_city: "Johor Bahru",
+billing_state: "Johor",
+billing_postal_code: "80000",
+billing_country: "Malaysia",
+
+shipping_street: "No. 123, Jalan 123,",
+shipping_city: "Johor Bahru",
+shipping_state: "Johor",
+shipping_postal_code: "80000",
+shipping_country: "Malaysia",
+user_id: 1)
+
 industry = [
   "Aluminium Manufacturing",
   "Consumer Electronics",
@@ -80,6 +152,41 @@ for i in 1..20 do
   user_id: 1)
 end
 
+Opportunity.create!(
+name: "Case 22",
+business_type: "Case",
+probability: "",
+amount: "RM 1,000,000",
+description: "Case 22 description",
+loss_reason: "",
+close_date: "",
+status: "In Consideration",
+user_id: 1,
+account_id: 1)
+
+Opportunity.create!(
+name: "Shimano Product One Processes",
+business_type: "Opportunity",
+probability: "",
+amount: "RM 1,000,000",
+description: "FA description",
+loss_reason: "",
+close_date: "",
+status: "In Consideration",
+user_id: 1,
+account_id: 1)
+
+process = ['Die and Tooling','Casting','Machining','Secondary Process', 'Finishing', 'Inspection']
+process.each do |prc|
+  Stage.create!(
+  name: prc,
+  status: "Waiting",
+  current_status: false,
+  opportunity_id: 2,
+  user_id: 1,
+  updated_by_id: 1)
+end
+
 for i in 1..10 do
   Opportunity.create!(
   name: "Test Opportunity #{i}",
@@ -103,7 +210,7 @@ for i in 1..10 do
   description: "Test#{i} case description",
   loss_reason: "",
   close_date: "",
-  status: "In View",
+  status: "In Consideration",
   user_id: 1,
   account_id: 1)
 end
@@ -127,6 +234,12 @@ for i in 1..20 do
   user_id: 1)
 end
 
+Task.create!(
+description: "Urgent task",
+due_date: 2.day.from_now,
+opportunity_id: 1,
+user_id: 1)
+
 for i in 1..20 do
   Task.create!(
   description: "Sample task #{i}",
@@ -143,6 +256,12 @@ for i in 1..20 do
   opportunity_id: 1,
   user_id: 1)
 end
+
+Event.create!(
+description: "Urgent event",
+event_date: 1.day.from_now,
+opportunity_id: 1,
+user_id: 1)
 
 for i in 1..20 do
   Event.create!(
