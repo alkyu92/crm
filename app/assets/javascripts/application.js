@@ -20,7 +20,7 @@
 
 $(document).ready(function(){
 
-  var id = ["#task_due_date", "#call_call_datetime", "#event_event_date", "#opportunity_close_date"];
+  var id = ["#task_due_date", "#call_call_datetime", "#event_event_date"];
 
   for(i = 0; i < id.length; i++){
     $(id[i]).datetimepicker({
@@ -31,6 +31,13 @@ $(document).ready(function(){
     });
     $(id[i]).datetimepicker('setStartDate', new Date());
   }
+
+  $("#opportunity_close_date").datetimepicker({
+    pickerPosition: 'top-left',
+    autoclose: true,
+    todayHighlight: true,
+    format: 'yyyy/mm/dd hh:ii:ss Z'
+  });
 
   $('.alert').delay(1600).fadeOut();
 

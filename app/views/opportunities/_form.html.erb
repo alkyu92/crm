@@ -12,7 +12,7 @@
             <% if @accounts.blank? %>
             <div class="modal-body">
                 <div class="text-center">
-                    <h3>Create account first before create opportunity</h3>
+                    <h3>Create account first before create opportunity / case</h3>
                 </div>
             </div>
             <div class="modal-footer">
@@ -24,26 +24,39 @@
                 <%= simple_form_for @opportunity, html: {multipart: true}, remote: true do |f| %>
                 <div class="row">
                     <div class="col-lg-4">
-                        <h4>Opportunity Details</h4>
+                        <h4>Opportunity / Case Details</h4>
                         <br>
-                        <%= f.input :name, label: "Opportunity Name",
+                        <%= f.input :name, label: "Opportunity / Case Name",
                         placeholder: "Opportunity name", autofocus: true %>
 
+                        <%= f.input :business_type, label: "Type",
+                        collection: ["Opportunity", "Case"], include_blank: false %>
+
+                        <div class="form-group select optional opportunity_status">
+                        <%= f.label "Status", class: "control-label select optional" %>
+                        <% opstatus = ["Open", "Closed-Won", "Closed-Loss"] %>
+                        <% casestatus = ["Solved", "In View"] %>
+                        <select name="opportunity[status]" id="opportunity_status" class="select form-control optional">
+                            <% opstatus.each do |opstat| %>
+                            <option id="optop" value="<%= opstat %>"><%= opstat %></option>
+                            <% end %>
+                            <% casestatus.each do |cstat| %>
+                            <option id="optcase" value="<%= cstat %>"><%= cstat %></option>
+                            <% end %>
+                        </select>
+                        </div>
+
+                        <%= f.label "Opportunity close date", id: "opdate" %>
+                        <%= f.label "Case solved date", id: "casedate" %>
+                        <%= f.input :close_date, label: false, as: :date_time_picker %>
+                    </div>
+                    <div class="col-lg-4">
+                        <br><br><br>
                         <%= f.label "Account Association" %>
                         <%= f.select :account_id,
                         Account.all.collect {|acc| [acc.account_name, acc.id] }, {},
                         {class: "form-control selectpicker", data: {live_search: true}} %>
                         <br><br>
-
-                        <%= f.input :status, collection: ["Open", "Closed-Won", "Closed-Loss"],
-                        include_blank: false %>
-                        <%= f.input :close_date, as: :date_time_picker %>
-                    </div>
-                    <div class="col-lg-4">
-                        <br><br><br>
-                        <%= f.input :business_type, label: "Business Type",
-                        collection: ["New business", "Existing Business"],
-                        include_blank: "Type of business" %>
                         <%= f.input :probability, label: "Probability",
                         placeholder: "Probability in percentage" %>
                         <%= f.input :amount, label: "Amount", placeholder: "Opportunity amount" %>
@@ -72,31 +85,39 @@
 </div>
 
 <%= javascript_tag defer: 'defer' do %>
-<% if params[:action] == "index" %>
+
+<% if params[:action] == "show" %>
+
 $('.opportunity_close_date').hide();
 $('.opportunity_loss_reason').hide();
+$('#opdate').hide();
+$('#casedate').hide();
 
-$('#opportunity_status').on("change", function(){
-  var status = $('#opportunity_status').val();
-  if(status == "Closed-Win" || status == "Closed-Loss"){
-      $('.opportunity_close_date').show();
-  } else if(status == "Open"){
-    $('.opportunity_close_date').hide();
-  }
-
-  if(status == "Closed-Loss"){
-    $('.opportunity_loss_reason').show();
-  } else {
-    $('.opportunity_loss_reason').hide();
+$('.opportunity_business_type').on("change", function(){
+  $('.opportunity_close_date').hide();
+  $('#opdate').hide();
+  $('#casedate').hide();
+  var type_val = $('#opportunity_business_type').val();
+  if(type_val == "Opportunity"){
+    $('#opportunity_status option[id=optcase]').hide();
+    $('#opportunity_status option[id=optop]').show();
+  }else if(type_val == "Case"){
+    $('#opportunity_status option[id=optop]').hide();
+    $('#opportunity_status option[id=optcase]').show();
   }
 });
-<% elsif params[:action] == "show" %>
-$('.opportunity_close_date').hide();
-$('.opportunity_loss_reason').hide();
 
 $('.opportunity_status').on("change", function(){
   var status_val = $('#opportunity_status').val();
   if(status_val == "Closed-Won" || status_val == "Closed-Loss"){
+    $('.opportunity_close_date').show();
+    $('#opdate').show();
+    $('#casedate').hide();
+  }
+
+  if(status_val == "Solved"){
+    $('#opdate').hide();
+    $('#casedate').show();
     $('.opportunity_close_date').show();
   }
 
@@ -104,12 +125,14 @@ $('.opportunity_status').on("change", function(){
     $('.opportunity_loss_reason').show();
   }
 
-  if(status_val == "Closed-Won"){
+  if(status_val == "Closed-Won" || status_val == "Solved"){
     $('.opportunity_loss_reason').hide();
   }
 
-  if(status_val == "Open"){
+  if(status_val == "Open" || status_val == "In View"){
     $('.opportunity_close_date').hide();
+    $('#opdate').hide();
+    $('#casedate').hide();
     $('.opportunity_loss_reason').hide();
   }
 
@@ -118,19 +141,36 @@ $('.opportunity_status').on("change", function(){
 var status_val = $('#opportunity_status').val();
 if(status_val == "Closed-Won"){
   $('.opportunity_close_date').show();
+  $('#opdate').show();
+  $('#casedate').hide();
 }else if(status_val == "Closed-Loss"){
   $('.opportunity_close_date').show();
+  $('#opdate').show();
+  $('#casedate').hide();
   $('.opportunity_loss_reason').show();
 }
 
 var close_date_val = $('#opportunity_close_date').val();
 if(close_date_val){
   $('.opportunity_close_date').show();
+  var type_val = $('#opportunity_business_type').val();
+  if(type_val == "Opportunity"){
+    $('#opdate').show();
+  }else if(type_val == "Case"){
+    $('#casedate').show();
+  }
 }
 
 var loss_reason_val = $('#opportunity_loss_reason').val();
 if(loss_reason_val){
   $('.opportunity_loss_reason').show();
+}
+
+var type_val = $('#opportunity_business_type').val();
+if(type_val == "Opportunity"){
+  $('#opportunity_status option[id=optcase]').hide();
+}else if(type_val == "Case"){
+  $('#opportunity_status option[id=optop]').hide();
 }
 
 <% end %>

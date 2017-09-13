@@ -6,7 +6,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Create New Opportunity</h4>
+                <h4 class="modal-title">Create New Opportunity / Case</h4>
             </div>
 
             <div class="modal-body">
@@ -14,7 +14,7 @@
                 <%= simple_form_for [@account, @opportunity, Opportunity.new], remote: true do |f| %>
                 <div class="row">
                     <div class="col-lg-4">
-                        <h4>Opportunity Details</h4>
+                        <h4>Opportunity / Case Details</h4>
                         <br>
                         <%= f.input :name, label: "Opportunity Name",
                         placeholder: "Opportunity name", autofocus: true %>
@@ -25,15 +25,15 @@
                     </div>
                     <div class="col-lg-4">
                         <br><br><br>
+                        <%= f.input :business_type, label: "Type",
+                        collection: ["Opportunity", "Case"], include_blank: false %>
                         <%= f.input :status, collection: ["Open", "Closed-Won", "Closed-Loss"],
                         include_blank: false %>
                         <%= f.input :close_date, as: :date_time_picker %>
-                        <%= f.input :loss_reason, label: "Loss Reason", placeholder: "Loss reason" %>
                     </div>
                     <div class="col-lg-4">
                         <br><br><br>
-                        <%= f.input :business_type, label: "Business Type",
-                        placeholder: "Business type" %>
+                        <%= f.input :loss_reason, label: "Loss Reason", placeholder: "Loss reason" %>
                         <%= f.input :description, input_html: {rows: 5}, label: "Description",
                         placeholder: "Opportunity description" %>
                     </div>

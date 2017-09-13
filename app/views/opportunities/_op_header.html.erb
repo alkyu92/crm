@@ -56,13 +56,19 @@
             <span style="color: green;">Closed-Won</span>
             <% elsif @opportunity.status == "Open" %>
             Open
+            <% elsif @opportunity.status == "Solved" %>
+            <span style="color: green;">Solved</span>
+            <% elsif @opportunity.status == "In View" %>
+            In View
+            <% elsif @opportunity.status == "" %>
+            <span style="color: red">Status not specified</span>
             <% end %>
         </h4>
     </div>
 
     <% if @opportunity.status == "Closed-Won" || @opportunity.status == "Closed-Loss" %>
     <div class="col-lg-2">
-        <small>Close Date</small>
+        <small>Close / Solve Date</small>
         <br>
         <h4>
             <% if @opportunity.close_date.blank? %>
@@ -75,7 +81,7 @@
     <% end %>
 
     <div class="col-lg-2">
-        <small>Opportunity Owner</small>
+        <small>Opportunity / Case Owner</small>
         <br>
         <h4><%= link_to @opportunity.user.name, user_path(@opportunity.user) %></h4>
     </div>

@@ -191,10 +191,15 @@ class OpportunitiesController < ApplicationController
       @opportunity.loss_reason, "updated opportunity loss reason to")
     end
 
-    if @opportunity.status == "Open"
+    if @opportunity.status == "Open" ||
+      @opportunity.status == "In View"
+
       @opportunity.close_date = ""
       @opportunity.loss_reason = ""
-    elsif @opportunity.status == "Close-Won"
+
+    elsif @opportunity.status == "Close-Won" ||
+      @opportunity.status == "Solved"
+
       @opportunity.loss_reason = ""
     end
 

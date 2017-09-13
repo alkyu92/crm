@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-6">
-        <small>Opportunity Name</small>
+        <small>Opportunity / Case Name</small>
         <h4>
             <% if @opportunity.name.blank? %>
             <span style="color: red;">
@@ -48,7 +48,6 @@
             <% end %>
         </h4>
         <br>
-
     </div>
     <div class="col-lg-6">
         <small>Amount</small>
@@ -71,18 +70,24 @@
             <span style="color: green">Closed-Won</span>
             <% elsif @opportunity.status == "Open" %>
             Open
+            <% elsif @opportunity.status == "Solved" %>
+            <span style="color: green;">Solved</span>
+            <% elsif @opportunity.status == "In View" %>
+            In View
             <% elsif @opportunity.status == "" %>
             <span style="color: red">Status not specified</span>
             <% end %>
         </h4>
         <br>
 
-        <% unless @opportunity.status == "Open" || @opportunity.status == "" %>
-        <small>Close Date</small>
+        <% unless @opportunity.status == "Open" ||
+          @opportunity.status == "" ||
+          @opportunity.status == "In View" %>
+        <small>Close / Solve Date</small>
         <h4>
             <% if @opportunity.close_date.blank? %>
             <span style="color: red;">
-                Close Date not specified
+                Close / Solve Date not specified
             </span>
             <% else %>
             <%= @opportunity.close_date.strftime('%d %b %Y') %>

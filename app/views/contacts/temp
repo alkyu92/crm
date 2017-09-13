@@ -1,44 +1,36 @@
-<% ctct = @contact.relationships.includes(:contactable) %>
-<% if ctct.blank? %>
-No association found
-<% else %>
-<% contactable_acc = ctct.where(contactable_type: "Account") %>
-<% unless contactable_acc.blank? %>
-<small>Account</small><br>
-<div class="row">
-    <% contactable_acc.each do |rl| %>
-    <div class="col-lg-4">
-      <div class="panel panel-default panel-body">
-        <%= link_to rl.contactable.account_name,
-        account_path(rl.contactable, anchor: "relatedContacts") %>
-        <%= link_to destroy_relationship_contact_path(rl.contactable, rl.id),
-        method: :delete, remote: true do %>
-        <i class="fa fa-times pull-right"></i>
-        <% end %>
-      </div>
-    </div>
+<div class="form-group select optional opportunity_status">
+<%= f.label "Opportunity / Case Status", class: "control-label select optional" %>
+<% opstatus = ["Open", "Closed-Won", "Closed-Loss"] %>
+<% casestatus = ["Solved", "In View"] %>
+<select name="opportunity[status]" id="opportunity_status" class="selectpicker form-control optional">
+  <div id="opstatus">
+  <optgroup label="Opportunity Status">
+    <% opstatus.each do |opstat| %>
+    <option value="<%= opstat %>"><%= opstat %></option>
     <% end %>
+  </optgroup>
 </div>
-<% end %>
-
-<br>
-<% contactable_op = ctct.where(contactable_type: "Opportunity") %>
-<% unless contactable_op.blank? %>
-<small>Opportunity</small><br>
-<div class="row">
-    <% contactable_op.each do |rl| %>
-    <div class="col-lg-4">
-      <div class="panel panel-default panel-body">
-        <%= link_to rl.contactable.name,
-  opportunity_path(rl.contactable, anchor: "relatedContacts") %>
-        <%= link_to destroy_relationship_contact_path(rl.contactable, rl.id),
-        method: :delete, remote: true do %>
-        <i class="fa fa-times pull-right"></i>
-        <% end %>
-    </div>
-  </div>
+<div id="cstatus">
+  <optgroup label="Case Status">
+    <% casestatus.each do |cstat| %>
+    <option value="<%= cstat %>"><%= cstat %></option>
     <% end %>
+  </optgroup>
 </div>
-<% end %>
+</select>
+</div>
 
-<% end %>
+$('.opportunity_status').hide();
+
+$('.opportunity_business_type').on("change", function(){
+  var type_val = $('#opportunity_business_type').val();
+  if(type_val == "Opportunity"){
+    $('.opportunity_status').show();
+    $('#opportunity_status #cstatus').hide();
+
+  }else if(type_val == "Case"){
+    $('.opportunity_status').show();
+    $('#opportunity_status #opstatus').hide();
+
+  }
+});

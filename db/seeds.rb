@@ -80,16 +80,30 @@ for i in 1..20 do
   user_id: 1)
 end
 
-for i in 1..20 do
+for i in 1..10 do
   Opportunity.create!(
   name: "Test Opportunity #{i}",
-  business_type: "New business",
+  business_type: "Opportunity",
   probability: "75%",
   amount: "RM 1,000,000",
   description: "Test#{i} opportunity description",
   loss_reason: "",
   close_date: "",
   status: "Open",
+  user_id: 1,
+  account_id: 1)
+end
+
+for i in 1..10 do
+  Opportunity.create!(
+  name: "Test Case #{i}",
+  business_type: "Case",
+  probability: "",
+  amount: "RM 1,000,000",
+  description: "Test#{i} case description",
+  loss_reason: "",
+  close_date: "",
+  status: "In View",
   user_id: 1,
   account_id: 1)
 end
