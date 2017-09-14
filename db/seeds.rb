@@ -6,14 +6,16 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-user_arr = { sudo: ['Ali', 'ali@lb.my', 123456, 123456],
-             normal: ['normal', 'normal@lb.my', 123456, 123456]
+user_arr = { sudo: ['Ali', 'ali@lb.my', 'Employee', 'MIS', 123456, 123456],
+             normal: ['normal', 'normal@lb.my', 'Employee', 'Marketing', 123456, 123456]
             }
 user_arr.each do |key, value|
   User.create!( name: value[0],
                 email: value[1],
-                password: value[2],
-                password_confirmation: value[3])
+                title: value[2],
+                department: value[3],
+                password: value[4],
+                password_confirmation: value[5])
 end
 
 department = [

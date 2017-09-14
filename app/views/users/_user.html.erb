@@ -3,11 +3,17 @@
     <div class="col-lg-1 text-center">
         <%= user.id %>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-2">
         <!-- Name -->
         <%= link_to user.name, user_path(user) %>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-1">
+      <%= user.title %>
+    </div>
+    <div class="col-lg-2">
+      <%= user.department %>
+    </div>
+    <div class="col-lg-2">
         <!-- Phone -->
         <% if user.phone.blank? %>
         <span style="color: red;">
@@ -17,7 +23,7 @@
         <%= user.phone %>
         <% end %>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-2">
         <!-- Email -->
         <% if user.email.blank? %>
         <span style="color: red;">
@@ -27,7 +33,7 @@
         <%= user.email %>
         <% end %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 text-center">
         <div class="dropdown">
             <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
                 <i class="caret"></i>
