@@ -6,7 +6,7 @@
 #
 #     I18n.t 'hello'
 #
-# In Considerations, this is aliased to just `t`:
+# In Progresss, this is aliased to just `t`:
 #
 #     <%= t('hello') %>
 #

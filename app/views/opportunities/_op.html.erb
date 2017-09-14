@@ -101,8 +101,8 @@
         <span style="color: green;">Closed-Won</span>
         <% elsif opportunity.status == "Closed-Loss" %>
         <span style="color: red;">Closed-Loss</span>
-        <% elsif opportunity.status == "In Consideration" %>
-        In Consideration
+        <% elsif opportunity.status == "In Progress" %>
+        In Progress
         <% elsif opportunity.status == "Solved" %>
         <span style="color: green;">Solved</span>
         <% end %>
@@ -111,7 +111,7 @@
         <%= opportunity.business_type %>
       </div>
       <div class="col-lg-2">
-        <% if opportunity.status == "Open" || opportunity.status == "In Consideration" %>
+        <% if opportunity.status == "Open" || opportunity.status == "In Progress" %>
           Not available
         <% elsif opportunity.status == "Closed-Won" ||
         opportunity.status == "Closed-Loss" ||

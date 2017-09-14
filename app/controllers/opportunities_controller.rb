@@ -196,7 +196,7 @@ class OpportunitiesController < ApplicationController
     end
 
     if @opportunity.status == "Open" ||
-      @opportunity.status == "In Consideration"
+      @opportunity.status == "In Progress"
 
       @opportunity.close_date = ""
       @opportunity.loss_reason = ""

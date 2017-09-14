@@ -72,8 +72,8 @@
             Open
             <% elsif @opportunity.status == "Solved" %>
             <span style="color: green;">Solved</span>
-            <% elsif @opportunity.status == "In Consideration" %>
-            In Consideration
+            <% elsif @opportunity.status == "In Progress" %>
+            In Progress
             <% elsif @opportunity.status == "" %>
             <span style="color: red">Status not specified</span>
             <% end %>
@@ -82,7 +82,7 @@
 
         <% unless @opportunity.status == "Open" ||
           @opportunity.status == "" ||
-          @opportunity.status == "In Consideration" %>
+          @opportunity.status == "In Progress" %>
         <small>Close / Solve Date</small>
         <h4>
             <% if @opportunity.close_date.blank? %>

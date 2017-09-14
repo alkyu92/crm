@@ -160,7 +160,7 @@ amount: "RM 1,000,000",
 description: "Case 22 description",
 loss_reason: "",
 close_date: "",
-status: "In Consideration",
+status: "In Progress",
 user_id: 1,
 account_id: 1)
 
@@ -210,7 +210,7 @@ for i in 1..10 do
   description: "Test#{i} case description",
   loss_reason: "",
   close_date: "",
-  status: "In Consideration",
+  status: "In Progress",
   user_id: 1,
   account_id: 1)
 end
