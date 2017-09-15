@@ -15,7 +15,7 @@ No calls yet.
 <% @calls.each do |call| %>
 <div class="row">
     <div class="col-lg-6"><%= link_to call.description.truncate(25),
-  opportunity_path(call.opportunity.id, anchor: "call-#{call.id}") %></div>
+  opportunity_path(call.opportunity.id, anchor: "call-callInfo-#{call.id}") %></div>
     <% if call.call_datetime.blank? %>
     <div class="col-lg-6">
         <span style="color: red;">Not specified</span>

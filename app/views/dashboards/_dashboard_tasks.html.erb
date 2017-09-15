@@ -35,7 +35,7 @@ No tasks created yet.
 <% @urgent_tasks.each do |urtask| %>
 <div class="row">
     <div class="col-lg-4"><%= link_to urtask.description.truncate(50),
-  opportunity_path(urtask.opportunity.id, anchor: "task-#{urtask.id}") %></div>
+  opportunity_path(urtask.opportunity.id, anchor: "task-taskInfo-#{urtask.id}") %></div>
 
     <% if urtask.due_date.blank? %>
     <div class="col-lg-8">
@@ -43,10 +43,39 @@ No tasks created yet.
     </div>
 <% else %>
     <div class="col-lg-8">
-      <%= urtask.due_date.strftime('%d %b %Y %H:%M:%S')%>
-      <small style="color: red;">
-        (<%= distance_of_time_in_words(urtask.due_date, Time.now) %> left)
+      <% if urtask.due_date.strftime('%d %b %Y') == Date.today.strftime('%d %b %Y') %>
+      <%= urtask.due_date.strftime('%d %b %Y %H:%M:%S') %>
+      <span style="color: orange;">
+          <strong>
+              Today<br>
+          </strong>
+      </span>
+      <small>
+          (<%= distance_of_time_in_words(urtask.due_date, Time.now) %>
+          left)
       </small>
+      <% elsif urtask.due_date > Time.now %>
+      <%= urtask.due_date.strftime('%d %b %Y %H:%M:%S')%><br>
+      <span style="color: red;">
+          <small>
+              (<%= distance_of_time_in_words(urtask.due_date, Time.now) %>
+              left)
+          </small>
+      </span>
+      <% elsif urtask.due_date < Time.now %>
+      <%= urtask.due_date.strftime('%d %b %Y %H:%M:%S') %>
+      <span style="color: red;">
+          <strong>
+              Task Passed<br>
+          </strong>
+      </span>
+      <span style="color: red;">
+          <small>
+              (<%= distance_of_time_in_words(urtask.due_date, Time.now) %>
+              ago)
+          </small>
+      </span>
+      <% end %>
     </div>
     <% end %>
 </div>

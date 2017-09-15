@@ -21,7 +21,7 @@ No event created yet.
         </div>
     </li>
 </ul>
-<% @opportunity.events.each do |event| %>
+<% @opportunity.events.order('event_date').each do |event| %>
 <li class="list-group-item">
     <div class="row" id="event-<%= event.id %>">
         <div class="col-lg-5">
@@ -29,26 +29,7 @@ No event created yet.
             data: {toggle: "modal", target: "#eventInfo-#{event.id}"} %>
         </div>
         <div class="col-lg-3">
-            <% if event.event_date.blank? %>
-            <span style="color: red;">Date not specified</span>
-        <% else %>
-            <% if event.event_date > Date.today %>
-            <%= event.event_date.strftime('%d %b %Y') %><br>
-            <small>
-                (<%= distance_of_time_in_words(Time.now, event.event_date) %>
-                left)
-            </small>
-            <% elsif event.event_date == Date.today %>
-            <strong style="color: orange;">Today</strong><br>
-            <small>(<%= Time.now.strftime('%d %b %Y') %>)</small>
-        <% else %>
-            <strong style="color: red;">Event passed</strong><br>
-            <small>
-                (<%= distance_of_time_in_words(Time.now, event.event_date) %>
-                ago)
-            </small>
-            <% end %>
-            <% end %>
+            <%= render 'events/calc_date', event: event %>
         </div>
         <div class="col-lg-2">
             <% if event.complete == false %>

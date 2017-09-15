@@ -1,73 +1,47 @@
 <!-- Modal -->
 <div id="eventInfo-<%= event.id %>" class="modal fade" role="dialog">
-<div class="modal-dialog">
+    <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">
-                <small>Event</small>
-            </h4>
-            <div class="row">
-                <div class="col-lg-6">
-                    <h4>
-                        <small>Event Date</small><br>
-                        <% if event.event_date.blank? %>
-                        <span style="color: red;">
-                            Date not specified
-                        </span>
-                    <% else %>
-                        <% if event.event_date > Date.today %>
-                        <%= event.event_date.strftime('%d %b %Y') %><br>
-                        <small>
-                        (<%= distance_of_time_in_words(event.event_date, Time.now) %>
-                        <% if Time.now > event.event_date %>
-                        ago
-                        <% elsif Time.now < event.event_date %>
-                        left
-                        <% end %>
-                        )
-                      </small>
-                        <% elsif event.event_date == Date.today %>
-                        <strong style="color: orange;">Today</strong>
-                        (<%= Time.now.strftime('%d %b %Y') %>)
-                    <% else %>
-                        <strong style="color: red;">Event passed</strong><br>
-                        <small>
-                            (<%= distance_of_time_in_words(Time.now, event.event_date) %>
-                            ago)
-                        </small>
-                        <% end %>
-                        <% end %>
-                    </h4>
-                </div>
-                <div class="col-lg-6">
-                    <h4>
-                        <small>Status</small><br>
-                        <% if event.complete == false %>
-                        <span style="color: red;">
-                            Not attended
-                        </span>
-                        <% elsif event.complete == true %>
-                        <span style="color: green;">
-                            Attended
-                        </span>
-                        <% end %>
-                    </h4>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">
+                    <small>Event</small>
+                </h4>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4>
+                            <small>Event Date</small><br>
+                            <%= render 'events/calc_date', event: event %>
+                        </h4>
+                    </div>
+                    <div class="col-lg-6">
+                        <h4>
+                            <small>Status</small><br>
+                            <% if event.complete == false %>
+                            <span style="color: red;">
+                                Not attend
+                            </span>
+                            <% elsif event.complete == true %>
+                            <span style="color: green;">
+                                Attended
+                            </span>
+                            <% end %>
+                        </h4>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="modal-body">
-            <h4>
-                <small>Description</small>
-            </h4>
-            <%= simple_format h(event.description) %>
-        </div>
-        <div class="modal-footer">
+            <div class="modal-body">
+                <h4>
+                    <small>Description</small>
+                </h4>
+                <%= simple_format h(event.description) %>
+            </div>
+            <div class="modal-footer">
 
-            <%= link_to 'Close', '#', class: "btn btn-default", data: {dismiss: "modal"}%>
+                <%= link_to 'Close', '#', class: "btn btn-default", data: {dismiss: "modal"}%>
+            </div>
         </div>
     </div>
-</div>
 </div>

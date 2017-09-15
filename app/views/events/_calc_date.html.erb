@@ -1,0 +1,40 @@
+<% if event.event_date.blank? %>
+<span style="color: red;">
+    Date not specified
+</span>
+<% else %>
+<% if event.event_date.strftime('%d %b %Y') > Date.today.strftime('%d %b %Y') %>
+<%= event.event_date.strftime('%d %b %Y %H:%M:%S') %><br>
+<small>
+    (<%= distance_of_time_in_words(event.event_date, Time.now) %>
+    <% if Time.now > event.event_date %>
+    ago
+    <% elsif Time.now < event.event_date %>
+    left
+    <% end %>
+    )
+</small>
+<% elsif event.event_date.strftime('%d %b %Y') == Date.today.strftime('%d %b %Y') %>
+<% if Time.now > event.event_date %>
+<strong style="color: red;">Event passed</strong><br>
+<% end %>
+<strong style="color: orange;">Today</strong><br>
+<%= event.event_date.strftime('%d %b %Y %H:%M:%S') %><br>
+<small>
+    (<%= distance_of_time_in_words(Time.now, event.event_date) %>
+    <% if Time.now > event.event_date %>
+    ago
+    <% elsif Time.now < event.event_date %>
+    left
+    <% end %>
+    )
+</small>
+<% else %>
+<strong style="color: red;">Event passed</strong><br>
+<%= event.event_date.strftime('%d %b %Y %H:%M:%S') %><br>
+<small>
+    (<%= distance_of_time_in_words(Time.now, event.event_date) %>
+    ago )
+</small>
+<% end %>
+<% end %>
