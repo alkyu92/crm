@@ -35,7 +35,7 @@
                         <div class="form-group select optional opportunity_status required">
                           <abbr title="required">*</abbr>
                         <%= f.label "Status", class: "control-label select optional required" %>
-                        <% opstatus = ["Open", "Closed-Won", "Closed-Loss"] %>
+                        <% opstatus = ["Open", "Approved", "Closed-Won", "Closed-Loss"] %>
                         <% casestatus = ["In Progress", "Solved"] %>
                         <select name="opportunity[status]" id="opportunity_status" class="select form-control optional">
                             <% opstatus.each do |opstat| %>
