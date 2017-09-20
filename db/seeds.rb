@@ -42,7 +42,7 @@ for i in 1..20 do
   mailing_city: "Johor Bahru",
   mailing_state: "Johor",
   mailing_postal_code: "80000",
-  mailing_country: "Malaysia",
+  mailing_country: "MY",
 
   user_id: 1)
 end
@@ -62,13 +62,13 @@ billing_street: "No. 123, Jalan 123,",
 billing_city: "Johor Bahru",
 billing_state: "Johor",
 billing_postal_code: "80000",
-billing_country: "Malaysia",
+billing_country: "MY",
 
 shipping_street: "No. 123, Jalan 123,",
 shipping_city: "Johor Bahru",
 shipping_state: "Johor",
 shipping_postal_code: "80000",
-shipping_country: "Malaysia",
+shipping_country: "MY",
 user_id: 1)
 
 Account.create!(
@@ -86,13 +86,13 @@ billing_street: "No. 123, Jalan 123,",
 billing_city: "Johor Bahru",
 billing_state: "Johor",
 billing_postal_code: "80000",
-billing_country: "Malaysia",
+billing_country: "MY",
 
 shipping_street: "No. 123, Jalan 123,",
 shipping_city: "Johor Bahru",
 shipping_state: "Johor",
 shipping_postal_code: "80000",
-shipping_country: "Malaysia",
+shipping_country: "MY",
 user_id: 1)
 
 Account.create!(
@@ -110,13 +110,13 @@ billing_street: "No. 123, Jalan 123,",
 billing_city: "Johor Bahru",
 billing_state: "Johor",
 billing_postal_code: "80000",
-billing_country: "Malaysia",
+billing_country: "MY",
 
 shipping_street: "No. 123, Jalan 123,",
 shipping_city: "Johor Bahru",
 shipping_state: "Johor",
 shipping_postal_code: "80000",
-shipping_country: "Malaysia",
+shipping_country: "MY",
 user_id: 1)
 
 industry = [
@@ -144,13 +144,13 @@ for i in 1..20 do
   billing_city: "Johor Bahru",
   billing_state: "Johor",
   billing_postal_code: "80000",
-  billing_country: "Malaysia",
+  billing_country: "MY",
 
   shipping_street: "No. 123, Jalan 123,",
   shipping_city: "Johor Bahru",
   shipping_state: "Johor",
   shipping_postal_code: "80000",
-  shipping_country: "Malaysia",
+  shipping_country: "MY",
   user_id: 1)
 end
 

@@ -15,6 +15,10 @@ class Account < ApplicationRecord
 
   validates :account_name, presence: true
 
+  def country_name(column_name)
+    country = ISO3166::Country[column_name]
+  end
+
   def self.search(query)
   __elasticsearch__.search(
     {

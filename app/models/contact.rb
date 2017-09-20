@@ -1,7 +1,7 @@
 class Contact < ApplicationRecord
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
-  
+
   has_many :relationships, dependent: :destroy
   has_many :accounts, through: :relationships, source: :contactable, source_type: 'Account'
   has_many :opportunities, through: :relationships, source: :contactable, source_type: 'Opportunity'
@@ -16,6 +16,10 @@ class Contact < ApplicationRecord
                     dependent: :destroy
 
   validates_attachment_content_type :profile_pic, content_type: /\Aimage\/.*\z/
+
+  def country_name
+    country = ISO3166::Country[mailing_country]
+  end
 
   def self.search(query)
   __elasticsearch__.search(
