@@ -28,7 +28,7 @@ $(document).ready(function(){
       pickerPosition: 'top-left',
       autoclose: true,
       todayHighlight: true,
-      format: 'yyyy/mm/dd hh:ii:ss Z'
+      format: 'yyyy/mm/dd hh:ii:00 Z'
     });
     $(id[i]).datetimepicker('setStartDate', new Date());
   }
