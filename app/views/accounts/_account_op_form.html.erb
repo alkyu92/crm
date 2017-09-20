@@ -81,13 +81,13 @@ $('.opportunity_business_type').on("change", function(){
     $('#opportunity_status option[id=optcase]').hide();
     $('#opportunity_status option[id=optop]').show();
     $('.opportunity_probability').show();
-    $('#opportunity_status').val('');
+    $('#opportunity_status').val('Open');
 
   }else if(type_val == "Case"){
     $('#opportunity_status option[id=optop]').hide();
     $('#opportunity_status option[id=optcase]').show();
     $('.opportunity_probability').hide();
-    $('#opportunity_status').val('');
+    $('#opportunity_status').val('In Progress');
   }
 });
 
