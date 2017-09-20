@@ -41,7 +41,7 @@
         <%= @account.billing_postal_code %>
         <% end %>
         <% if @account.billing_country != "" %>
-        <%= @account.billing_country %>
+        <%= @account.country_name(@account.billing_country) %>
         <% end %>
 
         <% end %>
