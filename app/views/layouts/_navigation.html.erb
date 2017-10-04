@@ -7,21 +7,20 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-        </div>
 
-        <%= link_to root_path, class: "navbar-brand" do %>
-        Local Basic CRM
-        <% end %>
-
-        <% if user_signed_in? %>
-        <div class="navbar-nav" style="margin-left: 60px; margin-top: 10px; width: 30%;">
-            <%= form_for :term, url: search_path, method: :get do |form| %>
-            <%= text_field_tag :term, params[:term],
-            placeholder: "Search keyword", class: "form-control" %>
+            <%= link_to root_path, class: "navbar-brand" do %>
+            Local Basic CRM
             <% end %>
         </div>
 
+        <% if user_signed_in? %>
         <div class="collapse navbar-collapse" id="crm-menu">
+          <div class="navbar-nav" style="margin-left: 60px; margin-top: 10px; width: 30%;">
+              <%= form_for :term, url: search_path, method: :get do |form| %>
+              <%= text_field_tag :term, params[:term],
+              placeholder: "Search keyword", class: "form-control" %>
+              <% end %>
+          </div>
             <%= render 'layouts/menu' %>
         </div>
         <% end %>

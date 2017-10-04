@@ -1,36 +1,8 @@
-<div class="form-group select optional opportunity_status">
-<%= f.label "Opportunity / Case Status", class: "control-label select optional" %>
-<% opstatus = ["Open", "Closed-Won", "Closed-Loss"] %>
-<% casestatus = ["Solved", "In Progress"] %>
-<select name="opportunity[status]" id="opportunity_status" class="selectpicker form-control optional">
-  <div id="opstatus">
-  <optgroup label="Opportunity Status">
-    <% opstatus.each do |opstat| %>
-    <option value="<%= opstat %>"><%= opstat %></option>
-    <% end %>
-  </optgroup>
-</div>
-<div id="cstatus">
-  <optgroup label="Case Status">
-    <% casestatus.each do |cstat| %>
-    <option value="<%= cstat %>"><%= cstat %></option>
-    <% end %>
-  </optgroup>
-</div>
-</select>
-</div>
-
-$('.opportunity_status').hide();
-
-$('.opportunity_business_type').on("change", function(){
-  var type_val = $('#opportunity_business_type').val();
-  if(type_val == "Opportunity"){
-    $('.opportunity_status').show();
-    $('#opportunity_status #cstatus').hide();
-
-  }else if(type_val == "Case"){
-    $('.opportunity_status').show();
-    $('#opportunity_status #opstatus').hide();
-
-  }
-});
+<% if params[:action] == "edit" %>
+$('#association').html("<%= j (render 'contacts/association') %>");
+$('#notice-association').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
+<% else %>
+$('.timelines').html("<%= j (render 'timelines/timelines_index') %>");
+$('#notice-contact').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
+$('#contact').html("<%= j (render 'contacts/contact') %>")
+<% end %>

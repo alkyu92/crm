@@ -1,6 +1,7 @@
 <% if @contact.relationships.blank? %>
 No association found.
 <% else %>
+<% unless @contact.relationships.where(contactable_type: "Account").blank? %>
   <div class="row">
     <div class="col-lg-12">
     <small>Account</small>
@@ -21,10 +22,12 @@ No association found.
     <% end %>
   <% end %>
   </div>
+  <% end %>
 
+  <% unless @contact.relationships.where(contactable_type: "Opportunity").blank? %>
   <div class="row">
     <div class="col-lg-12">
-    <small>Opportunity</small>
+    <small>Opportunity / Case</small>
   </div>
   <% @contact.relationships.each do |rl| %>
   <% if rl.contactable_type == "Opportunity" %>
@@ -42,5 +45,6 @@ No association found.
     <% end %>
   <% end %>
 </div>
+<% end %>
 <% end %>
 <div id="notice-association"></div>

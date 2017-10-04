@@ -18,9 +18,9 @@
         <%= result.email %>,
         <%= result.phone %>
         <br>
-
         <% elsif result._index == "contacts" %>
-        <h4 style="margin-bottom: 0px;"><%= link_to result.name, contacts_path %><br>
+        <% page_num = (result.id.to_i / 10) + 1 %>
+        <h4 style="margin-bottom: 0px;"><%= link_to result.name, contacts_path(page: page_num, anchor: "contactInfo-#{result.id}") %><br>
           <small>Contact</small>
         </h4>
         <%= result.title %>,

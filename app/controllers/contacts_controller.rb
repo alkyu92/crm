@@ -72,7 +72,6 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
   end
 
   def destroy
-
     if params[:account_id] || params[:opportunity_id]
       @contact = @subject.contacts.find(params[:id])
     else
@@ -92,7 +91,15 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
   def destroy_relationship
     respond_to do |format|
       find_contact
-      @contact.relationships.find(params[:relationship_id]).destroy
+      @relationship = @contact.relationships.find(params[:relationship_id])
+
+      if @relationship.contactable_type == "Account"
+        @subject = @contact.accounts.find(@relationship.contactable_id)
+      elsif @relationship.contactable_type == "Opportunity"
+        @subject = @contact.opportunities.find(@relationship.contactable_id)
+      end
+
+      @relationship.destroy
       timeline_contact("deleted association")
       format.js { flash.now[:success] = "Association deleted!"}
     end
@@ -171,8 +178,11 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
   end
 
   def find_subject
-    @subject = Account.find(params[:account_id]) if params[:account_id]
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+    if params[:account_id]
+      @subject = Account.find(params[:account_id])
+    elsif params[:opportunity_id]
+      @subject = Opportunity.find(params[:opportunity_id])
+    end
   end
 
   def timeline_contact(action)
