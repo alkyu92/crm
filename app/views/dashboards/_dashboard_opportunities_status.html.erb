@@ -34,6 +34,35 @@ No opportunities registered yet.
 <% end %>
 <!-- unless opportunities_open end -->
 
+
+<% unless @opportunities_approved.blank? %>
+<strong>Approved</strong>
+<div class="row">
+    <div class="col-lg-6">
+        <small>Opportunity Name</small>
+    </div>
+    <div class="col-lg-6">
+        <small>Created at DateTime</small>
+    </div>
+</div>
+<% @opportunities_approved.each do |opaprv| %>
+<div class="row">
+    <div class="col-lg-6">
+        <%= link_to opaprv.name, opportunity_path(opaprv) %>
+    </div>
+    <div class="col-lg-6">
+        <%= opaprv.created_at.strftime('%d %b %Y %H:%M:%S')%>
+    </div>
+</div>
+<% end %>
+<!-- loop end  -->
+<br>
+<%= link_to 'See more', opportunities_path(type: "Opportunity", status: "Open") %>
+<hr>
+<% end %>
+<!-- unless opportunities_open end -->
+
+
 <% unless @opportunities_closedwon.blank? %>
 <strong>Closed-Won</strong>
 <div class="row">
