@@ -1,16 +1,17 @@
 class OpportunitiesController < ApplicationController
 
   def index
-    @opportunities = Opportunity.includes(:account, :stages).page(params[:page]).per(10)
+    if params[:status]
+      @opportunities = Opportunity.includes(
+        :account, :stages).where(status: params[:status]).page(params[:page]).per(10)
+    else
+      @opportunities = Opportunity.includes(:account, :stages).page(params[:page]).per(10)
+    end
+
     @opportunity = current_user.opportunities.build
 
-    @stages = Stage.all
-    @accounts = Account.all
-
-    # for AJAX
-    #@subject = @opportunity
-    #@account = Account.find(params[:account_id]) if params[:account_id]
-    #@subject = @account
+    # @stages = Stage.all
+    # @accounts = Account.all
 
   end
 

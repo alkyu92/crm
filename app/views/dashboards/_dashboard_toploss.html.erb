@@ -32,7 +32,8 @@
       <hr>
       <div class="row">
           <div class="col-lg-12 text-center">
-              <h5><%= link_to 'View All Opportunities', opportunities_path %></h5>
+              <h5><%= link_to 'View All Closed-Loss Opportunities',
+              opportunities_path(status: "Closed-Loss") %></h5>
           </div>
       </div>
       <% end %>
