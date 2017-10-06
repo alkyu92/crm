@@ -190,7 +190,7 @@ process.each do |prc|
 end
 
 for j in 1..10 do
-  for i in 1..10 do
+  for i in 1..5 do
     Opportunity.create!(
     name: "Test Opportunity #{i}",
     business_type: "Opportunity",
@@ -200,6 +200,48 @@ for j in 1..10 do
     loss_reason: "",
     close_date: "",
     status: "Open",
+    user_id: 1,
+    account_id: j)
+  end
+
+  for i in 1..5 do
+    Opportunity.create!(
+    name: "Test Opportunity #{i}",
+    business_type: "Opportunity",
+    probability: "75%",
+    amount: 12345.35,
+    description: "Test#{i} opportunity description",
+    loss_reason: "",
+    close_date: "",
+    status: "Closed-Won",
+    user_id: 1,
+    account_id: j)
+  end
+
+  for i in 1..5 do
+    Opportunity.create!(
+    name: "Test Opportunity #{i}",
+    business_type: "Opportunity",
+    probability: "75%",
+    amount: 12345.35,
+    description: "Test#{i} opportunity description",
+    loss_reason: "",
+    close_date: "",
+    status: "Closed-Loss",
+    user_id: 1,
+    account_id: j)
+  end
+
+  for i in 1..5 do
+    Opportunity.create!(
+    name: "Test Opportunity #{i}",
+    business_type: "Opportunity",
+    probability: "75%",
+    amount: 12345.35,
+    description: "Test#{i} opportunity description",
+    loss_reason: "",
+    close_date: "",
+    status: "Approved",
     user_id: 1,
     account_id: j)
   end

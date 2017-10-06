@@ -1,3 +1,10 @@
+<div class="navbar-nav" style="margin-left: 60px; margin-top: 10px; width: 30%;">
+    <%= form_for :term, url: search_path, method: :get do |form| %>
+    <%= text_field_tag :term, params[:term],
+    placeholder: "Search keyword", class: "form-control" %>
+    <% end %>
+</div>
+
 <ul class="nav navbar-nav navbar-right">
 
     <li><%= link_to 'Dashboards', dashboards_path %></li>
