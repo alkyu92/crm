@@ -3,10 +3,15 @@ class DashboardsController < ApplicationController
     @opportunities = Opportunity.includes(
     :user, :account, :tasks, :calls, :events).where(
     business_type: "Opportunity").order('created_at DESC')
+    @opportunities_open = @opportunities.where(status: 'Open').take(6)
+    @opportunities_closedwon = @opportunities.where(status: 'Closed-Won').take(6)
+    @opportunities_closedloss = @opportunities.where(status: 'Closed-Loss').take(6)
 
     @cases = Opportunity.includes(
     :user, :account, :tasks, :calls, :events).where(
     business_type: "Case").order('created_at DESC')
+    @cases_inprogress = @cases.where(status: 'In Progress').take(6)
+    @cases_solved = @cases.where(status: 'Solved').take(6)
 
     @accounts = Account.includes(:user, :opportunities).order('created_at DESC').take(6)
 

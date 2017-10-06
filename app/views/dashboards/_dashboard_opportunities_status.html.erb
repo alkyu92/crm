@@ -1,8 +1,13 @@
 <h5>Opportunities by Status</h5>
 <hr>
-<% if @opportunities.blank? %>
+<% if @opportunities_open.blank? &&
+  @opportunities_closedwon.blank? &&
+  @opportunities_closedloss.blank? %>
+
 No opportunities registered yet.
 <% else %>
+
+<% unless @opportunities_open.blank? %>
 <strong>Open</strong>
 <div class="row">
     <div class="col-lg-6">
@@ -12,7 +17,7 @@ No opportunities registered yet.
         <small>Created at DateTime</small>
     </div>
 </div>
-<% @opportunities.where(status: "Open").take(6).each do |op| %>
+<% @opportunities_open.each do |op| %>
 <div class="row">
     <div class="col-lg-6">
         <%= link_to op.name, opportunity_path(op) %>
@@ -22,10 +27,14 @@ No opportunities registered yet.
     </div>
 </div>
 <% end %>
+<!-- loop end  -->
 <br>
 <%= link_to 'See more', opportunities_path(type: "Opportunity", status: "Open") %>
 <hr>
+<% end %>
+<!-- unless opportunities_open end -->
 
+<% unless @opportunities_closedwon.blank? %>
 <strong>Closed-Won</strong>
 <div class="row">
     <div class="col-lg-6">
@@ -35,7 +44,7 @@ No opportunities registered yet.
         <small>Created at DateTime</small>
     </div>
 </div>
-<% @opportunities.where(status: "Closed-Won").take(6).each do |op| %>
+<% @opportunities_closedwon.each do |op| %>
 <div class="row">
     <div class="col-lg-6">
         <%= link_to op.name, opportunity_path(op) %>
@@ -45,10 +54,14 @@ No opportunities registered yet.
     </div>
 </div>
 <% end %>
+<!-- loop end -->
 <br>
 <%= link_to 'See more', opportunities_path(type: "Opportunity", status: "Closed-Won") %>
 <hr>
+<% end %>
+<!-- unless opportunities_closedwon -->
 
+<% unless @opportunities_closedloss.blank? %>
 <strong>Closed-Loss</strong>
 <div class="row">
     <div class="col-lg-6">
@@ -58,7 +71,7 @@ No opportunities registered yet.
         <small>Created at DateTime</small>
     </div>
 </div>
-<% @opportunities.where(status: "Closed-Loss").take(6).each do |op| %>
+<% @opportunities_closedloss.each do |op| %>
 <div class="row">
     <div class="col-lg-6">
         <%= link_to op.name, opportunity_path(op) %>
@@ -68,9 +81,14 @@ No opportunities registered yet.
     </div>
 </div>
 <% end %>
+<!-- loop end -->
 <br>
 <%= link_to 'See more', opportunities_path(type: "Opportunity", status: "Closed-Loss") %>
 <% end %>
+<!-- unless opportunities_closedloss -->
+
 <hr>
 <h5 class="text-center"><%= link_to 'View All Opportunities',
 opportunities_path(type: "Opportunity") %></h5>
+<% end %>
+<!-- opportunities blank end -->
