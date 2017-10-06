@@ -1,0 +1,26 @@
+<h5>Latest Cases</h5>
+<% if @cases.blank? %>
+No cases registered yet.
+<% else %>
+<div class="row">
+    <div class="col-lg-6">
+        <small>Case Name</small>
+    </div>
+    <div class="col-lg-6">
+        <small>Created at DateTime</small>
+    </div>
+</div>
+<% @cases.each do |cs| %>
+<div class="row">
+    <div class="col-lg-6">
+        <%= link_to cs.name, opportunity_path(cs) %>
+    </div>
+    <div class="col-lg-6">
+        <%= cs.created_at.strftime('%d %b %Y %H:%M:%S')%>
+    </div>
+</div>
+<% end %>
+<% end %>
+<hr>
+<h5 class="text-center"><%= link_to 'View All Cases',
+opportunities_path(type: "Case") %></h5>

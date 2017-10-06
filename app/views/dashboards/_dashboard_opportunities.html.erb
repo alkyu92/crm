@@ -1,10 +1,10 @@
-<h5>Latest Opportunities / Cases</h5>
+<h5>Latest Opportunities</h5>
 <% if @opportunities.blank? %>
-No opportunities / cases registered yet.
+No opportunities registered yet.
 <% else %>
 <div class="row">
     <div class="col-lg-6">
-        <small>Opportunity / Case Name</small>
+        <small>Opportunity Name</small>
     </div>
     <div class="col-lg-6">
         <small>Created at DateTime</small>
@@ -22,4 +22,5 @@ No opportunities / cases registered yet.
 <% end %>
 <% end %>
 <hr>
-<h5 class="text-center"><%= link_to 'View All Opportunities / Cases', opportunities_path %></h5>
+<h5 class="text-center"><%= link_to 'View All Opportunities',
+opportunities_path(type: "Opportunity") %></h5>

@@ -6,9 +6,16 @@
           <%= letter_avatar_tag('Opportunities', 50, class: "media-object") %>
         </div>
         <div class="media-body">
-        <h3>Opportunities / Cases<br>
+
+          <% if params[:type] %>
+          <h3><%= params[:type] %><br>
+          <small><%= params[:status].blank? ? "All #{params[:type]}" : params[:status] %></small>
+          </h3>
+          <% else %>
+          <h3>Opportunities / Cases<br>
           <small>Potential Deals / Issues Tracking</small>
-        </h3>
+          </h3>
+          <% end %>
       </div>
       </div>
     </div>
@@ -16,7 +23,7 @@
 </div>
 
 <div class="text-center">
-<%= page_entries_info @opportunities %><br>
+<!-- <%#= page_entries_info @opportunities %><br> -->
 <%= paginate @opportunities %>
 </div>
 <hr>
@@ -25,7 +32,7 @@
 
 <% if @opportunities.blank? %>
 <div class="text-center">
-  <%= link_to 'Create Opportunity through Account', accounts_path %>
+  <%= link_to 'Create Opportunity / Cases through Account', accounts_path %>
 </div>
 <% else %>
 <div class="row">
@@ -138,7 +145,7 @@
   <% end %>
   <br>
   <div class="text-center">
-  <%= page_entries_info @opportunities %><br>
+  <!-- <%#= page_entries_info @opportunities %><br> -->
   <%= paginate @opportunities %>
 </div>
 <% end %>

@@ -4,7 +4,7 @@ class CreateOpportunities < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :business_type
       t.string :probability
-      t.string :amount
+      t.decimal :amount, precision: 8, scale: 2
       t.text :description
       t.string :loss_reason
       t.date :close_date

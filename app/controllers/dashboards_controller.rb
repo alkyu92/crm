@@ -1,7 +1,13 @@
 class DashboardsController < ApplicationController
   def index
     @opportunities = Opportunity.includes(
-    :user, :account, :tasks, :calls, :events).order('created_at DESC').take(6)
+    :user, :account, :tasks, :calls, :events).where(
+    business_type: "Opportunity").order('created_at DESC').take(6)
+
+    @cases = Opportunity.includes(
+    :user, :account, :tasks, :calls, :events).where(
+    business_type: "Case").order('created_at DESC').take(6)
+
     @accounts = Account.includes(:user, :opportunities).order('created_at DESC').take(6)
 
     @tasks = Task.includes(:opportunity).order('created_at DESC').take(6)
@@ -23,14 +29,14 @@ class DashboardsController < ApplicationController
 
     @acc_won_hash = {}
     Account.all.each do |acc|
-      @acc_won_hash[acc.account_name] = acc.opportunities.where(status: "Closed-Won").count
+      @acc_won_hash[acc.account_name] = acc.opportunities.where(status: "Closed-Won").sum("amount")
     end
     @acc_won_hash = @acc_won_hash.sort_by(&:last).reverse.take(6)
     gon.acc_won_hash = @acc_won_hash
 
     @acc_loss_hash = {}
     Account.all.each do |acc|
-      @acc_loss_hash[acc.account_name] = acc.opportunities.where(status: "Closed-Loss").count
+      @acc_loss_hash[acc.account_name] = acc.opportunities.where(status: "Closed-Loss").sum("amount")
     end
     @acc_loss_hash = @acc_loss_hash.sort_by(&:last).reverse.take(6)
     gon.acc_loss_hash = @acc_loss_hash

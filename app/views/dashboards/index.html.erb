@@ -35,7 +35,7 @@
     </div>
     <div class="col-lg-4">
       <div class="panel panel-default panel-body">
-          <%= render 'dashboards/dashboard_contacts' %>
+          <%= render 'dashboards/dashboard_cases' %>
       </div>
     </div>
 </div>
@@ -82,15 +82,14 @@
   <canvas id="opportunity-chart" width="400" height="400"></canvas>
 </div>
 <div class="col-lg-4">
-  <h4 class="text-center">Number of Opportunity Won by Account</h4>
+  <h4 class="text-center">Value of Opportunity Won by Account</h4>
   <canvas id="won-chart" width="400" height="400"></canvas>
 </div>
 <div class="col-lg-4">
-  <h4 class="text-center">Number of Opportunity Loss by Account</h4>
+  <h4 class="text-center">Value of Opportunity Loss by Account</h4>
   <canvas id="loss-chart" width="400" height="400"></canvas>
 </div>
 </div>
-
 <script>
 var month = [
     'January',
@@ -169,10 +168,12 @@ var month = [
     var acc_won_hash = gon.acc_won_hash;
     var acc_won_name = [];
     var acc_won_count = [];
+
     for (var i = 0; i < acc_won_hash.length; i++) {
       acc_won_name.push(acc_won_hash[i][0]);
       acc_won_count.push(acc_won_hash[i][1]);
     }
+
     var wondata = {
         labels: acc_won_name,
         datasets: [
@@ -202,10 +203,12 @@ var month = [
     var acc_loss_hash = gon.acc_loss_hash;
     var acc_loss_name = [];
     var acc_loss_count = [];
+
     for (var i = 0; i < acc_loss_hash.length; i++) {
       acc_loss_name.push(acc_loss_hash[i][0]);
       acc_loss_count.push(acc_loss_hash[i][1]);
     }
+
     var lossdata = {
         labels: acc_loss_name,
         datasets: [
@@ -232,11 +235,10 @@ var month = [
         yAxes: [{
           scaleLabel: {
             display: true,
-            labelString: 'Number of Opportunity'
+            labelString: 'Value of Opportunity (RM)'
           },
           ticks: {
-            beginAtZero: true,
-            stepSize: 1
+            beginAtZero: true
           }
         }],
         xAxes: [{

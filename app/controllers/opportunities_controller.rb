@@ -1,9 +1,16 @@
 class OpportunitiesController < ApplicationController
 
   def index
-    if params[:status]
+    if params[:status] && params[:type]
       @opportunities = Opportunity.includes(
-        :account, :stages).where(status: params[:status]).page(params[:page]).per(10)
+        :account, :stages).where(
+        status: params[:status], business_type: params[:type]).page(
+        params[:page]).per(10)
+    elsif params[:type]
+      @opportunities = Opportunity.includes(
+        :account, :stages).where(
+        business_type: params[:type]).page(
+        params[:page]).per(10)
     else
       @opportunities = Opportunity.includes(:account, :stages).page(params[:page]).per(10)
     end
