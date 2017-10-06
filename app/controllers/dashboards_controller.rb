@@ -16,11 +16,24 @@ class DashboardsController < ApplicationController
 
     @contacts = Contact.all.order('created_at DESC').take(6)
 
-    @opwon = Opportunity.where(status: "Closed-Won").take(6)
-    @oploss = Opportunity.where(status: "Closed-Loss").take(6)
+    @opwon = Opportunity.where(status: "Closed-Won")
+    @oploss = Opportunity.where(status: "Closed-Loss")
+    gon.opwon_count = @opwon.count
+    gon.oploss_count =  @oploss.count
 
-    gon.won = @opwon
-    gon.loss =  @oploss
+    @acc_won_hash = {}
+    Account.all.each do |acc|
+      @acc_won_hash[acc.account_name] = acc.opportunities.where(status: "Closed-Won").count
+    end
+    @acc_won_hash = @acc_won_hash.sort_by(&:last).reverse.take(6)
+    gon.acc_won_hash = @acc_won_hash
+
+    @acc_loss_hash = {}
+    Account.all.each do |acc|
+      @acc_loss_hash[acc.account_name] = acc.opportunities.where(status: "Closed-Loss").count
+    end
+    @acc_loss_hash = @acc_loss_hash.sort_by(&:last).reverse.take(6)
+    gon.acc_loss_hash = @acc_loss_hash
   end
 
 end

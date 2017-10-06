@@ -67,34 +67,48 @@
 <div class="row">
     <div class="col-lg-4">
         <%= render 'dashboards/dashboard_topwon' %>
-        <!-- <canvas id="topWonChart" width="400" height="400"></canvas> -->
     </div>
     <div class="col-lg-4">
         <%= render 'dashboards/dashboard_toploss' %>
-        <!-- <canvas id="topLossChart" width="400" height="400"></canvas> -->
     </div>
     <div class="col-lg-4">
         <%= render 'dashboards/dashboard_lossreason' %>
-        <!-- <canvas id="topReasonChart" width="400" height="400"></canvas> -->
     </div>
+</div>
+<hr>
+<div class="row">
+<div class="col-lg-4">
+  <h4 class="text-center">Overall Opportunity Won-Loss Chart</h4>
+  <canvas id="opportunity-chart" width="400" height="400"></canvas>
+</div>
+<div class="col-lg-4">
+  <h4 class="text-center">Number of Opportunity Won by Account</h4>
+  <canvas id="won-chart" width="400" height="400"></canvas>
+</div>
+<div class="col-lg-4">
+  <h4 class="text-center">Number of Opportunity Loss by Account</h4>
+  <canvas id="loss-chart" width="400" height="400"></canvas>
+</div>
 </div>
 
 <script>
+var month = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'Disember'
+]
+
     function myClock() {
-        var month = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'Disember'
-        ]
+
         var timeNow = new Date();
 
         var timeDate = timeNow.getDate();
@@ -125,4 +139,130 @@
     $(document).ready(function () {
         setInterval('myClock()', 1000);
     });
+
+    var ctx = document.getElementById('opportunity-chart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [
+                "Won", "Loss"
+            ],
+            datasets: [
+                {
+                    data: [
+                        gon.opwon_count, gon.oploss_count
+                    ],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        }
+    });
+
+    var acc_won_hash = gon.acc_won_hash;
+    var acc_won_name = [];
+    var acc_won_count = [];
+    for (var i = 0; i < acc_won_hash.length; i++) {
+      acc_won_name.push(acc_won_hash[i][0]);
+      acc_won_count.push(acc_won_hash[i][1]);
+    }
+    var wondata = {
+        labels: acc_won_name,
+        datasets: [
+            {
+                data: acc_won_count,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(55, 99, 132, 0.2)',
+                    'rgba(54, 62, 235, 0.2)',
+                    'rgba(255, 99, 32, 0.2)',
+                    'rgba(254, 162, 235, 0.2)'
+                ],
+                borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(55, 99, 132, 1)',
+                  'rgba(54, 62, 235, 1)',
+                  'rgba(255, 99, 32, 1)',
+                  'rgba(254, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }
+        ]
+    };
+
+    var acc_loss_hash = gon.acc_loss_hash;
+    var acc_loss_name = [];
+    var acc_loss_count = [];
+    for (var i = 0; i < acc_loss_hash.length; i++) {
+      acc_loss_name.push(acc_loss_hash[i][0]);
+      acc_loss_count.push(acc_loss_hash[i][1]);
+    }
+    var lossdata = {
+        labels: acc_loss_name,
+        datasets: [
+            {
+                data: acc_loss_count,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }
+        ]
+    };
+
+    var optiondata = {
+      scales: {
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Number of Opportunity'
+          },
+          ticks: {
+            beginAtZero: true,
+            stepSize: 1
+          }
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Account Name'
+          },
+          ticks: {
+            beginAtZero: true,
+            autoSkip: false,
+            minRotation: 90,
+            maxRotation: 90
+          }
+        }]
+      }
+    }
+
+    var ctx = document.getElementById('won-chart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: wondata,
+        options: optiondata
+    });
+
+    var ctx = document.getElementById('loss-chart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: lossdata,
+        options: optiondata
+    });
+
 </script>
