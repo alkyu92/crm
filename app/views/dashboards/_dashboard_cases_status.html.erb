@@ -1,0 +1,53 @@
+<h5>Cases by Status</h5>
+<hr>
+<% if @cases.blank? %>
+No cases registered yet.
+<% else %>
+<strong>In Progress</strong>
+<div class="row">
+    <div class="col-lg-6">
+        <small>Case Name</small>
+    </div>
+    <div class="col-lg-6">
+        <small>Created at DateTime</small>
+    </div>
+</div>
+<% @cases.where(status: "In Progress").take(6).each do |cs| %>
+<div class="row">
+    <div class="col-lg-6">
+        <%= link_to cs.name, opportunity_path(cs) %>
+    </div>
+    <div class="col-lg-6">
+        <%= cs.created_at.strftime('%d %b %Y %H:%M:%S')%>
+    </div>
+</div>
+<% end %>
+<br>
+<%= link_to 'See more', opportunities_path(type: "Case", status: "In Progress") %>
+<hr>
+
+<strong>Solved</strong>
+<div class="row">
+    <div class="col-lg-6">
+        <small>Case Name</small>
+    </div>
+    <div class="col-lg-6">
+        <small>Created at DateTime</small>
+    </div>
+</div>
+<% @cases.where(status: "Solved").take(6).each do |cs| %>
+<div class="row">
+    <div class="col-lg-6">
+        <%= link_to cs.name, opportunity_path(cs) %>
+    </div>
+    <div class="col-lg-6">
+        <%= cs.created_at.strftime('%d %b %Y %H:%M:%S')%>
+    </div>
+</div>
+<% end %>
+<br>
+<%= link_to 'See more', opportunities_path(type: "Case", status: "Solved") %>
+<% end %>
+<hr>
+<h5 class="text-center"><%= link_to 'View All Cases',
+opportunities_path(type: "Case") %></h5>

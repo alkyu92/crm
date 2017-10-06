@@ -2,11 +2,11 @@ class DashboardsController < ApplicationController
   def index
     @opportunities = Opportunity.includes(
     :user, :account, :tasks, :calls, :events).where(
-    business_type: "Opportunity").order('created_at DESC').take(6)
+    business_type: "Opportunity").order('created_at DESC')
 
     @cases = Opportunity.includes(
     :user, :account, :tasks, :calls, :events).where(
-    business_type: "Case").order('created_at DESC').take(6)
+    business_type: "Case").order('created_at DESC')
 
     @accounts = Account.includes(:user, :opportunities).order('created_at DESC').take(6)
 

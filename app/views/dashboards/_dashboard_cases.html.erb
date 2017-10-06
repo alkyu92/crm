@@ -1,4 +1,5 @@
 <h5>Latest Cases</h5>
+<hr>
 <% if @cases.blank? %>
 No cases registered yet.
 <% else %>
@@ -10,7 +11,7 @@ No cases registered yet.
         <small>Created at DateTime</small>
     </div>
 </div>
-<% @cases.each do |cs| %>
+<% @cases.take(6).each do |cs| %>
 <div class="row">
     <div class="col-lg-6">
         <%= link_to cs.name, opportunity_path(cs) %>

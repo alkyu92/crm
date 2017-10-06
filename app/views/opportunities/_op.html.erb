@@ -8,11 +8,12 @@
         <div class="media-body">
 
           <% if params[:type] %>
-          <h3><%= params[:type] %><br>
+          <h3><%= params[:type] == "Opportunity" ? 'Opportunities' : 'Cases' %><br>
           <small><%= params[:status].blank? ? "All #{params[:type]}" : params[:status] %></small>
           </h3>
           <% else %>
-          <h3>Opportunities / Cases<br>
+          <h3><%= link_to 'Opportunities', opportunities_path(type: "Opportunity") %>
+            / <%= link_to 'Cases', opportunities_path(type: "Case") %><br>
           <small>Potential Deals / Issues Tracking</small>
           </h3>
           <% end %>
