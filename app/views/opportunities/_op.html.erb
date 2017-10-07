@@ -111,6 +111,8 @@
         <span style="color: red;">Closed-Loss</span>
         <% elsif opportunity.status == "In Progress" %>
         In Progress
+        <% elsif opportunity.status == "Approved" %>
+        <span style="color: blue;">Approved</span>
         <% elsif opportunity.status == "Solved" %>
         <span style="color: green;">Solved</span>
         <% end %>

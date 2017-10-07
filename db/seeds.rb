@@ -212,7 +212,7 @@ for j in 1..10 do
     amount: 12345.35,
     description: "Test#{i} opportunity description",
     loss_reason: "",
-    close_date: "",
+    close_date: Time.now,
     status: "Closed-Won",
     user_id: 1,
     account_id: j)
@@ -226,7 +226,7 @@ for j in 1..10 do
     amount: 12345.35,
     description: "Test#{i} opportunity description",
     loss_reason: "",
-    close_date: "",
+    close_date: Time.now,
     status: "Closed-Loss",
     user_id: 1,
     account_id: j)

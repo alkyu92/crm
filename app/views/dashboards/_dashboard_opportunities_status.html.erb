@@ -10,19 +10,25 @@ No opportunities registered yet.
 <% unless @opportunities_open.blank? %>
 <strong>Open</strong>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-4">
         <small>Opportunity Name</small>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-4">
+        <small>Belongs to Account Name</small>
+    </div>
+    <div class="col-lg-4">
         <small>Created at DateTime</small>
     </div>
 </div>
 <% @opportunities_open.each do |op| %>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-4">
         <%= link_to op.name, opportunity_path(op) %>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-4">
+        <%= link_to op.account.account_name, account_path(op.account) %>
+    </div>
+    <div class="col-lg-4">
         <%= op.created_at.strftime('%d %b %Y %H:%M:%S')%>
     </div>
 </div>
@@ -35,32 +41,7 @@ No opportunities registered yet.
 <!-- unless opportunities_open end -->
 
 
-<% unless @opportunities_approved.blank? %>
-<strong>Approved</strong>
-<div class="row">
-    <div class="col-lg-6">
-        <small>Opportunity Name</small>
-    </div>
-    <div class="col-lg-6">
-        <small>Created at DateTime</small>
-    </div>
-</div>
-<% @opportunities_approved.each do |opaprv| %>
-<div class="row">
-    <div class="col-lg-6">
-        <%= link_to opaprv.name, opportunity_path(opaprv) %>
-    </div>
-    <div class="col-lg-6">
-        <%= opaprv.created_at.strftime('%d %b %Y %H:%M:%S')%>
-    </div>
-</div>
-<% end %>
-<!-- loop end  -->
-<br>
-<%= link_to 'See more', opportunities_path(type: "Opportunity", status: "Open") %>
-<hr>
-<% end %>
-<!-- unless opportunities_open end -->
+<%= render 'dashboards/op_status_block' %>
 
 
 <% unless @opportunities_closedwon.blank? %>
