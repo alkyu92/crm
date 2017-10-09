@@ -52,8 +52,16 @@
                 <% end %>
               </optgroup>
 
-              <optgroup label="Opportunity / Case">
+              <optgroup label="Opportunity">
                 <% @op_collect.each do |op| %>
+                <% next if op.business_type == "Case" %>
+                <option value="Opportunity,<%= op.id %>"><%= op.name %></option>
+                <% end %>
+              </optgroup>
+
+              <optgroup label="Case">
+                <% @op_collect.each do |op| %>
+                <% next if op.business_type == "Opportunity" %>
                 <option value="Opportunity,<%= op.id %>"><%= op.name %></option>
                 <% end %>
               </optgroup>

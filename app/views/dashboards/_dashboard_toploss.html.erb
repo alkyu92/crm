@@ -12,7 +12,7 @@
         <small>Opportunity Name</small>
       </div>
       <div class="col-lg-4">
-        <small>Closed-Loss at</small>
+        <small>Amount in RM</small>
       </div>
     </div>
       <% @oploss.take(6).each do |loss| %>
@@ -24,7 +24,7 @@
           <%= link_to loss.name, opportunity_path(loss) %>
         </div>
         <div class="col-lg-4">
-          <%= loss.close_date.strftime('%d %b %Y') %>
+          <%= loss.amount %>
         </div>
       </div>
       <% end %>

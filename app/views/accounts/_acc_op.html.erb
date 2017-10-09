@@ -15,7 +15,8 @@ Opportunities not found.
             </div>
         </div>
     </li>
-    <% @account.opportunities.each do |opportunity| %>
+    <% accop = @account.opportunities.page(params[:page]).per(10) %>
+    <% accop.each do |opportunity| %>
     <li class="list-group-item">
         <div class="row">
             <div class="col-lg-4">
@@ -26,5 +27,8 @@ Opportunities not found.
         </div>
     </li>
     <% end %>
+    <div class="text-center">
+      <%= paginate accop %>
+    </div>
 </ul>
 <% end %>

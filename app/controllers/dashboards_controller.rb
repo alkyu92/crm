@@ -28,10 +28,10 @@ class DashboardsController < ApplicationController
 
     @contacts = Contact.all.order('created_at DESC').take(6)
 
-    @opwon = Opportunity.includes(:account).where(status: "Closed-Won")
-    @oploss = Opportunity.includes(:account).where(status: "Closed-Loss")
-    gon.opwon_count = @opwon.count
-    gon.oploss_count =  @oploss.count
+    @opwon = Opportunity.includes(:account).where(status: "Closed-Won").order('amount')
+    @oploss = Opportunity.includes(:account).where(status: "Closed-Loss").order('amount')
+    gon.opwon_count = @opwon.sum('amount')
+    gon.oploss_count =  @oploss.sum('amount')
 
     @acc_won_hash = {}
     Account.all.each do |acc|

@@ -13,51 +13,11 @@
         </div>
     </div>
     <div class="col-lg-4">
-          <h5>Time now</h5>
-          <h4>
-              <div id="myClock" style="padding-bottom: 10px;"></div>
-              <div id="jpClock"></div>
-          </h4>
-    </div>
-</div>
-<hr>
-
-<div class="row">
-    <div class="col-lg-4">
-            <%= render 'dashboards/dashboard_accounts' %>
-    </div>
-    <div class="col-lg-4">
-        <%= render 'dashboards/dashboard_opportunities' %>
-    </div>
-    <div class="col-lg-4">
-          <%= render 'dashboards/dashboard_cases' %>
-    </div>
-</div>
-
-<div class="row">
-  <div class="col-lg-4">
-        <%= render 'dashboards/dashboard_contacts' %>
-        <%= render 'dashboards/dashboard_cases_status' %>
-  </div>
-  <div class="col-lg-8">
-        <%= render 'dashboards/dashboard_opportunities_status' %>
-  </div>
-</div>
-
-<hr>
-<h3>Activities</h3>
-<br>
-<div class="row">
-    <div class="col-lg-4">
-            <%= render 'dashboards/dashboard_tasks' %>
-    </div>
-    <div class="col-lg-4">
-
-            <%= render 'dashboards/dashboard_calls' %>
-
-    </div>
-    <div class="col-lg-4">
-        <%= render 'dashboards/dashboard_events' %>
+        <h5>Time now</h5>
+        <h4>
+            <div id="myClock" style="padding-bottom: 10px;"></div>
+            <div id="jpClock"></div>
+        </h4>
     </div>
 </div>
 
@@ -77,34 +37,76 @@
 </div>
 <hr>
 <div class="row">
-<div class="col-lg-4">
-  <h4 class="text-center">Overall Opportunity Won-Loss Chart</h4>
-  <canvas id="opportunity-chart" width="400" height="400"></canvas>
+    <div class="col-lg-4">
+        <h4 class="text-center">Overall Opportunity Won-Loss Chart</h4>
+        <canvas id="opportunity-chart" width="400" height="400"></canvas>
+    </div>
+    <div class="col-lg-4">
+        <h4 class="text-center">Value of Opportunity Won by Account</h4>
+        <canvas id="won-chart" width="400" height="400"></canvas>
+    </div>
+    <div class="col-lg-4">
+        <h4 class="text-center">Value of Opportunity Loss by Account</h4>
+        <canvas id="loss-chart" width="400" height="400"></canvas>
+    </div>
 </div>
-<div class="col-lg-4">
-  <h4 class="text-center">Value of Opportunity Won by Account</h4>
-  <canvas id="won-chart" width="400" height="400"></canvas>
+
+<hr>
+
+<div class="row">
+    <div class="col-lg-4">
+        <%= render 'dashboards/dashboard_accounts' %>
+    </div>
+    <div class="col-lg-4">
+        <%= render 'dashboards/dashboard_opportunities' %>
+    </div>
+    <div class="col-lg-4">
+        <%= render 'dashboards/dashboard_cases' %>
+    </div>
 </div>
-<div class="col-lg-4">
-  <h4 class="text-center">Value of Opportunity Loss by Account</h4>
-  <canvas id="loss-chart" width="400" height="400"></canvas>
+
+<div class="row">
+    <div class="col-lg-4">
+        <%= render 'dashboards/dashboard_contacts' %>
+        <%= render 'dashboards/dashboard_cases_status' %>
+    </div>
+    <div class="col-lg-8">
+        <%= render 'dashboards/dashboard_opportunities_status' %>
+    </div>
 </div>
+
+<hr>
+<h3>Activities</h3>
+<br>
+<div class="row">
+    <div class="col-lg-4">
+        <%= render 'dashboards/dashboard_tasks' %>
+    </div>
+    <div class="col-lg-4">
+
+        <%= render 'dashboards/dashboard_calls' %>
+
+    </div>
+    <div class="col-lg-4">
+        <%= render 'dashboards/dashboard_events' %>
+    </div>
 </div>
+
 <script>
-var month = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'Disember'
-]
+    var month = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'Disember'
+    ]
 
     function myClock() {
 
@@ -118,15 +120,9 @@ var month = [
         var timeMinutes = timeNow.getMinutes();
         var timeSeconds = timeNow.getSeconds();
 
-        var myTimeClock = timeDate + " " + timeMonth + " " + timeYear + " "
-        + ("0" + timeHours).slice(-2) + ":"
-        + ("0" + timeMinutes).slice(-2) + ":"
-        + ("0" + timeSeconds).slice(-2);
+        var myTimeClock = timeDate + " " + timeMonth + " " + timeYear + " " + ("0" + timeHours).slice(-2) + ":" + ("0" + timeMinutes).slice(-2) + ":" + ("0" + timeSeconds).slice(-2);
 
-        var jpTimeClock = timeDate + " " + timeMonth + " " + timeYear + " "
-        + ("0" + (timeHours+1)).slice(-2) + ":"
-        + ("0" + timeMinutes).slice(-2) + ":"
-        + ("0" + timeSeconds).slice(-2);
+        var jpTimeClock = timeDate + " " + timeMonth + " " + timeYear + " " + ("0" + (timeHours + 1)).slice(-2) + ":" + ("0" + timeMinutes).slice(-2) + ":" + ("0" + timeSeconds).slice(-2);
 
         var myClock = myTimeClock + " MY";
         var jpClock = jpTimeClock + " JP";
@@ -152,16 +148,31 @@ var month = [
                         gon.opwon_count, gon.oploss_count
                     ],
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)'
+                        'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'
                     ],
                     borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)'
+                        'rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'
                     ],
                     borderWidth: 1
                 }
             ]
+        },
+        options: {
+          tooltips: {
+            callbacks: {
+        title: function(tooltipItem, data) {
+          return data['labels'][tooltipItem[0]['index']];
+        },
+        label: function(tooltipItem, data) {
+          return 'RM' + data['datasets'][0]['data'][tooltipItem['index']];
+        },
+        afterLabel: function(tooltipItem, data) {
+          var dataset = data['datasets'][0];
+          var percent = Math.round((dataset['data'][tooltipItem['index']] / dataset["_meta"][0]['total']) * 100)
+          return '(' + percent + '%)';
+        }
+      }
+          }
         }
     });
 
@@ -170,8 +181,8 @@ var month = [
     var acc_won_count = [];
 
     for (var i = 0; i < acc_won_hash.length; i++) {
-      acc_won_name.push(acc_won_hash[i][0]);
-      acc_won_count.push(acc_won_hash[i][1]);
+        acc_won_name.push(acc_won_hash[i][0]);
+        acc_won_count.push(acc_won_hash[i][1]);
     }
 
     var wondata = {
@@ -188,12 +199,12 @@ var month = [
                     'rgba(254, 162, 235, 0.2)'
                 ],
                 borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(55, 99, 132, 1)',
-                  'rgba(54, 62, 235, 1)',
-                  'rgba(255, 99, 32, 1)',
-                  'rgba(254, 162, 235, 1)'
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(55, 99, 132, 1)',
+                    'rgba(54, 62, 235, 1)',
+                    'rgba(255, 99, 32, 1)',
+                    'rgba(254, 162, 235, 1)'
                 ],
                 borderWidth: 1
             }
@@ -205,8 +216,8 @@ var month = [
     var acc_loss_count = [];
 
     for (var i = 0; i < acc_loss_hash.length; i++) {
-      acc_loss_name.push(acc_loss_hash[i][0]);
-      acc_loss_count.push(acc_loss_hash[i][1]);
+        acc_loss_name.push(acc_loss_hash[i][0]);
+        acc_loss_count.push(acc_loss_hash[i][1]);
     }
 
     var lossdata = {
@@ -215,12 +226,10 @@ var month = [
             {
                 data: acc_loss_count,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)'
+                    'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)'
+                    'rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'
                 ],
                 borderWidth: 1
             }
@@ -228,32 +237,36 @@ var month = [
     };
 
     var optiondata = {
-      legend: {
-        display: false
-      },
-      scales: {
-        yAxes: [{
-          scaleLabel: {
-            display: true,
-            labelString: 'Value of Opportunity (RM)'
-          },
-          ticks: {
-            beginAtZero: true
-          }
-        }],
-        xAxes: [{
-          scaleLabel: {
-            display: true,
-            labelString: 'Account Name'
-          },
-          ticks: {
-            beginAtZero: true,
-            autoSkip: false,
-            minRotation: 90,
-            maxRotation: 90
-          }
-        }]
-      }
+        legend: {
+            display: false
+        },
+        scales: {
+            yAxes: [
+                {
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Value of Opportunity (RM)'
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }
+            ],
+            xAxes: [
+                {
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Account Name'
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        autoSkip: false,
+                        minRotation: 90,
+                        maxRotation: 90
+                    }
+                }
+            ]
+        }
     }
 
     var ctx = document.getElementById('won-chart').getContext('2d');
@@ -269,5 +282,4 @@ var month = [
         data: lossdata,
         options: optiondata
     });
-
 </script>
