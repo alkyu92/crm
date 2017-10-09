@@ -1,8 +1,10 @@
+<div class="panel panel-default panel-body">
+<h4><strong>Latest Tasks</strong></h4>
+<hr>
 <% if @tasks.blank? %>
 No tasks created yet.
 <% else %>
-<h5>Latest Tasks</h5>
-<hr>
+
 <div class="row">
     <div class="col-lg-6">
         <small>Activities</small>
@@ -23,7 +25,7 @@ No tasks created yet.
 <% unless @urgent_tasks.blank? %>
 <hr>
 
-<h5>Urgent Tasks</h5>
+<h4><strong>Urgent Tasks</strong></h4>
 <hr>
 <div class="row">
     <div class="col-lg-4">
@@ -93,3 +95,4 @@ No tasks created yet.
     </div>
 </div>
 <% end %>
+</div>
