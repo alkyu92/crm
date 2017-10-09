@@ -4,59 +4,8 @@
 No cases registered yet.
 <% else %>
 
-<% unless @cases_inprogress.blank? %>
-<strong>In Progress</strong>
-<div class="row">
-    <div class="col-lg-6">
-        <small>Case Name</small>
-    </div>
-    <div class="col-lg-6">
-        <small>Created at DateTime</small>
-    </div>
-</div>
-<% @cases_inprogress.each do |cs| %>
-<div class="row">
-    <div class="col-lg-6">
-        <%= link_to cs.name, opportunity_path(cs) %>
-    </div>
-    <div class="col-lg-6">
-        <%= cs.created_at.strftime('%d %b %Y %H:%M:%S')%>
-    </div>
-</div>
-<% end %>
-<!-- cs loop end -->
-<br>
-<%= link_to 'See more', opportunities_path(type: "Case", status: "In Progress") %>
-<hr>
-<% end %>
-<!-- case inprogress end -->
-
-<% unless @cases_solved.blank? %>
-<strong>Solved</strong>
-<div class="row">
-    <div class="col-lg-6">
-        <small>Case Name</small>
-    </div>
-    <div class="col-lg-6">
-        <small>Created at DateTime</small>
-    </div>
-</div>
-<% @cases_solved.each do |cs| %>
-<div class="row">
-    <div class="col-lg-6">
-        <%= link_to cs.name, opportunity_path(cs) %>
-    </div>
-    <div class="col-lg-6">
-        <%= cs.created_at.strftime('%d %b %Y %H:%M:%S')%>
-    </div>
-</div>
-<% end %>
-<!-- cs loop end -->
-<br>
-<%= link_to 'See more', opportunities_path(type: "Case", status: "Solved") %>
-<hr>
-<% end %>
-<!-- case_solved end -->
+<%= render 'dashboards/dashboard_cases_block', cases_block: @cases_inprogress %>
+<%= render 'dashboards/dashboard_cases_block', cases_block: @cases_solved %>
 
 <h5 class="text-center"><%= link_to 'View All Cases',
 opportunities_path(type: "Case") %></h5>

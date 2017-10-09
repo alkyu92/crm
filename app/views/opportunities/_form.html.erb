@@ -38,10 +38,13 @@
                         <% opstatus = ["Open", "Approved", "Closed-Won", "Closed-Loss"] %>
                         <% casestatus = ["In Progress", "Solved"] %>
                         <select name="opportunity[status]" id="opportunity_status" class="select form-control optional">
+                          <option><%= @opportunity.status %></option>
                             <% opstatus.each do |opstat| %>
+                            <% next if opstat == @opportunity.status %>
                             <option id="optop" value="<%= opstat %>"><%= opstat %></option>
                             <% end %>
                             <% casestatus.each do |cstat| %>
+                            <% next if cstat == @opportunity.status %>
                             <option id="optcase" value="<%= cstat %>"><%= cstat %></option>
                             <% end %>
                         </select>
@@ -175,6 +178,5 @@ if(type_val == "Opportunity"){
 }else if(type_val == "Case"){
   $('#opportunity_status option[id=optop]').hide();
 }
-
 <% end %>
 <% end %>

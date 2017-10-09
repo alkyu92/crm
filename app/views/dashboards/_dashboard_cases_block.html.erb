@@ -1,0 +1,26 @@
+<% unless cases_block.blank? %>
+<strong><%= cases_block.first.status %></strong>
+<div class="row">
+    <div class="col-lg-6">
+        <small>Case Name</small>
+    </div>
+    <div class="col-lg-6">
+        <small>Created at DateTime</small>
+    </div>
+</div>
+<% cases_block.each do |cs| %>
+<div class="row">
+    <div class="col-lg-6">
+        <%= link_to cs.name, opportunity_path(cs) %>
+    </div>
+    <div class="col-lg-6">
+        <%= cs.created_at.strftime('%d %b %Y %H:%M:%S')%>
+    </div>
+</div>
+<% end %>
+<!-- cs loop end -->
+<br>
+<%= link_to 'See more', opportunities_path(type: "Case", status: "#{cases_block.first.status}") %>
+<hr>
+<% end %>
+<!-- case inprogress end -->
