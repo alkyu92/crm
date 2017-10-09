@@ -37,9 +37,21 @@
 </div>
 <hr>
 <div class="row">
-    <div class="col-lg-4">
-        <h4 class="text-center">Overall Opportunity Won-Loss Chart</h4>
+    <div class="col-lg-3 text-center">
+        <h4>Overall Opportunity Won-Loss Chart</h4>
         <canvas id="opportunity-chart" width="400" height="400"></canvas>
+        <h4>
+          <small>Total</small>
+          RM<%= sprintf('%.2f' % (@opwon_sum + @oploss_sum)) %>
+        </h4>
+        <h4>
+          <small>Total Won</small>
+          RM<%= sprintf('%.2f' % @opwon_sum) %>
+        </h4>
+        <h4>
+          <small>Total Loss</small>
+          RM<%= sprintf('%.2f' % @oploss_sum) %>
+        </h4>
     </div>
     <div class="col-lg-4">
         <h4 class="text-center">Value of Opportunity Won by Account</h4>
@@ -48,6 +60,23 @@
     <div class="col-lg-4">
         <h4 class="text-center">Value of Opportunity Loss by Account</h4>
         <canvas id="loss-chart" width="400" height="400"></canvas>
+    </div>
+</div>
+
+<hr>
+<h3>Activities</h3>
+<br>
+<div class="row">
+    <div class="col-lg-4">
+        <%= render 'dashboards/dashboard_tasks' %>
+    </div>
+    <div class="col-lg-4">
+
+        <%= render 'dashboards/dashboard_calls' %>
+
+    </div>
+    <div class="col-lg-4">
+        <%= render 'dashboards/dashboard_events' %>
     </div>
 </div>
 
@@ -72,23 +101,6 @@
     </div>
     <div class="col-lg-8">
         <%= render 'dashboards/dashboard_opportunities_status' %>
-    </div>
-</div>
-
-<hr>
-<h3>Activities</h3>
-<br>
-<div class="row">
-    <div class="col-lg-4">
-        <%= render 'dashboards/dashboard_tasks' %>
-    </div>
-    <div class="col-lg-4">
-
-        <%= render 'dashboards/dashboard_calls' %>
-
-    </div>
-    <div class="col-lg-4">
-        <%= render 'dashboards/dashboard_events' %>
     </div>
 </div>
 
@@ -145,7 +157,7 @@
             datasets: [
                 {
                     data: [
-                        gon.opwon_count, gon.oploss_count
+                        gon.opwon_sum, gon.oploss_sum
                     ],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'

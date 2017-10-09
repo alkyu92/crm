@@ -24,7 +24,7 @@
           <%= link_to loss.name, opportunity_path(loss) %>
         </div>
         <div class="col-lg-4">
-          <%= loss.amount %>
+          <%= sprintf('%.2f' % loss.amount) %>
         </div>
       </div>
       <% end %>

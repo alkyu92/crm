@@ -57,7 +57,7 @@
                 Amount not specified
             </span>
         <% else %>
-            <%= @opportunity.amount %>
+            RM <%= sprintf('%.2f' % @opportunity.amount) %>
             <% end %>
         </h4>
         <br>

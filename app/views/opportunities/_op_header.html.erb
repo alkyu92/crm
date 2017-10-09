@@ -17,7 +17,7 @@
             <% if @opportunity.amount.blank? %>
             <span style="color: red;">Not specified</span>
         <% else %>
-            RM <%= @opportunity.amount %>
+            RM <%= sprintf('%.2f' % @opportunity.amount) %>
             <% end %>
         </h4>
     </div>

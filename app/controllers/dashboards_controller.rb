@@ -30,8 +30,10 @@ class DashboardsController < ApplicationController
 
     @opwon = Opportunity.includes(:account).where(status: "Closed-Won").order('amount')
     @oploss = Opportunity.includes(:account).where(status: "Closed-Loss").order('amount')
-    gon.opwon_count = @opwon.sum('amount')
-    gon.oploss_count =  @oploss.sum('amount')
+    @opwon_sum = @opwon.sum('amount')
+    @oploss_sum = @oploss.sum('amount')
+    gon.opwon_sum = @opwon_sum
+    gon.oploss_sum = @oploss_sum
 
     @acc_won_hash = {}
     Account.all.each do |acc|

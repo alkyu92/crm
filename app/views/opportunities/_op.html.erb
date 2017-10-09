@@ -9,7 +9,10 @@
 
           <% if params[:type] %>
           <h3><%= params[:type] == "Opportunity" ? 'Opportunities' : 'Cases' %><br>
-          <small><%= params[:status].blank? ? "All #{params[:type]}" : params[:status] %></small>
+          <small>
+            <%= params[:status].blank? ? "All #{params[:type]}" : params[:status] %>
+            Status
+          </small>
           </h3>
           <% else %>
           <h3><%= link_to 'Opportunities', opportunities_path(type: "Opportunity") %>
@@ -33,7 +36,10 @@
 
 <% if @opportunities.blank? %>
 <div class="text-center">
-  <%= link_to 'Create Opportunity / Cases through Account', accounts_path %>
+  No opportunities / cases found.<br><br>
+  <%= link_to 'Back', :back, class: "btn btn-default" %>
+  <%= link_to 'Create Opportunity / Cases through Account',
+  accounts_path, class: "btn btn-success" %>
 </div>
 <% else %>
 <div class="row">
@@ -59,11 +65,13 @@
 
           <ul class="dropdown-menu">
             <h5 style="padding-left: 5px;"><small>Opportunities</small></h5>
+            <li><%= link_to 'Show All Opportunities', "?type=Opportunity" %></li>
             <li><%= link_to 'Open', "?status=Open&type=Opportunity" %></li>
             <li><%= link_to 'Approved', "?status=Approved&type=Opportunity" %></li>
             <li><%= link_to 'Closed-Won', "?status=Closed-Won&type=Opportunity" %></li>
             <li><%= link_to 'Closed-Loss', "?status=Closed-Loss&type=Opportunity" %></li>
             <h5 style="padding-left: 5px;"><small>Cases</small></h5>
+            <li><%= link_to 'Show All Cases', "?type=Case" %></li>
             <li><%= link_to 'In Progress', "?status=In Progress&type=Case" %></li>
             <li><%= link_to 'Solved', "?status=Solved&type=Case" %></li>
           </ul>
