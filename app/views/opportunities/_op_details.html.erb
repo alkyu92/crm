@@ -70,6 +70,8 @@
             <span style="color: green">Closed-Won</span>
             <% elsif @opportunity.status == "Open" %>
             Open
+            <% elsif @opportunity.status == "Approved" %>
+            Approved
             <% elsif @opportunity.status == "Solved" %>
             <span style="color: green;">Solved</span>
             <% elsif @opportunity.status == "In Progress" %>
