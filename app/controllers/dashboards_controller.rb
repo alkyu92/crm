@@ -28,8 +28,8 @@ class DashboardsController < ApplicationController
 
     @contacts = Contact.all.order('created_at DESC').take(6)
 
-    @opwon = Opportunity.where(status: "Closed-Won")
-    @oploss = Opportunity.where(status: "Closed-Loss")
+    @opwon = Opportunity.includes(:account).where(status: "Closed-Won")
+    @oploss = Opportunity.includes(:account).where(status: "Closed-Loss")
     gon.opwon_count = @opwon.count
     gon.oploss_count =  @oploss.count
 

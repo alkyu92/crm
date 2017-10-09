@@ -15,7 +15,7 @@
         <small>Loss Reason</small>
       </div>
     </div>
-      <% @oploss.each do |loss| %>
+      <% @oploss.take(6).each do |loss| %>
       <div class="row">
         <div class="col-lg-4">
           <%= link_to loss.account.account_name, account_path(loss.account) %>

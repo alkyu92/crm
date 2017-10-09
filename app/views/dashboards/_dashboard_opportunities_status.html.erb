@@ -7,97 +7,11 @@
 No opportunities registered yet.
 <% else %>
 
-<% unless @opportunities_open.blank? %>
-<strong>Open</strong>
-<div class="row">
-    <div class="col-lg-4">
-        <small>Opportunity Name</small>
-    </div>
-    <div class="col-lg-4">
-        <small>Belongs to Account Name</small>
-    </div>
-    <div class="col-lg-4">
-        <small>Created at DateTime</small>
-    </div>
-</div>
-<% @opportunities_open.each do |op| %>
-<div class="row">
-    <div class="col-lg-4">
-        <%= link_to op.name, opportunity_path(op) %>
-    </div>
-    <div class="col-lg-4">
-        <%= link_to op.account.account_name, account_path(op.account) %>
-    </div>
-    <div class="col-lg-4">
-        <%= op.created_at.strftime('%d %b %Y %H:%M:%S')%>
-    </div>
-</div>
-<% end %>
-<!-- loop end  -->
-<br>
-<%= link_to 'See more', opportunities_path(type: "Opportunity", status: "Open") %>
-<hr>
-<% end %>
-<!-- unless opportunities_open end -->
+<%= render 'dashboards/op_status_block', opportunities_block: @opportunities_open %>
+<%= render 'dashboards/op_status_block', opportunities_block: @opportunities_approved %>
+<%= render 'dashboards/op_status_block', opportunities_block: @opportunities_closedwon %>
+<%= render 'dashboards/op_status_block', opportunities_block: @opportunities_closedloss %>
 
-
-<%= render 'dashboards/op_status_block' %>
-
-
-<% unless @opportunities_closedwon.blank? %>
-<strong>Closed-Won</strong>
-<div class="row">
-    <div class="col-lg-6">
-        <small>Opportunity Name</small>
-    </div>
-    <div class="col-lg-6">
-        <small>Created at DateTime</small>
-    </div>
-</div>
-<% @opportunities_closedwon.each do |op| %>
-<div class="row">
-    <div class="col-lg-6">
-        <%= link_to op.name, opportunity_path(op) %>
-    </div>
-    <div class="col-lg-6">
-        <%= op.created_at.strftime('%d %b %Y %H:%M:%S')%>
-    </div>
-</div>
-<% end %>
-<!-- loop end -->
-<br>
-<%= link_to 'See more', opportunities_path(type: "Opportunity", status: "Closed-Won") %>
-<hr>
-<% end %>
-<!-- unless opportunities_closedwon -->
-
-<% unless @opportunities_closedloss.blank? %>
-<strong>Closed-Loss</strong>
-<div class="row">
-    <div class="col-lg-6">
-        <small>Opportunity Name</small>
-    </div>
-    <div class="col-lg-6">
-        <small>Created at DateTime</small>
-    </div>
-</div>
-<% @opportunities_closedloss.each do |op| %>
-<div class="row">
-    <div class="col-lg-6">
-        <%= link_to op.name, opportunity_path(op) %>
-    </div>
-    <div class="col-lg-6">
-        <%= op.created_at.strftime('%d %b %Y %H:%M:%S')%>
-    </div>
-</div>
-<% end %>
-<!-- loop end -->
-<br>
-<%= link_to 'See more', opportunities_path(type: "Opportunity", status: "Closed-Loss") %>
-<% end %>
-<!-- unless opportunities_closedloss -->
-
-<hr>
 <h5 class="text-center"><%= link_to 'View All Opportunities',
 opportunities_path(type: "Opportunity") %></h5>
 <% end %>

@@ -192,7 +192,7 @@ end
 for j in 1..10 do
   for i in 1..5 do
     Opportunity.create!(
-    name: "Test Opportunity #{i}",
+    name: "Test Opportunity Open Status #{i}",
     business_type: "Opportunity",
     probability: "75%",
     amount: 12345.35,
@@ -206,7 +206,7 @@ for j in 1..10 do
 
   for i in 1..5 do
     Opportunity.create!(
-    name: "Test Opportunity #{i}",
+    name: "Test Opportunity Closed-Won Status #{i}",
     business_type: "Opportunity",
     probability: "75%",
     amount: 12345.35,
@@ -220,7 +220,7 @@ for j in 1..10 do
 
   for i in 1..5 do
     Opportunity.create!(
-    name: "Test Opportunity #{i}",
+    name: "Test Opportunity Closed-Loss Status #{i}",
     business_type: "Opportunity",
     probability: "75%",
     amount: 12345.35,
@@ -234,7 +234,7 @@ for j in 1..10 do
 
   for i in 1..5 do
     Opportunity.create!(
-    name: "Test Opportunity #{i}",
+    name: "Test Opportunity Approved Status #{i}",
     business_type: "Opportunity",
     probability: "75%",
     amount: 12345.35,

@@ -1,5 +1,5 @@
-<% unless @opportunities_approved.blank? %>
-<strong>Approved</strong>
+<% unless opportunities_block.blank? %>
+<strong><%= opportunities_block.first.status %></strong>
 <div class="row">
     <div class="col-lg-4">
         <small>Opportunity Name</small>
@@ -11,7 +11,7 @@
         <small>Created at DateTime</small>
     </div>
 </div>
-<% @opportunities_approved.each do |opaprv| %>
+<% opportunities_block.each do |opaprv| %>
 <div class="row">
     <div class="col-lg-4">
         <%= link_to opaprv.name, opportunity_path(opaprv) %>
@@ -26,7 +26,8 @@
 <% end %>
 <!-- loop end  -->
 <br>
-<%= link_to 'See more', opportunities_path(type: "Opportunity", status: "Open") %>
+<%= link_to 'See more', opportunities_path(
+type: "Opportunity", status: "#{opportunities_block.first.status}") %>
 <hr>
 <% end %>
 <!-- unless opportunities_open end -->
