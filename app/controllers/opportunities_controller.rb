@@ -181,7 +181,8 @@ class OpportunitiesController < ApplicationController
     end
     if @opportunity.amount_previously_changed?
       timeline_opportunity("opportunityDetails",
-      @opportunity.amount, "updated #{@opportunity.business_type.downcase} amount to")
+      sprintf('%.2f' % @opportunity.amount),
+      "updated #{@opportunity.business_type.downcase} amount to RM")
     end
     if @opportunity.description_previously_changed?
       timeline_opportunity("opportunityDetails",

@@ -7,10 +7,16 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">
-                    <small>Call Log</small>
+                    Call Log
                 </h4>
                 <div class="row">
-                  <div class="col-lg-6">
+                  <div class="col-lg-4">
+                    <h4>
+                    <small>Call belongs to</small><br>
+                    <%= link_to call.opportunity.name, opportunity_path(call.opportunity)%>
+                    </h4>
+                  </div>
+                  <div class="col-lg-4">
                     <h4>
                       <small>Call Datetime</small><br>
                       <% if call.call_datetime.blank? %>
@@ -22,7 +28,7 @@
                       <% end %>
                     </h4>
                   </div>
-                  <div class="col-lg-6">
+                  <div class="col-lg-4">
                     <h4>
                       <small>Durations</small><br>
                       <% if call.duration.blank? %>

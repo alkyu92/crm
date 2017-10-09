@@ -7,10 +7,16 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">
-                    <small>Task</small>
+                  Task
                 </h4>
                 <div class="row">
-                  <div class="col-lg-4">
+                  <div class="col-lg-3">
+                    <h4>
+                      <small>Task belongs to</small><br>
+                      <%= link_to task.opportunity.name, opportunity_path(task.opportunity) %>
+                    </h4>
+                  </div>
+                  <div class="col-lg-3">
                     <h4>
                       <small>Due Date</small><br>
                       <%= render 'tasks/calc_date', task: task %>
@@ -26,7 +32,7 @@
                       <% end %>
                     </h4>
                   </div>
-                  <div class="col-lg-5">
+                  <div class="col-lg-3">
                     <h4>
                       <small>Created at</small><br>
                       <%= task.created_at.strftime('%d %b %Y at %H:%M:%S')%>

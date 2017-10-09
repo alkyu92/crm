@@ -7,16 +7,22 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">
-                    <small>Event</small>
+                  Event
                 </h4>
                 <div class="row">
-                    <div class="col-lg-6">
+                  <div class="col-lg-4">
+                      <h4>
+                          <small>Event belongs to</small><br>
+                          <%= link_to event.opportunity.name, opportunity_path(event.opportunity) %>
+                      </h4>
+                  </div>
+                    <div class="col-lg-4">
                         <h4>
                             <small>Event Date</small><br>
                             <%= render 'events/calc_date', event: event %>
                         </h4>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <h4>
                             <small>Status</small><br>
                             <% if event.complete == false %>
