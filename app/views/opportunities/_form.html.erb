@@ -38,7 +38,18 @@
                         <% opstatus = ["Open", "Approved", "Closed-Won", "Closed-Loss"] %>
                         <% casestatus = ["In Progress", "Solved"] %>
                         <select name="opportunity[status]" id="opportunity_status" class="select form-control optional">
-                          <option><%= @opportunity.status %></option>
+                          <% if @opportunity.status == "Open" ||
+                            @opportunity.status == "Closed-Won" ||
+                            @opportunity.status == "Closed-Loss" ||
+                            @opportunity.status == "Approved"
+                          %>
+                            <option id="optop">
+                              <% elsif @opportunity.status == "In Progress" ||
+                                @opportunity.status == "Solved"
+                              %>
+                              <option id="optcase">
+                              <% end %>
+                              <%= @opportunity.status %></option>
                             <% opstatus.each do |opstat| %>
                             <% next if opstat == @opportunity.status %>
                             <option id="optop" value="<%= opstat %>"><%= opstat %></option>
@@ -52,6 +63,7 @@
 
                         <%= f.label "Opportunity close date", id: "opdate" %>
                         <%= f.label "Case solved date", id: "casedate" %>
+                        <%= f.label "Approved date", id: "aprvdate" %>
                         <%= f.input :close_date, label: false, as: :date_time_picker %>
                     </div>
                     <div class="col-lg-4">
@@ -96,6 +108,7 @@ $('.opportunity_close_date').hide();
 $('.opportunity_loss_reason').hide();
 $('#opdate').hide();
 $('#casedate').hide();
+$('#aprvdate').hide();
 
 $('.opportunity_business_type').on("change", function(){
   $('.opportunity_close_date').hide();
@@ -110,6 +123,7 @@ $('.opportunity_business_type').on("change", function(){
     $('#opportunity_status option[id=optop]').hide();
     $('#opportunity_status option[id=optcase]').show();
     $('#opportunity_status').val('In Progress');
+    $('.opportunity_loss_reason').hide();
   }
 });
 
@@ -119,11 +133,20 @@ $('.opportunity_status').on("change", function(){
     $('.opportunity_close_date').show();
     $('#opdate').show();
     $('#casedate').hide();
+    $('#aprvdate').hide();
   }
 
   if(status_val == "Solved"){
     $('#opdate').hide();
+    $('#aprvdate').hide();
     $('#casedate').show();
+    $('.opportunity_close_date').show();
+  }
+
+  if(status_val == "Approved"){
+    $('#opdate').hide();
+    $('#aprvdate').show();
+    $('#casedate').hide();
     $('.opportunity_close_date').show();
   }
 
@@ -131,7 +154,7 @@ $('.opportunity_status').on("change", function(){
     $('.opportunity_loss_reason').show();
   }
 
-  if(status_val == "Closed-Won" || status_val == "Solved"){
+  if(status_val == "Closed-Won" || status_val == "Solved" || status_val == "Approved"){
     $('.opportunity_loss_reason').hide();
   }
 
@@ -139,6 +162,7 @@ $('.opportunity_status').on("change", function(){
     $('.opportunity_close_date').hide();
     $('#opdate').hide();
     $('#casedate').hide();
+    $('#aprvdate').hide();
     $('.opportunity_loss_reason').hide();
   }
 
@@ -147,11 +171,19 @@ $('.opportunity_status').on("change", function(){
 var status_val = $('#opportunity_status').val();
 if(status_val == "Closed-Won"){
   $('.opportunity_close_date').show();
+  $('#aprvdate').hide();
   $('#opdate').show();
   $('#casedate').hide();
 }else if(status_val == "Closed-Loss"){
   $('.opportunity_close_date').show();
+  $('#aprvdate').hide();
   $('#opdate').show();
+  $('#casedate').hide();
+  $('.opportunity_loss_reason').show();
+}else if(status_val == "Approved"){
+  $('.opportunity_close_date').show();
+  $('#aprvdate').show();
+  $('#opdate').hide();
   $('#casedate').hide();
   $('.opportunity_loss_reason').show();
 }

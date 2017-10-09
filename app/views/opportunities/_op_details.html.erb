@@ -85,7 +85,7 @@
         <% unless @opportunity.status == "Open" ||
           @opportunity.status == "" ||
           @opportunity.status == "In Progress" %>
-        <small>Close / Solve Date</small>
+        <small><%= @opportunity.status %> Date</small>
         <h4>
             <% if @opportunity.close_date.blank? %>
             <span style="color: red;">
@@ -103,7 +103,7 @@
         <h4>
             <% if @opportunity.loss_reason.blank? %>
             <span style="color: red;">
-                Loss reason not specified
+                Not specified
             </span>
         <% else %>
             <%= @opportunity.loss_reason %>

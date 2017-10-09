@@ -305,7 +305,7 @@
         acc_approved_count.push(acc_approved_hash[i][1]);
     }
 
-    var approveddata = {
+    var aprvdata = {
         labels: acc_approved_name,
         datasets: [
             {
@@ -378,7 +378,7 @@
     var ctx = document.getElementById('approved-chart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
-        data: lossdata,
+        data: aprvdata,
         options: optiondata
     });
 </script>
