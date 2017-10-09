@@ -1,9 +1,9 @@
+<h5>Latest Contacts</h5>
+<hr>
 <% if @contacts.blank? %>
 No contacts yet.
 <% else %>
 
-<h5>Latest Contacts</h5>
-<hr>
 <div class="row">
     <div class="col-lg-6">
         <small>Name</small>
@@ -24,5 +24,8 @@ No contacts yet.
 </div>
 <% end %>
 <% end %>
+
+<% if @contacts.count >= 6 %>
 <hr>
 <h5 class="text-center"><%= link_to 'View All Contacts', contacts_path %></h5>
+<% end %>

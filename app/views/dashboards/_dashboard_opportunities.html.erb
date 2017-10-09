@@ -22,6 +22,9 @@ No opportunities registered yet.
 </div>
 <% end %>
 <% end %>
+
+<% if @opportunities.count >= 6 %>
 <hr>
 <h5 class="text-center"><%= link_to 'View All Opportunities',
 opportunities_path(type: "Opportunity") %></h5>
+<% end %>

@@ -22,5 +22,8 @@ No accounts created yet.
 </div>
 <% end %>
 <% end %>
+
+<% if @accounts.count >= 6 %>
 <hr>
 <h5 class="text-center"><%= link_to 'View All Accounts', accounts_path %></h5>
+<% end %>

@@ -22,6 +22,9 @@ No cases registered yet.
 </div>
 <% end %>
 <% end %>
+
+<% if @cases.count >= 6 %>
 <hr>
 <h5 class="text-center"><%= link_to 'View All Cases',
 opportunities_path(type: "Case") %></h5>
+<% end %>
