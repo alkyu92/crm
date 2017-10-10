@@ -13,14 +13,14 @@ class AccountsController < ApplicationController
       @accop = @account.opportunities.includes(
         :account, :stages).where(
         status: params[:status], business_type: params[:type]).page(
-        params[:page]).per(10)
+        params[:acc_page]).per(10)
     elsif params[:type]
       @accop = @account.opportunities.includes(
         :account, :stages).where(
         business_type: params[:type]).page(
-        params[:page]).per(10)
+        params[:acc_page]).per(10)
     else
-      @accop = Opportunity.includes(:account, :stages).page(params[:page]).per(10)
+      @accop = Opportunity.includes(:account, :stages).page(params[:acc_page]).per(10)
     end
 
     @opportunities = Opportunity.includes(

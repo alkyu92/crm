@@ -1,8 +1,15 @@
 <h4>Tasks</h4>
+<hr>
 <div id="notice-task"></div>
-<% if @opportunity.tasks.blank? %>
+<% if @optask.blank? %>
 No tasks created yet.
 <% else %>
+
+<div class="text-center">
+  <%= page_entries_info @optask %><br>
+  <%= paginate @optask, param_name: :task_page, remote: true %>
+</div>
+
 <ul class="list-group">
     <li class="list-group-item">
         <div class="row">
@@ -20,12 +27,13 @@ No tasks created yet.
             </div>
         </div>
     </li>
-</ul>
-    <% @opportunity.tasks.order('due_date').each do |task| %>
+
+    <% @optask.each do |task| %>
     <li class="list-group-item">
         <div class="row" id="task-<%= task.id %>">
             <div class="col-lg-5">
-                <%= link_to task.description.truncate(50), '#', data: {toggle: "modal", target: "#taskInfo-#{task.id}"} %>
+                <%= link_to task.description.truncate(50), '#',
+                data: {toggle: "modal", target: "#taskInfo-#{task.id}"} %>
             </div>
             <div class="col-lg-3">
                 <%= render 'tasks/calc_date', task: task %>
@@ -59,8 +67,11 @@ No tasks created yet.
             </div>
         </div>
     </li>
-
     <%= render 'tasks/task_info', task: task %>
     <% end %>
-
+</ul>
+<div class="text-center">
+  <%= page_entries_info @optask %><br>
+  <%= paginate @optask, param_name: :task_page, remote: true %>
+</div>
 <% end %>

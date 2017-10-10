@@ -34,7 +34,6 @@ No notes submitted yet.
         <%= link_to note.title.truncate(40), '#',
           data: {toggle: "modal", target: "#noteInfo-#{note.id}"} %>
         <small>
-            <%#= note.user.name %>
             <%= time_ago_in_words(note.created_at) %>
             ago
         </small>

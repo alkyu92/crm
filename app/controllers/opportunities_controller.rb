@@ -28,6 +28,10 @@ class OpportunitiesController < ApplicationController
     @opportunity = @subject
     @accounts = Account.all
 
+    @optask = @opportunity.tasks.order('due_date').page(params[:task_page]).per(10)
+    @opcall = @opportunity.calls.page(params[:call_page]).per(10)
+    @opevent = @opportunity.events.order('event_date').page(params[:event_page]).per(10)
+
     @subject.timelines.includes(:activity, :user).each do |tl|
       next if tl.read == true
       tl.update_attributes(read: true)

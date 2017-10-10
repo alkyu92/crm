@@ -3,7 +3,7 @@ Opportunities not found.
 <% else %>
 <div class="text-center">
   <%= page_entries_info @accop %><br>
-  <%= paginate @accop %>
+  <%= paginate @accop, param_name: :acc_page, remote: true %>
 </div>
 <ul class="list-group">
     <li class="list-group-item">
@@ -27,7 +27,6 @@ Opportunities not found.
                   Show only
                   <span class="caret"></span>
                   <% end %>
-
                   <ul class="dropdown-menu">
                       <li><%= link_to 'Opportunity', "?type=Opportunity" %></li>
                       <li><%= link_to 'Case', "?type=Case" %></li>
@@ -83,7 +82,7 @@ Opportunities not found.
     <% end %>
     <div class="text-center">
       <%= page_entries_info @accop %><br>
-      <%= paginate @accop %>
+      <%= paginate @accop, param_name: :acc_page, remote: true %>
     </div>
 </ul>
 <% end %>

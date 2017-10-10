@@ -1,8 +1,13 @@
 <h4>Calls</h4>
+<hr>
 <div id="notice-call"></div>
-<% if @opportunity.calls.blank? %>
+<% if @opcall.blank? %>
 No call logs created yet.
 <% else %>
+<div class="text-center">
+  <%= page_entries_info @opcall %><br>
+  <%= paginate @opcall, param_name: :call_page, remote: true %>
+</div>
 <ul class="list-group">
     <li class="list-group-item">
         <div class="row">
@@ -20,8 +25,8 @@ No call logs created yet.
             </div>
         </div>
     </li>
-    </ul>
-    <% @opportunity.calls.each do |call| %>
+
+    <% @opcall.each do |call| %>
     <li class="list-group-item">
         <div class="row" id="call-<%= call.id %>">
             <div class="col-lg-5">
@@ -57,9 +62,11 @@ No call logs created yet.
             </div>
         </div>
     </li>
-
     <%= render 'calls/call_info', call: call %>
-
     <% end %>
-
+</ul>
+<div class="text-center">
+  <%= page_entries_info @opcall %><br>
+  <%= paginate @opcall, param_name: :call_page, remote: true %>
+</div>
 <% end %>

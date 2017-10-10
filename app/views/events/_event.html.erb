@@ -1,8 +1,13 @@
 <h4>Events</h4>
+<hr>
 <div id="notice-event"></div>
-<% if @opportunity.events.blank? %>
+<% if @opevent.blank? %>
 No event created yet.
 <% else %>
+<div class="text-center">
+  <%= page_entries_info @opevent %><br>
+  <%= paginate @opevent, param_name: :event_page, remote: true %>
+</div>
 <ul class="list-group">
     <li class="list-group-item">
         <div class="row">
@@ -20,8 +25,8 @@ No event created yet.
             </div>
         </div>
     </li>
-</ul>
-<% @opportunity.events.order('event_date').each do |event| %>
+
+<% @opevent.each do |event| %>
 <li class="list-group-item">
     <div class="row" id="event-<%= event.id %>">
         <div class="col-lg-5">
@@ -62,8 +67,11 @@ No event created yet.
     </div>
 </div>
 </li>
-
 <%= render 'events/event_info', event: event %>
-
 <% end %>
+</ul>
+<div class="text-center">
+  <%= page_entries_info @opevent %><br>
+  <%= paginate @opevent, param_name: :event_page, remote: true %>
+</div>
 <% end %>
