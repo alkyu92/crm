@@ -28,10 +28,10 @@ class DashboardsController < ApplicationController
 
     @contacts = Contact.all.order('created_at DESC').take(6)
 
-    @opwon = Opportunity.includes(:account).where(status: "Closed-Won").order('amount')
-    @oploss = Opportunity.includes(:account).where(status: "Closed-Loss").order('amount')
-    @opopen = Opportunity.includes(:account).where(status: "Open").order('amount')
-    @opaprv = Opportunity.includes(:account).where(status: "Approved").order('amount')
+    @opwon = Opportunity.includes(:account).where(status: "Closed-Won").order('amount DESC')
+    @oploss = Opportunity.includes(:account).where(status: "Closed-Loss").order('amount DESC')
+    @opopen = Opportunity.includes(:account).where(status: "Open").order('amount DESC')
+    @opaprv = Opportunity.includes(:account).where(status: "Approved").order('amount DESC')
 
     @opwon_sum = @opwon.sum('amount')
     @oploss_sum = @oploss.sum('amount')
