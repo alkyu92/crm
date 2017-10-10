@@ -9,6 +9,20 @@ class AccountsController < ApplicationController
     :relationships, :opportunities, :contacts, :user).find(params[:id])
     @subject = @account
 
+    if params[:status] && params[:type]
+      @accop = @account.opportunities.includes(
+        :account, :stages).where(
+        status: params[:status], business_type: params[:type]).page(
+        params[:page]).per(10)
+    elsif params[:type]
+      @accop = @account.opportunities.includes(
+        :account, :stages).where(
+        business_type: params[:type]).page(
+        params[:page]).per(10)
+    else
+      @accop = Opportunity.includes(:account, :stages).page(params[:page]).per(10)
+    end
+
     @opportunities = Opportunity.includes(
     :relationships, :contacts, :user).where(account_id: @account.id)
 

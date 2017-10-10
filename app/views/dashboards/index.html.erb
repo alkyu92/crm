@@ -42,7 +42,9 @@
         <canvas id="opportunity-chart" width="400" height="400"></canvas>
         <h3>
           <small>Total</small>
-          RM<%= sprintf('%.2f' % (@opwon_sum + @oploss_sum)) %>
+          <strong>
+            RM<%= sprintf('%.2f' % (@opwon_sum + @oploss_sum)) %>
+          </strong>
         </h3>
         <h4>
           <small>Total Won</small>
@@ -62,17 +64,17 @@
         </h4>
     </div>
     <div class="col-lg-4">
-        <h4 class="text-center">Value of Opportunity Closed-Won Status by Account</h4>
+        <h4 class="text-center"><strong>Closed-Won Status</strong> Value by Account</h4>
         <canvas id="won-chart" width="400" height="400"></canvas>
         <hr>
-        <h4 class="text-center">Value of Opportunity Open Status by Account</h4>
+        <h4 class="text-center"><strong>Open Status</strong> Value by Account</h4>
         <canvas id="open-chart" width="400" height="400"></canvas>
     </div>
     <div class="col-lg-4">
-        <h4 class="text-center">Value of Opportunity Closed-Loss Status by Account</h4>
+        <h4 class="text-center"><strong>Closed-Loss Status</strong> Value by Account</h4>
         <canvas id="loss-chart" width="400" height="400"></canvas>
         <hr>
-        <h4 class="text-center">Value of Opportunity Approved Status by Account</h4>
+        <h4 class="text-center"><strong>Approved Status</strong> Value by Account</h4>
         <canvas id="approved-chart" width="400" height="400"></canvas>
     </div>
 </div>

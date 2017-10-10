@@ -5,30 +5,80 @@ Opportunities not found.
     <li class="list-group-item">
         <div class="row">
             <div class="col-lg-4">
-                <strong>Opportunity / Case Name</strong>
+                <strong>
+                  <% if params[:type] == "Opportunity" %>
+                  Opportunity
+                  <% elsif params[:type] == "Case" %>
+                  Case
+                  <% else %>
+                  Opportunity / Case
+                  <% end %>
+                  Name
+                </strong>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-2">
+              <strong>Type</strong>
+              <div class="dropdown">
+                  <%= link_to '#',data: {toggle: 'dropdown'}, class: 'dropdown-toggle' do %>
+                  Show only
+                  <span class="caret"></span>
+                  <% end %>
+
+                  <ul class="dropdown-menu">
+                      <li><%= link_to 'Opportunity', "?type=Opportunity" %></li>
+                      <li><%= link_to 'Case', "?type=Case" %></li>
+                  </ul>
+              </div>
+            </div>
+            <div class="col-lg-2">
                 <strong>Status</strong>
+                <div class="dropdown">
+                    <%= link_to '#',data: {toggle: 'dropdown'}, class: 'dropdown-toggle' do %>
+                    Show only
+                    <span class="caret"></span>
+                    <% end %>
+
+                    <ul class="dropdown-menu">
+                        <h5 style="padding-left: 10px;">
+                            <small>Opportunities</small>
+                        </h5>
+                        <li><%= link_to 'Show All Opportunities', "?type=Opportunity" %></li>
+                        <li><%= link_to 'Open', "?status=Open&type=Opportunity" %></li>
+                        <li><%= link_to 'Approved', "?status=Approved&type=Opportunity" %></li>
+                        <li><%= link_to 'Closed-Won', "?status=Closed-Won&type=Opportunity" %></li>
+                        <li><%= link_to 'Closed-Loss', "?status=Closed-Loss&type=Opportunity" %></li>
+                        <hr>
+                        <h5 style="padding-left: 10px;">
+                            <small>Cases</small>
+                        </h5>
+                        <li><%= link_to 'Show All Cases', "?type=Case" %></li>
+                        <li><%= link_to 'In Progress', "?status=In Progress&type=Case" %></li>
+                        <li><%= link_to 'Solved', "?status=Solved&type=Case" %></li>
+                    </ul>
+                </div>
             </div>
             <div class="col-lg-4">
                 <strong>Created at DateTime</strong>
             </div>
         </div>
     </li>
-    <% accop = @account.opportunities.page(params[:page]).per(10) %>
-    <% accop.each do |opportunity| %>
+
+    <% @accop.each do |opportunity| %>
     <li class="list-group-item">
         <div class="row">
             <div class="col-lg-4">
                 <%= link_to opportunity.name, opportunity_path(opportunity) %>
             </div>
-            <div class="col-lg-4"><%= opportunity.status %></div>
+            <div class="col-lg-2">
+              <%= opportunity.business_type %>
+            </div>
+            <div class="col-lg-2"><%= opportunity.status %></div>
             <div class="col-lg-4"><%= opportunity.created_at.strftime('%d %b %Y %H:%M:%S')%></div>
         </div>
     </li>
     <% end %>
     <div class="text-center">
-      <%= paginate accop %>
+      <%= paginate @accop %>
     </div>
 </ul>
 <% end %>

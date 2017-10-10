@@ -12,7 +12,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <hr>
@@ -28,48 +27,13 @@ There are no notifications yet.
 <div class="container">
     <div class="col-lg-3"></div>
     <div class="col-lg-6">
-        <% @notifications.each do |noty| %>
-        <div style="padding-top: 2px;"></div>
-        <%= link_to update_read_status_path(noty) do %>
-        <% if noty.read == true %>
-        <div class="media">
-        <% else %>
-            <div class="media" style="background-color: #d3d3d3;">
-                <% end %>
-                <div class="media-left">
-                    <% if noty.user.avatar.blank? %>
-                    <%= letter_avatar_tag(noty.user.name, 40, class: "media-object") %>
-                <% else %>
-                    <%= image_tag(noty.user.avatar.url(:noty), class: "media-object")%>
-                    <% end %>
-                </div>
-                <div class="media-body">
-                    <p>
-                        <strong><%= noty.user.name %></strong>
-                        <%= noty.action %>
-                        <strong><%= noty.nactivity %></strong>
-                        <% unless noty.action == "created account" ||
-                      noty.action == "added attachment file to" %>
-                        onto
-                        <strong>
-                            <%= noty.activity_type == "Opportunity" ? noty.activity.name : noty.activity.account_name %>
-                        </strong>
-                        <% end %>
-                        <br>
-                        <small>
-                            <%= time_ago_in_words(noty.created_at) %>
-                            ago
-                        </small>
-                    </p>
-                </div>
-            </div>
-            <% end %>
-            <% end %>
-            <div class="text-center">
-                <%= page_entries_info @notifications %><br>
-                <%= paginate @notifications %>
-            </div>
-        </div>
-        <div class="col-lg-3"></div>
+        <%= render 'notifications/nav_noty', nav_noty: @notifications %>
     </div>
-    <% end %>
+    <div class="col-lg-3"></div>
+</div>
+<% end %>
+<br>
+<div class="text-center">
+    <%= page_entries_info @notifications %><br>
+    <%= paginate @notifications %>
+</div>

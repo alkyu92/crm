@@ -1,0 +1,43 @@
+<% nav_noty.each do |tl| %>
+
+<% if tl.read == true %>
+<li>
+<% else %>
+<li style="background-color: #d3d3d3;">
+    <% end %>
+    <%= link_to update_read_status_path(tl) do %>
+    <div class="media">
+        <div class="media-left">
+            <% if tl.user.avatar.blank? %>
+            <%= letter_avatar_tag(tl.user.name, 40, class: "media-object") %>
+        <% else %>
+            <%= image_tag(tl.user.avatar.url(:noty), class: "media-object") %>
+            <% end %>
+        </div>
+        <div class="media-body">
+            <small>
+                <strong><%= tl.user.name %></strong>
+                <%= tl.action %>
+                <strong><%= tl.nactivity %></strong>
+                <% unless tl.action == "created account" ||
+                      tl.action == "added attachment file to" %>
+                onto
+                <% if tl.activity_type == "Account" %>
+                <%= tl.activity_type.downcase %>
+                <strong><%= tl.activity.account_name %></strong>
+                <% elsif tl.activity_type == "Opportunity" %>
+                <strong><%= tl.activity.name %></strong>
+                <% end %>
+
+                <% end %>
+                <br>
+                <%= time_ago_in_words(tl.created_at) %>
+                ago
+            </small>
+        </div>
+    </div>
+    <% end %>
+</li>
+<hr style="margin-top: 5px; margin-bottom: 5px;">
+
+<% end %>

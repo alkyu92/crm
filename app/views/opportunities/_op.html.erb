@@ -65,6 +65,17 @@
     </div>
     <div class="col-lg-1">
         <strong>Type</strong>
+        <div class="dropdown">
+            <%= link_to '#',data: {toggle: 'dropdown'}, class: 'dropdown-toggle' do %>
+            Show only
+            <span class="caret"></span>
+            <% end %>
+
+            <ul class="dropdown-menu">
+                <li><%= link_to 'Opportunity', "?type=Opportunity" %></li>
+                <li><%= link_to 'Case', "?type=Case" %></li>
+            </ul>
+        </div>
     </div>
     <div class="col-lg-1">
         <strong>Status</strong>
