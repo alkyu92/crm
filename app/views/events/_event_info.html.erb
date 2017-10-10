@@ -9,36 +9,36 @@
                 <h4 class="modal-title">
                   Event
                 </h4>
-                <div class="row">
-                  <div class="col-lg-4">
-                      <h4>
-                          <small>Event belongs to</small><br>
-                          <%= link_to event.opportunity.name, opportunity_path(event.opportunity) %>
-                      </h4>
-                  </div>
-                    <div class="col-lg-4">
-                        <h4>
-                            <small>Event Date</small><br>
-                            <%= render 'events/calc_date', event: event %>
-                        </h4>
-                    </div>
-                    <div class="col-lg-4">
-                        <h4>
-                            <small>Status</small><br>
-                            <% if event.complete == false %>
-                            <span style="color: red;">
-                                Not attend
-                            </span>
-                            <% elsif event.complete == true %>
-                            <span style="color: green;">
-                                Attended
-                            </span>
-                            <% end %>
-                        </h4>
-                    </div>
-                </div>
             </div>
             <div class="modal-body">
+              <div class="row">
+                <div class="col-lg-4">
+                    <h4>
+                        <small>Event belongs to</small><br>
+                        <%= link_to event.opportunity.name, opportunity_path(event.opportunity) %>
+                    </h4>
+                </div>
+                  <div class="col-lg-4">
+                      <h4>
+                          <small>Event Date</small><br>
+                          <%= render 'events/calc_date', event: event %>
+                      </h4>
+                  </div>
+                  <div class="col-lg-4">
+                      <h4>
+                          <small>Status</small><br>
+                          <% if event.complete == false %>
+                          <span style="color: red;">
+                              Not attend
+                          </span>
+                          <% elsif event.complete == true %>
+                          <span style="color: green;">
+                              Attended
+                          </span>
+                          <% end %>
+                      </h4>
+                  </div>
+              </div>
                 <h4>
                     <small>Description</small>
                 </h4>

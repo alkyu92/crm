@@ -9,38 +9,38 @@
                 <h4 class="modal-title">
                     Call Log
                 </h4>
-                <div class="row">
-                  <div class="col-lg-4">
-                    <h4>
-                    <small>Call belongs to</small><br>
-                    <%= link_to call.opportunity.name, opportunity_path(call.opportunity)%>
-                    </h4>
-                  </div>
-                  <div class="col-lg-4">
-                    <h4>
-                      <small>Call Datetime</small><br>
-                      <% if call.call_datetime.blank? %>
-                      <span style="color: red;">
-                        Date not specified
-                      </span>
-                      <% else %>
-                      <%= call.call_datetime.strftime('%d %b %Y %H:%M:%S') %>
-                      <% end %>
-                    </h4>
-                  </div>
-                  <div class="col-lg-4">
-                    <h4>
-                      <small>Durations</small><br>
-                      <% if call.duration.blank? %>
-                      <span style="color: red;">Not specified</span>
-                      <% else %>
-                      <%= pluralize(call.duration, 'minute') %>
-                      <% end %>
-                    </h4>
-                  </div>
-                </div>
             </div>
             <div class="modal-body">
+              <div class="row">
+                <div class="col-lg-4">
+                  <h4>
+                  <small>Call belongs to</small><br>
+                  <%= link_to call.opportunity.name, opportunity_path(call.opportunity)%>
+                  </h4>
+                </div>
+                <div class="col-lg-4">
+                  <h4>
+                    <small>Call Datetime</small><br>
+                    <% if call.call_datetime.blank? %>
+                    <span style="color: red;">
+                      Date not specified
+                    </span>
+                    <% else %>
+                    <%= call.call_datetime.strftime('%d %b %Y at %H:%M:%S') %>
+                    <% end %>
+                  </h4>
+                </div>
+                <div class="col-lg-4">
+                  <h4>
+                    <small>Durations</small><br>
+                    <% if call.duration.blank? %>
+                    <span style="color: red;">Not specified</span>
+                    <% else %>
+                    <%= pluralize(call.duration, 'minute') %>
+                    <% end %>
+                  </h4>
+                </div>
+              </div>
               <h4><small>Description</small></h4>
                 <%= simple_format h(call.description) %>
             </div>

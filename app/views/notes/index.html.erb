@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="media">
+            <div class="media-left">
+                <div style="padding-top: 20px;"></div>
+                <%= letter_avatar_tag('Notes', 50, class: "media-object") %>
+            </div>
+            <div class="media-body">
+                <h3>Notes<br>
+                    <small>Notes and Reminders</small>
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="task-list">
+    <%= render 'notes/note_list' %>
+</div>
+
+<%= javascript_tag defer: 'defer' do %>
+var locHash = window.location.hash.split('-')
+var id = '#' + locHash[1] + '-' + locHash[2];
+$(id).modal('show');
+<% end %>

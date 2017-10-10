@@ -4,7 +4,7 @@
 </span>
 <% else %>
 <% if task.due_date.strftime('%d %b %Y') > Date.today.strftime('%d %b %Y') %>
-<%= task.due_date.strftime('%d %b %Y %H:%M:%S') %><br>
+<%= task.due_date.strftime('%d %b %Y at %H:%M:%S') %><br>
 <small>
     (<%= distance_of_time_in_words(task.due_date, Time.now) %>
     <% if Time.now > task.due_date %>
@@ -19,7 +19,7 @@
 <strong style="color: red;">Event passed</strong><br>
 <% end %>
 <strong style="color: orange;">Today</strong><br>
-<%= task.due_date.strftime('%d %b %Y %H:%M:%S') %><br>
+<%= task.due_date.strftime('%d %b %Y at %H:%M:%S') %><br>
 <small>
     (<%= distance_of_time_in_words(Time.now, task.due_date) %>
     <% if Time.now > task.due_date %>

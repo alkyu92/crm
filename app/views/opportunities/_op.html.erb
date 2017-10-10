@@ -64,13 +64,14 @@
           <% end %>
 
           <ul class="dropdown-menu">
-            <h5 style="padding-left: 5px;"><small>Opportunities</small></h5>
+            <h5 style="padding-left: 10px;"><small>Opportunities</small></h5>
             <li><%= link_to 'Show All Opportunities', "?type=Opportunity" %></li>
             <li><%= link_to 'Open', "?status=Open&type=Opportunity" %></li>
             <li><%= link_to 'Approved', "?status=Approved&type=Opportunity" %></li>
             <li><%= link_to 'Closed-Won', "?status=Closed-Won&type=Opportunity" %></li>
             <li><%= link_to 'Closed-Loss', "?status=Closed-Loss&type=Opportunity" %></li>
-            <h5 style="padding-left: 5px;"><small>Cases</small></h5>
+            <hr>
+            <h5 style="padding-left: 10px;"><small>Cases</small></h5>
             <li><%= link_to 'Show All Cases', "?type=Case" %></li>
             <li><%= link_to 'In Progress', "?status=In Progress&type=Case" %></li>
             <li><%= link_to 'Solved', "?status=Solved&type=Case" %></li>
@@ -81,7 +82,7 @@
         <strong>Type</strong>
     </div>
     <div class="col-lg-2">
-        <strong>Close / Solve Date</strong>
+        <strong>Closed / Solved / Approved Date</strong>
     </div>
     <div class="col-lg-2 text-center">
       <strong>Action</strong>
@@ -150,7 +151,8 @@
           Not available
         <% elsif opportunity.status == "Closed-Won" ||
         opportunity.status == "Closed-Loss" ||
-        opportunity.status == "Solved" %>
+        opportunity.status == "Solved" ||
+        opportunity.status == "Approved" %>
           <% if opportunity.close_date.blank? %>
           <span style="color: red;">Not specified</span>
           <% else %>

@@ -41,15 +41,13 @@
                           <% if @opportunity.status == "Open" ||
                             @opportunity.status == "Closed-Won" ||
                             @opportunity.status == "Closed-Loss" ||
-                            @opportunity.status == "Approved"
-                          %>
+                            @opportunity.status == "Approved" %>
                             <option id="optop">
-                              <% elsif @opportunity.status == "In Progress" ||
-                                @opportunity.status == "Solved"
-                              %>
-                              <option id="optcase">
-                              <% end %>
-                              <%= @opportunity.status %></option>
+                          <% elsif @opportunity.status == "In Progress" ||
+                            @opportunity.status == "Solved" %>
+                            <option id="optcase">
+                          <% end %>
+                            <%= @opportunity.status %></option>
                             <% opstatus.each do |opstat| %>
                             <% next if opstat == @opportunity.status %>
                             <option id="optop" value="<%= opstat %>"><%= opstat %></option>

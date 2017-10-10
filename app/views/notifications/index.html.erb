@@ -1,13 +1,26 @@
-<h2>Notifications
-<small>All timelines</small>
-</h2>
+<div class="row">
+    <div class="col-lg-12">
+      <div class="media">
+        <div class="media-left">
+          <div style="padding-top: 20px;"></div>
+          <%= letter_avatar_tag('Notifications', 50, class: "media-object") %>
+        </div>
+        <div class="media-body">
+          <h3>Notifications<br>
+            <small>All Timelines</small>
+          </h3>
+      </div>
+      </div>
+    </div>
+
+</div>
+
+<hr>
 
 <div class="text-center">
     <%= page_entries_info @notifications %><br>
     <%= paginate @notifications %>
 </div>
-
-<hr>
 
 <% if @notifications.blank? %>
 There are no notifications yet.

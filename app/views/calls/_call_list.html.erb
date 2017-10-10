@@ -20,7 +20,7 @@
         <strong>Call DateTime</strong>
     </div>
     <div class="col-lg-2">
-        <strong>Opportunity / Case Name</strong>
+        <strong>Belongs to</strong>
     </div>
     <div class="col-lg-2">
         <strong>Account Name</strong>
@@ -45,13 +45,17 @@
       <% if call.call_datetime.blank? %>
       <span style="color: red;">Date not specified</span>
       <% else %>
-        <%= call.call_datetime.strftime('%d %b %Y %H:%M:%S') %><br>
+        <%= call.call_datetime.strftime('%d %b %Y at %H:%M:%S') %><br>
       <% end %>
     </div>
-    <div class="col-lg-2"><%= link_to call.opportunity.name, opportunity_path(call.opportunity) %></div>
+    <div class="col-lg-2">
+      <%= link_to call.opportunity.name, opportunity_path(call.opportunity) %>
+      <br>
+      <small><%= call.opportunity.business_type %></small>
+    </div>
     <div class="col-lg-2"><%= link_to call.opportunity.account.account_name,
 account_path(call.opportunity.account) %></div>
-    <div class="col-lg-1"><%= call.created_at.strftime('%d %b %Y %H:%M:%S') %></div>
+    <div class="col-lg-1"><%= call.created_at.strftime('%d %b %Y at %H:%M:%S') %></div>
     <div class="col-lg-2 text-center">
       <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
         <i class="caret"></i>

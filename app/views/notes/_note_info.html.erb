@@ -1,0 +1,25 @@
+<!-- Modal -->
+<div id="noteInfo-<%= note.id %>" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">
+                    Note
+                </h4>
+            </div>
+            <div class="modal-body">
+              <h5><small>Title</small></h5>
+              <%= note.title %>
+              <br><br>
+              <h5><small>Description</small></h5>
+                <%= simple_format h(note.description) %>
+            </div>
+            <div class="modal-footer">
+                <%= link_to 'Close', '#', class: "btn btn-default", data: {dismiss: "modal"}%>
+            </div>
+        </div>
+    </div>
+</div>

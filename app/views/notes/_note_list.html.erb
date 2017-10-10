@@ -1,0 +1,87 @@
+<div class="text-center">
+<%= page_entries_info @notes %><br>
+<%= paginate @notes %>
+</div>
+
+<div id="notice-note">
+<%= render 'layouts/message' %>
+</div>
+
+<hr>
+
+<% if @notes.blank? %>
+<div class="text-center">
+<%= link_to 'Create note through Opportunity', opportunities_path %>
+</div>
+<% else %>
+<div class="row">
+    <div class="col-lg-1 text-center">
+        <strong>ID</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Title</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Description</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Belongs to</strong>
+    </div>
+    <div class="col-lg-2">
+        <strong>Created At DateTime</strong>
+    </div>
+    <div class="col-lg-2 text-center">
+      <strong>Action</strong>
+    </div>
+</div>
+
+<% @notes.each do |note| %>
+<hr>
+<div class="row">
+    <div class="col-lg-1 text-center"><%= note.id %></div>
+    <div class="col-lg-2">
+      <%= link_to note.title, '#', data: {toggle: "modal", target: "#noteInfo-#{note.id}"} %>
+    </div>
+    <div class="col-lg-2">
+      <%= note.description.truncate(50) %>
+    </div>
+    <div class="col-lg-2">
+      <% if note.info_type == "Opportunity" %>
+      <%= link_to note.info.name, opportunity_path(note.info) %>
+      <br>
+      <small><%= note.info.business_type %></small>
+      <% elsif note.info_type == "Account" %>
+      <%= link_to note.info.account_name, account_path(note.info) %>
+      <br>
+      <small>Account</small>
+      <% end %>
+
+
+    </div>
+    <div class="col-lg-2"><%= note.created_at.strftime('%d %b %Y at %H:%M:%S') %></div>
+    <div class="col-lg-2 text-center">
+      <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+        <i class="caret"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <% if note.info_type == "Opportunity" %>
+        <li><%= link_to 'Show', opportunity_path(note.info, anchor: "relatedNotes-noteInfo-#{note.id}") %></li>
+        <li><%= link_to 'Delete', opportunity_note_path(note.info, note),
+        method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
+        <% elsif note.info_type == "Account" %>
+        <li><%= link_to 'Show', account_path(note.info, anchor: "relatedNotes-noteInfo-#{note.id}") %></li>
+        <li><%= link_to 'Delete', account_note_path(note.info, note),
+        method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
+        <% end %>
+      </ul>
+    </div>
+</div>
+
+<%= render 'notes/note_info', note: note %>
+<% end %>
+<br>
+<div class="text-center">
+<%= page_entries_info @notes %><br>
+<%= paginate @notes %>
+</div>
+<% end %>

@@ -31,6 +31,7 @@ Rails.application.routes.draw do
         get '/update_event_status', to: 'events#update_event_status'
       end
     end
+
     resources :notes
   end
 
@@ -52,6 +53,7 @@ Rails.application.routes.draw do
   get '/calls', to: 'calls#index'
   get '/contacts', to: 'contacts#index'
   get '/events', to: 'events#index'
+  get '/notes', to: 'notes#index'
   get '/notifications', to: 'notifications#index'
 
   resources :users
@@ -65,7 +67,7 @@ Rails.application.routes.draw do
   get '/timelines/:id', to: 'timelines#update_read_status', as: :update_read_status
 
   root 'dashboards#index'
-  
+
   get '/search', to: 'search#search'
   get "*path" => redirect("/")
 end

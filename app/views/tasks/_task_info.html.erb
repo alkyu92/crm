@@ -9,40 +9,46 @@
                 <h4 class="modal-title">
                   Task
                 </h4>
-                <div class="row">
-                  <div class="col-lg-3">
-                    <h4>
-                      <small>Task belongs to</small><br>
-                      <%= link_to task.opportunity.name, opportunity_path(task.opportunity) %>
-                    </h4>
-                  </div>
-                  <div class="col-lg-3">
-                    <h4>
-                      <small>Due Date</small><br>
-                      <%= render 'tasks/calc_date', task: task %>
-                    </h4>
-                  </div>
-                  <div class="col-lg-3">
-                    <h4>
-                      <small>Status</small><br>
-                      <% if task.complete == false %>
-                      <span style="color: red;">Incomplete</span>
-                      <% elsif task.complete == true %>
-                      <span style="color: green;">Completed</span>
-                      <% end %>
-                    </h4>
-                  </div>
-                  <div class="col-lg-3">
-                    <h4>
-                      <small>Created at</small><br>
-                      <%= task.created_at.strftime('%d %b %Y at %H:%M:%S')%>
-                    </h4>
-                  </div>
-                </div>
             </div>
             <div class="modal-body">
+              <div class="row">
+                <div class="col-lg-4">
+                  <h4>
+                    <small>Task belongs to</small><br>
+                    <%= link_to task.opportunity.name, opportunity_path(task.opportunity) %>
+                  </h4>
+                </div>
+                <div class="col-lg-4">
+                  <h4>
+                    <small>Status</small><br>
+                    <% if task.complete == false %>
+                    <span style="color: red;">Incomplete</span>
+                    <% elsif task.complete == true %>
+                    <span style="color: green;">Completed</span>
+                    <% end %>
+                  </h4>
+                </div>
+                <div class="col-lg-4">
+                  <h4>
+                    <small>Created at</small><br>
+                    <%= task.created_at.strftime('%d %b %Y at %H:%M:%S')%>
+                  </h4>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <h4>
+                    <small>Due Date</small><br><br>
+                    <%= render 'tasks/calc_date', task: task %>
+                  </h4>
+                </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
               <h4><small>Description</small></h4>
                 <%= simple_format h(task.description) %>
+              </div>
+            </div>
             </div>
             <div class="modal-footer">
 

@@ -1,4 +1,4 @@
-<div class="navbar-nav" style="margin-left: 60px; margin-top: 10px; width: 30%;">
+<div class="navbar-nav" style="margin-left: 25px; margin-top: 10px; width: 25%;">
     <%= form_for :term, url: search_path, method: :get do |form| %>
     <%= text_field_tag :term, params[:term],
     placeholder: "Search keyword", class: "form-control" %>
@@ -21,6 +21,7 @@
             <li><%= link_to 'Events', events_path %></li>
         </ul>
     </li>
+    <li><%= link_to 'Notes', notes_path %></li>
     <li><%= link_to 'Contacts', contacts_path %></li>
     <li class="dropdown">
         <% @nav_noty = Timeline.includes(:user, :activity).order('created_at DESC') %>
@@ -85,7 +86,7 @@
 
             <% end %>
 
-            <li><%= link_to 'View All', notifications_path, class: "text-center" %></li>
+            <li><%= link_to 'View All Notifications', notifications_path, class: "text-center" %></li>
             <% end %>
         </ul>
     </li>
