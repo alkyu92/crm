@@ -7,9 +7,16 @@ class Document < ApplicationRecord
                     dependent: :destroy
 
   validates_attachment_content_type :doc,
-  content_type: ["application/pdf","application/vnd.ms-excel",
- "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
- "application/msword",
- "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
- "text/plain"]
+  content_type: [
+    "application/pdf",
+    "application/vnd.ms-excel",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "text/plain",
+    "image/jpg",
+    "image/jpeg",
+    "image/png",
+    "image/gif"
+  ]
 end

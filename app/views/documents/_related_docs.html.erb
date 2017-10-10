@@ -10,7 +10,8 @@
 
         <%= f.label "Upload Documents" %>
         <%= file_field_tag "docs[]",type: :file, multiple: true %>
-        <%= f.hint "Can upload multiple files. Only pdf/doc type"%>
+        <%= f.hint "Can upload multiple files." %>
+        <%= f.hint "Support .pdf/.doc/.jpeg/.jpg/.png/.gif type extension files" %>
         <%= f.button :submit, "Submit Documents" %>
         <% end %>
     </div>
