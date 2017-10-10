@@ -6,46 +6,58 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">
-                  Event
-                </h4>
+                <h5 class="modal-title">
+                    Event
+                </h5>
             </div>
             <div class="modal-body">
-              <div class="row">
-                <div class="col-lg-4">
-                    <h4>
-                        <small>Event belongs to</small><br>
-                        <%= link_to event.opportunity.name, opportunity_path(event.opportunity) %>
-                    </h4>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5>
+                            <small>Event belongs to</small>
+                        </h5>
+                        <%= link_to event.opportunity.name,
+                        opportunity_path(event.opportunity, anchor: "event-eventInfo-#{event.id}") %>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5>
+                            <small>Created at</small>
+                        </h5>
+                        <%= event.created_at.strftime('%d %b %Y at %H:%M:%S') %>
+
+                    </div>
                 </div>
-                  <div class="col-lg-4">
-                      <h4>
-                          <small>Event Date</small><br>
-                          <%= render 'events/calc_date', event: event %>
-                      </h4>
-                  </div>
-                  <div class="col-lg-4">
-                      <h4>
-                          <small>Status</small><br>
-                          <% if event.complete == false %>
-                          <span style="color: red;">
-                              Not attend
-                          </span>
-                          <% elsif event.complete == true %>
-                          <span style="color: green;">
-                              Attended
-                          </span>
-                          <% end %>
-                      </h4>
-                  </div>
-              </div>
-                <h4>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5>
+                            <small>Event Date</small>
+                        </h5>
+                        <%= render 'events/calc_date', event: event %>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5>
+                            <small>Status</small>
+                        </h5>
+                        <% if event.complete == false %>
+                        <span style="color: red;">
+                            Not attend
+                        </span>
+                        <% elsif event.complete == true %>
+                        <span style="color: green;">
+                            Attended
+                        </span>
+                        <% end %>
+
+                    </div>
+                </div>
+                <br>
+                <h5>
                     <small>Description</small>
-                </h4>
+                </h5>
                 <%= simple_format h(event.description) %>
             </div>
             <div class="modal-footer">
-
                 <%= link_to 'Close', '#', class: "btn btn-default", data: {dismiss: "modal"}%>
             </div>
         </div>
