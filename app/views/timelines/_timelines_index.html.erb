@@ -32,19 +32,20 @@
             <small>
                 <%= link_to timeline.user.name, user_path(timeline.user.id) %>
                 <%= timeline.action %>
-                <%= link_to timeline.nactivity.truncate(40), update_read_status_path(timeline) %>
+                <%= timeline.nactivity.truncate(40) %>
                 <% unless timeline.action == "created account" ||
                   timeline.action == "added attachment file to account" ||
                   timeline.action == "deleted attachment file from account" ||
                   timeline.action == "added attachment file to opportunity" ||
                   timeline.action == "deleted attachment file from opportunity" %>
-                on
+                onto
                 <% if timeline.activity_type == "Account" %>
                 <%= timeline.activity_type.downcase %>
                 <strong><%= timeline.activity.account_name %></strong>
                 <% elsif timeline.activity_type == "Opportunity" %>
                 <strong><%= timeline.activity.name %></strong>
                 <% end %>
+
                 <% end %>
 
             </small>

@@ -1,9 +1,15 @@
 <h4>Notes</h4>
+<hr>
 <div id="notice-note"></div>
 <% if @subject.notes.blank? %>
 No notes submitted yet.
 <% else %>
-<% @subject.notes.each do |note| %>
+
+<div class="text-center">
+  <%= page_entries_info @subject.notes.page(params[:note_page]).per(10) %><br>
+  <%= paginate @subject.notes.page(params[:note_page]).per(10), param_name: :note_page, remote: true %>
+</div>
+<% @subject.notes.page(params[:note_page]).per(10).each do |note| %>
 <div class="col-lg-6 panel panel-body" id="relatedNotes-<%= note.id %>">
     <div class="dropdown pull-right">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -33,6 +39,7 @@ No notes submitted yet.
     <h5>
         <%= link_to note.title.truncate(40), '#',
           data: {toggle: "modal", target: "#noteInfo-#{note.id}"} %>
+          <br>
         <small>
             <%= time_ago_in_words(note.created_at) %>
             ago
@@ -42,6 +49,11 @@ No notes submitted yet.
 </div>
 
 <%= render 'notes/note_info', note: note %>
-
 <% end %>
+<div class="row">
+<div class="col-lg-12 text-center">
+  <%= page_entries_info @subject.notes.page(params[:note_page]).per(10) %><br>
+  <%= paginate @subject.notes.page(params[:note_page]).per(10), param_name: :note_page, remote: true %>
+</div>
+</div>
 <% end %>

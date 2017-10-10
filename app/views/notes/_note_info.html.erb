@@ -19,9 +19,13 @@
                         <% if note.info_type == "Opportunity" %>
                         <%= link_to note.info.name,
                         opportunity_path(note.info, anchor: "relatedNotes-noteInfo-#{note.id}") %>
+                        <br>
+                        <small><%= note.info.business_type %></small>
                         <% elsif note.info_type == "Account" %>
-                        <%= link_to note.info.name,
+                        <%= link_to note.info.account_name,
                         account_path(note.info, anchor: "relatedNotes-noteInfo-#{note.id}") %>
+                        <br>
+                        <small>Account</small>
                         <% end %>
                     </div>
                     <div class="col-lg-6">
