@@ -211,6 +211,23 @@
         }
     });
 
+    var bgColor = [
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(55, 99, 132, 0.2)',
+      'rgba(54, 62, 235, 0.2)',
+      'rgba(255, 99, 32, 0.2)',
+      'rgba(254, 162, 235, 0.2)'
+    ];
+    var bdrColor = [
+      'rgba(255, 99, 132, 1)',
+      'rgba(54, 162, 235, 1)',
+      'rgba(55, 99, 132, 1)',
+      'rgba(54, 62, 235, 1)',
+      'rgba(255, 99, 32, 1)',
+      'rgba(254, 162, 235, 1)'
+    ];
+
     var acc_won_hash = gon.acc_won_hash;
     var acc_won_name = [];
     var acc_won_count = [];
@@ -225,22 +242,8 @@
         datasets: [
             {
                 data: acc_won_count,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(55, 99, 132, 0.2)',
-                    'rgba(54, 62, 235, 0.2)',
-                    'rgba(255, 99, 32, 0.2)',
-                    'rgba(254, 162, 235, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(55, 99, 132, 1)',
-                    'rgba(54, 62, 235, 1)',
-                    'rgba(255, 99, 32, 1)',
-                    'rgba(254, 162, 235, 1)'
-                ],
+                backgroundColor: bgColor,
+                borderColor: bdrColor,
                 borderWidth: 1
             }
         ]
@@ -260,12 +263,8 @@
         datasets: [
             {
                 data: acc_loss_count,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'
-                ],
+                backgroundColor: bgColor,
+                borderColor: bdrColor,
                 borderWidth: 1
             }
         ]
@@ -285,12 +284,8 @@
         datasets: [
             {
                 data: acc_open_count,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'
-                ],
+                backgroundColor: bgColor,
+                borderColor: bdrColor,
                 borderWidth: 1
             }
         ]
@@ -310,18 +305,21 @@
         datasets: [
             {
                 data: acc_approved_count,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'
-                ],
+                backgroundColor: bgColor,
+                borderColor: bdrColor,
                 borderWidth: 1
             }
         ]
     };
 
     var optiondata = {
+      tooltips: {
+    callbacks: {
+        label: function(tooltipItem) {
+            return "RM" + tooltipItem.yLabel;
+        }
+    }
+},
         legend: {
             display: false
         },

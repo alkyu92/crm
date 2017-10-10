@@ -34,7 +34,7 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
         end
 
       else
-        flash[:danger] = "Failed to create contact!"
+        flash.now[:danger] = "Failed to create contact!"
         redirect_to opportunity_path(params[:opportunity_id], anchor: "relatedContacts")
       end
   end

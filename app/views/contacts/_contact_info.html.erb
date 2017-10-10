@@ -29,7 +29,6 @@
                             <% end %>
                         </h4>
                         <br>
-
                         <small>Position Title</small>
                         <h4><% if contact.title.blank? %>
                             <span style="color: red;">Not specified</span>
@@ -37,14 +36,12 @@
                             <%= contact.title %>
                             <% end %></h4>
                         <br>
-
                         <small>Department</small>
                         <h4><% if contact.department.blank? %>
                             <span style="color: red;">Not specified</span>
                         <% else %>
                             <%= contact.department %>
                             <% end %></h4>
-
                     </div>
                     <div class="col-lg-5">
                         <small>Mailing Address</small>
@@ -74,7 +71,6 @@
                             <% end %>
                         </h4>
                         <br>
-
                         <small>Phone</small>
                         <h4><% if contact.phone.blank? %>
                             <span style="color: red;">Not specified</span>
@@ -82,29 +78,30 @@
                             <%= contact.phone %>
                             <% end %></h4>
                         <br>
-
                         <small>Email</small>
                         <h4><% if contact.email.blank? %>
                             <span style="color: red;">Not specified</span>
                         <% else %>
                             <%= contact.email %>
                             <% end %></h4>
-
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-2"></div>
                     <div class="col-lg-10">
                         <hr>
+                          <h5>
                         <small>Association</small>
-                        <br><br>
+                      </h5>
                         <% if contact.relationships.blank? %>
                         No association found
                     <% else %>
                         <% ctct = contact.relationships.includes(:contactable) %>
                         <% contactable_acc = ctct.where(contactable_type: "Account") %>
                         <% unless contactable_acc.blank? %>
-                        <small>Account</small><br>
+                        <h5>
+                        <small>Account</small>
+                      </h5>
                         <div class="row">
                             <% contactable_acc.each do |rl| %>
                             <div class="col-lg-4">
@@ -118,12 +115,16 @@
 
                         <% contactable_op = ctct.where(contactable_type: "Opportunity")%>
                         <% unless contactable_op.blank? %>
-                        <small>Opportunity / Case</small><br>
+                        <h5>
+                        <small>Opportunity / Case</small>
+                      </h5>
                         <div class="row">
                             <% contactable_op.each do |rl| %>
                             <div class="col-lg-4">
                                 <%= link_to rl.contactable.name,
                         opportunity_path(rl.contactable, anchor: "relatedContacts-contactInfo-#{rl.contact.id}") %>
+                        <br>
+                        <small><%= rl.contactable.business_type %></small>
                             </div>
                             <% end %>
                         </div>

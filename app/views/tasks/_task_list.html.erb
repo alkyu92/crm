@@ -55,7 +55,7 @@
     </div>
     <div class="col-lg-2"><%= link_to task.opportunity.account.account_name,
     account_path(task.opportunity.account) %></div>
-    <div class="col-lg-1"><%= task.created_at.strftime('%d %b %Y %H:%M:%S') %></div>
+    <div class="col-lg-1"><%= task.created_at.strftime('%d %b %Y at %H:%M:%S') %></div>
     <div class="col-lg-2 text-center">
       <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
         <i class="caret"></i>
