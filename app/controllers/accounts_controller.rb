@@ -35,6 +35,7 @@ class AccountsController < ApplicationController
 
   def update
     @account = Account.find(params[:id])
+    @old_name = @account.account_name
     @subject = @account
     respond_to do |format|
       if @account.update(params_account)
@@ -54,7 +55,7 @@ class AccountsController < ApplicationController
           }
         end
 
-        save_timeline_if_any_changes
+        save_timeline_if_any_changes(@old_name)
         format.js { flash.now[:success] = "Account entry updated!" }
       else
         format.js { flash.now[:danger] = "Failed to update account entry!" }
@@ -125,11 +126,11 @@ class AccountsController < ApplicationController
                                     )
   end
 
-  def save_timeline_if_any_changes
+  def save_timeline_if_any_changes(old_name)
 
     if @account.account_name_previously_changed?
       timeline_account("accountDetails",
-      @account.account_name, "updated account name to")
+      old_name, "updated account name from")
     end
     if @account.account_type_previously_changed?
       timeline_account("accountDetails",

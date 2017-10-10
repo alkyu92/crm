@@ -43,23 +43,10 @@
                 <%= timeline.activity_type.downcase %>
                 <strong><%= timeline.activity.account_name %></strong>
                 <% elsif timeline.activity_type == "Opportunity" %>
-                <%#= timeline.activity_type.downcase %>
                 <strong><%= timeline.activity.name %></strong>
                 <% end %>
                 <% end %>
-                <!-- <div class="pull-right">
-                    <%# if params[:controller] == "opportunities" || params[:opportunity_id] %>
-                      <%#= link_to opportunity_timeline_path(@subject, timeline),
-                      method: :delete, remote: true do %>
-                      <i class="fa fa-times"></i>
-                      <%# end %>
-                    <%# elsif params[:controller] == "accounts" || params[:account_id] %>
-                      <%#= link_to account_timeline_path(@subject, timeline),
-                      method: :delete, remote: true do %>
-                      <i class="fa fa-times"></i>
-                      <%# end %>
-                    <%# end %>
-                </div> -->
+
             </small>
             <h5 style="margin-top: -2px;">
                 <small>

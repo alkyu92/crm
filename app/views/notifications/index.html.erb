@@ -1,16 +1,16 @@
 <div class="row">
     <div class="col-lg-12">
-      <div class="media">
-        <div class="media-left">
-          <div style="padding-top: 20px;"></div>
-          <%= letter_avatar_tag('Notifications', 50, class: "media-object") %>
+        <div class="media">
+            <div class="media-left">
+                <div style="padding-top: 20px;"></div>
+                <%= letter_avatar_tag('Notifications', 50, class: "media-object") %>
+            </div>
+            <div class="media-body">
+                <h3>Notifications<br>
+                    <small>All Timelines</small>
+                </h3>
+            </div>
         </div>
-        <div class="media-body">
-          <h3>Notifications<br>
-            <small>All Timelines</small>
-          </h3>
-      </div>
-      </div>
     </div>
 
 </div>
@@ -34,46 +34,42 @@ There are no notifications yet.
         <% if noty.read == true %>
         <div class="media">
         <% else %>
-        <div class="media" style="background-color: #d3d3d3;">
-        <% end %>
-            <div class="media-left">
-                <% if noty.user.avatar.blank? %>
-                <%= letter_avatar_tag(noty.user.name, 40, class: "media-object") %>
-            <% else %>
-                <%= image_tag(noty.user.avatar.url(:noty), class: "media-object")%>
+            <div class="media" style="background-color: #d3d3d3;">
                 <% end %>
-            </div>
-            <div class="media-body">
-                <p>
-                    <strong><%= noty.user.name %></strong>
-                    <%= noty.action %>
-                    <strong><%= noty.nactivity %></strong>
-                    <% unless noty.action == "created account" ||
+                <div class="media-left">
+                    <% if noty.user.avatar.blank? %>
+                    <%= letter_avatar_tag(noty.user.name, 40, class: "media-object") %>
+                <% else %>
+                    <%= image_tag(noty.user.avatar.url(:noty), class: "media-object")%>
+                    <% end %>
+                </div>
+                <div class="media-body">
+                    <p>
+                        <strong><%= noty.user.name %></strong>
+                        <%= noty.action %>
+                        <strong><%= noty.nactivity %></strong>
+                        <% unless noty.action == "created account" ||
                       noty.action == "added attachment file to" %>
-                    on
-                    <%#= noty.activity_type.downcase %>
-                    <% if noty.activity_type == "Opportunity" %>
-                    <strong><%= noty.activity.name %></strong>
-                    <% elsif noty.activity_type == "Account" %>
-                    <strong><%= noty.activity.account_name %></strong>
-                    <% end %>
-
-                    <% end %>
-                    <br>
-                    <small>
-                        <%= time_ago_in_words(noty.created_at) %>
-                        ago
-                    </small>
-                </p>
+                        onto
+                        <strong>
+                            <%= noty.activity_type == "Opportunity" ? noty.activity.name : noty.activity.account_name %>
+                        </strong>
+                        <% end %>
+                        <br>
+                        <small>
+                            <%= time_ago_in_words(noty.created_at) %>
+                            ago
+                        </small>
+                    </p>
+                </div>
+            </div>
+            <% end %>
+            <% end %>
+            <div class="text-center">
+                <%= page_entries_info @notifications %><br>
+                <%= paginate @notifications %>
             </div>
         </div>
-        <% end %>
-        <% end %>
-        <div class="text-center">
-            <%= page_entries_info @notifications %><br>
-            <%= paginate @notifications %>
-        </div>
+        <div class="col-lg-3"></div>
     </div>
-    <div class="col-lg-3"></div>
-</div>
-<% end %>
+    <% end %>

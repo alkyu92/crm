@@ -64,6 +64,7 @@ class OpportunitiesController < ApplicationController
 
   def update
     @opportunity = Opportunity.includes(:user).find(params[:id])
+    @old_name = @opportunity.name
     respond_to do |format|
       # for AJAX
       @subject = @opportunity
@@ -96,7 +97,7 @@ class OpportunitiesController < ApplicationController
           }
         end
 
-        save_timeline_if_any_changes
+        save_timeline_if_any_changes(@old_name)
         format.js { flash.now[:success] = "#{@opportunity.business_type.downcase} entry updated!" }
       else
         format.js { flash.now[:danger] = "Failed to update #{@opportunity.business_type.downcase}!" }
@@ -166,10 +167,10 @@ class OpportunitiesController < ApplicationController
     redirect_to opportunities_path
   end
 
-  def save_timeline_if_any_changes
+  def save_timeline_if_any_changes(old_name)
     if @opportunity.name_previously_changed?
       timeline_opportunity("opportunityDetails",
-      @opportunity.name, "updated #{@opportunity.business_type.downcase} name to")
+      old_name, "updated #{@opportunity.business_type.downcase} name from")
     end
     if @opportunity.business_type_previously_changed?
       timeline_opportunity("opportunityDetails",
@@ -196,7 +197,7 @@ class OpportunitiesController < ApplicationController
       timeline_opportunity("opportunityDetails",
       @opportunity.close_date.strftime('%d %b %Y'),
       "updated #{@opportunity.business_type.downcase} #{
-      @opportunity.business_type == "Opportunity" ? 'close' : 'solve'
+      @opportunity.business_type == "Opportunity" ? 'closed' : 'solved'
       } date to")
     end
     if @opportunity.loss_reason_previously_changed?
