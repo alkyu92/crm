@@ -38,7 +38,7 @@
         <ul class="dropdown-menu" role="menu">
             <% if @nav_noty.blank? %>
             <li>
-                <a href="#">There are no notifications yet.</a>
+                <a href="#">No notifications found.</a>
             </li>
         <% else %>
             <%= render 'notifications/nav_noty', nav_noty: @nav_noty.take(8) %>

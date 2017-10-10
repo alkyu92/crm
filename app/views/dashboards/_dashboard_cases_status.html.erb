@@ -2,7 +2,7 @@
 <h4><strong>Cases by Status</strong></h4>
 <hr>
 <% if @cases_inprogress.blank? && @cases_solved.blank? %>
-No cases registered yet.
+No cases found.
 <% else %>
 
 <%= render 'dashboards/dashboard_cases_block', cases_block: @cases_inprogress %>
