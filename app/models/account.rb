@@ -4,7 +4,7 @@ class Account < ApplicationRecord
 
   belongs_to :user
 
-  has_many :relationships, as: :contactable
+  has_many :relationships, as: :contactable, dependent: :destroy
   has_many :contacts, through: :relationships
 
   has_many :timelines,  as: :activity,    dependent: :destroy

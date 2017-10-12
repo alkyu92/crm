@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-6">
-        <small>Opportunity / Case Name</small>
+        <small>Name</small>
         <h4>
             <% if @opportunity.name.blank? %>
             <span style="color: red;">
@@ -24,11 +24,11 @@
         </h4>
         <br>
 
-        <small>Business Type</small>
+        <small>Type</small>
         <h4>
             <% if @opportunity.business_type.blank? %>
             <span style="color: red;">
-                Business type not specified
+                Type not specified
             </span>
         <% else %>
             <%= @opportunity.business_type %>
