@@ -4,14 +4,16 @@
     <div class="col-lg-6">
       <h3>Edit Call Log</h3>
       <hr>
-<%= simple_form_for [@opportunity, @call] do |f| %>
-<%= f.label "Account Name" %><br>
-<%= link_to @opportunity.account.account_name, account_path(@opportunity.account) %>
-<br><br>
+      <strong>Belongs to</strong><br>
+      <small>Account</small><br>
+      <%= link_to @opportunity.account.account_name, account_path(@opportunity.account) %>
+      <br><br>
 
-<%= f.label "Opportunity Name" %><br>
-<%= link_to @opportunity.name, opportunity_path(@opportunity) %>
-<br><br>
+      <small><%= @opportunity.business_type == "Opportunity" ? 'Opportunity' : 'Case' %></small><br>
+      <%= link_to @opportunity.name, opportunity_path(@opportunity) %>
+      <br><br>
+
+<%= simple_form_for [@opportunity, @call] do |f| %>
 <%= f.input :description, placeholder: "Call description" %>
 <div class="row">
     <div class="col-lg-6">

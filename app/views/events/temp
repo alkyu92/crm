@@ -1,0 +1,11 @@
+<li>
+    <% if event.complete == false %>
+    <%= link_to 'Mark as Attended',
+    update_event_status_opportunity_event_path(@opportunity, event),
+      remote: true %>
+<% else %>
+    <%= link_to 'Mark as Not Attend',
+    update_event_status_opportunity_event_path(@opportunity, event),
+      remote: true %>
+    <% end %>
+</li>

@@ -48,17 +48,6 @@ No events found.
                 <i class="caret"></i>
             </a>
             <ul class="dropdown-menu">
-            <li>
-                <% if event.complete == false %>
-                <%= link_to 'Mark as Attended',
-                update_event_status_opportunity_event_path(@opportunity, event),
-                  remote: true %>
-            <% else %>
-                <%= link_to 'Mark as Not Attend',
-                update_event_status_opportunity_event_path(@opportunity, event),
-                  remote: true %>
-                <% end %>
-            </li>
             <li><%= link_to 'Show', '#', data: {toggle: "modal", target: "#eventInfo-#{event.id}"}%></li>
             <li><%= link_to 'Edit Event', edit_opportunity_event_path(@opportunity, event) %></li>
             <li><%= link_to 'Delete Event', opportunity_event_path(@opportunity, event),

@@ -50,15 +50,6 @@ No tasks found.
                     <i class="caret"></i>
                 </a>
                 <ul class="dropdown-menu">
-                  <% if task.complete == false %>
-                      <li><%= link_to 'Mark as Completed',
-                      update_task_status_opportunity_task_path(@opportunity, task),
-                      remote: true %></li>
-                  <% else %>
-                      <li><%= link_to 'Mark as Incomplete',
-                      update_task_status_opportunity_task_path(@opportunity, task),
-                      remote: true %></li>
-                  <% end %>
                     <li><%= link_to 'Show', '#', data: {toggle: "modal", target: "#taskInfo-#{task.id}"} %></li>
                     <li><%= link_to 'Edit Task', edit_opportunity_task_path(@opportunity, task) %></li>
                     <li><%= link_to 'Delete Task', opportunity_task_path(@opportunity, task),

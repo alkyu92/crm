@@ -4,6 +4,10 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.includes(:opportunity).order('due_date').page(params[:page]).per(10)
+
+    # AJAX
+    @opportunity = Opportunity.find(session[:op_id])
+    @optask = @opportunity.tasks.includes(:user).order('due_date').page(params[:task_page]).per(10)
   end
 
   def create
@@ -20,8 +24,9 @@ class TasksController < ApplicationController
     end
 
     # AJAX
+    session[:op_id] = @task.opportunity.id
     @opportunity = Opportunity.find(@task.opportunity)
-    @optask = @opportunity.tasks.order('due_date').page(params[:page]).per(10)
+    @optask = @opportunity.tasks.includes(:user).order('due_date').page(params[:task_page]).per(10)
 
   end
 
@@ -42,10 +47,10 @@ class TasksController < ApplicationController
 
         timeline_task("updated task")
         flash[:success] = "Task updated!"
-        redirect_to opportunity_path(@opportunity, anchor: "task-#{@task.id}")
+        redirect_to opportunity_path(@opportunity, anchor: "task-taskInfo-#{@task.id}")
       else
         flash[:danger] = "Failed to update task!"
-        redirect_to opportunity_path(@opportunity, anchor: "task-#{@task.id}")
+        redirect_to opportunity_path(@opportunity, anchor: "task-taskInfo-#{@task.id}")
       end
 
   end

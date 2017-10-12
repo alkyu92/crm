@@ -4,6 +4,10 @@ class CallsController < ApplicationController
 
   def index
     @calls = Call.includes(:opportunity).page(params[:page]).per(10)
+
+    # AJAX
+    @opportunity = Opportunity.find(session[:op_id])
+    @opcall = @opportunity.calls.includes(:user).page(params[:call_page]).per(10)
   end
 
   def create
@@ -20,8 +24,9 @@ class CallsController < ApplicationController
     end
 
     # AJAX
+    session[:op_id] = @call.opportunity.id
     @opportunity = Opportunity.find(@call.opportunity)
-    @opcall = @opportunity.calls.page(params[:page]).per(10)
+    @opcall = @opportunity.calls.includes(:user).page(params[:call_page]).per(10)
   end
 
   def edit
@@ -31,10 +36,10 @@ class CallsController < ApplicationController
       if @call.update(params_call)
         timeline_call("updated call log")
         flash[:success] = "Call entry updated!"
-        redirect_to opportunity_path(@opportunity, anchor: "call-#{@call.id}")
+        redirect_to opportunity_path(@opportunity, anchor: "call-callInfo-#{@call.id}")
       else
         flash[:danger] = "Failed to update call entry!"
-        redirect_to opportunity_path(@opportunity, anchor: "call-#{@call.id}")
+        redirect_to opportunity_path(@opportunity, anchor: "call-callInfo-#{@call.id}")
       end
 
   end

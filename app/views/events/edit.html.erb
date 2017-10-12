@@ -3,22 +3,25 @@
     <div class="col-lg-6">
       <h3>Edit Event</h3>
       <hr>
+      <strong>Belongs to</strong><br>
+      <small>Account</small><br>
+      <%= link_to @opportunity.account.account_name, account_path(@opportunity.account) %>
+      <br><br>
+
+      <small><%= @opportunity.business_type == "Opportunity" ? 'Opportunity' : 'Case' %></small><br>
+      <%= link_to @opportunity.name, opportunity_path(@opportunity)%>
+      <br><br>
         <%= simple_form_for [@opportunity, @event] do |f| %>
-        <%= f.label "Account Name" %><br>
-        <%= link_to @opportunity.account.account_name, account_path(@opportunity.account) %>
-        <br><br>
-        <%= f.label "Opportunity Name" %><br>
-        <%= link_to @opportunity.name, opportunity_path(@opportunity)%>
-        <br><br>
+
         <%= f.input :description %>
         <%= f.input :event_date, as: :date_time_picker %>
+
+        <%= f.label 'Status' %><br>
+        <%= @event.complete ? 'Attended' : 'Not Attend' %>
+        <br><br>
+
         <%= check_box_tag "attended" %>
-        Mark as
-        <% if @event.complete == true %>
-        Not Attend
-        <% else %>
-        Attended
-        <% end %>
+        Mark as <%= @event.complete ? 'Not Attend' : 'Attended' %>
         <br><br>
         <%= f.button :submit, class: "btn btn-success" %>
         <% end %>

@@ -4,6 +4,10 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.includes(:opportunity).order('event_date').page(params[:page]).per(10)
+
+    # AJAX
+    @opportunity = Opportunity.find(session[:op_id])
+    @opevent = @opportunity.events.includes(:user).order('event_date').page(params[:event_page]).per(10)
   end
 
   def show
@@ -24,8 +28,9 @@ class EventsController < ApplicationController
     end
 
     # AJAX
+    session[:op_id] = @event.opportunity.id
     @opportunity = Opportunity.find(@event.opportunity)
-    @opevent = @opportunity.events.order('event_date').page(params[:page]).per(10)
+    @opevent = @opportunity.events.includes(:user).order('event_date').page(params[:event_page]).per(10)
   end
 
   def edit
@@ -45,10 +50,10 @@ class EventsController < ApplicationController
 
         timeline_event("updated event")
         flash[:success] = "Event entry updated!"
-        redirect_to opportunity_path(@opportunity, anchor: "event-#{@event.id}")
+        redirect_to opportunity_path(@opportunity, anchor: "event-eventInfo-#{@event.id}")
       else
         flash[:danger] = "Failed to update event entry!"
-        redirect_to opportunity_path(@opportunity, anchor: "event-#{@event.id}")
+        redirect_to opportunity_path(@opportunity, anchor: "event-eventInfo-#{@event.id}")
       end
 
   end
