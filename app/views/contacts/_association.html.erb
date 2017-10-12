@@ -1,49 +1,56 @@
 <% if @contact.relationships.blank? %>
 No association found.
+<br><br>
 <% else %>
 <% unless @contact.relationships.where(contactable_type: "Account").blank? %>
-  <div class="row">
+<div class="row">
     <div class="col-lg-12">
-    <small>Account</small>
-  </div>
-  <% @contact.relationships.each do |rl| %>
+        <small>Account</small>
+    </div>
+    <% @contact.relationships.each do |rl| %>
     <% if rl.contactable_type == "Account" %>
-      <div class="col-lg-4">
-        <div class="panel panel-default panel-body">
-          <%= link_to rl.contactable.account_name, account_path(rl.contactable) %>
-          <div class="pull-right">
-            <%= link_to destroy_relationship_contact_path(rl.contact_id, rl.id),
-            method: :delete, remote: true do %>
-            <i class="fa fa-times"></i>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  <% end %>
-  </div>
-  <% end %>
-
-  <% unless @contact.relationships.where(contactable_type: "Opportunity").blank? %>
-  <div class="row">
-    <div class="col-lg-12">
-    <small>Opportunity / Case</small>
-  </div>
-  <% @contact.relationships.each do |rl| %>
-  <% if rl.contactable_type == "Opportunity" %>
     <div class="col-lg-4">
-      <div class="panel panel-default panel-body">
-      <%= link_to rl.contactable.name, opportunity_path(rl.contactable) %>
-      <div class="pull-right">
-        <%= link_to destroy_relationship_contact_path(rl.contact_id, rl.id),
-        method: :delete, remote: true do %>
-        <i class="fa fa-times"></i>
-        <% end %>
-      </div>
-      </div>
+        <div class="panel panel-default panel-body">
+            <h5>
+                <%= link_to rl.contactable.account_name, account_path(rl.contactable) %>
+                <small class="pull-right">
+                    <%= link_to destroy_relationship_contact_path(rl.contact_id, rl.id),
+            method: :delete, data: {confirm: "Are you sure?"}, remote: true do %>
+                    <i class="fa fa-times"></i>
+                    <% end %>
+                </small>
+            </h5>
+        </div>
     </div>
     <% end %>
-  <% end %>
+    <% end %>
+</div>
+<% end %>
+
+<% unless @contact.relationships.where(contactable_type: "Opportunity").blank? %>
+<div class="row">
+    <div class="col-lg-12">
+        <small>Opportunity / Case</small>
+    </div>
+    <% @contact.relationships.each do |rl| %>
+    <% if rl.contactable_type == "Opportunity" %>
+    <div class="col-lg-4">
+        <div class="panel panel-default panel-body">
+            <h5>
+                <%= link_to rl.contactable.name, opportunity_path(rl.contactable) %>
+                <small class="pull-right">
+                    <%= link_to destroy_relationship_contact_path(rl.contact_id, rl.id),
+          method: :delete, data: {confirm: "Are you sure?"}, remote: true do %>
+                    <i class="fa fa-times"></i>
+                    <% end %>
+                </small>
+                <small><%= rl.contactable.business_type %></small>
+            </h5>
+
+        </div>
+    </div>
+    <% end %>
+    <% end %>
 </div>
 <% end %>
 <% end %>

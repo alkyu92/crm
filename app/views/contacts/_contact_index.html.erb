@@ -91,7 +91,7 @@
         <ul class="dropdown-menu">
             <li><%= link_to 'Show', '#',
             data: {toggle: "modal", target: "#contactInfo-#{contact.id}"}%></li>
-            <li><%= link_to 'Edit', edit_contact_path(contact) %></li>
+            <li><%= link_to 'Edit', edit_contact_path(contact, page: params[:page]) %></li>
             <li><%= link_to 'Delete', contact_path(contact), method: :delete,
             data: { confirm: "Are you sure?" }, remote: true %></li>
         </ul>

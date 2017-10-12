@@ -11,7 +11,7 @@ class Contact < ApplicationRecord
   validates :name, presence: true
 
   has_attached_file :profile_pic,
-                    styles: { small: "43x43#", medium: "100x100>"},
+                    styles: { small: "43x43#", medium: "150x150>"},
                     default_url: "/images/:style/missing.png",
                     dependent: :destroy
 

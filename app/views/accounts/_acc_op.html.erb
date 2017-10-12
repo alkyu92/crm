@@ -28,7 +28,6 @@ Opportunities not found.
                   <span class="caret"></span>
                   <% end %>
                   <ul class="dropdown-menu">
-                      <li><%= link_to 'Show All Types', account_path(params[:id]) %></li>
                       <li><%= link_to 'Opportunity', "?type=Opportunity" %></li>
                       <li><%= link_to 'Case', "?type=Case" %></li>
                   </ul>
@@ -43,8 +42,6 @@ Opportunities not found.
                     <% end %>
 
                     <ul class="dropdown-menu">
-                        <li><%= link_to 'Show All Statuses', account_path(params[:id]) %></li>
-                        <hr>
                         <h5 style="padding-left: 10px;">
                             <small>Opportunities</small>
                         </h5>

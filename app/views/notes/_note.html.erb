@@ -9,7 +9,7 @@ No notes found.
   <%= page_entries_info @subject.notes.page(params[:note_page]).per(10) %><br>
   <%= paginate @subject.notes.page(params[:note_page]).per(10), param_name: :note_page, remote: true %>
 </div>
-<% @subject.notes.includes(:info).page(params[:note_page]).per(10).each do |note| %>
+<% @subject.notes.includes(:info).order('created_at DESC').page(params[:note_page]).per(10).each do |note| %>
 <div class="col-lg-6 panel panel-body" id="relatedNotes-<%= note.id %>">
     <div class="dropdown pull-right">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">

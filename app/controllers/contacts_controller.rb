@@ -4,6 +4,7 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
 
   def index
     @contacts = Contact.includes(:relationships).page(params[:page]).per(10)
+    session[:last_page] = @contacts.num_pages
   end
 
   def show
@@ -30,7 +31,7 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
           timeline_contact("created contact")
           redirect_acc_or_op_path
         else
-          redirect_to contacts_path
+          redirect_to contacts_path(page: session[:last_page], anchor: "contactInfo-#{@contact.id}")
         end
 
       else
@@ -40,6 +41,7 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
   end
 
   def edit
+    session[:page] = params[:page]
     if params[:account_id] || params[:opportunity_id]
       @contact = @subject.contacts.find(params[:id])
     else
@@ -63,7 +65,7 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
         timeline_contact("updated contact")
         redirect_acc_or_op_path
       else
-        redirect_to contacts_path(anchor: "contactInfo-#{@contact.id}")
+        redirect_to contacts_path(page: session[:page], anchor: "contactInfo-#{@contact.id}")
       end
     else
       flash[:danger] = "Failed to update contact!"
@@ -201,5 +203,4 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
       redirect_to opportunity_path(@subject, anchor: "relatedContacts")
     end
   end
-
 end

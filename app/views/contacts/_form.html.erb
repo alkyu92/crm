@@ -7,8 +7,26 @@
             <%= simple_form_for [@subject, @contact] do |f| %>
             <h4>Contact Details</h4>
             <br>
-            <%= f.input :profile_pic, as: :file, label: "Upload Profile Picture" %>
-            <%= f.input :name, label: "Name", placeholder: "Name", autofocus: true %>
+            <div class="row">
+
+                <div class="col-lg-3">
+                    <div style="padding-top: 5px;"></div>
+                    <% if @contact.profile_pic.blank? %>
+                    <%= letter_avatar_tag(params[:action] == "edit" ? @contact.name : 'Unknown', 150,
+                    class: "img-responsive img-center") %>
+                    <% else %>
+                    <%= image_tag(@contact.profile_pic.url(:medium),
+                    class: "img-responsive img-center")%>
+                    <% end %>
+                </div>
+
+                <div class="col-lg-9">
+                  <%= f.input :name, label: "Name", placeholder: "Name", autofocus: true %>
+                    <%= f.input :profile_pic, as: :file, label: "Upload Profile Picture" %>
+                </div>
+            </div>
+            <br>
+
             <div class="row">
                 <div class="col-lg-6">
                     <%= f.input :title, label: "Position Title", placeholder: "Position title" %>
@@ -38,32 +56,32 @@
 
             <% if params[:action] == "edit" %>
             <div id="association">
-            <%= render 'contacts/association' %>
+                <%= render 'contacts/association' %>
             </div>
             <% end %>
 
             <small>Choose Account or Opportunity / Case to be associated with</small>
             <select name="assigned[]" id="assigned_" class="selectpicker form-control" multiple data-live-search="true" data-selected-text-format="count > 6" data-size="10" data-actions-box="true">
 
-              <optgroup label="Account">
-                <% @acc_collect.each do |acc| %>
-                <option value="Account,<%= acc.id%>"><%= acc.account_name %></option>
-                <% end %>
-              </optgroup>
+                <optgroup label="Account">
+                    <% @acc_collect.each do |acc| %>
+                    <option value="Account,<%= acc.id%>"><%= acc.account_name %></option>
+                    <% end %>
+                </optgroup>
 
-              <optgroup label="Opportunity">
-                <% @op_collect.each do |op| %>
-                <% next if op.business_type == "Case" %>
-                <option value="Opportunity,<%= op.id %>"><%= op.name %></option>
-                <% end %>
-              </optgroup>
+                <optgroup label="Opportunity">
+                    <% @op_collect.each do |op| %>
+                    <% next if op.business_type == "Case" %>
+                    <option value="Opportunity,<%= op.id %>"><%= op.name %></option>
+                    <% end %>
+                </optgroup>
 
-              <optgroup label="Case">
-                <% @op_collect.each do |op| %>
-                <% next if op.business_type == "Opportunity" %>
-                <option value="Opportunity,<%= op.id %>"><%= op.name %></option>
-                <% end %>
-              </optgroup>
+                <optgroup label="Case">
+                    <% @op_collect.each do |op| %>
+                    <% next if op.business_type == "Opportunity" %>
+                    <option value="Opportunity,<%= op.id %>"><%= op.name %></option>
+                    <% end %>
+                </optgroup>
 
             </select>
 

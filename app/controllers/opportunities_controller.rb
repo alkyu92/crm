@@ -47,7 +47,7 @@ class OpportunitiesController < ApplicationController
     @subject = @opportunity if params[:opportunity_id]
     @subject = @account if params[:account_id]
     @opportunities = Opportunity.page(params[:page]).per(10)
-
+    @accop = Opportunity.includes(:account, :stages).page(params[:acc_page]).per(10)
 
     respond_to do |format|
       if @opportunity.save
