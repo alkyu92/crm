@@ -39,6 +39,7 @@ class AccountsController < ApplicationController
     respond_to do |format|
       if @account.save
         timeline_account("account", @account.account_name, "created account")
+        format.html
         format.js { flash.now[:success] = "Account entry created!" }
       else
         format.js { flash.now[:danger] = "Failed to create account entry!" }

@@ -61,7 +61,7 @@
             <% elsif @opportunity.status == "In Progress" %>
             In Progress
             <% elsif @opportunity.status == "Approved" %>
-            Approved
+            <span style="color: blue;">Approved</span>
             <% elsif @opportunity.status == "" %>
             <span style="color: red">Status not specified</span>
             <% end %>

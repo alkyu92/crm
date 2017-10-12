@@ -66,10 +66,12 @@
       <ul class="dropdown-menu">
         <% if note.info_type == "Opportunity" %>
         <li><%= link_to 'Show', opportunity_path(note.info, anchor: "relatedNotes-noteInfo-#{note.id}") %></li>
+        <li><%= link_to 'Edit', edit_opportunity_note_path(note.info, note) %></li>
         <li><%= link_to 'Delete', opportunity_note_path(note.info, note),
         method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
         <% elsif note.info_type == "Account" %>
         <li><%= link_to 'Show', account_path(note.info, anchor: "relatedNotes-noteInfo-#{note.id}") %></li>
+        <li><%= link_to 'Edit', edit_account_note_path(note.info, note) %></li>
         <li><%= link_to 'Delete', account_note_path(note.info, note),
         method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
         <% end %>

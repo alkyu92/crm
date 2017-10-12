@@ -11,6 +11,17 @@
                 </h4>
             </div>
             <div class="modal-body">
+
+              <h5>
+                  <small>Title</small>
+              </h5>
+              <%= note.title %>
+              <br><br>
+              <h5>
+                  <small>Description</small>
+              </h5>
+              <%= simple_format h(note.description) %>
+              <hr>
                 <div class="row">
                     <div class="col-lg-6">
                         <h5>
@@ -29,22 +40,28 @@
                         <% end %>
                     </div>
                     <div class="col-lg-6">
-                        <h5>
-                            <small>Created at</small>
-                        </h5>
-                        <%= note.created_at.strftime('%d %b %Y at %H:%M:%S') %>
+                      <h5>
+                          <small>Note created by</small>
+                      </h5>
+                      <%= link_to note.user.name, user_path(note.user) %>
                     </div>
                 </div>
-                <hr>
-                <h5>
-                    <small>Title</small>
-                </h5>
-                <%= note.title %>
-                <br><br>
-                <h5>
-                    <small>Description</small>
-                </h5>
-                <%= simple_format h(note.description) %>
+                <br>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <h5>
+                        <small>Created at</small>
+                    </h5>
+                    <%= note.created_at.strftime('%d %b %Y at %H:%M:%S') %>
+                  </div>
+                  <div class="col-lg-6">
+                    <h5>
+                        <small>Last updated at</small>
+                    </h5>
+                    <%= note.updated_at.strftime('%d %b %Y at %H:%M:%S') %>
+                  </div>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <%= link_to 'Close', '#', class: "btn btn-default", data: {dismiss: "modal"}%>
