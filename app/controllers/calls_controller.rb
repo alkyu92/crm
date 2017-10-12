@@ -19,6 +19,9 @@ class CallsController < ApplicationController
       end
     end
 
+    # AJAX
+    @opportunity = Opportunity.find(@call.opportunity)
+    @opcall = @opportunity.calls.page(params[:page]).per(10)
   end
 
   def edit
@@ -38,7 +41,7 @@ class CallsController < ApplicationController
 
   def destroy
     @calls = Call.includes(:opportunity).page(params[:page]).per(10)
-    
+
     @call.destroy
     timeline_call("deleted call log")
     respond_to do |format|

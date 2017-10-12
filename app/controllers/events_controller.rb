@@ -23,6 +23,9 @@ class EventsController < ApplicationController
       end
     end
 
+    # AJAX
+    @opportunity = Opportunity.find(@event.opportunity)
+    @opevent = @opportunity.events.order('event_date').page(params[:page]).per(10)
   end
 
   def edit
@@ -52,7 +55,7 @@ class EventsController < ApplicationController
 
   def destroy
     @events = Event.includes(:opportunity).order('event_date').page(params[:page]).per(10)
-    
+
     @event.destroy
     timeline_event("deleted event")
     respond_to do |format|

@@ -13,24 +13,6 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <h5>
-                            <small>Call belongs to</small>
-                        </h5>
-                        <%= link_to call.opportunity.name,
-                            opportunity_path(call.opportunity, anchor: "call-callInfo-#{call.id}")%>
-
-                    </div>
-                    <div class="col-lg-6">
-                        <h5>
-                            <small>Created at</small>
-                        </h5>
-                        <%= call.created_at.strftime('%d %b %Y at %H:%M:%S') %>
-
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h5>
                             <small>Call Datetime</small>
                         </h5>
                         <% if call.call_datetime.blank? %>
@@ -59,6 +41,38 @@
                     <small>Description</small>
                 </h5>
                 <%= simple_format h(call.description) %>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5>
+                            <small>Call belongs to</small>
+                        </h5>
+                        <%= link_to call.opportunity.name,
+                            opportunity_path(call.opportunity, anchor: "call-callInfo-#{call.id}")%>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5>
+                            <small>Call created by</small>
+                        </h5>
+                        <%= link_to call.user.name, user_path(call.user) %>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <h5>
+                        <small>Created at</small>
+                    </h5>
+                    <%= call.created_at.strftime('%d %b %Y at %H:%M:%S') %>
+                  </div>
+                  <div class="col-lg-6">
+                    <h5>
+                        <small>Last updated at</small>
+                    </h5>
+                    <%= call.updated_at.strftime('%d %b %Y at %H:%M:%S') %>
+                  </div>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <%= link_to 'Close', '#', class: "btn btn-default", data: {dismiss: "modal"}%>

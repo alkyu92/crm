@@ -28,9 +28,9 @@ class OpportunitiesController < ApplicationController
     @opportunity = @subject
     @accounts = Account.all
 
-    @optask = @opportunity.tasks.order('due_date').page(params[:task_page]).per(10)
-    @opcall = @opportunity.calls.page(params[:call_page]).per(10)
-    @opevent = @opportunity.events.order('event_date').page(params[:event_page]).per(10)
+    @optask = @opportunity.tasks.includes(:user).order('due_date').page(params[:task_page]).per(10)
+    @opcall = @opportunity.calls.includes(:user).page(params[:call_page]).per(10)
+    @opevent = @opportunity.events.includes(:user).order('event_date').page(params[:event_page]).per(10)
 
     @subject.timelines.includes(:activity, :user).each do |tl|
       next if tl.read == true

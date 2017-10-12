@@ -8,7 +8,7 @@
 <% else %>
     <div class="row">
         <div class="text-center">
-            <small>Opportunity / Case Stages</small>
+            <small><%= @opportunity.business_type %> Stages</small>
         </div>
     </div>
     <br>
@@ -128,25 +128,14 @@
                                     <br>
                                 </div>
                                 <div class="col-lg-6">
-                                    <small>Stage Created At</small>
+                                    <small>Created At</small>
                                     <h4><%= stage.created_at.strftime('%d %b %Y %H:%M:%S') %></h4>
                                     <br>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <small>Stage Updated By</small>
-                                    <h4><%= link_to User.find_by_id(stage.updated_by_id).name,
-                                    user_path(stage.updated_by_id) %></h4>
-                                    <br>
-                                </div>
-                                <div class="col-lg-6">
-                                    <small>Stage Updated At</small>
+                                    <small>Last Updated At</small>
                                     <h4><%= stage.updated_at.strftime('%d %b %Y %H:%M:%S') %></h4>
                                     <br>
                                 </div>
                             </div>
-
                         </div>
                         <div class="modal-footer">
 
