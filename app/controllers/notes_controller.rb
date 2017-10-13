@@ -3,10 +3,7 @@ class NotesController < ApplicationController
   before_action :find_note, only: [:edit, :update, :destroy]
 
   def index
-    @notes = Note.includes(:info).order('created_at').page(params[:page]).per(10)
-    # respond_to do |format|
-    #   format.js
-    # end
+    @notes = Note.includes(:user, :info).order('created_at').page(params[:page]).per(10)
   end
 
   def show
