@@ -16,12 +16,13 @@
     <hr>
 
     <div class="row">
-        <div class="col-lg-1">
+        <div class="col-lg-2">
             <i class="fa fa-envelope"></i>
+            Email
         </div>
-        <div class="col-lg-11">
-            <% if @user.email.blank? && current_user.id == @user.id %>
-            Not specified
+        <div class="col-lg-10">
+            <% if @user.email.blank? %>
+            <span style="color: red;">Not specified</span>
         <% else %>
             <%= @user.email %>
             <% end %>
@@ -29,12 +30,13 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-1">
+        <div class="col-lg-2">
             <i class="fa fa-phone"></i>
+            Telephone
         </div>
-        <div class="col-lg-11">
-            <% if @user.phone.blank? && current_user.id == @user.id %>
-            Not specified
+        <div class="col-lg-10">
+            <% if @user.phone.blank? %>
+            <span style="color: red;">Not specified</span>
         <% else %>
             <%= @user.phone %>
             <% end %>
@@ -42,12 +44,13 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-1">
+        <div class="col-lg-2">
             <i class="fa fa-map-marker"></i>
+            Address
         </div>
-        <div class="col-lg-11">
-            <% if @user.address.blank? && current_user.id == @user.id %>
-            Not specified
+        <div class="col-lg-10">
+            <% if @user.address.blank? %>
+            <span style="color: red;">Not specified</span>
         <% else %>
             <%= @user.address %>
             <% end %>
@@ -55,12 +58,13 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-1">
+        <div class="col-lg-2">
             <i class="fa fa-id-card"></i>
+            Position
         </div>
-        <div class="col-lg-11">
+        <div class="col-lg-10">
             <% if @user.title.blank? %>
-            Not specified
+            <span style="color: red;">Not specified</span>
         <% else %>
             <%= @user.title %>
             <% end %>
@@ -68,12 +72,13 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-1">
+        <div class="col-lg-2">
             <i class="fa fa-building"></i>
+            Department
         </div>
-        <div class="col-lg-11">
+        <div class="col-lg-10">
             <% if @user.department.blank? %>
-            Not specified
+            <span style="color: red;">Not specified</span>
         <% else %>
             <%= @user.department %>
             <% end %>

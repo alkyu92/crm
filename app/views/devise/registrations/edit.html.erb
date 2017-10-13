@@ -10,13 +10,25 @@
         <div class="form-inputs">
             <div class="row">
                 <div class="col-lg-6">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <% if @user.avatar.blank? %>
+                      <%= letter_avatar_tag(@user.name, 150, class: "img-responsive img-center") %>
+                      <% else %>
+                      <%= image_tag(@user.avatar.url(:medium), class: "img-responsive img-center") %>
+                      <% end %>
+                  </div>
+                  <div class="col-lg-9">
                     <%= f.input :avatar, as: :file, label: "Upload Profile Picture"%>
+                  </div>
+                  </div>
+                  <br>
                     <%= f.input :name, required: true, autofocus: true %>
                     <%= f.input :title, label: "Position", placeholder: "Position title" %>
                     <%= f.input :department, placeholder: "Department" %>
                 </div>
                 <div class="col-lg-6">
-                    <br><br><br>
+                    <div style="padding-top: 103px;"></div>
                     <%= f.input :email, required: true %>
                     <%= f.input :phone, placeholder: "Phone number" %>
                     <%= f.input :address, placeholder: "Address" %>
