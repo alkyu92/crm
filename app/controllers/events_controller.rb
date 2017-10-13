@@ -31,7 +31,8 @@ class EventsController < ApplicationController
     # AJAX
     session[:op_id] = @event.opportunity.id
     @opportunity = Opportunity.find(@event.opportunity)
-    @opevent = @opportunity.events.includes(:user).order('event_date').page(params[:event_page]).per(10)
+    @opevent = @opportunity.events.includes(
+    :user).order('event_date').page(params[:event_page]).per(10)
   end
 
   def edit
@@ -60,13 +61,15 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @events = Event.includes(:opportunity).order('event_date').page(params[:page]).per(10)
+    # AJAX
+    @opportunity = Opportunity.find(session[:op_id])
+    @opevent = @opportunity.events.includes(:user).order('event_date').page(params[:task_page]).per(10)
 
+    @events = Event.includes(:opportunity).order('event_date').page(params[:page]).per(10)
     @event.destroy
     timeline_event("deleted event")
-    respond_to do |format|
-      format.js { flash.now[:success] = "Event log deleted!" }
-    end
+    redirect_to opportunity_path(@opportunity, anchor: "event")
+
   end
 
   def update_event_status

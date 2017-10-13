@@ -56,8 +56,6 @@ No call logs found.
                     <li><%= link_to 'Show', '#',
                     data: {toggle: "modal", target: "#callInfo-#{call.id}"}%></li>
                     <li><%= link_to 'Edit Call', edit_opportunity_call_path(@opportunity, call) %></li>
-                    <li><%= link_to 'Delete Call', opportunity_call_path(@opportunity, call),
-                method: :delete, remote: true, data: {confirm: "Are you sure?"} %></li>
                 </ul>
             </div>
         </div>

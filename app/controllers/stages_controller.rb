@@ -9,7 +9,9 @@ class StagesController < ApplicationController
   end
 
   def show
-
+    respond_to do |format|
+      format.js
+    end
   end
 
   def create
@@ -41,24 +43,20 @@ class StagesController < ApplicationController
   end
 
   def destroy
-    respond_to do |format|
       if @stage.status == "In Progress" && (@stage.id != @opportunity.stages.last.id)
         @stage.destroy
         @new_current_stage = @opportunity.stages.where("id > ?", @stage.id).first
         @new_current_stage.update_attributes(status: "In Progress")
 
-        @opportunity.stages.each do |stage|
-          if stage.id < @new_current_stage.id
-            stage.update_attributes(status: "Completed")
-          elsif stage.id > @new_current_stage.id
-            stage.update_attributes(status: "Waiting")
-          end
-        end
+        status_updater(@new_current_stage)
       end
+
       @stage.destroy
       timeline_stage("deleted stage")
-      format.js { flash.now[:success] = "Opportunity stage deleted!" }
-    end
+
+      respond_to do |format|
+        format.js { flash.now[:success] = "Opportunity stage deleted!" }
+      end
   end
 
   def update_stage_status
@@ -94,14 +92,24 @@ class StagesController < ApplicationController
   def update_status(previous,current,boolean)
     @stage.update_attributes(status: current, current_status: boolean,
     updated_by_id: current_user.id)
+
+    status_updater(@stage)
+    
+    timeline_stage("changed stage status from '#{previous}' to '#{current}' for")
+  end
+
+  def status_updater(current_stage)
+    @completed = []
+    @waiting = []
     @opportunity.stages.each do |stage|
-      if stage.id < @stage.id
-        stage.update_attributes(status: "Completed")
-      elsif stage.id > @stage.id
-        stage.update_attributes(status: "Waiting")
+      if stage.id < current_stage.id
+        @completed << stage.id
+      elsif stage.id > current_stage.id
+        @waiting << stage.id
       end
     end
-    timeline_stage("changed stage status from '#{previous}' to '#{current}' for")
+    Stage.where(id: @completed).update_all(status: "Completed")
+    Stage.where(id: @waiting).update_all(status: "Waiting")
   end
 
   def find_subject

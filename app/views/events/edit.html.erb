@@ -1,7 +1,11 @@
 <div class="row">
     <div class="col-lg-3"></div>
     <div class="col-lg-6">
-      <h3>Edit Event</h3>
+      <h3>Edit Event
+        <small class="pull-right"><%= link_to 'Delete this event',
+        opportunity_event_path(@opportunity, @event),
+        method: :delete, data: {confirm: "Are you sure?"} %></small>
+      </h3>
       <hr>
       <strong>Belongs to</strong><br>
       <small>Account</small><br>

@@ -46,13 +46,15 @@ class CallsController < ApplicationController
   end
 
   def destroy
-    @calls = Call.includes(:opportunity).page(params[:page]).per(10)
+    # AJAX
+    @opportunity = Opportunity.find(session[:op_id])
+    @opcall = @opportunity.calls.includes(:user).page(params[:task_page]).per(10)
 
+    @calls = Call.includes(:opportunity).page(params[:page]).per(10)
     @call.destroy
     timeline_call("deleted call log")
-    respond_to do |format|
-      format.js { flash.now[:success] = "Call log deleted!" }
-    end
+    redirect_to opportunity_path(@opportunity, anchor: "call")
+
   end
 
   private

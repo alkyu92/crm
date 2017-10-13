@@ -2,7 +2,11 @@
   <div class="row">
     <div class="col-lg-3"></div>
     <div class="col-lg-6">
-      <h3>Edit Call Log</h3>
+      <h3>Edit Call Log
+        <small class="pull-right"><%= link_to 'Delete this call log', 
+        opportunity_call_path(@opportunity, @call),
+        method: :delete, data: {confirm: "Are you sure?"} %></small>
+      </h3>
       <hr>
       <strong>Belongs to</strong><br>
       <small>Account</small><br>

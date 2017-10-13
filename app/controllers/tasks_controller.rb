@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :find_subject
-  before_action :find_task, only: [:edit, :update, :destroy, :update_task_status]
+  before_action :find_task, only: [:show, :edit, :update, :destroy, :update_task_status]
 
   def index
     @tasks = Task.includes(:opportunity).order('due_date').page(params[:page]).per(10)
@@ -9,6 +9,9 @@ class TasksController < ApplicationController
     @opportunity = Opportunity.find(session[:op_id]) || nil
     @optask = @opportunity.tasks.includes(:user).order('due_date').page(params[:task_page]).per(10) || nil
 
+  end
+
+  def show
   end
 
   def create
@@ -57,13 +60,15 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @tasks = Task.includes(:opportunity).order('due_date').page(params[:page]).per(10)
+    # AJAX
+    @opportunity = Opportunity.find(session[:op_id])
+    @optask = @opportunity.tasks.includes(:user).order('due_date').page(params[:task_page]).per(10)
 
+    @tasks = Task.includes(:opportunity).order('due_date').page(params[:page]).per(10)
     @task.destroy
     timeline_task("deleted task")
-    respond_to do |format|
-      format.js { flash.now[:success] = "Task log deleted!" }
-    end
+    redirect_to opportunity_path(@opportunity, anchor: "task")
+
   end
 
   def update_task_status

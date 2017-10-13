@@ -11,7 +11,6 @@ class SearchController < ApplicationController
         Task,
         Call,
         Event,
-        Stage,
         User
         ]).page(params[:page]).per(10)
     end
