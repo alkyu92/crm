@@ -2,6 +2,16 @@ class StagesController < ApplicationController
   before_action :find_subject
   before_action :find_stage, only: [:update, :destroy, :update_stage_status]
 
+  def index
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show
+
+  end
+
   def create
     @stage = @subject.stages.build(params_stage)
     @stage.user_id = current_user.id
