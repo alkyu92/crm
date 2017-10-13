@@ -38,7 +38,7 @@
                   timeline.action == "deleted attachment file from account" ||
                   timeline.action == "added attachment file to opportunity" ||
                   timeline.action == "deleted attachment file from opportunity" %>
-                onto
+                to
                 <% if timeline.activity_type == "Account" %>
                 <%= timeline.activity_type.downcase %>
                 <strong><%= timeline.activity.account_name %></strong>

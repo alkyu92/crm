@@ -21,7 +21,7 @@
                 <strong><%= tl.nactivity %></strong>
                 <% unless tl.action == "created account" ||
                       tl.action == "added attachment file to" %>
-                onto
+                to
                 <% if tl.activity_type == "Account" %>
                 <%= tl.activity_type.downcase %>
                 <strong><%= tl.activity.account_name %></strong>
