@@ -4,8 +4,8 @@
             <h4>Account Related Opportunities / Cases</h4>
         </div>
         <div class="col-lg-4">
-          <%= link_to 'Create New', '#', class: "btn btn-default form-control",
-          data: {toggle: "modal", target: "#opportunityAccountForm"}%>
+          <%= link_to 'Create New', new_account_opportunity_path(@account),
+          class: "btn btn-default form-control" %>
         </div>
         <div id="notice-ops"></div>
     </div>

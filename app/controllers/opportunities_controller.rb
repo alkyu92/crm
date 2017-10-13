@@ -17,9 +17,9 @@ class OpportunitiesController < ApplicationController
 
     @opportunity = current_user.opportunities.build
 
+    # AJAX Account opportunities
     # @stages = Stage.all
     # @accounts = Account.all
-
   end
 
   def show
@@ -38,6 +38,10 @@ class OpportunitiesController < ApplicationController
     end
   end
 
+  def new
+    @account = Account.find(params[:account_id])
+  end
+
   def create
     @account = Account.find(params[:account_id])
     @opportunity = @account.opportunities.build(params_opportunity)
@@ -49,7 +53,7 @@ class OpportunitiesController < ApplicationController
     @opportunities = Opportunity.page(params[:page]).per(10)
     @accop = Opportunity.includes(:account, :stages).page(params[:acc_page]).per(10)
 
-    respond_to do |format|
+
       if @opportunity.save
 
         @opportunity.account.timelines.create!(
@@ -58,11 +62,12 @@ class OpportunitiesController < ApplicationController
         action: "created #{@opportunity.business_type.downcase}",
         user_id: current_user.id)
 
-        format.js { flash.now[:success] = "#{@opportunity.business_type.downcase} entry created!" }
+        flash.now[:success] = "#{@opportunity.business_type.downcase} entry created!"
+        redirect_to opportunity_path(@opportunity)
       else
-        format.js { flash.now[:danger] = "Failed to create #{@opportunity.business_type.downcase} entry!" }
+        flash.now[:danger] = "Failed to create #{@opportunity.business_type.downcase} entry!"
+        render 'new'
       end
-    end
 
   end
 

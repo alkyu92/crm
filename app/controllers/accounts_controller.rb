@@ -20,7 +20,8 @@ class AccountsController < ApplicationController
         business_type: params[:type]).page(
         params[:acc_page]).per(10)
     else
-      @accop = Opportunity.includes(:account, :stages).page(params[:acc_page]).per(10)
+      @accop = @account.opportunities.includes(
+      :account, :stages).page(params[:acc_page]).per(10)
     end
 
     @opportunities = Opportunity.includes(
