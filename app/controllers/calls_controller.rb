@@ -3,7 +3,7 @@ class CallsController < ApplicationController
   before_action :find_call, only: [:edit, :update, :destroy]
 
   def index
-    @calls = Call.includes(:opportunity).page(params[:page]).per(10)
+    @calls = Call.includes(:user, :opportunity).page(params[:page]).per(10)
 
     # AJAX
     @opportunity = Opportunity.find(session[:op_id]) || nil
