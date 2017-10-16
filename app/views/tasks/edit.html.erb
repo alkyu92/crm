@@ -22,8 +22,7 @@
 
             <%= f.label :status %><br>
             <%= @task.complete ? 'Completed' : 'Incomplete' %>
-            <br><br>
-
+            <br>
             <%= check_box_tag "completed" %>
             Mark as <%= @task.complete ? 'Incomplete' : 'Completed' %>
             <br><br>
