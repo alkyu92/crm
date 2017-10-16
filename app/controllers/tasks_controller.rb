@@ -6,8 +6,8 @@ class TasksController < ApplicationController
     @tasks = Task.includes(:user, :opportunity).order('due_date').page(params[:page]).per(10)
 
     # AJAX
-    @opportunity = Opportunity.find(session[:op_id]) || nil
-    @optask = @opportunity.tasks.includes(:user).order('due_date').page(params[:task_page]).per(10) || nil
+    # @opportunity = Opportunity.find(session[:op_id]) || nil
+    # @optask = @opportunity.tasks.includes(:user).order('due_date').page(params[:task_page]).per(10) || nil
 
   end
 

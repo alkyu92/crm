@@ -6,9 +6,9 @@ class EventsController < ApplicationController
     @events = Event.includes(:user, :opportunity).order('event_date').page(params[:page]).per(10)
 
     # AJAX
-    @opportunity = Opportunity.find(session[:op_id]) || nil
-    @opevent = @opportunity.events.includes(
-    :user).order('event_date').page(params[:event_page]).per(10) || nil
+    # @opportunity = Opportunity.find(session[:op_id]) || nil
+    # @opevent = @opportunity.events.includes(
+    # :user).order('event_date').page(params[:event_page]).per(10) || nil
   end
 
   def show
