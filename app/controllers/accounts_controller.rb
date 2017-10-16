@@ -64,11 +64,16 @@ class AccountsController < ApplicationController
         end
 
         if params[:assigned]
-          params[:assigned].each { |ct_id|
-            @ctct = Contact.find(ct_id)
-            @account.relationships.create!(contact: @ctct)
-            timeline_account("relatedContacts", @ctct.name, "added association")
-          }
+          @ctct = Contact.where(id: params[:assigned])
+          @values = @ctct.map {|ct| "(#{ct.id}, #{@account.id}, 'Account', '#{ct.created_at}', '#{ct.updated_at}')"}.join(',')
+          @sql = "INSERT INTO relationships ('contact_id', 'contactable_id', 'contactable_type', 'created_at', 'updated_at') VALUES #{@values}"
+          ActiveRecord::Base.connection.execute(@sql)
+          timeline_account("relatedContacts", @ctct.map {|ct| "#{ct.name}"}.join(','), "added association")
+          # params[:assigned].each { |ct_id|
+          #   @ctct = Contact.find(ct_id)
+          #   @account.relationships.create!(contact: @ctct)
+          #   timeline_account("relatedContacts", @ctct.name, "added association")
+          # }
         end
 
         save_timeline_if_any_changes(@old_name)

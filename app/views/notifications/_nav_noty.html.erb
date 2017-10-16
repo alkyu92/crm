@@ -18,7 +18,7 @@
             <small>
                 <strong><%= tl.user.name %></strong>
                 <%= tl.action %>
-                <strong><%= tl.nactivity %></strong>
+                <strong><%= tl.nactivity.truncate(30) %></strong>
                 <% unless tl.action == "created account" ||
                       tl.action == "added attachment file to" %>
                 to
