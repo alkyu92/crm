@@ -28,7 +28,7 @@ $(document).ready(function(){
       pickerPosition: 'top-left',
       autoclose: true,
       todayHighlight: true,
-      format: 'yyyy/mm/dd hh:ii:00 Z'
+      format: 'dd/mm/yyyy hh:ii:00'
     });
     $(id[i]).datetimepicker('setStartDate', new Date());
   }
@@ -37,7 +37,8 @@ $(document).ready(function(){
     pickerPosition: 'top-left',
     autoclose: true,
     todayHighlight: true,
-    format: 'yyyy/mm/dd hh:ii:00 Z'
+    minView: 3,
+    format: 'dd/mm/yyyy'
   });
 
   $('.alert').delay(1600).fadeOut();
