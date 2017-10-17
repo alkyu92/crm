@@ -1,8 +1,0 @@
-<% if params[:action] == "edit" %>
-$('#association').html("<%= j (render 'contacts/association') %>");
-$('#notice-association').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
-<% else %>
-$('.timelines').html("<%= j (render 'timelines/timelines_index') %>");
-$('#notice-contact').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
-$('#contact').html("<%= j (render 'contacts/contact') %>")
-<% end %>
