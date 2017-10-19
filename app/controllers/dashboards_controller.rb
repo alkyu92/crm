@@ -3,16 +3,20 @@ class DashboardsController < ApplicationController
     @opportunities = Opportunity.includes(
     :user, :account, :tasks, :calls, :events).where(
     business_type: "Opportunity").order('created_at DESC')
-    @opportunities_open = @opportunities.where(status: 'Open').order('created_at DESC').take(6)
-    @opportunities_approved = @opportunities.where(status: 'Approved').order('created_at DESC').take(6)
-    @opportunities_closedwon = @opportunities.where(status: 'Closed-Won').order('created_at DESC').take(6)
-    @opportunities_closedloss = @opportunities.where(status: 'Closed-Loss').order('created_at DESC').take(6)
 
-    @cases = Opportunity.includes(
-    :user, :account, :tasks, :calls, :events).where(
-    business_type: "Case").order('created_at DESC')
-    @cases_inprogress = @cases.where(status: 'In Progress').take(6)
-    @cases_solved = @cases.where(status: 'Solved').take(6)
+    @opportunities_open = @opportunities.where(status: 'Open').take(6)
+    @opportunities_approved = @opportunities.where(status: 'Approved').take(6)
+    @opportunities_closedwon = @opportunities.where(status: 'Closed-Won').take(6)
+    @opportunities_closedloss = @opportunities.where(status: 'Closed-Loss').take(6)
+
+    @cases = Opportunity.where(business_type: "Case").order('created_at DESC').pluck(
+    :id, :name, :created_at).take(6)
+
+    @cases_inprogress = Opportunity.where(
+    business_type: "Case", status: 'In Progress').pluck(:id, :name, :created_at, :status).take(6)
+
+    @cases_solved = Opportunity.where(
+    business_type: "Case", status: 'Solved').pluck(:id, :name, :created_at, :status).take(6)
 
     @accounts = Account.includes(:user, :opportunities).order('created_at DESC').take(6)
 
@@ -26,17 +30,35 @@ class DashboardsController < ApplicationController
 
     @calls = Call.includes(:opportunity).order('created_at DESC').take(6)
 
-    @contacts = Contact.all.order('created_at DESC').take(6)
+    @contacts = Contact.order('created_at DESC').pluck(:name, :created_at).take(6)
 
-    @opwon = Opportunity.includes(:account).where(status: "Closed-Won").order('amount DESC')
-    @oploss = Opportunity.includes(:account).where(status: "Closed-Loss").order('amount DESC')
-    @opopen = Opportunity.includes(:account).where(status: "Open").order('amount DESC')
-    @opaprv = Opportunity.includes(:account).where(status: "Approved").order('amount DESC')
+    # @opwon = Opportunity.includes(:account).where(status: "Closed-Won").order('amount DESC')
+    @opwon = Opportunity.joins(:account).where(status: "Closed-Won").order('amount DESC').pluck(
+    :account_name, :account_id, :name, :id, :amount)
 
-    @opwon_sum = @opwon.sum('amount')
-    @oploss_sum = @oploss.sum('amount')
-    @opopen_sum = @opopen.sum('amount')
-    @opaprv_sum = @opaprv.sum('amount')
+    # @oploss = Opportunity.includes(:account).where(status: "Closed-Loss").order('amount DESC')
+    @oploss = Opportunity.joins(:account).where(status: "Closed-Loss").order('amount DESC').pluck(
+    :account_name, :account_id, :name, :id, :amount, :loss_reason)
+
+    # @opopen = Opportunity.includes(:account).where(status: "Open").order('amount DESC')
+    @opopen = Opportunity.joins(:account).where(status: "Open").order('amount DESC').pluck(
+    :account_name, :account_id, :name, :id, :amount)
+
+    # @opaprv = Opportunity.includes(:account).where(status: "Approved").order('amount DESC')
+    @opaprv = Opportunity.joins(:account).where(status: "Approved").order('amount DESC').pluck(
+    :account_name, :account_id, :name, :id, :amount)
+
+    # @opwon_sum = @opwon.sum('amount')
+    @opwon_sum = Opportunity.where(status: "Closed-Won").pluck(:amount).sum
+
+    # @oploss_sum = @oploss.sum('amount')
+    @oploss_sum = Opportunity.where(status: "Closed-Loss").pluck(:amount).sum
+
+    # @opopen_sum = @opopen.sum('amount')
+    @opopen_sum = Opportunity.where(status: "Open").pluck(:amount).sum
+
+    # @opaprv_sum = @opaprv.sum('amount')
+    @opaprv_sum = Opportunity.where(status: "Approved").pluck(:amount).sum
 
     gon.opwon_sum = @opwon_sum
     gon.oploss_sum = @oploss_sum

@@ -18,13 +18,15 @@
       <% @oploss.take(6).each do |loss| %>
       <div class="row">
         <div class="col-lg-4">
-          <%= link_to loss.account.account_name, account_path(loss.account) %>
+          <%#= link_to loss.account.account_name, account_path(loss.account) %>
+          <%= link_to loss[0], account_path(loss[1]) %>
         </div>
         <div class="col-lg-4">
-          <%= link_to loss.name, opportunity_path(loss) %>
+          <%#= link_to loss.name, opportunity_path(loss) %>
+          <%= link_to loss[2], opportunity_path(loss[3]) %>
         </div>
         <div class="col-lg-4">
-          <%= sprintf('%.2f' % loss.amount) %>
+          <%= sprintf('%.2f' % loss[4]) %>
         </div>
       </div>
       <% end %>

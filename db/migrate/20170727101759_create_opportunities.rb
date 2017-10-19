@@ -2,13 +2,13 @@ class CreateOpportunities < ActiveRecord::Migration[5.0]
   def change
     create_table :opportunities do |t|
       t.string :name
-      t.string :business_type
+      t.string :business_type, index: true
       t.string :probability
       t.decimal :amount, precision: 8, scale: 2
       t.text :description
       t.string :loss_reason
       t.date :close_date
-      t.string :status
+      t.string :status, index: true
 
       t.string :dummy
 

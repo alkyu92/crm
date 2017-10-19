@@ -12,13 +12,13 @@ No cases found.
         <small>Created at DateTime</small>
     </div>
 </div>
-<% @cases.take(6).each do |cs| %>
+<% @cases.each do |cs| %>
 <div class="row">
     <div class="col-lg-6">
-        <%= link_to cs.name, opportunity_path(cs) %>
+        <%= link_to cs[1], opportunity_path(cs[0]) %>
     </div>
     <div class="col-lg-6">
-        <%= cs.created_at.strftime('%d %b %Y %H:%M:%S')%>
+        <%= cs[2].strftime('%d %b %Y %H:%M:%S')%>
     </div>
 </div>
 <% end %>

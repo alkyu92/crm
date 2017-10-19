@@ -15,19 +15,21 @@
         <small>Loss Reason</small>
       </div>
     </div>
-      <% @oploss.order('created_at DESC').take(6).each do |loss| %>
+      <% @oploss.take(6).each do |loss| %>
       <div class="row">
         <div class="col-lg-4">
-          <%= link_to loss.account.account_name, account_path(loss.account) %>
+          <%#= link_to loss.account.account_name, account_path(loss.account) %>
+          <%= link_to loss[0], account_path(loss[1]) %>
         </div>
         <div class="col-lg-4">
-          <%= link_to loss.name, opportunity_path(loss) %>
+          <%#= link_to loss.name, opportunity_path(loss) %>
+          <%= link_to loss[2], opportunity_path(loss[3]) %>
         </div>
         <div class="col-lg-4">
-          <% if loss.loss_reason.blank? %>
+          <% if loss[5].blank? %>
             <span style="color: red;">Not specified</span>
           <% else %>
-            <%= loss.loss_reason.truncate(25) %>
+            <%= loss[5].truncate(25) %>
           <% end %>
         </div>
       </div>

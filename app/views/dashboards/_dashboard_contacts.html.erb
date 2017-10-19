@@ -17,10 +17,10 @@ No contacts found.
 <% @contacts.each do |contact| %>
 <div class="row">
     <div class="col-lg-6">
-      <%= link_to contact.name, '#' %>
+      <%= link_to contact[0], '#' %>
     </div>
     <div class="col-lg-6">
-      <%= contact.created_at.strftime('%d %b %Y %H:%M:%S') %>
+      <%= contact[1].strftime('%d %b %Y %H:%M:%S') %>
     </div>
 </div>
 <% end %>
