@@ -15,10 +15,10 @@ No accounts found.
 <% @accounts.each do |acc| %>
 <div class="row">
   <div class="col-lg-6">
-    <%= link_to acc.account_name, account_path(acc) %>
+    <%= link_to acc[1], account_path(acc[0]) %>
   </div>
   <div class="col-lg-6">
-    <%= acc.created_at.strftime('%d %b %Y %H:%M:%S')%>
+    <%= acc[2].strftime('%d %b %Y %H:%M:%S')%>
   </div>
 </div>
 <% end %>

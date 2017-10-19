@@ -12,13 +12,13 @@ No opportunities found.
         <small>Created at DateTime</small>
     </div>
 </div>
-<% @opportunities.take(6).each do |op| %>
+<% @opportunities.each do |op| %>
 <div class="row">
     <div class="col-lg-6">
-        <%= link_to op.name, opportunity_path(op) %>
+        <%= link_to op[1], opportunity_path(op[0]) %>
     </div>
     <div class="col-lg-6">
-        <%= op.created_at.strftime('%d %b %Y %H:%M:%S')%>
+        <%= op[2].strftime('%d %b %Y %H:%M:%S')%>
     </div>
 </div>
 <% end %>

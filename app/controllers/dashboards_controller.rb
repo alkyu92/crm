@@ -1,63 +1,57 @@
 class DashboardsController < ApplicationController
   def index
-    @opportunities = Opportunity.includes(
-    :user, :account, :tasks, :calls, :events).where(
-    business_type: "Opportunity").order('created_at DESC')
-
-    @opportunities_open = @opportunities.where(status: 'Open').take(6)
-    @opportunities_approved = @opportunities.where(status: 'Approved').take(6)
-    @opportunities_closedwon = @opportunities.where(status: 'Closed-Won').take(6)
-    @opportunities_closedloss = @opportunities.where(status: 'Closed-Loss').take(6)
+    @opportunities = Opportunity.where(business_type: "Opportunity").order('created_at DESC').pluck(:id, :name, :created_at).take(6)
+    @opportunities_open = Opportunity.joins(:account).where(
+    business_type: "Opportunity", status: "Open").order('opportunities.created_at DESC').pluck(
+    :id, :name, "opportunities.created_at", :status, :account_name, "accounts.id").take(6)
+    @opportunities_approved = Opportunity.joins(:account).where(
+    business_type: "Opportunity", status: "Approved").order('opportunities.created_at DESC').pluck(
+    :id, :name, "opportunities.created_at", :status, :account_name, "accounts.id").take(6)
+    @opportunities_closedwon = Opportunity.joins(:account).where(
+    business_type: "Opportunity", status: "Closed-Won").order('opportunities.created_at DESC').pluck(
+    :id, :name, "opportunities.created_at", :status, :account_name, "accounts.id").take(6)
+    @opportunities_closedloss = Opportunity.joins(:account).where(
+    business_type: "Opportunity", status: "Closed-Loss").order('opportunities.created_at DESC').pluck(
+    :id, :name, "opportunities.created_at", :status, :account_name, "accounts.id").take(6)
 
     @cases = Opportunity.where(business_type: "Case").order('created_at DESC').pluck(
     :id, :name, :created_at).take(6)
-
     @cases_inprogress = Opportunity.where(
     business_type: "Case", status: 'In Progress').pluck(:id, :name, :created_at, :status).take(6)
-
     @cases_solved = Opportunity.where(
     business_type: "Case", status: 'Solved').pluck(:id, :name, :created_at, :status).take(6)
 
-    @accounts = Account.includes(:user, :opportunities).order('created_at DESC').take(6)
+    @accounts = Account.order('created_at DESC').pluck(:id, :account_name, :created_at).take(6)
 
-    @tasks = Task.includes(:opportunity).order('created_at DESC').take(6)
-    @urgent_tasks = Task.includes(:opportunity).order('due_date').where(
-    'due_date BETWEEN ? AND ?', 2.day.ago, 3.day.from_now).take(6)
+    @tasks = Task.joins(:opportunity).order('due_date DESC').pluck(
+    "tasks.id", :description, "due_date", "opportunities.id").take(6)
+    @urgent_tasks = Task.joins(:opportunity).order('due_date').where(
+    'due_date BETWEEN ? AND ?', 2.day.ago, 3.day.from_now).pluck(
+    "tasks.id", :description, :due_date, "opportunities.id", :due_date).take(6)
 
-    @events = Event.includes(:opportunity).order('created_at DESC').take(6)
-    @urgent_events = Event.includes(:opportunity).order('event_date').where(
-    'event_date BETWEEN ? AND ?', 2.day.ago, 3.day.from_now).take(6)
+    @events = Event.joins(:opportunity).order('event_date DESC').pluck(
+    "events.id", :description, :event_date, "opportunities.id").take(6)
+    @urgent_events = Event.joins(:opportunity).order('event_date').where(
+    'event_date BETWEEN ? AND ?', 2.day.ago, 3.day.from_now).pluck(
+    "events.id", :description, :event_date, "opportunities.id").take(6)
 
-    @calls = Call.includes(:opportunity).order('created_at DESC').take(6)
+    @calls = Call.joins(:opportunity).order('calls.created_at DESC').pluck(
+    "calls.id", :description, :call_datetime, "opportunities.id").take(6)
 
     @contacts = Contact.order('created_at DESC').pluck(:name, :created_at).take(6)
 
-    # @opwon = Opportunity.includes(:account).where(status: "Closed-Won").order('amount DESC')
     @opwon = Opportunity.joins(:account).where(status: "Closed-Won").order('amount DESC').pluck(
     :account_name, :account_id, :name, :id, :amount)
-
-    # @oploss = Opportunity.includes(:account).where(status: "Closed-Loss").order('amount DESC')
     @oploss = Opportunity.joins(:account).where(status: "Closed-Loss").order('amount DESC').pluck(
     :account_name, :account_id, :name, :id, :amount, :loss_reason)
-
-    # @opopen = Opportunity.includes(:account).where(status: "Open").order('amount DESC')
     @opopen = Opportunity.joins(:account).where(status: "Open").order('amount DESC').pluck(
     :account_name, :account_id, :name, :id, :amount)
-
-    # @opaprv = Opportunity.includes(:account).where(status: "Approved").order('amount DESC')
     @opaprv = Opportunity.joins(:account).where(status: "Approved").order('amount DESC').pluck(
     :account_name, :account_id, :name, :id, :amount)
 
-    # @opwon_sum = @opwon.sum('amount')
     @opwon_sum = Opportunity.where(status: "Closed-Won").pluck(:amount).sum
-
-    # @oploss_sum = @oploss.sum('amount')
     @oploss_sum = Opportunity.where(status: "Closed-Loss").pluck(:amount).sum
-
-    # @opopen_sum = @opopen.sum('amount')
     @opopen_sum = Opportunity.where(status: "Open").pluck(:amount).sum
-
-    # @opaprv_sum = @opaprv.sum('amount')
     @opaprv_sum = Opportunity.where(status: "Approved").pluck(:amount).sum
 
     gon.opwon_sum = @opwon_sum

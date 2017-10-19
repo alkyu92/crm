@@ -16,14 +16,14 @@ No events found.
 
 <% @events.each do |event| %>
 <div class="row">
-    <div class="col-lg-6"><%= link_to event.description.truncate(50),
-  opportunity_path(event.opportunity.id, anchor: "event-#{event.id}") %></div>
+    <div class="col-lg-6"><%= link_to event[1].truncate(50),
+  opportunity_path(event[3], anchor: "event-#{event[0]}") %></div>
 
     <div class="col-lg-6">
-        <% if event.event_date.blank? %>
+        <% if event[2].blank? %>
         <span style="color: red;">Not specified</span>
     <% else %>
-        <%= event.event_date.strftime('%d %b %Y')%>
+        <%= event[2].strftime('%d %b %Y')%>
         <% end %>
     </div>
 
@@ -46,35 +46,35 @@ No events found.
 
 <% @urgent_events.each do |urevent| %>
 <div class="row">
-    <div class="col-lg-4"><%= link_to urevent.description.truncate(25),
-  opportunity_path(urevent.opportunity.id, anchor: "event-eventInfo-#{urevent.id}") %></div>
-    <% if urevent.event_date.blank? %>
+    <div class="col-lg-4"><%= link_to urevent[1].truncate(25),
+  opportunity_path(urevent[3], anchor: "event-eventInfo-#{urevent[0]}") %></div>
+    <% if urevent[2].blank? %>
     <div class="col-lg-8">
         <span style="color: red;">Not specified</span>
     </div>
 <% else %>
     <div class="col-lg-8">
-        <% if urevent.event_date.strftime('%d %b %Y') == Date.today.strftime('%d %b %Y') %>
-        <%= urevent.event_date.strftime('%d %b %Y %H:%M:%S') %>
+        <% if urevent[2].strftime('%d %b %Y') == Date.today.strftime('%d %b %Y') %>
+        <%= urevent[2].strftime('%d %b %Y %H:%M:%S') %>
         <span style="color: orange;">
             <strong>
                 Today<br>
             </strong>
         </span>
         <small style="color: red;">
-            (<%= distance_of_time_in_words(urevent.event_date, Time.now) %>
+            (<%= distance_of_time_in_words(urevent[2], Time.now) %>
             left)
         </small>
-        <% elsif urevent.event_date > Time.now %>
-        <%= urevent.event_date.strftime('%d %b %Y %H:%M:%S')%><br>
+        <% elsif urevent[2] > Time.now %>
+        <%= urevent[2].strftime('%d %b %Y %H:%M:%S')%><br>
         <span style="color: red;">
             <small>
-                (<%= distance_of_time_in_words(urevent.event_date, Time.now) %>
+                (<%= distance_of_time_in_words(urevent[2], Time.now) %>
                 left)
             </small>
         </span>
-        <% elsif urevent.event_date < Time.now %>
-        <%= urevent.event_date.strftime('%d %b %Y %H:%M:%S') %>
+        <% elsif urevent[2] < Time.now %>
+        <%= urevent[2].strftime('%d %b %Y %H:%M:%S') %>
         <span style="color: red;">
             <strong>
                 Event Passed<br>
@@ -82,7 +82,7 @@ No events found.
         </span>
         <span style="color: red;">
             <small>
-                (<%= distance_of_time_in_words(urevent.event_date, Time.now) %>
+                (<%= distance_of_time_in_words(urevent[2], Time.now) %>
                 ago)
             </small>
         </span>
