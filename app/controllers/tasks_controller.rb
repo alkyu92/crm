@@ -70,11 +70,11 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to opportunity_path(@opportunity, anchor: "task") }
-      format.js
+      format.js { flash[:success] = "Task deleted!" }
     end
 
     # AJAX
-    @tasks = Task.includes(:opportunity).order('due_date').page(params[:page]).per(10)
+    @tasks = Task.includes(:user, :opportunity).order('due_date').page(params[:page]).per(10)
   end
 
   def update_task_status

@@ -55,11 +55,11 @@ class CallsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to opportunity_path(@opportunity, anchor: "call") }
-      format.js
+      format.js { flash[:success] = "Call log deleted!" }
     end
 
     # AJAX
-    @calls = Call.includes(:opportunity).page(params[:page]).per(10)
+    @calls = Call.includes(:user, :opportunity).page(params[:page]).per(10)
   end
 
   private

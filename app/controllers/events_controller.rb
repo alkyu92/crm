@@ -70,11 +70,11 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to opportunity_path(@opportunity, anchor: "event") }
-      format.js
+      format.js { flash[:success] = "Event deleted!" }
     end
 
     # AJAX
-    @events = Event.includes(:opportunity).order('event_date').page(params[:page]).per(10)
+    @events = Event.includes(:user, :opportunity).order('event_date').page(params[:page]).per(10)
   end
 
   def update_event_status

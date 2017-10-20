@@ -28,9 +28,10 @@
 <div class="text-center">
     <%= paginate @opportunities %>
 </div>
-<hr>
 
 <div id="notice-op"></div>
+
+<hr>
 
 <div class="row">
     <div class="col-lg-1 text-center">
@@ -202,7 +203,7 @@
         <ul class="dropdown-menu">
             <li><%= link_to 'Show', opportunity_path(opportunity) %></li>
             <li><%= link_to 'Delete', opportunity_path(opportunity),
-          method: :delete, data: {confirm: "Are you sure?"} %></li>
+          method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
         </ul>
     </div>
 </div>

@@ -124,12 +124,14 @@ class OpportunitiesController < ApplicationController
     @opportunity.destroy
 
     respond_to do |format|
-      format.js { flash.now[:success] = "#{@opportunity.business_type.downcase} entry deleted!" }
+      format.js { flash[:success] = "#{@opportunity.business_type.downcase} entry deleted!" }
       format.html {
         flash[:success] = "#{@opportunity.business_type.downcase} entry deleted!"
         redirect_to opportunities_path
       }
     end
+
+    @opportunities = Opportunity.includes(:account, :stages).page(params[:page]).per(10)
   end
 
   def delete_attachment
