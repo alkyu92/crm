@@ -59,7 +59,6 @@ class NotesController < ApplicationController
     end
 
     @notes = Note.includes(:user, :info).order('created_at').page(params[:page]).per(10)
-
   end
 
   private
