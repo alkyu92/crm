@@ -40,19 +40,22 @@
 
         <% elsif result._index == "tasks" %>
         <h4 style="margin-bottom: 0px;">
-          <%= link_to result.description.truncate(50), tasks_path(anchor: "task-taskInfo-#{result.id}") %><br>
+          <%= link_to result.description.truncate(50), opportunity_path(
+          result.opportunity_id, anchor: "task-taskInfo-#{result.id}") %><br>
           <small>Task</small>
         </h4>
 
         <% elsif result._index == "calls" %>
         <h4 style="margin-bottom: 0px;">
-          <%= link_to result.description.truncate(50), calls_path(anchor: "call-callInfo-#{result.id}") %><br>
+          <%= link_to result.description.truncate(50), opportunity_path(
+          result.opportunity_id, anchor: "call-callInfo-#{result.id}") %><br>
           <small>Call</small>
         </h4>
 
         <% elsif result._index == "events" %>
         <h4 style="margin-bottom: 0px;">
-          <%= link_to result.description.truncate(50), events_path(anchor: "event-eventInfo-#{result.id}") %><br>
+          <%= link_to result.description.truncate(50), opportunity_path(
+          result.opportunity_id, anchor: "event-eventInfo-#{result.id}") %><br>
           <small>Event</small>
         </h4>
 
