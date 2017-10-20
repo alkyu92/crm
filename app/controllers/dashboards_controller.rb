@@ -1,6 +1,7 @@
 class DashboardsController < ApplicationController
   def index
-    @opportunities = Opportunity.where(business_type: "Opportunity").order('created_at DESC').pluck(:id, :name, :created_at).take(6)
+    @opportunities = Opportunity.where(business_type: "Opportunity").order('created_at DESC').pluck(
+    :id, :name, :created_at).take(6)
     @opportunities_open = Opportunity.joins(:account).where(
     business_type: "Opportunity", status: "Open").order('opportunities.created_at DESC').pluck(
     :id, :name, "opportunities.created_at", :status, :account_name, "accounts.id").take(6)
@@ -14,12 +15,15 @@ class DashboardsController < ApplicationController
     business_type: "Opportunity", status: "Closed-Loss").order('opportunities.created_at DESC').pluck(
     :id, :name, "opportunities.created_at", :status, :account_name, "accounts.id").take(6)
 
-    @cases = Opportunity.where(business_type: "Case").order('created_at DESC').pluck(
+    @cases = Opportunity.where(
+    business_type: "Case").order('created_at DESC').pluck(
     :id, :name, :created_at).take(6)
     @cases_inprogress = Opportunity.where(
-    business_type: "Case", status: 'In Progress').pluck(:id, :name, :created_at, :status).take(6)
+    business_type: "Case", status: 'In Progress').pluck(
+    :id, :name, :created_at, :status).take(6)
     @cases_solved = Opportunity.where(
-    business_type: "Case", status: 'Solved').pluck(:id, :name, :created_at, :status).take(6)
+    business_type: "Case", status: 'Solved').pluck(
+    :id, :name, :created_at, :status).take(6)
 
     @accounts = Account.order('created_at DESC').pluck(:id, :account_name, :created_at).take(6)
 

@@ -6,9 +6,9 @@ class CallsController < ApplicationController
     @calls = Call.includes(:user, :opportunity).page(params[:page]).per(10)
 
     # AJAX
-    # @opportunity = Opportunity.find(session[:op_id]) || nil
-    # @opcall = @opportunity.calls.includes(
-    # :user).page(params[:call_page]).per(10) || nil
+    @opportunity = Opportunity.find_by_id(session[:op_id])
+    @opcall = @opportunity.calls.includes(
+    :user).page(params[:call_page]).per(10) if @opportunity
   end
 
   def create
@@ -47,14 +47,18 @@ class CallsController < ApplicationController
 
   def destroy
     # AJAX
-    @opportunity = Opportunity.find(session[:op_id])
+    @opportunity = Opportunity.find_by_id(@call.opportunity.id)
     @opcall = @opportunity.calls.includes(:user).page(params[:task_page]).per(10)
 
-    @calls = Call.includes(:opportunity).page(params[:page]).per(10)
     @call.destroy
     timeline_call("deleted call log")
-    redirect_to opportunity_path(@opportunity, anchor: "call")
 
+    respond_to do |format|
+      format.html { redirect_to opportunity_path(@opportunity, anchor: "call") }
+      format.js
+    end
+
+    @calls = Call.includes(:opportunity).page(params[:page]).per(10)
   end
 
   private

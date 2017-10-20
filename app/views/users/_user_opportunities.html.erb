@@ -3,7 +3,8 @@
 <h4>Opportunities Registered</h4>
 <hr>
 <% if @userop.blank? %>
-<p>No opportunities found.</p>
+No opportunities found.
+<%= link_to 'Create opportunity on account', accounts_path %>.
 <% else %>
 
 <div class="row">

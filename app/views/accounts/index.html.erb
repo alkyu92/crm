@@ -4,3 +4,7 @@
 <div id="acc">
 <%= render 'accounts/acc' %>
 </div>
+
+<%= javascript_tag defer: 'defer' do %>
+$(window.location.hash).modal('show');
+<% end %>

@@ -35,9 +35,7 @@
 <% if @opportunities.blank? %>
 <div class="text-center">
     No opportunities / cases found.<br><br>
-    <%= link_to 'Back', :back, class: "btn btn-default" %>
-    <%= link_to 'Create Opportunity / Cases through Account',
-  accounts_path, class: "btn btn-success" %>
+    Create opportunity / case through <%= link_to 'account', accounts_path %>.
 </div>
 <% else %>
 <div class="row">

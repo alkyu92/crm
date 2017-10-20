@@ -40,6 +40,7 @@ class OpportunitiesController < ApplicationController
 
   def new
     @account = Account.find(params[:account_id])
+    @opportunity = @account.opportunities.build
   end
 
   def create

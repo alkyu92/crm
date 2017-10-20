@@ -1,11 +1,14 @@
 <div class="text-center">
     <%= paginate @contacts %>
 </div>
-
-<% if @contacts.blank? %>
-
-<% else %>
 <hr>
+<% if @contacts.blank? %>
+<div class="text-center">
+No contacts found.<br><br>
+Create contact on <%= link_to 'account', accounts_path %>
+or <%= link_to 'opportunity / case', opportunities_path %>.
+</div>
+<% else %>
 <div class="row">
     <div class="col-lg-1"></div>
     <div class="col-lg-2">

@@ -3,6 +3,7 @@
 
 <% if @tasks.blank? %>
 No tasks found.
+<%= link_to 'Create task on opportunity', opportunities_path %>.
 <% else %>
 <div class="row">
     <div class="col-lg-6">

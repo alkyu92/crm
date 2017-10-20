@@ -6,9 +6,9 @@ class EventsController < ApplicationController
     @events = Event.includes(:user, :opportunity).order('event_date').page(params[:page]).per(10)
 
     # AJAX
-    # @opportunity = Opportunity.find(session[:op_id]) || nil
-    # @opevent = @opportunity.events.includes(
-    # :user).order('event_date').page(params[:event_page]).per(10) || nil
+    @opportunity = Opportunity.find_by_id(session[:op_id])
+    @opevent = @opportunity.events.includes(
+    :user).order('event_date').page(params[:event_page]).per(10) if @opportunity
   end
 
   def show
@@ -62,14 +62,18 @@ class EventsController < ApplicationController
 
   def destroy
     # AJAX
-    @opportunity = Opportunity.find(session[:op_id])
+    @opportunity = Opportunity.find_by_id(@event.opportunity.id)
     @opevent = @opportunity.events.includes(:user).order('event_date').page(params[:task_page]).per(10)
 
-    @events = Event.includes(:opportunity).order('event_date').page(params[:page]).per(10)
     @event.destroy
     timeline_event("deleted event")
-    redirect_to opportunity_path(@opportunity, anchor: "event")
 
+    respond_to do |format|
+      format.html { redirect_to opportunity_path(@opportunity, anchor: "event") }
+      format.js
+    end
+
+    @events = Event.includes(:opportunity).order('event_date').page(params[:page]).per(10)
   end
 
   def update_event_status

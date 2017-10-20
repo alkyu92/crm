@@ -26,6 +26,7 @@
                 <%= tl.activity_type.downcase %>
                 <strong><%= tl.activity.account_name %></strong>
                 <% elsif tl.activity_type == "Opportunity" %>
+                <%= tl.activity.business_type.downcase %>
                 <strong><%= tl.activity.name %></strong>
                 <% end %>
 

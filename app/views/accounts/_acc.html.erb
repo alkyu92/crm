@@ -28,6 +28,7 @@
 
 <% if @accounts.blank? %>
 <div class="text-center">
+  No accounts found.<br><br>
   <%= link_to 'Create New Account', '#',
   data: {toggle: "modal", target: "#accountModalForm"} %>
 </div>

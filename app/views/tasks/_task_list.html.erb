@@ -10,7 +10,8 @@
 
 <% if @tasks.blank? %>
 <div class="text-center">
-<%= link_to 'Create Task through Opportunity', opportunities_path %>
+  No tasks found.<br><br>
+Create Task through <%= link_to 'opportunity', opportunities_path %>.
 </div>
 <% else %>
 <div class="row">

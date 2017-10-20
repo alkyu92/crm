@@ -4,7 +4,8 @@
 <hr>
 <% if @events.blank? %>
 <div class="text-center">
-  <%= link_to 'Create Event through Opportunity', opportunities_path %>
+  No events found.<br><br>
+  Create Event through <%= link_to 'opportunity', opportunities_path %>.
 </div>
 <% else %>
 <div class="row">

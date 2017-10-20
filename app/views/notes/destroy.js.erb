@@ -1,4 +1,5 @@
 $('.note').html("<%= j (render 'notes/note') %>");
+$('.task-list').html("<%= j (render 'notes/note_list') %>");
 $('.timelines').html("<%= j (render 'timelines/timelines_index') %>");
 $('#notice-note').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
 $('#crm-menu').html("<%= j (render 'layouts/menu') %>");

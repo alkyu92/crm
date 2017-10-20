@@ -8,10 +8,22 @@
         <%= link_to user.name, user_path(user) %>
     </div>
     <div class="col-lg-1">
+      <% if user.title.blank? %>
+      <span style="color: red;">
+          Position not specified
+      </span>
+  <% else %>
       <%= user.title %>
+      <% end %>
     </div>
     <div class="col-lg-2">
+      <% if user.department.blank? %>
+      <span style="color: red;">
+          Department not specified
+      </span>
+  <% else %>
       <%= user.department %>
+      <% end %>
     </div>
     <div class="col-lg-2">
         <!-- Phone -->

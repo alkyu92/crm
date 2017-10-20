@@ -6,9 +6,9 @@ class TasksController < ApplicationController
     @tasks = Task.includes(:user, :opportunity).order('due_date').page(params[:page]).per(10)
 
     # AJAX
-    @opportunity = Opportunity.find(session[:op_id]) || nil
-    @optask = @opportunity.tasks.includes(:user).order('due_date').page(params[:task_page]).per(10) || nil
-
+    @opportunity = Opportunity.find_by_id(session[:op_id])
+    @optask = @opportunity.tasks.includes(:user).order(
+    'due_date').page(params[:task_page]).per(10) if @opportunity
   end
 
   def show
@@ -61,14 +61,19 @@ class TasksController < ApplicationController
 
   def destroy
     # AJAX
-    @opportunity = Opportunity.find(session[:op_id])
-    @optask = @opportunity.tasks.includes(:user).order('due_date').page(params[:task_page]).per(10)
+    @opportunity = Opportunity.find_by_id(@task.opportunity.id)
+    @optask = @opportunity.tasks.includes(:user).order(
+    'due_date').page(params[:task_page]).per(10) if @opportunity
 
-    @tasks = Task.includes(:opportunity).order('due_date').page(params[:page]).per(10)
     @task.destroy
     timeline_task("deleted task")
-    redirect_to opportunity_path(@opportunity, anchor: "task")
 
+    respond_to do |format|
+      format.html { redirect_to opportunity_path(@opportunity, anchor: "task") }
+      format.js
+    end
+
+    @tasks = Task.includes(:opportunity).order('due_date').page(params[:page]).per(10)
   end
 
   def update_task_status
