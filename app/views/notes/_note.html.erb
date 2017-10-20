@@ -5,7 +5,6 @@
 No notes found.
 <% else %>
 <div class="text-center">
-  <%= page_entries_info @subject.notes.includes(:info, :user).page(params[:note_page]).per(10) %><br>
   <%= paginate @subject.notes.includes(:info, :user).page(params[:note_page]).per(10), param_name: :note_page, remote: true %>
 </div>
 <% @subject.notes.includes(:info, :user).order('created_at DESC').page(params[:note_page]).per(10).each do |note| %>
@@ -51,7 +50,6 @@ No notes found.
 <% end %>
 <div class="row">
 <div class="col-lg-12 text-center">
-  <%= page_entries_info @subject.notes.includes(:info, :user).page(params[:note_page]).per(10) %><br>
   <%= paginate @subject.notes.includes(:info, :user).page(params[:note_page]).per(10), param_name: :note_page, remote: true %>
 </div>
 </div>

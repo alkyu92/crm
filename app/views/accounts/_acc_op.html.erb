@@ -2,7 +2,6 @@
 Opportunities not found.
 <% else %>
 <div class="text-center">
-  <%= page_entries_info @accop %><br>
   <%= paginate @accop, param_name: :acc_page, remote: true %>
 </div>
 <ul class="list-group">
@@ -91,7 +90,6 @@ Opportunities not found.
     </li>
     <% end %>
     <div class="text-center">
-      <%= page_entries_info @accop %><br>
       <%= paginate @accop, param_name: :acc_page, remote: true %>
     </div>
 </ul>

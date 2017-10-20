@@ -19,6 +19,7 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
   end
 
   def create
+      @contacts = Contact.includes(:relationships).page(params[:page]).per(10)
       @contact = Contact.new(params_contact)
       @contact.user_id = current_user.id
 
@@ -31,7 +32,7 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
           timeline_contact("created contact")
           redirect_acc_or_op_path
         else
-          redirect_to contacts_path(page: session[:last_page], anchor: "contactInfo-#{@contact.id}")
+          redirect_to contacts_path(page: @contacts.num_pages, anchor: "contactInfo-#{@contact.id}")
         end
 
       else

@@ -5,7 +5,6 @@
 No call logs found.
 <% else %>
 <div class="text-center">
-  <%= page_entries_info @opcall %><br>
   <%= paginate @opcall, param_name: :call_page, remote: true %>
 </div>
 <ul class="list-group">
@@ -64,7 +63,6 @@ No call logs found.
     <% end %>
 </ul>
 <div class="text-center">
-  <%= page_entries_info @opcall %><br>
   <%= paginate @opcall, param_name: :call_page, remote: true %>
 </div>
 <% end %>

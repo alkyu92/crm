@@ -6,7 +6,6 @@ No tasks found.
 <% else %>
 
 <div class="text-center">
-  <%= page_entries_info @optask %><br>
   <%= paginate @optask, param_name: :task_page, remote: true %>
 </div>
 
@@ -60,7 +59,6 @@ No tasks found.
     <% end %>
 </ul>
 <div class="text-center">
-  <%= page_entries_info @optask %><br>
   <%= paginate @optask, param_name: :task_page, remote: true %>
 </div>
 <% end %>

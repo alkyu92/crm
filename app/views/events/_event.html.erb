@@ -5,7 +5,6 @@
 No events found.
 <% else %>
 <div class="text-center">
-  <%= page_entries_info @opevent %><br>
   <%= paginate @opevent, param_name: :event_page, remote: true %>
 </div>
 <ul class="list-group">
@@ -58,7 +57,6 @@ No events found.
 <% end %>
 </ul>
 <div class="text-center">
-  <%= page_entries_info @opevent %><br>
   <%= paginate @opevent, param_name: :event_page, remote: true %>
 </div>
 <% end %>
