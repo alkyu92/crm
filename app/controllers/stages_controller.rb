@@ -94,13 +94,14 @@ class StagesController < ApplicationController
     updated_by_id: current_user.id)
 
     # due to redundant stage on op_header, cant use method status updater
-    @opportunity.stages.each do |stage|
-      if stage.id < @stage.id
-        stage.update_attributes(status: "Completed")
-      elsif stage.id > @stage.id
-        stage.update_attributes(status: "Waiting")
-      end
-    end
+    # @opportunity.stages.includes(:user).each do |stage|
+    #   if stage.id < @stage.id
+    #     stage.update_attributes(status: "Completed")
+    #   elsif stage.id > @stage.id
+    #     stage.update_attributes(status: "Waiting")
+    #   end
+    # end
+    status_updater(@stage)
 
     timeline_stage("changed stage status from '#{previous}' to '#{current}' for")
   end
@@ -108,7 +109,7 @@ class StagesController < ApplicationController
   def status_updater(current_stage)
     @completed = []
     @waiting = []
-    @opportunity.stages.each do |stage|
+    @opportunity.stages.includes(:user).each do |stage|
       if stage.id < current_stage.id
         @completed << stage.id
       elsif stage.id > current_stage.id
