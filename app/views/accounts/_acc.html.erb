@@ -26,13 +26,6 @@
 
 <div id="notice-acc"></div>
 
-<% if @accounts.blank? %>
-<div class="text-center">
-  No accounts found.<br><br>
-  <%= link_to 'Create New Account', '#',
-  data: {toggle: "modal", target: "#accountModalForm"} %>
-</div>
-<% else %>
 <div class="row">
     <div class="col-lg-1 text-center">
         <strong>ID</strong>
@@ -56,6 +49,15 @@
         <strong>Action</strong>
     </div>
 </div>
+<% if @accounts.blank? %>
+<hr>
+<div class="text-center">
+  No accounts found.<br><br>
+  <%= link_to 'Create New Account', '#',
+  data: {toggle: "modal", target: "#accountModalForm"} %>
+</div>
+<% else %>
+
 <% @accounts.each do |account| %>
 <hr>
 <div class="row">
