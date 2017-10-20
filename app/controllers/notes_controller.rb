@@ -58,12 +58,8 @@ class NotesController < ApplicationController
       format.js { flash.now[:success] = "Note log deleted!" }
     end
 
-    if params[:type]
-      @notes = Note.includes(:user, :info).where(
-      info_type: params[:type]).order('created_at').page(params[:page]).per(10)
-    else
-      @notes = Note.includes(:user, :info).order('created_at').page(params[:page]).per(10)
-    end
+    @notes = Note.includes(:user, :info).order('created_at').page(params[:page]).per(10)
+
   end
 
   private

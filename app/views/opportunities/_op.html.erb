@@ -32,12 +32,6 @@
 
 <div id="notice-op"></div>
 
-<% if @opportunities.blank? %>
-<div class="text-center">
-    No opportunities / cases found.<br><br>
-    Create opportunity / case through <%= link_to 'account', accounts_path %>.
-</div>
-<% else %>
 <div class="row">
     <div class="col-lg-1 text-center">
         <strong>ID</strong>
@@ -119,6 +113,16 @@
         <strong>Action</strong>
     </div>
 </div>
+
+<% if @opportunities.blank? %>
+<hr>
+<div class="text-center">
+    No opportunities / cases found.<br><br>
+    Create opportunity / case through <%= link_to 'account', accounts_path %>.
+</div>
+
+<% else %>
+
 <% @opportunities.each do |opportunity| %>
 <hr>
 <div class="row">

@@ -2,12 +2,6 @@
     <%= paginate @events %>
 </div>
 <hr>
-<% if @events.blank? %>
-<div class="text-center">
-  No events found.<br><br>
-  Create Event through <%= link_to 'opportunity', opportunities_path %>.
-</div>
-<% else %>
 <div class="row">
     <div class="col-lg-1 text-center">
         <strong>ID</strong>
@@ -31,6 +25,13 @@
       <strong>Action</strong>
     </div>
 </div>
+<% if @events.blank? %>
+<hr>
+<div class="text-center">
+  No events found.<br><br>
+  Create event through <%= link_to 'opportunity', opportunities_path %>.
+</div>
+<% else %>
 
 <% @events.each do |event| %>
 <hr>

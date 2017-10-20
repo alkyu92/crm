@@ -7,7 +7,16 @@
             </div>
             <div class="media-body">
                 <h3>Notes<br>
-                    <small>Notes and Reminders</small>
+                    <small>
+                      <% if params[:type] == "Opportunity" %>
+                      Opportunity / Case
+                      <% elsif params[:type] %>
+                      <%= params[:type] %>
+                      <% else %>
+                      All
+                      <% end %>
+                      Notes and Reminders
+                    </small>
                 </h3>
             </div>
         </div>

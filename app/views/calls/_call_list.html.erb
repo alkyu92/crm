@@ -3,12 +3,7 @@
 </div>
 
 <hr>
-<% if @calls.blank? %>
-<div class="text-center">
-    No call logs found.<br><br>
-    Create call log through <%= link_to 'opportunity', opportunities_path %>.
-</div>
-<% else %>
+
 <div class="row">
     <div class="col-lg-1 text-center">
         <strong>ID</strong>
@@ -32,6 +27,14 @@
         <strong>Action</strong>
     </div>
 </div>
+
+<% if @calls.blank? %>
+<hr>
+<div class="text-center">
+    No call logs found.<br><br>
+    Create call log through <%= link_to 'opportunity', opportunities_path %>.
+</div>
+<% else %>
 
 <% @calls.each do |call| %>
 <hr>

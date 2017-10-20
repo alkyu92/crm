@@ -73,6 +73,7 @@ class TasksController < ApplicationController
       format.js
     end
 
+    # AJAX
     @tasks = Task.includes(:opportunity).order('due_date').page(params[:page]).per(10)
   end
 

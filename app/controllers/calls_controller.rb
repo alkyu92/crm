@@ -58,6 +58,7 @@ class CallsController < ApplicationController
       format.js
     end
 
+    # AJAX
     @calls = Call.includes(:opportunity).page(params[:page]).per(10)
   end
 

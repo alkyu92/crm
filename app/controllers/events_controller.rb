@@ -73,6 +73,7 @@ class EventsController < ApplicationController
       format.js
     end
 
+    # AJAX
     @events = Event.includes(:opportunity).order('event_date').page(params[:page]).per(10)
   end
 

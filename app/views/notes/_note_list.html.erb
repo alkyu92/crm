@@ -8,15 +8,6 @@
 
 <hr>
 
-<% if @notes.blank? %>
-<div class="text-center">
-    No notes found.<br><br>
-    Create note on
-    <%= link_to 'account', accounts_path %>
-    or
-    <%= link_to 'opportunity / case', opportunities_path %>.
-</div>
-<% else %>
 <div class="row">
     <div class="col-lg-1 text-center">
         <strong>ID</strong>
@@ -49,6 +40,18 @@
         <strong>Action</strong>
     </div>
 </div>
+
+<% if @notes.blank? %>
+<hr>
+<div class="text-center">
+    No <%= params[:type] %> notes found.<br><br>
+    Create note on
+    <%= link_to 'account', accounts_path %>
+    or
+    <%= link_to 'opportunity / case', opportunities_path %>.
+</div>
+<% else %>
+
 
 <% @notes.each do |note| %>
 <hr>
