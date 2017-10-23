@@ -37,14 +37,13 @@ class AccountsController < ApplicationController
     @accounts = Account.page(params[:page]).per(10)
     @account = current_user.accounts.build(params_account)
 
-    respond_to do |format|
-      if @account.save
-        timeline_account("account", @account.account_name, "created account")
-        format.html
-        format.js { flash.now[:success] = "Account entry created!" }
-      else
-        format.js { flash.now[:danger] = "Failed to create account entry!" }
-      end
+    if @account.save
+      timeline_account("account", @account.account_name, "created account")
+      flash[:success] = "Account created!"
+      redirect_to account_path(@account)
+    else
+      flash[:danger] = "Failed to create account!"
+      redirect_to accounts_path(anchor: "accountModalForm")
     end
 
   end
@@ -53,7 +52,6 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:id])
     @old_name = @account.account_name
     @subject = @account
-    respond_to do |format|
       if @account.update(params_account)
 
         if params[:docs]
@@ -77,11 +75,12 @@ class AccountsController < ApplicationController
         end
 
         save_timeline_if_any_changes(@old_name)
-        format.js { flash.now[:success] = "Account entry updated!" }
+        flash[:success] = "Account entry updated!"
+	redirect_to account_path(@account)
       else
-        format.js { flash.now[:danger] = "Failed to update account entry!" }
+        flash[:danger] = "Failed to update account entry!"
+	redirect_to account_path(@account, anchor: "accountModalForm")
       end
-    end
   end
 
   def destroy
