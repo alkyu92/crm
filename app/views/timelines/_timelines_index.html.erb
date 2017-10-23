@@ -32,7 +32,7 @@
             <small>
                 <%= link_to timeline.user.name, user_path(timeline.user.id) %>
                 <%= timeline.action %>
-                <%= timeline.nactivity.truncate(40) %>
+                <strong><%= timeline.nactivity.truncate(40) %></strong>
                 <% unless timeline.action == "created account" ||
                   timeline.action == "added attachment file to account" ||
                   timeline.action == "deleted attachment file from account" ||

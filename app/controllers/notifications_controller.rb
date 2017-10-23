@@ -1,5 +1,19 @@
 class NotificationsController < ApplicationController
   def index
-    @notifications = Timeline.includes(:activity, :user).order('created_at DESC').page(params[:page]).per(10)
+    @notifications = current_user.notifications.page(params[:page]).per(10)
   end
+
+  def update_read_status
+    @notification = Notification.find(params[:id])
+    @notification.update_attributes(read: true)
+
+    if @notification.timeline.activity_type == "Opportunity"
+      redirect_to opportunity_path(@notification.timeline.activity_id,
+      anchor: @notification.timeline.tactivity)
+    elsif @notification.timeline.activity_type == "Account"
+      redirect_to account_path(@notification.timeline.activity_id,
+      anchor: @notification.timeline.tactivity)
+    end
+  end
+
 end

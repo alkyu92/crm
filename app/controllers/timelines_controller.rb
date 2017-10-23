@@ -13,17 +13,6 @@ class TimelinesController < ApplicationController
     end
   end
 
-  def update_read_status
-    @timeline = Timeline.find(params[:id])
-    @timeline.update_attributes(read: true)
-
-    if @timeline.activity_type == "Opportunity"
-      redirect_to opportunity_path(@timeline.activity_id, anchor: @timeline.tactivity)
-    elsif @timeline.activity_type == "Account"
-      redirect_to account_path(@timeline.activity_id, anchor: @timeline.tactivity)
-    end
-  end
-
   private
 
   def find_subject

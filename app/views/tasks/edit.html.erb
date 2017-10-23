@@ -21,11 +21,14 @@
             <%= f.input :due_date, label: "Task Due Date",as: :date_time_picker %>
 
             <%= f.label :status %><br>
-            <%= @task.complete ? 'Completed' : 'Incomplete' %>
-            <br>
+            <% if @task.complete %>
+		<h4><span style="color: green;">Completed</span></h4>
+	    <% else %>
+		<h4><span style="color: red;">Incomplete</span></h4>
+	    <% end %>
             <%= check_box_tag "completed" %>
             Mark as <%= @task.complete ? 'Incomplete' : 'Completed' %>
-            <br><br>
+	    <hr>
 
             <%= f.button :submit, class: "btn btn-success" %>
             <% end %>

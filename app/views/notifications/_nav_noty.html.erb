@@ -17,17 +17,16 @@
         <div class="media-body">
             <small>
                 <strong><%= tl.user.name %></strong>
-                <%= tl.action %>
-                <strong><%= tl.nactivity.truncate(30) %></strong>
-                <% unless tl.action == "created account" ||
-                      tl.action == "added attachment file to" %>
+                <%= tl.timeline.action %>
+                <strong><%= tl.timeline.nactivity.truncate(30) %></strong>
+                <% unless tl.timeline.action == "created account" || tl.timeline.action == "added attachment file to" %>
                 to
-                <% if tl.activity_type == "Account" %>
-                <%= tl.activity_type.downcase %>
-                <strong><%= tl.activity.account_name %></strong>
-                <% elsif tl.activity_type == "Opportunity" %>
-                <%= tl.activity.business_type.downcase %>
-                <strong><%= tl.activity.name %></strong>
+                <% if tl.timeline.activity_type == "Account" %>
+                <%= tl.timeline.activity_type.downcase %>
+                <strong><%= tl.timeline.activity.account_name %></strong>
+                <% elsif tl.timeline.activity_type == "Opportunity" %>
+                <%= tl.timeline.activity.business_type.downcase %>
+                <strong><%= tl.timeline.activity.name %></strong>
                 <% end %>
 
                 <% end %>

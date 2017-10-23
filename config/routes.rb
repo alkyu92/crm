@@ -64,7 +64,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/timelines/:id', to: 'timelines#update_read_status', as: :update_read_status
+  get '/notifications/:id', to: 'notifications#update_read_status', as: :update_read_status
 
   root 'dashboards#index'
 
