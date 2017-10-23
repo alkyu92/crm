@@ -21,12 +21,11 @@
         <%= f.input :event_date, as: :date_time_picker %>
 
         <%= f.label 'Status' %><br>
-        <%= @event.complete ? 'Attended' : 'Not Attend' %>
-        <br><br>
+        <h4><%= @event.complete ? 'Will Attend' : 'Not Attend' %></h4>
 
         <%= check_box_tag "attended" %>
-        Mark as <%= @event.complete ? 'Not Attend' : 'Attended' %>
-        <br><br>
+        Mark as "<%= @event.complete ? 'Not Attend' : 'Will Attend' %>"
+        <hr>
         <%= f.button :submit, class: "btn btn-success" %>
         <% end %>
     </div>

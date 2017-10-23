@@ -51,10 +51,10 @@ class EventsController < ApplicationController
         end
 
         timeline_event("updated event")
-        flash[:success] = "Event entry updated!"
+        flash.now[:success] = "Event entry updated!"
         redirect_to opportunity_path(@opportunity, anchor: "event-eventInfo-#{@event.id}")
       else
-        flash[:danger] = "Failed to update event entry!"
+        flash.now[:danger] = "Failed to update event entry!"
         redirect_to opportunity_path(@opportunity, anchor: "event-eventInfo-#{@event.id}")
       end
 
@@ -81,12 +81,12 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.complete == true
         @event.update_attributes(complete: false)
-        status = "updated event status from Attended to Not Attend for event "
+        status = "updated event status from Will Attend to Not Attend for event "
         timeline_event(status)
         format.js { flash.now[:success] = status.capitalize + @event.description.truncate(50) }
       else
         @event.update_attributes(complete: true)
-        status = "updated event status from Not Attend to Attended for event "
+        status = "updated event status from Not Attend to Will Attend for event "
         timeline_event(status)
         format.js { flash.now[:success] = status.capitalize + @event.description.truncate(50) }
       end
