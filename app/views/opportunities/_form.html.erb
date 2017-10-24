@@ -26,6 +26,9 @@
                     <div class="col-lg-4">
                         <h4>Opportunity / Case Details</h4>
                         <br>
+                        <%= f.label "Assign user as owner" %>
+                        <%= f.input :user_id, label: false, collection: User.all,
+                        include_blank: "Choose owner" %>
                         <%= f.input :name, label: "Opportunity / Case Name",
                         placeholder: "Opportunity name", autofocus: true %>
 

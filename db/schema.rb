@@ -174,15 +174,14 @@ ActiveRecord::Schema.define(version: 20170829043310) do
   end
 
   create_table "timelines", force: :cascade do |t|
-    t.boolean  "read",          default: false
     t.string   "tactivity"
     t.string   "nactivity"
     t.string   "action"
     t.string   "activity_type"
     t.integer  "activity_id"
     t.integer  "user_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.index ["activity_type", "activity_id"], name: "index_timelines_on_activity_type_and_activity_id"
     t.index ["user_id"], name: "index_timelines_on_user_id"
   end

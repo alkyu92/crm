@@ -9,6 +9,9 @@
               <strong>Account Name</strong>
                 <h4><%= @account.account_name %></h4>
                 <br>
+                <%= f.label "Assign user as owner" %>
+                <%= f.input :user_id, label: false, collection: User.all,
+                include_blank: "Choose owner" %>
                 <%= f.input :name, label: "Opportunity / Case Name",
                         placeholder: "Opportunity / Case name", autofocus: true %>
                 <%= f.input :amount, label: "Amount", placeholder: "Opportunity / Case amount" %>

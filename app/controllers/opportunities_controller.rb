@@ -31,11 +31,6 @@ class OpportunitiesController < ApplicationController
     @optask = @opportunity.tasks.includes(:user).order('due_date').page(params[:task_page]).per(10)
     @opcall = @opportunity.calls.includes(:user).order('created_at DESC').page(params[:call_page]).per(10)
     @opevent = @opportunity.events.includes(:user).order('event_date').page(params[:event_page]).per(10)
-
-    @subject.timelines.includes(:activity, :user).each do |tl|
-      next if tl.read == true
-      tl.update_attributes(read: true)
-    end
   end
 
   def new
@@ -46,7 +41,7 @@ class OpportunitiesController < ApplicationController
   def create
     @account = Account.find(params[:account_id])
     @opportunity = @account.opportunities.build(params_opportunity)
-    @opportunity.user_id = current_user.id
+    @opportunity.user_id = @opportunity.user_id || current_user.id
 
     # for AJAX
     @subject = @opportunity if params[:opportunity_id]
@@ -163,7 +158,8 @@ class OpportunitiesController < ApplicationController
   end
 
   def params_opportunity
-    params.require(:opportunity).permit( :name,
+    params.require(:opportunity).permit( :user_id,
+                                         :name,
                                          :stage_id,
                                          :account,
                                          :account_id,
