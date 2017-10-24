@@ -77,12 +77,14 @@ class StagesController < ApplicationController
   private
 
   def timeline_stage(action)
-    @subject.timelines.create!(
+    @stagetimeline = @subject.timelines.create!(
     tactivity: "stage",
     nactivity: @stage.name,
     action: action,
     user_id: current_user.id
     )
+
+    notify_user(@stagetimeline.id)
   end
 
   def params_stage

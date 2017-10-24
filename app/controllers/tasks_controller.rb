@@ -96,12 +96,14 @@ class TasksController < ApplicationController
   private
 
   def timeline_task(action)
-    @subject.timelines.create!(
+    @tasktimeline = @subject.timelines.create!(
     tactivity: "task-" + @task.id.to_s,
     nactivity: @task.description.truncate(50),
     action: action,
     user_id: current_user.id
     )
+
+    notify_user(@tasktimeline.id)
   end
 
   def params_task

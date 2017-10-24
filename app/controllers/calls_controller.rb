@@ -65,12 +65,14 @@ class CallsController < ApplicationController
   private
 
   def timeline_call(action)
-    @opportunity.timelines.create!(
+    @calltimeline = @opportunity.timelines.create!(
     tactivity: "call-" + @call.id.to_s,
     nactivity: @call.description.truncate(50),
     action: action,
     user_id: current_user.id
     )
+
+    notify_user(@calltimeline.id)
   end
 
   def params_call

@@ -32,18 +32,21 @@
             <small>
                 <%= link_to timeline.user.name, user_path(timeline.user.id) %>
                 <%= timeline.action %>
-                <strong><%= timeline.nactivity.truncate(40) %></strong>
+                <strong><%= link_to timeline.nactivity.truncate(40), '#' %></strong>
                 <% unless timeline.action == "created account" ||
                   timeline.action == "added attachment file to account" ||
                   timeline.action == "deleted attachment file from account" ||
                   timeline.action == "added attachment file to opportunity" ||
-                  timeline.action == "deleted attachment file from opportunity" %>
+                  timeline.action == "deleted attachment file from opportunity" ||
+                  timeline.action == "created opportunity" ||
+                  timeline.action == "created case"
+                  %>
                 to
                 <% if timeline.activity_type == "Account" %>
                 <%= timeline.activity_type.downcase %>
-                <strong><%= timeline.activity.account_name %></strong>
+                <strong><%= link_to timeline.activity.account_name, '#' %></strong>
                 <% elsif timeline.activity_type == "Opportunity" %>
-                <strong><%= timeline.activity.name %></strong>
+                <strong><%= link_to timeline.activity.name, '#' %></strong>
                 <% end %>
 
                 <% end %>

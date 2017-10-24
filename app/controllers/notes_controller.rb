@@ -64,12 +64,14 @@ class NotesController < ApplicationController
   private
 
   def timeline_note(action)
-    @subject.timelines.create!(
+    @notetimeline = @subject.timelines.create!(
     tactivity: "relatedNotes-" + @note.id.to_s,
     nactivity: @note.title,
     action: action,
     user_id: current_user.id
     )
+
+    notify_user(@notetimeline.id)
   end
 
   def params_note

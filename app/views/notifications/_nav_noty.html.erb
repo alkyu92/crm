@@ -9,14 +9,14 @@
     <div class="media">
         <div class="media-left">
             <% if tl.user.avatar.blank? %>
-            <%= letter_avatar_tag(tl.user.name, 40, class: "media-object") %>
+            <%= letter_avatar_tag(tl.timeline.user.name, 40, class: "media-object") %>
         <% else %>
-            <%= image_tag(tl.user.avatar.url(:noty), class: "media-object") %>
+            <%= image_tag(tl.timeline.user.avatar.url(:noty), class: "media-object") %>
             <% end %>
         </div>
         <div class="media-body">
             <small>
-                <strong><%= tl.user.name %></strong>
+                <strong><%= tl.timeline.user.name %></strong>
                 <%= tl.timeline.action %>
                 <strong><%= tl.timeline.nactivity.truncate(30) %></strong>
                 <% unless tl.timeline.action == "created account" || tl.timeline.action == "added attachment file to" %>

@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 20170829043310) do
     t.string   "name"
     t.string   "business_type"
     t.string   "probability"
-    t.decimal  "amount",        precision: 8, scale: 2
+    t.decimal  "amount",        precision: 8, scale: 2, default: "0.0"
     t.text     "description"
     t.string   "loss_reason"
     t.date     "close_date"
@@ -132,8 +132,8 @@ ActiveRecord::Schema.define(version: 20170829043310) do
     t.string   "dummy"
     t.integer  "account_id"
     t.integer  "user_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
     t.index ["account_id"], name: "index_opportunities_on_account_id"
     t.index ["business_type"], name: "index_opportunities_on_business_type"
     t.index ["status"], name: "index_opportunities_on_status"

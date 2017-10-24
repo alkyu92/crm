@@ -29,7 +29,7 @@ class OpportunitiesController < ApplicationController
     @accounts = Account.all
 
     @optask = @opportunity.tasks.includes(:user).order('due_date').page(params[:task_page]).per(10)
-    @opcall = @opportunity.calls.includes(:user).page(params[:call_page]).per(10)
+    @opcall = @opportunity.calls.includes(:user).order('created_at DESC').page(params[:call_page]).per(10)
     @opevent = @opportunity.events.includes(:user).order('event_date').page(params[:event_page]).per(10)
 
     @subject.timelines.includes(:activity, :user).each do |tl|
@@ -57,11 +57,13 @@ class OpportunitiesController < ApplicationController
 
       if @opportunity.save
 
-        @opportunity.account.timelines.create!(
+        @acoptimeline = @opportunity.account.timelines.create!(
         tactivity: "",
         nactivity: @opportunity.name,
         action: "created #{@opportunity.business_type.downcase}",
         user_id: current_user.id)
+
+        timeline_opportunity("#", @opportunity.name, "created #{@opportunity.business_type.downcase}")
 
         flash.now[:success] = "#{@opportunity.business_type.downcase} entry created!"
         redirect_to opportunity_path(@opportunity)
@@ -150,12 +152,14 @@ class OpportunitiesController < ApplicationController
   private
 
   def timeline_opportunity(tactivity, nactivity, action)
-    @opportunity.timelines.create!(
+    @optimeline = @opportunity.timelines.create!(
     tactivity: tactivity,
     nactivity: nactivity,
     action: action,
     user_id: current_user.id
     )
+
+    notify_user(@optimeline.id)
   end
 
   def params_opportunity

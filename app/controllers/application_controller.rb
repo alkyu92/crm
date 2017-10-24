@@ -5,6 +5,12 @@ class ApplicationController < ActionController::Base
   before_action :devise_params, if: :devise_controller?
   after_action :store_location
 
+  def notify_user(timeline_id)
+    User.all.each do |usr|
+	     usr.notifications.create!(timeline_id: timeline_id)
+    end
+  end
+
   protected
   def devise_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])

@@ -189,12 +189,14 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
   end
 
   def timeline_contact(action)
-    @subject.timelines.create!(
+    @contacttimeline = @subject.timelines.create!(
     tactivity: "relatedContacts-" + @contact.id.to_s,
     nactivity: @contact.name,
     action: action,
     user_id: current_user.id
     )
+
+    notify_user(@contacttimeline.id)
   end
 
   def redirect_acc_or_op_path

@@ -96,12 +96,14 @@ class EventsController < ApplicationController
   private
 
   def timeline_event(action)
-    @subject.timelines.create!(
+    @eventtimeline = @subject.timelines.create!(
     tactivity: "event-" + @event.id.to_s,
     nactivity: @event.description.truncate(50),
     action: action,
     user_id: current_user.id
     )
+
+    notify_user(@eventtimeline.id)
   end
 
   def params_event

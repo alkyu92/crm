@@ -17,7 +17,7 @@ class Opportunity < ApplicationRecord
   has_many :events, dependent: :destroy
   has_many :calls, dependent: :destroy
 
-  validates :name, :business_type, :status, presence: true
+  validates :name,:business_type, :status, presence: true
 
   def self.search(query)
   __elasticsearch__.search(

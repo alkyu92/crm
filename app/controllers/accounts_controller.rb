@@ -76,10 +76,10 @@ class AccountsController < ApplicationController
 
         save_timeline_if_any_changes(@old_name)
         flash[:success] = "Account entry updated!"
-	redirect_to account_path(@account)
+	      redirect_to account_path(@account)
       else
         flash[:danger] = "Failed to update account entry!"
-	redirect_to account_path(@account, anchor: "accountModalForm")
+	      redirect_to account_path(@account, anchor: "accountModalForm")
       end
   end
 
@@ -112,12 +112,14 @@ class AccountsController < ApplicationController
   private
 
   def timeline_account(tactivity, nactivity, action)
-    @account.timelines.create!(
+    @acctimeline = @account.timelines.create!(
     tactivity: tactivity,
     nactivity: nactivity,
     action: action,
     user_id: current_user.id
     )
+
+    notify_user(@acctimeline.id)
   end
 
   def params_account
