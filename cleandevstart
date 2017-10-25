@@ -1,0 +1,7 @@
+#! /bin/sh
+
+echo "Development database migration..."
+rails db:migrate:reset
+
+echo "Starting application server in development mode..."
+rails s
