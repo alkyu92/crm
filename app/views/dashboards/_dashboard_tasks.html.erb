@@ -40,34 +40,33 @@ No tasks found.
 <div class="row">
     <div class="col-lg-4"><%= link_to urtask[1].truncate(50),
   opportunity_path(urtask[3], anchor: "task-taskInfo-#{urtask[0]}") %></div>
-
-    <% if urtask[4].blank? %>
+    <% if urtask[2].blank? %>
     <div class="col-lg-8">
         <span style="color: red;">Not specified</span>
     </div>
 <% else %>
     <div class="col-lg-8">
-      <% if urtask[4].strftime('%d %b %Y') == Date.today.strftime('%d %b %Y') %>
-      <%= urtask[4].strftime('%d %b %Y %H:%M:%S') %>
+      <% if urtask[2].strftime('%d %b %Y') == Date.today.strftime('%d %b %Y') %>
+      <%= urtask[2].strftime('%d %b %Y %H:%M:%S') %>
       <span style="color: orange;">
           <strong>
               Today<br>
           </strong>
       </span>
       <small>
-          (<%= distance_of_time_in_words(urtask[4], Time.now) %>
+          (<%= distance_of_time_in_words(urtask[2], Time.now) %>
           left)
       </small>
-      <% elsif urtask[4] > Time.now %>
-      <%= urtask[4].strftime('%d %b %Y %H:%M:%S')%><br>
+      <% elsif urtask[2] > Time.now %>
+      <%= urtask[2].strftime('%d %b %Y %H:%M:%S')%><br>
       <span style="color: red;">
           <small>
-              (<%= distance_of_time_in_words(urtask[4], Time.now) %>
+              (<%= distance_of_time_in_words(urtask[2], Time.now) %>
               left)
           </small>
       </span>
-      <% elsif urtask[4] < Time.now %>
-      <%= urtask[4].strftime('%d %b %Y %H:%M:%S') %>
+      <% elsif urtask[2] < Time.now %>
+      <%= urtask[2].strftime('%d %b %Y %H:%M:%S') %>
       <span style="color: red;">
           <strong>
               Task Passed<br>
@@ -75,7 +74,7 @@ No tasks found.
       </span>
       <span style="color: red;">
           <small>
-              (<%= distance_of_time_in_words(urtask[4], Time.now) %>
+              (<%= distance_of_time_in_words(urtask[2], Time.now) %>
               ago)
           </small>
       </span>

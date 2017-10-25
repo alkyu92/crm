@@ -31,7 +31,7 @@ class DashboardsController < ApplicationController
     "tasks.id", :description, "tasks.created_at", "opportunities.id").take(6)
     @urgent_tasks = Task.joins(:opportunity).order('due_date').where(
     'due_date BETWEEN ? AND ?', 2.day.ago, 3.day.from_now).pluck(
-    "tasks.id", :description, :due_date, "opportunities.id", :due_date).take(6)
+    "tasks.id", :description, :due_date, "opportunities.id").take(6)
 
     @events = Event.joins(:opportunity).order('events.created_at DESC').pluck(
     "events.id", :description, "events.created_at", "opportunities.id").take(6)
