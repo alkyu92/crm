@@ -9,9 +9,6 @@ rails db:create RAILS_ENV=production
 echo "Production database migration..."
 rails db:migrate RAILS_ENV=production
 
-echo "Seeding production database..."
-rails db:seed RAILS_ENV=production
-
 echo "Clearing previous assets..."
 RAILS_ENV=production rake assets:clobber
 RAILS_ENV=production rake assets:clean
