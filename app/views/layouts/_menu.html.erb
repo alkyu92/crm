@@ -1,4 +1,4 @@
-<div class="navbar-nav" style="margin-left: 25px; margin-top: 10px; width: 25%;">
+<div class="navbar-nav navbar-form">
     <%= form_for :term, url: search_path, method: :get do |form| %>
     <%= text_field_tag :term, params[:term],
     placeholder: "Search keyword", class: "form-control" %>
