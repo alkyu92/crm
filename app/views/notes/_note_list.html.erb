@@ -56,7 +56,9 @@
 <% @notes.each do |note| %>
 <hr>
 <div class="row">
-    <div class="col-lg-1 col-xs-1 text-center"><%= note.id %></div>
+    <div class="col-lg-1 col-xs-1 text-center">
+      <span class="badge"><%= note.id %></span>
+    </div>
     <div class="col-lg-2 col-xs-10">
         <%= link_to note.title, '#', data: {toggle: "modal", target: "#noteInfo-#{note.id}"} %>
     </div>
@@ -65,13 +67,11 @@
     </div>
     <div class="col-lg-2 col-xs-6">
         <% if note.info_type == "Opportunity" %>
+        <small><%= note.info.business_type %></small><br>
         <%= link_to note.info.name, opportunity_path(note.info) %>
-        <br>
-        <small><%= note.info.business_type %></small>
         <% elsif note.info_type == "Account" %>
+        <small>Account</small><br>
         <%= link_to note.info.account_name, account_path(note.info) %>
-        <br>
-        <small>Account</small>
         <% end %>
     </div>
     <div class="col-lg-2 col-xs-6"><%= note.created_at.strftime('%d %b %Y at %H:%M:%S') %></div>

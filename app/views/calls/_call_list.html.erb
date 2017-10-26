@@ -43,11 +43,14 @@
 <% @calls.each do |call| %>
 <hr>
 <div class="row">
-    <div class="col-lg-1 col-xs-1 text-center"><%= call.id %></div>
+    <div class="col-lg-1 col-xs-1 text-center">
+      <span class="badge"><%= call.id %></span>
+    </div>
     <div class="col-lg-2 col-xs-10">
         <%= link_to call.description.truncate(50), '#',
-    data: {toggle: "modal", target: "#callInfo-#{call.id}"} %></div>
-
+    data: {toggle: "modal", target: "#callInfo-#{call.id}"} %>
+    <br><br>
+    </div>
     <div class="col-lg-2 col-xs-6">
         <% if call.call_datetime.blank? %>
         <span style="color: red;">Date not specified</span>
@@ -56,13 +59,19 @@
         <% end %>
     </div>
     <div class="col-lg-2 col-xs-6">
-        <%= link_to call.opportunity.name, opportunity_path(call.opportunity) %>
-        <br>
-        <small><%= call.opportunity.business_type %></small>
+      <small><%= call.opportunity.business_type %></small><br>
+      <%= link_to call.opportunity.name, opportunity_path(call.opportunity) %>
+      <br><br>
     </div>
-    <div class="col-lg-2 col-xs-6"><%= link_to call.opportunity.account.account_name,
-account_path(call.opportunity.account) %></div>
-    <div class="col-lg-1 col-xs-6"><%= call.created_at.strftime('%d %b %Y at %H:%M:%S') %></div>
+    <div class="col-lg-2 col-xs-6">
+      <small>Account</small><br>
+      <%= link_to call.opportunity.account.account_name,
+      account_path(call.opportunity.account) %>
+    </div>
+    <div class="col-lg-1 col-xs-6">
+      <%= call.created_at.strftime('%d %b %Y at %H:%M:%S') %>
+      <br><br><br>
+    </div>
     <div class="col-lg-2 col-xs-2 text-center">
         <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
             <i class="caret"></i>

@@ -41,22 +41,31 @@
 <% @events.each do |event| %>
 <hr>
 <div class="row">
-    <div class="col-lg-1 col-xs-1 text-center"><%= event.id %></div>
+    <div class="col-lg-1 col-xs-1 text-center">
+      <span class="badge"><%= event.id %></span>
+    </div>
     <div class="col-lg-2 col-xs-10">
     <%= link_to event.description.truncate(50),'#',
-    data: {toggle: "modal", target: "#eventInfo-#{event.id}"} %></div>
+    data: {toggle: "modal", target: "#eventInfo-#{event.id}"} %>
+    <br><br>
+    </div>
     <div class="col-lg-2 col-xs-6">
         <%= render 'events/calc_date', event: event %>
     </div>
     <div class="col-lg-2 col-xs-6">
+      <small><%= event.opportunity.business_type %></small><br>
       <%= link_to event.opportunity.name, opportunity_path(event.opportunity) %>
-      <br>
-      <%= event.opportunity.business_type %>
-      <br><br>
+      <br><br><br>
     </div>
-    <div class="col-lg-2 col-xs-6"><%= link_to event.opportunity.account.account_name,
-account_path(event.opportunity.account) %></div>
-    <div class="col-lg-1 col-xs-6"><%= event.created_at.strftime('%d %b %Y at %H:%M:%S') %></div>
+    <div class="col-lg-2 col-xs-6">
+      <small>Account</small><br>
+      <%= link_to event.opportunity.account.account_name,
+      account_path(event.opportunity.account) %>
+    </div>
+    <div class="col-lg-1 col-xs-6">
+      <%= event.created_at.strftime('%d %b %Y at %H:%M:%S') %>
+      <br><br><br>
+    </div>
     <div class="col-lg-2 col-xs-2 text-center">
       <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
         <i class="caret"></i>

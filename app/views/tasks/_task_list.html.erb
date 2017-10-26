@@ -12,7 +12,7 @@
     <div class="col-lg-1 col-xs-1 text-center">
         <strong>ID</strong>
     </div>
-    <div class="col-lg-10 col-xs-6">
+    <div class="col-lg-2 col-xs-10">
         <strong>Description</strong>
     </div>
     <div class="col-lg-2 col-xs-6">
@@ -43,23 +43,31 @@ Create task through <%= link_to 'opportunity', opportunities_path %>.
 <% @tasks.each do |task| %>
 <hr>
 <div class="row">
-    <div class="col-lg-1 col-xs-1 text-center"><%= task.id %></div>
+    <div class="col-lg-1 col-xs-1 text-center">
+      <span class="badge"><%= task.id %></span>
+    </div>
     <div class="col-lg-2 col-xs-10">
       <%= link_to task.description.truncate(50), '#',
       data: {toggle: "modal", target: "#taskInfo-#{task.id}"} %>
+      <br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
         <%= render 'tasks/calc_date', task: task %>
     </div>
     <div class="col-lg-2 col-xs-6">
+      <small><%= task.opportunity.business_type %></small><br>
       <%= link_to task.opportunity.name, opportunity_path(task.opportunity) %>
-      <br>
-      <small><%= task.opportunity.business_type %></small>
-      <br><br>
+      <br><br><br>
     </div>
-    <div class="col-lg-2 col-xs-6"><%= link_to task.opportunity.account.account_name,
-    account_path(task.opportunity.account) %></div>
-    <div class="col-lg-1 col-xs-6"><%= task.created_at.strftime('%d %b %Y at %H:%M:%S') %></div>
+    <div class="col-lg-2 col-xs-6">
+      <small>Account</small><br>
+      <%= link_to task.opportunity.account.account_name,
+      account_path(task.opportunity.account) %>
+    </div>
+    <div class="col-lg-1 col-xs-6">
+      <%= task.created_at.strftime('%d %b %Y at %H:%M:%S') %>
+      <br><br><br>
+    </div>
     <div class="col-lg-2 col-xs-2 text-center">
       <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
         <i class="caret"></i>

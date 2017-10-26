@@ -75,7 +75,7 @@
             Not specified
         </span>
     <% else %>
-        <%= contact.phone %>
+        <%= link_to contact.phone, "tel:#{contact.phone}" %>
         <% end %>
     </div>
     <div class="col-lg-2 col-xs-4">

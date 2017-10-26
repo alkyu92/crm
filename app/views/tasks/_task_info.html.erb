@@ -43,6 +43,7 @@
                         <h5>
                             <small>Task belongs to</small>
                         </h5>
+                        <small><%= task.opportunity.business_type %></small><br>
                         <%= link_to task.opportunity.name,
                             opportunity_path(task.opportunity, anchor: "task-taskInfo-#{task.id}") %>
                     </div>

@@ -22,7 +22,6 @@
                         <%= image_tag(contact.profile_pic.url(:medium),
                           class: "img-responsive img-center")%>
                         <% end %>
-
                     </div>
                     <div class="col-lg-5">
                         <small>Name</small>
@@ -96,23 +95,20 @@
                     <div class="col-lg-2"></div>
                     <div class="col-lg-10">
                         <hr>
-                          <h5>
-                        <small>Association</small>
-                      </h5>
+                        <h5><small>Association</small></h5>
                         <% if contact.relationships.blank? %>
                         No association found
                     <% else %>
                         <% ctct = contact.relationships.includes(:contactable) %>
                         <% contactable_acc = ctct.where(contactable_type: "Account") %>
                         <% unless contactable_acc.blank? %>
-                        <h5>
-                        <small>Account</small>
-                      </h5>
+                        <h5><small>Account</small></h5>
                         <div class="row">
                             <% contactable_acc.each do |rl| %>
                             <div class="col-lg-4">
                                 <%= link_to rl.contactable.account_name,
-                          account_path(rl.contactable, anchor: "relatedContacts-contactInfo-#{rl.contact.id}") %>
+                          account_path(rl.contactable,
+                          anchor: "relatedContacts-contactInfo-#{rl.contact.id}") %>
                             </div>
                             <% end %>
                         </div>
@@ -121,16 +117,14 @@
 
                         <% contactable_op = ctct.where(contactable_type: "Opportunity")%>
                         <% unless contactable_op.blank? %>
-                        <h5>
-                        <small>Opportunity / Case</small>
-                      </h5>
+                        <h5><small>Opportunity / Case</small></h5>
                         <div class="row">
                             <% contactable_op.each do |rl| %>
                             <div class="col-lg-4">
-                                <%= link_to rl.contactable.name,
-                        opportunity_path(rl.contactable, anchor: "relatedContacts-contactInfo-#{rl.contact.id}") %>
-                        <br>
-                        <small><%= rl.contactable.business_type %></small>
+                              <small><%= rl.contactable.business_type %></small><br>
+                              <%= link_to rl.contactable.name,
+                              opportunity_path(rl.contactable,
+                              anchor: "relatedContacts-contactInfo-#{rl.contact.id}") %>
                             </div>
                             <% end %>
                         </div>

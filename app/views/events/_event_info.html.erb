@@ -11,22 +11,7 @@
                 </h5>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h5>
-                            <small>Event belongs to</small>
-                        </h5>
-                        <%= link_to event.opportunity.name,
-                        opportunity_path(event.opportunity, anchor: "event-eventInfo-#{event.id}") %>
-                    </div>
-                    <div class="col-lg-6">
-                        <h5>
-                            <small>Created at</small>
-                        </h5>
-                        <%= event.created_at.strftime('%d %b %Y at %H:%M:%S') %>
-                    </div>
-                </div>
-                <hr>
+
                 <div class="row">
                     <div class="col-lg-6">
                         <h5>
@@ -48,6 +33,23 @@
                         </span>
                         <% end %>
 
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5>
+                            <small>Event belongs to</small>
+                        </h5>
+                        <small><%= event.opportunity.business_type %></small><br>
+                        <%= link_to event.opportunity.name,
+                        opportunity_path(event.opportunity, anchor: "event-eventInfo-#{event.id}") %>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5>
+                            <small>Created at</small>
+                        </h5>
+                        <%= event.created_at.strftime('%d %b %Y at %H:%M:%S') %>
                     </div>
                 </div>
                 <br>

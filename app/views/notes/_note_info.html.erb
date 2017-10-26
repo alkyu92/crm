@@ -22,22 +22,26 @@
               </h5>
               <%= simple_format h(note.description) %>
               <hr>
+
                 <div class="row">
                     <div class="col-lg-6">
                         <h5>
                             <small>Belongs to</small>
                         </h5>
                         <% if note.info_type == "Opportunity" %>
+
+                        <small><%= note.info.business_type %></small><br>
                         <%= link_to note.info.name,
                         opportunity_path(note.info, anchor: "relatedNotes-noteInfo-#{note.id}") %>
-                        <br>
-                        <small><%= note.info.business_type %></small>
+
                         <% elsif note.info_type == "Account" %>
+                        
+                        <small>Account</small><br>
                         <%= link_to note.info.account_name,
                         account_path(note.info, anchor: "relatedNotes-noteInfo-#{note.id}") %>
-                        <br>
-                        <small>Account</small>
+
                         <% end %>
+                        <br><br>
                     </div>
                     <div class="col-lg-6">
                       <h5>
@@ -53,6 +57,7 @@
                         <small>Created at</small>
                     </h5>
                     <%= note.created_at.strftime('%d %b %Y at %H:%M:%S') %>
+                    <br><br>
                   </div>
                   <div class="col-lg-6">
                     <h5>
