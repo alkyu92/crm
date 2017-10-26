@@ -9,6 +9,7 @@
             <%= link_to @opportunity.account.account_name, account_path(@opportunity.account) %>
             <% end %>
         </h4>
+        <br>
     </div>
     <div class="col-lg-2">
         <small>Amount</small>
@@ -20,6 +21,7 @@
             RM <%= sprintf('%.2f' % @opportunity.amount) %>
             <% end %>
         </h4>
+        <br>
     </div>
 
     <div class="col-lg-2">
@@ -45,8 +47,8 @@
 
             <% end %>
           <% end %>
-
         </h4>
+        <br>
     </div>
 
     <div class="col-lg-2">
@@ -69,6 +71,7 @@
             <span style="color: red">Status not specified</span>
             <% end %>
         </h4>
+        <br>
     </div>
 
     <% if @opportunity.status == "Closed-Won" ||
@@ -88,6 +91,7 @@
             <%= @opportunity.close_date.strftime('%d %b %Y') %>
             <% end %>
         </h4>
+        <br>
     </div>
     <% end %>
 

@@ -21,7 +21,7 @@ No tasks found.
             <div class="col-lg-2">
                 <strong>Status</strong>
             </div>
-            <div class="col-lg-2 text-center">
+            <div class="col-lg-2">
                 <strong>Action</strong>
             </div>
         </div>
@@ -33,6 +33,7 @@ No tasks found.
             <div class="col-lg-5">
                 <%= link_to task.description.truncate(50), '#',
                 data: {toggle: "modal", target: "#taskInfo-#{task.id}"} %>
+                <br><br>
             </div>
             <div class="col-lg-3">
                 <%= render 'tasks/calc_date', task: task %>
@@ -43,8 +44,9 @@ No tasks found.
             <% else %>
                 <span style="color: green;">Completed</span>
                 <% end %>
+                <br><br>
             </div>
-            <div class="col-lg-2 text-center">
+            <div class="col-lg-2">
                 <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
                     <i class="caret"></i>
                 </a>
@@ -62,3 +64,4 @@ No tasks found.
   <%= paginate @optask, param_name: :task_page, remote: true %>
 </div>
 <% end %>
+<hr>

@@ -19,7 +19,7 @@ No call logs found.
             <div class="col-lg-3">
                 <strong>Call Date Time</strong>
             </div>
-            <div class="col-lg-2 text-center">
+            <div class="col-lg-2">
                 <strong>Action</strong>
             </div>
         </div>
@@ -31,6 +31,7 @@ No call logs found.
             <div class="col-lg-5">
                 <%= link_to call.description.truncate(50), '#',
                 data: {toggle: "modal", target: "#callInfo-#{call.id}"} %>
+                <br><br>
             </div>
             <div class="col-lg-2">
                 <% if call.duration.blank? %>
@@ -44,10 +45,11 @@ No call logs found.
                 <% if call.call_datetime.blank? %>
                 <span style="color: red;">Date not specified</span>
             <% else %>
-                <%= call.call_datetime.strftime('%d %b %Y %H:%M:%S') %>
+                <%= call.call_datetime.strftime('%d %b %Y at %H:%M:%S') %>
                 <% end %>
+                <br><br>
             </div>
-            <div class="col-lg-2 text-center">
+            <div class="col-lg-2">
                 <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
                     <i class="caret"></i>
                 </a>
@@ -66,3 +68,4 @@ No call logs found.
   <%= paginate @opcall, param_name: :call_page, remote: true %>
 </div>
 <% end %>
+<hr>

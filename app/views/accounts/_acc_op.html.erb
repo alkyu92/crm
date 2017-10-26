@@ -18,6 +18,7 @@ Opportunities not found.
                   <% end %>
                   Name
                 </strong>
+                <br><br>
             </div>
             <div class="col-lg-2">
               <strong>Type</strong>
@@ -31,6 +32,7 @@ Opportunities not found.
                       <li><%= link_to 'Case', "?type=Case" %></li>
                   </ul>
               </div>
+              <br>
             </div>
             <div class="col-lg-2">
                 <strong>Status</strong>
@@ -58,6 +60,7 @@ Opportunities not found.
                         <li><%= link_to 'Solved', "?status=Solved&type=Case" %></li>
                     </ul>
                 </div>
+                <br>
             </div>
             <div class="col-lg-4">
                 <strong>Created at DateTime</strong>
@@ -70,6 +73,7 @@ Opportunities not found.
         <div class="row">
             <div class="col-lg-4">
                 <%= link_to opportunity.name, opportunity_path(opportunity) %>
+                <br><br>
             </div>
             <div class="col-lg-2">
               <%= opportunity.business_type %>
@@ -94,3 +98,4 @@ Opportunities not found.
     </div>
 </ul>
 <% end %>
+<hr>

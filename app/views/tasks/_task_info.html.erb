@@ -22,7 +22,7 @@
                         <% elsif task.complete == true %>
                         <span style="color: green;">Completed</span>
                         <% end %>
-
+                        <br><br>
                     </div>
                     <div class="col-lg-6">
                         <h5>
@@ -46,6 +46,7 @@
                         <small><%= task.opportunity.business_type %></small><br>
                         <%= link_to task.opportunity.name,
                             opportunity_path(task.opportunity, anchor: "task-taskInfo-#{task.id}") %>
+                            <br><br>
                     </div>
                     <div class="col-lg-6">
                       <h5>
@@ -61,6 +62,7 @@
                       <small>Created at</small>
                   </h5>
                   <%= task.created_at.strftime('%d %b %Y at %H:%M:%S')%>
+                  <br><br>
                 </div>
                 <div class="col-lg-6">
                   <h5>

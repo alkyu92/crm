@@ -32,18 +32,21 @@
     </div>
     <div class="col-lg-2 col-xs-10">
         <strong>Name</strong>
+        <br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
         <strong>Email</strong>
     </div>
     <div class="col-lg-2 col-xs-6">
         <strong>Phone</strong>
+        <br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
         <strong>Industry</strong>
     </div>
     <div class="col-lg-1 col-xs-6">
         <strong>Type</strong>
+        <br><br>
     </div>
     <div class="col-lg-2 col-xs-2 text-center">
         <strong>Action</strong>
@@ -70,6 +73,7 @@
     <% else %>
         <%= link_to account.account_name, account_path(account) %>
         <% end %>
+        <br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
       <% if account.email.blank? %>
@@ -84,6 +88,7 @@
     <% else %>
         <%= account.phone %>
         <% end %>
+        <br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
         <% if account.industry.blank? %>
@@ -98,6 +103,7 @@
     <% else %>
         <%= account.account_type %>
         <% end %>
+        <br><br>
     </div>
     <div class="col-lg-2 col-xs-2 text-center">
         <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">

@@ -19,7 +19,7 @@ No events found.
             <div class="col-lg-2">
                 <strong>Status</strong>
             </div>
-            <div class="col-lg-2 text-center">
+            <div class="col-lg-2">
                 <strong>Action</strong>
             </div>
         </div>
@@ -31,6 +31,7 @@ No events found.
         <div class="col-lg-5">
             <%= link_to event.description.truncate(50), '#',
             data: {toggle: "modal", target: "#eventInfo-#{event.id}"} %>
+            <br><br>
         </div>
         <div class="col-lg-3">
             <%= render 'events/calc_date', event: event %>
@@ -41,8 +42,9 @@ No events found.
         <% else %>
             <span style="color: green;">Will Attend</span>
             <% end %>
+            <br><br>
         </div>
-        <div class="col-lg-2 text-center">
+        <div class="col-lg-2">
             <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
                 <i class="caret"></i>
             </a>
@@ -60,3 +62,4 @@ No events found.
   <%= paginate @opevent, param_name: :event_page, remote: true %>
 </div>
 <% end %>
+<hr>

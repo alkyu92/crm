@@ -18,6 +18,7 @@
                             <small>Event Date</small>
                         </h5>
                         <%= render 'events/calc_date', event: event %>
+                        <br><br>
                     </div>
                     <div class="col-lg-6">
                         <h5>
@@ -44,6 +45,7 @@
                         <small><%= event.opportunity.business_type %></small><br>
                         <%= link_to event.opportunity.name,
                         opportunity_path(event.opportunity, anchor: "event-eventInfo-#{event.id}") %>
+                        <br><br>
                     </div>
                     <div class="col-lg-6">
                         <h5>

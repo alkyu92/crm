@@ -37,7 +37,7 @@
     <div class="col-lg-1 col-xs-1 text-center">
         <strong>ID</strong>
     </div>
-    <div class="col-lg-2 col-xs-6">
+    <div class="col-lg-2 col-xs-10">
         <strong>
           <% if params[:type] == "Opportunity" %>
           Opportunity
@@ -48,12 +48,14 @@
           <% end %>
           Name
         </strong>
+        <br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
         <strong>Account Name</strong>
     </div>
     <div class="col-lg-1 col-xs-6">
         <strong>Current Stage</strong>
+        <br><br>
     </div>
     <div class="col-lg-1 col-xs-6">
         <strong>Type</strong>
@@ -95,6 +97,7 @@
                 <li><%= link_to 'Solved', "?status=Solved&type=Case" %></li>
             </ul>
         </div>
+        <br>
     </div>
     <div class="col-lg-2 col-xs-6">
         <strong>
@@ -137,6 +140,7 @@
     <% else %>
         <%= link_to opportunity.name, opportunity_path(opportunity) %>
         <% end %>
+        <br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
         <!-- Account Name -->
@@ -163,6 +167,7 @@
         <% end %>
         <% end %>
         <% end %>
+        <br><br>
     </div>
     <div class="col-lg-1 col-xs-6">
         <%= opportunity.business_type %>
@@ -181,10 +186,11 @@
         <% elsif opportunity.status == "Solved" %>
         <span style="color: green;">Solved</span>
         <% end %>
+        <br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
         <% if opportunity.status == "Open" || opportunity.status == "In Progress" %>
-        Not available
+        Date not available
         <% elsif opportunity.status == "Closed-Won" ||
         opportunity.status == "Closed-Loss" ||
         opportunity.status == "Solved" ||
