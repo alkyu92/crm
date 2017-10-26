@@ -1,25 +1,25 @@
 <% unless opportunities_block.blank? %>
 <strong><%= opportunities_block.first[3] %></strong>
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-4 col-xs-4">
         <small>Opportunity Name</small>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-4 col-xs-4">
         <small>Belongs to Account Name</small>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-4 col-xs-4">
         <small>Created at DateTime</small>
     </div>
 </div>
 <% opportunities_block.each do |opaprv| %>
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-4 col-xs-4">
         <%= link_to opaprv[1], opportunity_path(opaprv[0]) %>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-4 col-xs-4">
         <%= link_to opaprv[4], account_path(opaprv[5]) %>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-4 col-xs-4">
         <%= opaprv[2].strftime('%d %b %Y %H:%M:%S')%>
     </div>
 </div>

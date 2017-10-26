@@ -6,19 +6,23 @@ No tasks found.
 <% else %>
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <small>Activities</small>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <small>Created at DateTime</small>
     </div>
 </div>
 
 <% @tasks.each do |task| %>
 <div class="row">
-    <div class="col-lg-6"><%= link_to task[1].truncate(50),
-  opportunity_path(task[3], anchor: "task-#{task[0]}") %></div>
-    <div class="col-lg-6"><%= task[2].strftime('%d %b %Y  %H:%M:%S')%></div>
+    <div class="col-lg-6 col-xs-6">
+      <%= link_to task[1].truncate(50),
+      opportunity_path(task[3], anchor: "task-#{task[0]}") %>
+    </div>
+    <div class="col-lg-6 col-xs-6">
+      <%= task[2].strftime('%d %b %Y  %H:%M:%S')%>
+    </div>
 </div>
 <% end %>
 
@@ -28,24 +32,24 @@ No tasks found.
 <h4><strong>Urgent Tasks</strong></h4>
 <hr>
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-4 col-xs-6">
         <small>Activities</small>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-xs-6">
         <small>Due DateTime</small>
     </div>
 </div>
 
 <% @urgent_tasks.each do |urtask| %>
 <div class="row">
-    <div class="col-lg-4"><%= link_to urtask[1].truncate(50),
+    <div class="col-lg-4 col-xs-6"><%= link_to urtask[1].truncate(50),
   opportunity_path(urtask[3], anchor: "task-taskInfo-#{urtask[0]}") %></div>
     <% if urtask[2].blank? %>
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-xs-6">
         <span style="color: red;">Not specified</span>
     </div>
 <% else %>
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-xs-6">
       <% if urtask[2].strftime('%d %b %Y') == Date.today.strftime('%d %b %Y') %>
       <%= urtask[2].strftime('%d %b %Y %H:%M:%S') %>
       <span style="color: orange;">

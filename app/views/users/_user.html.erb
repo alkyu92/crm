@@ -1,13 +1,13 @@
 <hr>
 <div class="row">
-    <div class="col-lg-1 text-center">
+    <div class="col-lg-1 col-xs-1 text-center">
         <%= user.id %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-10">
         <!-- Name -->
         <%= link_to user.name, user_path(user) %>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-1 col-xs-6">
       <% if user.title.blank? %>
       <span style="color: red;">
           Position not specified
@@ -16,7 +16,7 @@
       <%= user.title %>
       <% end %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
       <% if user.department.blank? %>
       <span style="color: red;">
           Department not specified
@@ -25,7 +25,7 @@
       <%= user.department %>
       <% end %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <!-- Phone -->
         <% if user.phone.blank? %>
         <span style="color: red;">
@@ -35,7 +35,7 @@
         <%= user.phone %>
         <% end %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <!-- Email -->
         <% if user.email.blank? %>
         <span style="color: red;">
@@ -45,7 +45,7 @@
         <%= user.email %>
         <% end %>
     </div>
-    <div class="col-lg-2 text-center">
+    <div class="col-lg-2 col-xs-2 text-center">
         <div class="dropdown">
             <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
                 <i class="caret"></i>

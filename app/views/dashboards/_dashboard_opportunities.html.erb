@@ -5,19 +5,19 @@
 No opportunities found.
 <% else %>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <small>Opportunity Name</small>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <small>Created at DateTime</small>
     </div>
 </div>
 <% @opportunities.each do |op| %>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <%= link_to op[1], opportunity_path(op[0]) %>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <%= op[2].strftime('%d %b %Y %H:%M:%S')%>
     </div>
 </div>

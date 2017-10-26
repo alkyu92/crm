@@ -6,20 +6,20 @@ No call logs found.
 <%= link_to 'Create call log on opportunity', opportunities_path %>.
 <% else %>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <strong>Description</strong>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <strong>DateTime</strong>
     </div>
 </div>
 <% @calls.each do |call| %>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <%= link_to call.description.truncate(25),
         opportunity_path(call.opportunity, anchor: "call-#{call.id}") %>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
       <% if call.call_datetime.blank? %>
       <span style="color: red;">Date not specified</span>
       <% else %>

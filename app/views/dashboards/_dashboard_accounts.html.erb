@@ -5,19 +5,19 @@
 No accounts found.
 <% else %>
 <div class="row">
-  <div class="col-lg-6">
+  <div class="col-lg-6 col-xs-6">
     <small>Account Name</small>
   </div>
-  <div class="col-lg-6">
+  <div class="col-lg-6 col-xs-6">
     <small>Created at DateTime</small>
   </div>
 </div>
 <% @accounts.each do |acc| %>
 <div class="row">
-  <div class="col-lg-6">
+  <div class="col-lg-6 col-xs-6">
     <%= link_to acc[1], account_path(acc[0]) %>
   </div>
-  <div class="col-lg-6">
+  <div class="col-lg-6 col-xs-6">
     <%= acc[2].strftime('%d %b %Y %H:%M:%S')%>
   </div>
 </div>

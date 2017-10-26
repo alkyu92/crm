@@ -6,20 +6,20 @@ No events found.
 <% else %>
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <small>Events</small>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <small>Event DateTime</small>
     </div>
 </div>
 
 <% @events.each do |event| %>
 <div class="row">
-    <div class="col-lg-6"><%= link_to event[1].truncate(50),
+    <div class="col-lg-6 col-xs-6"><%= link_to event[1].truncate(50),
   opportunity_path(event[3], anchor: "event-#{event[0]}") %></div>
 
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <% if event[2].blank? %>
         <span style="color: red;">Not specified</span>
     <% else %>
@@ -36,24 +36,24 @@ No events found.
 <h4><strong>Urgent Events</strong></h4>
 <hr>
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-4 col-xs-6">
         <small>Events</small>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-xs-6">
         <small>Event DateTime</small>
     </div>
 </div>
 
 <% @urgent_events.each do |urevent| %>
 <div class="row">
-    <div class="col-lg-4"><%= link_to urevent[1].truncate(25),
+    <div class="col-lg-4 col-xs-6"><%= link_to urevent[1].truncate(25),
   opportunity_path(urevent[3], anchor: "event-eventInfo-#{urevent[0]}") %></div>
     <% if urevent[2].blank? %>
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-xs-6">
         <span style="color: red;">Not specified</span>
     </div>
 <% else %>
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-xs-6">
         <% if urevent[2].strftime('%d %b %Y') == Date.today.strftime('%d %b %Y') %>
         <%= urevent[2].strftime('%d %b %Y %H:%M:%S') %>
         <span style="color: orange;">

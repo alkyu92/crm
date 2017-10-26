@@ -12,8 +12,8 @@
       </div>
       </div>
     </div>
-    <div class="col-lg-2" style="padding-top: 25px;">
-        <%= link_to 'New Account', '#', class: "btn btn-default",
+    <div class="col-lg-2 col-xs-12" style="padding-top: 25px;">
+        <%= link_to 'New Account', '#', class: "btn btn-default form-control",
         data: {toggle: "modal", target: "#accountModalForm"} %>
     </div>
 </div>
@@ -27,25 +27,25 @@
 <hr>
 
 <div class="row">
-    <div class="col-lg-1 text-center">
+    <div class="col-lg-1 col-xs-1 text-center">
         <strong>ID</strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-10">
         <strong>Name</strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <strong>Email</strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <strong>Phone</strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <strong>Industry</strong>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-1 col-xs-6">
         <strong>Type</strong>
     </div>
-    <div class="col-lg-2 text-center">
+    <div class="col-lg-2 col-xs-2 text-center">
         <strong>Action</strong>
     </div>
 </div>
@@ -61,45 +61,45 @@
 <% @accounts.each do |account| %>
 <hr>
 <div class="row">
-    <div class="col-lg-1 text-center">
+    <div class="col-lg-1 col-xs-1 text-center">
         <%= account.id %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-10">
         <% if account.account_name.blank? %>
         <span style="color: red;">Account name not specified</span>
     <% else %>
         <%= link_to account.account_name, account_path(account) %>
         <% end %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
       <% if account.email.blank? %>
       <span style="color: red;">Email not specified</span>
   <% else %>
       <%= account.email %>
       <% end %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <% if account.phone.blank? %>
         <span style="color: red;">Not specified</span>
     <% else %>
         <%= account.phone %>
         <% end %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <% if account.industry.blank? %>
         <span style="color: red;">Industry not specified</span>
     <% else %>
         <%= account.industry %>
         <% end %>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-1 col-xs-6">
         <% if account.account_type.blank? %>
         <span style="color: red;">Account type not specified</span>
     <% else %>
         <%= account.account_type %>
         <% end %>
     </div>
-    <div class="col-lg-2 text-center">
+    <div class="col-lg-2 col-xs-2 text-center">
         <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
             <i class="caret"></i>
         </a>

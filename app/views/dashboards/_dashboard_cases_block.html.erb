@@ -1,19 +1,19 @@
 <% unless cases_block.blank? %>
 <strong><%= cases_block.first[3] %></strong>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <small>Case Name</small>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <small>Created at DateTime</small>
     </div>
 </div>
 <% cases_block.each do |cs| %>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <%= link_to cs[1], opportunity_path(cs[0]) %>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <%= cs[2].strftime('%d %b %Y %H:%M:%S')%>
     </div>
 </div>

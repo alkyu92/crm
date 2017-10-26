@@ -5,27 +5,27 @@
     No Closed-Won opportunities found.
     <% else %>
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-lg-4 col-xs-4">
         <small>Account Name</small>
       </div>
-      <div class="col-lg-4">
+      <div class="col-lg-4 col-xs-4">
         <small>Opportunity Name</small>
       </div>
-      <div class="col-lg-4">
+      <div class="col-lg-4 col-xs-4">
         <small>Amount in RM</small>
       </div>
     </div>
       <% @opwon.take(6).each do |won| %>
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-xs-4">
           <%#= link_to won.account.account_name, account_path(won.account) %>
           <%= link_to won[0], account_path(won[1]) %>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-xs-4">
           <%#= link_to won.name, opportunity_path(won) %>
           <%= link_to won[2], opportunity_path(won[3]) %>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-xs-4">
           <%= sprintf('%.2f' % won[4]) %>
         </div>
       </div>

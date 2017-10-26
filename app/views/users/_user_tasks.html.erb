@@ -6,21 +6,21 @@ No tasks found.
 <%= link_to 'Create task on opportunity', opportunities_path %>.
 <% else %>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <strong>Description</strong>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <strong>Due Date</strong>
     </div>
 </div>
 
 <% @tasks.each do |task| %>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <%= link_to task.description.truncate(25),
         opportunity_path(task.opportunity, anchor: "task-#{task.id}") %>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <% if task.due_date.blank? %>
         <span style="color: red;">Date not specified</span>
     <% else %>

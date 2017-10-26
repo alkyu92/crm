@@ -10,22 +10,22 @@
 
 <div class="row">
     <div class="col-lg-1"></div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-4">
         <strong>Name</strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-4">
         <strong>Email</strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-4">
         <strong>Phone</strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-4">
         <strong>Position</strong>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-1 col-xs-4">
         <strong>Department</strong>
     </div>
-    <div class="col-lg-2 text-center">
+    <div class="col-lg-2 col-xs-4 text-center">
         <strong>Action</strong>
     </div>
 </div>
@@ -43,14 +43,14 @@
 <% @contacts.each do |contact| %>
 <hr>
 <div class="row">
-    <div class="col-lg-1 text-center">
+    <div class="col-lg-1 col-xs-4 text-center">
         <% if contact.profile_pic.blank? %>
         <%= letter_avatar_tag(contact.name, 43) %>
     <% else %>
         <%= image_tag(contact.profile_pic.url(:small)) %>
         <% end %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-4">
         <% if contact.name.blank? %>
         <span style="color: red;">
             Not specified
@@ -60,7 +60,7 @@
           data: {toggle: "modal", target: "#contactInfo-#{contact.id}"} %>
         <% end %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-4">
         <% if contact.email.blank? %>
         <span style="color: red;">
             Not specified
@@ -69,7 +69,7 @@
         <%= contact.email %>
         <% end %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-4">
         <% if contact.phone.blank? %>
         <span style="color: red;">
             Not specified
@@ -78,7 +78,7 @@
         <%= contact.phone %>
         <% end %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-4">
         <% if contact.title.blank? %>
         <span style="color: red;">
             Not specified
@@ -87,7 +87,7 @@
         <%= contact.title %>
         <% end %>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-1 col-xs-4">
         <% if contact.department.blank? %>
         <span style="color: red;">
             Not specified
@@ -96,7 +96,7 @@
         <%= contact.department %>
         <% end %>
     </div>
-    <div class="col-lg-2 text-center">
+    <div class="col-lg-2 col-xs-4 text-center">
         <a href="#" class="dropdown btn btn-default" data-toggle="dropdown">
             <i class="caret"></i>
         </a>

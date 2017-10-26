@@ -9,16 +9,16 @@
 <hr>
 
 <div class="row">
-    <div class="col-lg-1 text-center">
+    <div class="col-lg-1 col-xs-1 text-center">
         <strong>ID</strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-10">
         <strong>Title</strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <strong>Description</strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <strong>Belongs to</strong>
         <div class="dropdown">
             <%= link_to '#',data: {toggle: 'dropdown'}, class: 'dropdown-toggle' do %>
@@ -33,10 +33,10 @@
             </ul>
         </div>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <strong>Created At DateTime</strong>
     </div>
-    <div class="col-lg-2 text-center">
+    <div class="col-lg-2 col-xs-2 text-center">
         <strong>Action</strong>
     </div>
 </div>
@@ -56,14 +56,14 @@
 <% @notes.each do |note| %>
 <hr>
 <div class="row">
-    <div class="col-lg-1 text-center"><%= note.id %></div>
-    <div class="col-lg-2">
+    <div class="col-lg-1 col-xs-1 text-center"><%= note.id %></div>
+    <div class="col-lg-2 col-xs-10">
         <%= link_to note.title, '#', data: {toggle: "modal", target: "#noteInfo-#{note.id}"} %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <%= note.description.truncate(50) %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <% if note.info_type == "Opportunity" %>
         <%= link_to note.info.name, opportunity_path(note.info) %>
         <br>
@@ -73,10 +73,9 @@
         <br>
         <small>Account</small>
         <% end %>
-
     </div>
-    <div class="col-lg-2"><%= note.created_at.strftime('%d %b %Y at %H:%M:%S') %></div>
-    <div class="col-lg-2 text-center">
+    <div class="col-lg-2 col-xs-6"><%= note.created_at.strftime('%d %b %Y at %H:%M:%S') %></div>
+    <div class="col-lg-2 col-xs-2 text-center">
         <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
             <i class="caret"></i>
         </a>

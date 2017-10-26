@@ -6,20 +6,20 @@ No contacts found.
 <% else %>
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <small>Name</small>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
         <small>Created at Datetime</small>
     </div>
 </div>
 
 <% @contacts.each do |contact| %>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
       <%= link_to contact[0], '#' %>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-6">
       <%= contact[1].strftime('%d %b %Y %H:%M:%S') %>
     </div>
 </div>

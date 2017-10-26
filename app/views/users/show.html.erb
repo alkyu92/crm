@@ -2,7 +2,7 @@
 <div class="row">
 <div class="col-lg-3">
   <% if @user.avatar.blank? %>
-    <%= letter_avatar_tag(@user.name, 200, class: "img-responsive img-center") %>
+    <%= letter_avatar_tag(@user.name, 300, class: "img-responsive img-center") %>
   <% else %>
     <%= image_tag(@user.avatar.url(:medium), class: "img-responsive img-center") %>
   <% end %>

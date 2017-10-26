@@ -34,10 +34,10 @@
 <hr>
 
 <div class="row">
-    <div class="col-lg-1 text-center">
+    <div class="col-lg-1 col-xs-1 text-center">
         <strong>ID</strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <strong>
           <% if params[:type] == "Opportunity" %>
           Opportunity
@@ -49,13 +49,13 @@
           Name
         </strong>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <strong>Account Name</strong>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-1 col-xs-6">
         <strong>Current Stage</strong>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-1 col-xs-6">
         <strong>Type</strong>
         <div class="dropdown">
             <%= link_to '#',data: {toggle: 'dropdown'}, class: 'dropdown-toggle' do %>
@@ -69,7 +69,7 @@
             </ul>
         </div>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-1 col-xs-6">
         <strong>Status</strong>
         <div class="dropdown">
             <%= link_to '#',data: {toggle: 'dropdown'}, class: 'dropdown-toggle' do %>
@@ -96,7 +96,7 @@
             </ul>
         </div>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <strong>
           <% if params[:status] == "Approved" %>
           Approved
@@ -110,7 +110,7 @@
           Date
         </strong>
     </div>
-    <div class="col-lg-2 text-center">
+    <div class="col-lg-2 col-xs-2 text-center">
         <strong>Action</strong>
     </div>
 </div>
@@ -127,10 +127,10 @@
 <% @opportunities.each do |opportunity| %>
 <hr>
 <div class="row">
-    <div class="col-lg-1 text-center">
+    <div class="col-lg-1 col-xs-1 text-center">
         <%= opportunity.id %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-10">
         <!-- Opportunity Name -->
         <% if opportunity.name.blank? %>
         <span style="color: red;">Opportunity name not specified</span>
@@ -138,7 +138,7 @@
         <%= link_to opportunity.name, opportunity_path(opportunity) %>
         <% end %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <!-- Account Name -->
         <% if opportunity.account_id.blank? %>
         <span style="color: red;">Account not specified</span>
@@ -146,7 +146,7 @@
         <%= link_to opportunity.account.account_name, account_path(opportunity.account) %>
         <% end %>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-1 col-xs-6">
         <!-- Current Stage -->
         <% if opportunity.stages.blank? %>
         <span style="color: red;">Not specified</span>
@@ -164,10 +164,10 @@
         <% end %>
         <% end %>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-1 col-xs-6">
         <%= opportunity.business_type %>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-1 col-xs-6">
         <% if opportunity.status == "Open"%>
         Open
         <% elsif opportunity.status == "Closed-Won" %>
@@ -182,7 +182,7 @@
         <span style="color: green;">Solved</span>
         <% end %>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-xs-6">
         <% if opportunity.status == "Open" || opportunity.status == "In Progress" %>
         Not available
         <% elsif opportunity.status == "Closed-Won" ||
@@ -196,7 +196,7 @@
         <% end %>
         <% end %>
     </div>
-    <div class="col-lg-2 text-center">
+    <div class="col-lg-2 col-xs-2 text-center">
         <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
             <i class="caret"></i>
         </a>
