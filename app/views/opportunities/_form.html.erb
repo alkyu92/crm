@@ -12,7 +12,7 @@
             <% if @accounts.blank? %>
             <div class="modal-body">
                 <div class="text-center">
-                    <h3>Create account first before create opportunity / case</h3>
+                    <h3>Create account first before create activity</h3>
                 </div>
             </div>
             <div class="modal-footer">
@@ -24,22 +24,23 @@
                 <%= simple_form_for @opportunity, html: {multipart: true}, remote: true do |f| %>
                 <div class="row">
                     <div class="col-lg-4">
-                        <h4>Opportunity / Case Details</h4>
+                        <h4>Activity Details</h4>
                         <br>
                         <%= f.label "Assign user as owner" %>
                         <%= f.input :user_id, label: false, collection: User.all,
                         include_blank: "Choose owner" %>
-                        <%= f.input :name, label: "Opportunity / Case Name",
-                        placeholder: "Opportunity name", autofocus: true %>
+                        <%= f.input :name, label: "Activity Name",
+                        placeholder: "Activity name", autofocus: true %>
 
                         <%= f.input :business_type, label: "Type",
-                        collection: ["Opportunity", "Case"], include_blank: false %>
+                        collection: ["Opportunity", "Case", "Marketing"], include_blank: false %>
 
                         <div class="form-group select optional opportunity_status required">
                           <abbr title="required">*</abbr>
                         <%= f.label "Status", class: "control-label select optional required" %>
                         <% opstatus = ["Open", "Approved", "Closed-Won", "Closed-Loss"] %>
                         <% casestatus = ["In Progress", "Solved"] %>
+                        <% mrktstatus = ["Preparation", "Happening Now", "Passed"] %>
                         <select name="opportunity[status]" id="opportunity_status" class="select form-control optional">
                           <% if @opportunity.status == "Open" ||
                             @opportunity.status == "Closed-Won" ||
@@ -49,15 +50,27 @@
                           <% elsif @opportunity.status == "In Progress" ||
                             @opportunity.status == "Solved" %>
                             <option id="optcase">
+                          <% elsif @opportunity.status == "Preparation" ||
+                            @opportunity.status == "Happening Now" ||
+                            @opportunity.status == "Passed" %>
+                            <option id="optmrkt">
                           <% end %>
-                            <%= @opportunity.status %></option>
+                              <%= @opportunity.status %>
+                            </option>
+
                             <% opstatus.each do |opstat| %>
                             <% next if opstat == @opportunity.status %>
                             <option id="optop" value="<%= opstat %>"><%= opstat %></option>
                             <% end %>
+
                             <% casestatus.each do |cstat| %>
                             <% next if cstat == @opportunity.status %>
                             <option id="optcase" value="<%= cstat %>"><%= cstat %></option>
+                            <% end %>
+
+                            <% mrktstatus.each do |mrktstat| %>
+                            <% next if mrktstat == @opportunity.status %>
+                            <option id="optmrkt" value="<%= mrktstat %>"><%= mrktstat%></option>
                             <% end %>
                         </select>
                         </div>

@@ -4,9 +4,7 @@
 <% if @subject.notes.blank? %>
 No notes found.
 <% else %>
-<div class="text-center">
-  <%= paginate @subject.notes.includes(:info, :user).page(params[:note_page]).per(10), param_name: :note_page, remote: true %>
-</div>
+
 <% @subject.notes.includes(:info, :user).order('created_at DESC').page(params[:note_page]).per(10).each do |note| %>
 <div class="col-lg-6 panel panel-body" id="relatedNotes-<%= note.id %>">
     <div class="dropdown pull-right">
