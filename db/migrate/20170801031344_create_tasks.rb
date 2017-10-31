@@ -5,7 +5,8 @@ class CreateTasks < ActiveRecord::Migration[5.0]
       t.datetime :due_date
       t.boolean :complete, default: false
 
-      t.references :opportunity, foreign_key: true
+      t.references :polytask, polymorphic: true, index: true
+
       t.references :user, foreign_key: true
       t.timestamps
     end

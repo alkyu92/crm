@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  get '/main', to: 'dashboards#main', as: :main
   resources :dashboards
 
   resources :opportunities do
@@ -65,8 +66,10 @@ Rails.application.routes.draw do
   end
 
   get '/notifications/:id', to: 'notifications#update_read_status', as: :update_read_status
+  get '/sales_index', to: 'dashboards#sales_index', as: :sales_index
+  get '/marketing_index', to: 'dashboards#marketing_index', as: :marketing_index
 
-  root 'dashboards#index'
+  root 'dashboards#main'
 
   get '/search', to: 'search#search'
   get "*path" => redirect("/")

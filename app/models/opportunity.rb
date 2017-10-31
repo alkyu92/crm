@@ -11,11 +11,11 @@ class Opportunity < ApplicationRecord
   has_many :timelines,  as: :activity,    dependent: :destroy
   has_many :notes,      as: :info,        dependent: :destroy
   has_many :documents,  as: :attchdoc,    dependent: :destroy
+  has_many :tasks,      as: :polytask,    dependent: :destroy
+  has_many :events,     as: :polyevent,   dependent: :destroy
+  has_many :calls,      as: :polycall,    dependent: :destroy
 
   has_many :stages, dependent: :destroy
-  has_many :tasks, dependent: :destroy
-  has_many :events, dependent: :destroy
-  has_many :calls, dependent: :destroy
 
   validates :name,:business_type, :status, presence: true
 

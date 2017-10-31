@@ -1,5 +1,5 @@
 class DashboardsController < ApplicationController
-  def index
+  def sales_index
     @opportunities = Opportunity.where(business_type: "Opportunity").order('created_at DESC').pluck(
     :id, :name, :created_at).take(6)
     @opportunities_open = Opportunity.joins(:account).where(
@@ -27,20 +27,25 @@ class DashboardsController < ApplicationController
 
     @accounts = Account.order('created_at DESC').pluck(:id, :account_name, :created_at).take(6)
 
-    @tasks = Task.joins(:opportunity).order('tasks.created_at DESC').pluck(
-    "tasks.id", :description, "tasks.created_at", "opportunities.id").take(6)
-    @urgent_tasks = Task.joins(:opportunity).order('due_date').where(
-    'due_date BETWEEN ? AND ?', 2.day.ago, 3.day.from_now).pluck(
-    "tasks.id", :description, :due_date, "opportunities.id").take(6)
-
-    @events = Event.joins(:opportunity).order('events.created_at DESC').pluck(
-    "events.id", :description, "events.created_at", "opportunities.id").take(6)
-    @urgent_events = Event.joins(:opportunity).order('event_date').where(
-    'event_date BETWEEN ? AND ?', 2.day.ago, 3.day.from_now).pluck(
-    "events.id", :description, :event_date, "opportunities.id").take(6)
-
-    @calls = Call.joins(:opportunity).order('calls.created_at DESC').pluck(
-    "calls.id", :description, :call_datetime, "opportunities.id").take(6)
+    # @tasks = Task.joins(:opportunity).order('tasks.created_at DESC').pluck(
+    # "tasks.id", :description, "tasks.created_at", "opportunities.id").take(6)
+    # @urgent_tasks = Task.joins(:opportunity).order('due_date').where(
+    # 'due_date BETWEEN ? AND ?', 2.day.ago, 3.day.from_now).pluck(
+    # "tasks.id", :description, :due_date, "opportunities.id").take(6)
+    #
+    # @events = Event.joins(:opportunity).order('events.created_at DESC').pluck(
+    # "events.id", :description, "events.created_at", "opportunities.id").take(6)
+    # @urgent_events = Event.joins(:opportunity).order('event_date').where(
+    # 'event_date BETWEEN ? AND ?', 2.day.ago, 3.day.from_now).pluck(
+    # "events.id", :description, :event_date, "opportunities.id").take(6)
+    #
+    # @calls = Call.joins(:opportunity).order('calls.created_at DESC').pluck(
+    # "calls.id", :description, :call_datetime, "opportunities.id").take(6)
+    @tasks = []
+    @urgent_tasks = []
+    @events = []
+    @urgent_events = []
+    @calls = []
 
     @contacts = Contact.order('created_at DESC').pluck(:name, :created_at).take(6)
 
@@ -90,6 +95,14 @@ class DashboardsController < ApplicationController
     end
     @acc_approved_hash = @acc_approved_hash.sort_by(&:last).reverse.take(6)
     gon.acc_approved_hash = @acc_approved_hash
+  end
+
+  def marketing_index
+
+  end
+
+  def main
+
   end
 
 end

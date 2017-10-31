@@ -43,12 +43,13 @@ ActiveRecord::Schema.define(version: 20170829043310) do
     t.text     "description"
     t.integer  "duration"
     t.datetime "call_datetime"
-    t.boolean  "complete",       default: false
-    t.integer  "opportunity_id"
+    t.boolean  "complete",      default: false
+    t.string   "polycall_type"
+    t.integer  "polycall_id"
     t.integer  "user_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.index ["opportunity_id"], name: "index_calls_on_opportunity_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["polycall_type", "polycall_id"], name: "index_calls_on_polycall_type_and_polycall_id"
     t.index ["user_id"], name: "index_calls_on_user_id"
   end
 
@@ -90,11 +91,12 @@ ActiveRecord::Schema.define(version: 20170829043310) do
     t.text     "description"
     t.datetime "event_date"
     t.boolean  "complete",       default: false
-    t.integer  "opportunity_id"
+    t.string   "polyevent_type"
+    t.integer  "polyevent_id"
     t.integer  "user_id"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.index ["opportunity_id"], name: "index_events_on_opportunity_id"
+    t.index ["polyevent_type", "polyevent_id"], name: "index_events_on_polyevent_type_and_polyevent_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -164,12 +166,13 @@ ActiveRecord::Schema.define(version: 20170829043310) do
   create_table "tasks", force: :cascade do |t|
     t.text     "description"
     t.datetime "due_date"
-    t.boolean  "complete",       default: false
-    t.integer  "opportunity_id"
+    t.boolean  "complete",      default: false
+    t.string   "polytask_type"
+    t.integer  "polytask_id"
     t.integer  "user_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.index ["opportunity_id"], name: "index_tasks_on_opportunity_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["polytask_type", "polytask_id"], name: "index_tasks_on_polytask_type_and_polytask_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 

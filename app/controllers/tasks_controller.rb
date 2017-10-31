@@ -3,8 +3,9 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy, :update_task_status]
 
   def index
-    @tasks = Task.includes(:user, :opportunity).order('due_date').page(params[:page]).per(10)
-
+    # @tasks = Task.includes(:user, :opportunity).order('due_date').page(params[:page]).per(10)
+    @tasks = []
+    
     # AJAX
     @opportunity = Opportunity.find_by_id(session[:op_id])
     @optask = @opportunity.tasks.includes(:user).order(
@@ -67,7 +68,6 @@ class TasksController < ApplicationController
 
     @task.destroy
     timeline_task("deleted task")
-
     respond_to do |format|
       format.html { redirect_to opportunity_path(@opportunity, anchor: "task") }
       format.js { flash[:success] = "Task deleted!" }
@@ -113,19 +113,11 @@ class TasksController < ApplicationController
   def find_task
     find_subject
     @task = @subject.tasks.find(params[:id])
-
-  rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Can't find records!"
-    redirect_to root_path
   end
 
   def find_subject
     # for AJAX timelines
     @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
     @opportunity = @subject
-
-  rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "Can't find records!"
-    redirect_to root_path
   end
 end
