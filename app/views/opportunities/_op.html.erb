@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="col-lg-2">
-      <h3><%= link_to "Create New #{params[:type]}", new_opportunity_path(type: params[:type]), class: "btn btn-default" %></h3>
+        <h3><%= link_to "Create New #{params[:type]}", new_opportunity_path(type: params[:type]), class: "btn btn-default" %></h3>
     </div>
 </div>
 
@@ -37,15 +37,15 @@
     </div>
     <div class="col-lg-2 col-xs-10">
         <strong>
-          <% if params[:type] == "Opportunity" %>
-          Opportunity Name
-          <% elsif params[:type] == "Case" %>
-          Case Name
-          <% elsif params[:type] == "Marketing" %>
-          Marketing Activity
-          <% else %>
-          Subject Name
-          <% end %>
+            <% if params[:type] == "Opportunity" %>
+            Opportunity Name
+            <% elsif params[:type] == "Case" %>
+            Case Name
+            <% elsif params[:type] == "Marketing" %>
+            Marketing Activity
+        <% else %>
+            Subject Name
+            <% end %>
         </strong>
         <br><br>
     </div>
@@ -68,25 +68,39 @@
             <% end %>
 
             <ul class="dropdown-menu">
-            <% if params[:type] == "Opportunity" %>
+                <% if params[:type] == "Opportunity" %>
                 <li><%= link_to 'Open', "?status=Open&type=Opportunity" %></li>
                 <li><%= link_to 'Approved', "?status=Approved&type=Opportunity" %></li>
                 <li><%= link_to 'Closed-Won', "?status=Closed-Won&type=Opportunity" %></li>
                 <li><%= link_to 'Closed-Loss', "?status=Closed-Loss&type=Opportunity" %></li>
-                <li class="divider" role="separator"></li>
                 <li><%= link_to 'Show All Opportunities', "?type=Opportunity" %></li>
-            <% elsif params[:type] == "Case" %>
+                <% elsif params[:type] == "Case" %>
                 <li><%= link_to 'In Progress', "?status=In Progress&type=Case" %></li>
                 <li><%= link_to 'Solved', "?status=Solved&type=Case" %></li>
-                <li class="divider" role="separator"></li>
                 <li><%= link_to 'Show All Cases', "?type=Case" %></li>
-            <% elsif params[:type] == "Marketing" %>
+                <% elsif params[:type] == "Marketing" %>
                 <li><%= link_to 'Preparation', "?status=Preparation&type=Marketing"%></li>
                 <li><%= link_to 'Happening Now', "?status=Happening Now&type=Marketing" %></li>
                 <li><%= link_to 'Passed', "?status=Passed&type=Marketing" %></li>
-                <li class="divider" role="separator"></li>
                 <li><%= link_to 'Show All Marketing', "?type=Marketing" %></li>
-            <% end %>
+            <% else %>
+                <li><%= link_to 'Open', "?status=Open&type=Opportunity" %></li>
+                <li><%= link_to 'Approved', "?status=Approved&type=Opportunity" %></li>
+                <li><%= link_to 'Closed-Won', "?status=Closed-Won&type=Opportunity" %></li>
+                <li><%= link_to 'Closed-Loss', "?status=Closed-Loss&type=Opportunity" %></li>
+                <li><%= link_to 'Show All Opportunities', "?type=Opportunity" %></li>
+                <li class="divider" role="separator"></li>
+
+                <li><%= link_to 'In Progress', "?status=In Progress&type=Case" %></li>
+                <li><%= link_to 'Solved', "?status=Solved&type=Case" %></li>
+                <li><%= link_to 'Show All Cases', "?type=Case" %></li>
+                <li class="divider" role="separator"></li>
+
+                <li><%= link_to 'Preparation', "?status=Preparation&type=Marketing"%></li>
+                <li><%= link_to 'Happening Now', "?status=Happening Now&type=Marketing" %></li>
+                <li><%= link_to 'Passed', "?status=Passed&type=Marketing" %></li>
+                <li><%= link_to 'Show All Marketings', "?type=Marketing" %></li>
+                <% end %>
             </ul>
 
         </div>
@@ -100,8 +114,12 @@
 <% if @opportunities.blank? %>
 <hr>
 <div class="text-center">
-    No opportunities / cases found.<br><br>
-    Create opportunity / case through <%= link_to 'account', accounts_path %>.
+    No
+    <%= params[:type] ? params[:type].downcase : 'subjects'%>
+    found.<br><br>
+    Create new
+    <%= link_to "#{params[:type] ? params[:type].downcase : 'subject'}",
+    new_opportunity_path(type: params[:type]) %>.
 </div>
 
 <% else %>
