@@ -18,7 +18,8 @@
 
             <%= simple_form_for [@opportunity, @task] do |f| %>
             <%= f.input :description, label: "Task Description", placeholder: "To-do" %>
-            <%= f.input :due_date, label: "Task Due Date",as: :date_time_picker %>
+            <%= f.input :due_date, label: "Task Due Date",as: :date_time_picker,
+            input_html: { value: @task.due_date ? @task.due_date.strftime('%d %b %Y - %H:%M') : '' } %>
 
             <%= f.label :status %><br>
             <% if @task.complete %>
