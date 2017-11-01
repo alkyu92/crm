@@ -285,14 +285,16 @@ end
 Task.create!(
 description: "Urgent task",
 due_date: 2.day.from_now,
-opportunity_id: 1,
+polytask_id: 1,
+polytask_type: "Opportunity",
 user_id: 1)
 
 for i in 1..20 do
   Task.create!(
   description: "Sample task #{i}",
   due_date: 1.week.from_now,
-  opportunity_id: 1,
+  polytask_id: 1,
+  polytask_type: "Opportunity",
   user_id: 1)
 end
 
@@ -301,21 +303,24 @@ for i in 1..20 do
   description: "Sample call log #{i}",
   call_datetime: 1.week.from_now,
   duration: 5,
-  opportunity_id: 1,
+  polycall_id: 1,
+  polycall_type: "Opportunity",
   user_id: 1)
 end
 
 Event.create!(
 description: "Urgent event",
 event_date: 1.day.from_now,
-opportunity_id: 1,
+polyevent_id: 1,
+polyevent_type: "Opportunity",
 user_id: 1)
 
 for i in 1..20 do
   Event.create!(
   description: "Sample event #{i}",
   event_date: 1.week.from_now,
-  opportunity_id: 1,
+  polyevent_id: 1,
+  polyevent_type: "Opportunity",
   user_id: 1)
 end
 

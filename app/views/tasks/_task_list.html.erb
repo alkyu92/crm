@@ -1,7 +1,3 @@
-<div class="text-center">
-<%= paginate @tasks %>
-</div>
-
 <div id="notice-task">
 <%= render 'layouts/message' %>
 </div>
@@ -39,7 +35,7 @@
 <hr>
 <div class="text-center">
   No tasks found.<br><br>
-Create task through <%= link_to 'opportunity', opportunities_path %>.
+Create task through <%= link_to 'subject', opportunities_path %>.
 </div>
 <% else %>
 

@@ -5,7 +5,8 @@ class CreateEvents < ActiveRecord::Migration[5.0]
       t.datetime :event_date
       t.boolean :complete, default: false
 
-      t.references :opportunity, foreign_key: true
+      t.references :polyevent, polymorphic: true, index: true
+
       t.references :user, foreign_key: true
       t.timestamps
     end

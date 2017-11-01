@@ -47,9 +47,9 @@
                         <h5>
                             <small>Call belongs to</small>
                         </h5>
-                        <small><%= call.opportunity.business_type %></small><br>
-                        <%= link_to call.opportunity.name,
-                            opportunity_path(call.opportunity, anchor: "call-callInfo-#{call.id}")%>
+                        <small><%= call.polycall.business_type %></small><br>
+                        <%= link_to call.polycall.name,
+                            opportunity_path(call.polycall, anchor: "call-callInfo-#{call.id}")%>
                             <br><br>
                     </div>
                     <div class="col-lg-6">

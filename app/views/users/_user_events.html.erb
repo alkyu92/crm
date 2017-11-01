@@ -18,7 +18,7 @@ No events found.
 <div class="row">
     <div class="col-lg-6 col-xs-6">
         <%= link_to event.description.truncate(25),
-        opportunity_path(event.opportunity, anchor: "event-#{event.id}") %>
+        opportunity_path(event.polyevent, anchor: "event-#{event.id}") %>
     </div>
     <div class="col-lg-6 col-xs-6">
         <% if event.event_date.blank? %>

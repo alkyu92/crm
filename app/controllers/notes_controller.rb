@@ -58,6 +58,7 @@ class NotesController < ApplicationController
       format.js { flash.now[:success] = "Note log deleted!" }
     end
 
+    # AJAX
     @notes = Note.includes(:user, :info).order('created_at').page(params[:page]).per(10)
   end
 

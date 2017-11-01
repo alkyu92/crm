@@ -4,9 +4,7 @@
 <% if @opevent.blank? %>
 No events found.
 <% else %>
-<div class="text-center">
-  <%= paginate @opevent, param_name: :event_page, remote: true %>
-</div>
+
 <ul class="list-group">
     <li class="list-group-item">
         <div class="row">

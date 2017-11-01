@@ -1,0 +1,35 @@
+<h4>Cases Registered</h4>
+<hr>
+<% if @usercase.blank? %>
+No cases found.
+<%= link_to 'Create case on account', accounts_path %>.
+<% else %>
+
+<div class="row">
+    <div class="col-lg-4 col-xs-4">
+        <strong>Name</strong>
+    </div>
+    <div class="col-lg-3 col-xs-3">
+        <strong>Status</strong>
+    </div>
+    <div class="col-lg-5 col-xs-5">
+        <strong>Created at DateTime</strong>
+    </div>
+</div>
+<% @usercase.each do |cs| %>
+<div class="row">
+    <div class="col-lg-4 col-xs-4">
+        <%= link_to cs.name, opportunity_path(cs) %>
+    </div>
+    <div class="col-lg-3 col-xs-3">
+        <%= cs.status %>
+    </div>
+    <div class="col-lg-5 col-xs-5">
+        <%= cs.created_at.strftime('%d %b %Y %H:%M:%S') %>
+    </div>
+</div>
+<% end %>
+<div class="text-center">
+    <%= paginate @usercase, param_name: :page_case, remote: true %>
+</div>
+<% end %>

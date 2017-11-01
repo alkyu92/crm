@@ -6,7 +6,7 @@
   <% if event.event_date.strftime('%d %b %Y') == Date.today.strftime('%d %b %Y') %>
   <small>Today</small><br>
   <% end %>
-  <%= event.event_date.strftime('%d %b %Y at %H:%M:%S') %><br>
+  <%= event.event_date.strftime('%d %b %Y at %H:%M') %><br>
   <small>
     <%= distance_of_time_in_words(event.event_date, Time.now) %>
   <% if event.event_date > Time.now %>

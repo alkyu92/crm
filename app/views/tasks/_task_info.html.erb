@@ -43,9 +43,9 @@
                         <h5>
                             <small>Task belongs to</small>
                         </h5>
-                        <small><%= task.opportunity.business_type %></small><br>
-                        <%= link_to task.opportunity.name,
-                            opportunity_path(task.opportunity, anchor: "task-taskInfo-#{task.id}") %>
+                        <small><%= task.polytask.business_type %></small><br>
+                        <%= link_to task.polytask.name,
+                            opportunity_path(task.polytask, anchor: "task-taskInfo-#{task.id}") %>
                             <br><br>
                     </div>
                     <div class="col-lg-6">

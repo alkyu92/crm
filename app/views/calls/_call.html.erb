@@ -4,9 +4,7 @@
 <% if @opcall.blank? %>
 No call logs found.
 <% else %>
-<div class="text-center">
-  <%= paginate @opcall, param_name: :call_page, remote: true %>
-</div>
+
 <ul class="list-group">
     <li class="list-group-item">
         <div class="row">

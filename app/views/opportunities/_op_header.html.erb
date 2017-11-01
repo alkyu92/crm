@@ -55,21 +55,7 @@
         <small>Status</small>
         <br>
         <h4>
-            <% if @opportunity.status == "Closed-Loss" %>
-            <span style="color: red;">Closed-Loss</span>
-            <% elsif @opportunity.status == "Closed-Won" %>
-            <span style="color: green;">Closed-Won</span>
-            <% elsif @opportunity.status == "Open" %>
-            Open
-            <% elsif @opportunity.status == "Solved" %>
-            <span style="color: green;">Solved</span>
-            <% elsif @opportunity.status == "In Progress" %>
-            In Progress
-            <% elsif @opportunity.status == "Approved" %>
-            <span style="color: blue;">Approved</span>
-            <% elsif @opportunity.status == "" %>
-            <span style="color: red">Status not specified</span>
-            <% end %>
+            <%= @opportunity.status %>
         </h4>
         <br>
     </div>

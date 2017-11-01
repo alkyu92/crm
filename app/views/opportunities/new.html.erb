@@ -1,54 +1,15 @@
 <div class="row">
     <div class="col-lg-2"></div>
     <div class="col-lg-8">
-        <h3>Create New Opportunity</h3>
+        <h3>Create New <%= params[:type] %> Entry</h3>
         <hr>
         <%= simple_form_for [@account, @opportunity] do |f| %>
         <div class="row">
-            <div class="col-lg-4">
-              <strong>Account Name</strong>
-                <h4><%= @account.account_name %></h4>
-                <br>
-                <%= f.label "Assign user as owner" %>
-                <%= f.input :user_id, label: false, collection: User.all,
-                include_blank: "Choose owner" %>
-                <%= f.input :name, label: "Opportunity / Case Name",
-                        placeholder: "Opportunity / Case name", autofocus: true %>
-                <%= f.input :amount, label: "Amount", placeholder: "Opportunity / Case amount" %>
-                <%= f.input :probability, label: "Opportunity probability",
-                        placeholder: "In percentage" %>
-            </div>
-            <div class="col-lg-4">
-                <div style="padding-top: 80px;"></div>
-                <%= f.input :business_type, label: "Type",
-                        collection: ["Opportunity", "Case"], include_blank: false %>
-
-                <div class="form-group select optional opportunity_status">
-                    <%= f.label "Status", class: "control-label select optional" %>
-                    <% opstatus = ["Open", "Approved", "Closed-Won", "Closed-Loss"] %>
-                    <% casestatus = ["In Progress", "Solved"] %>
-                    <select name="opportunity[status]" id="opportunity_status" class="select form-control optional">
-                        <% opstatus.each do |opstat| %>
-                        <option id="optop" value="<%= opstat %>"><%= opstat %></option>
-                        <% end %>
-                        <% casestatus.each do |cstat| %>
-                        <option id="optcase" value="<%= cstat %>"><%= cstat %></option>
-                        <% end %>
-                    </select>
-                </div>
-
-                <%= f.label "Opportunity close date", id: "opdate" %>
-                <%= f.label "Case solved date", id: "casedate" %>
-                <%= f.label "Approved date", id: "aprvdate" %>
-                <%= f.input :close_date, label: false, as: :date_time_picker %>
-            </div>
-            <div class="col-lg-4">
-                <div style="padding-top: 80px;"></div>
-                <%= f.input :description, input_html: {rows: 5}, label: "Description",
-                        placeholder: "Description" %>
-                <%= f.input :loss_reason, label: "Loss Reason", placeholder: "Loss reason" %>
+            <div class="col-lg-12">
+              <%= render 'opportunities/form', f: f %>
             </div>
         </div>
+        <hr>
         <%= f.button :submit, class: "btn-success" %>
         <% end %>
         <!-- simple_form_for -->
@@ -56,82 +17,4 @@
     <div class="col-lg-2"></div>
 </div>
 
-<%= javascript_tag defer: 'defer' do %>
-$('.opportunity_close_date').hide();
-$('.opportunity_loss_reason').hide();
-$('#casedate').hide();
-$('#opdate').hide();
-$('#aprvdate').hide();
-
-$('.opportunity_business_type').on("change", function(){
-  $('.opportunity_close_date').hide();
-  $('#opdate').hide();
-  $('#casedate').hide();
-  $('#aprvdate').hide();
-  var type_val = $('#opportunity_business_type').val();
-  if(type_val == "Opportunity"){
-    $('#opportunity_status option[id=optcase]').hide();
-    $('#opportunity_status option[id=optop]').show();
-    $('.opportunity_probability').show();
-    $('#opportunity_status').val('Open');
-
-  }else if(type_val == "Case"){
-    $('#opportunity_status option[id=optop]').hide();
-    $('#opportunity_status option[id=optcase]').show();
-    $('.opportunity_probability').hide();
-    $('#opportunity_status').val('In Progress');
-    $('.opportunity_loss_reason').hide();
-  }
-});
-
-$('.opportunity_status').on("change", function(){
-  var status_val = $('#opportunity_status').val();
-  if(status_val == "Closed-Won" || status_val == "Closed-Loss"){
-    $('.opportunity_close_date').show();
-    $('#opdate').show();
-    $('#casedate').hide();
-    $('#aprvdate').hide();
-  }
-
-  if(status_val == "Approved"){
-    $('#opdate').hide();
-    $('#casedate').hide();
-    $('#aprvdate').show();
-    $('.opportunity_loss_reason').hide();
-    $('.opportunity_close_date').show();
-  }
-
-  if(status_val == "Solved"){
-    $('#opdate').hide();
-    $('#casedate').show();
-    $('#aprvdate').hide();
-    $('.opportunity_close_date').show();
-  }
-
-  if(status_val == "Closed-Loss"){
-    $('.opportunity_loss_reason').show();
-  }
-
-  if(status_val == "Closed-Won" || status_val == "Solved"){
-    $('.opportunity_loss_reason').hide();
-  }
-
-  if(status_val == "Open" || status_val == "In Progress"){
-    $('.opportunity_close_date').hide();
-    $('#opdate').hide();
-    $('#casedate').hide();
-    $('#aprvdate').hide();
-    $('.opportunity_loss_reason').hide();
-  }
-
-});
-
-var type_val = $('#opportunity_business_type').val();
-if(type_val == "Opportunity"){
-  $('#opportunity_status option[id=optcase]').hide();
-  $('.opportunity_probability').show();
-}else if(type_val == "Case"){
-  $('#opportunity_status option[id=optop]').hide();
-  $('.opportunity_probability').hide();
-}
-<% end %>
+<%= render 'opportunities/form_script' %>

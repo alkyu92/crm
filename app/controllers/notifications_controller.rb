@@ -1,6 +1,6 @@
 class NotificationsController < ApplicationController
   def index
-    @notifications = current_user.notifications.order('created_at DESC').page(params[:page]).per(10)
+    @notifications = current_user.notifications.includes(:timeline).order('created_at DESC').page(params[:page]).per(10)
   end
 
   def update_read_status

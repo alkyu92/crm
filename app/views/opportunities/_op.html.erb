@@ -1,32 +1,30 @@
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-10">
         <div class="media">
             <div class="media-left">
                 <div style="padding-top: 20px;"></div>
-                <%= letter_avatar_tag('Opportunities', 50, class: "media-object") %>
+                <%= letter_avatar_tag("#{params[:type]}", 50, class: "media-object") %>
             </div>
             <div class="media-body">
                 <% if params[:type] %>
-                <h3><%= params[:type] == "Opportunity" ? 'Opportunities' : 'Cases' %><br>
+                <h3><%= params[:type].pluralize %><br>
                     <small>
                         <%= params[:status].blank? ? "All #{params[:type]}" : params[:status] %>
                         Status
                     </small>
                 </h3>
             <% else %>
-                <h3><%= link_to 'Opportunities', opportunities_path(type: "Opportunity") %>
-                    /
-                    <%= link_to 'Cases', opportunities_path(type: "Case") %><br>
-                    <small>Potential Deals / Issues Tracking</small>
+                <h3>All Subjects
+                    <br>
+                    <small>Opportunities / Cases / Marketing Activities</small>
                 </h3>
                 <% end %>
             </div>
         </div>
     </div>
-</div>
-
-<div class="text-center">
-    <%= paginate @opportunities %>
+    <div class="col-lg-2">
+        <h3><%= link_to "Create New #{params[:type]}", new_opportunity_path(type: params[:type]), class: "btn btn-default" %></h3>
+    </div>
 </div>
 
 <div id="notice-op"></div>
@@ -39,37 +37,27 @@
     </div>
     <div class="col-lg-2 col-xs-10">
         <strong>
-          <% if params[:type] == "Opportunity" %>
-          Opportunity
-          <% elsif params[:type] == "Case" %>
-          Case
-          <% else %>
-          Opportunity / Case
-          <% end %>
-          Name
+            <% if params[:type] == "Opportunity" %>
+            Opportunity Name
+            <% elsif params[:type] == "Case" %>
+            Case Name
+            <% elsif params[:type] == "Marketing" %>
+            Marketing Activity
+        <% else %>
+            Subject Name
+            <% end %>
         </strong>
         <br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
         <strong>Account Name</strong>
     </div>
-    <div class="col-lg-1 col-xs-6">
+    <div class="col-lg-2 col-xs-6">
         <strong>Current Stage</strong>
         <br><br>
     </div>
     <div class="col-lg-1 col-xs-6">
         <strong>Type</strong>
-        <div class="dropdown">
-            <%= link_to '#',data: {toggle: 'dropdown'}, class: 'dropdown-toggle' do %>
-            Show only
-            <span class="caret"></span>
-            <% end %>
-
-            <ul class="dropdown-menu">
-                <li><%= link_to 'Opportunity', "?type=Opportunity" %></li>
-                <li><%= link_to 'Case', "?type=Case" %></li>
-            </ul>
-        </div>
     </div>
     <div class="col-lg-1 col-xs-6">
         <strong>Status</strong>
@@ -80,38 +68,43 @@
             <% end %>
 
             <ul class="dropdown-menu">
-                <h5 style="padding-left: 10px;">
-                    <small>Opportunities</small>
-                </h5>
-                <li><%= link_to 'Show All Opportunities', "?type=Opportunity" %></li>
+                <% if params[:type] == "Opportunity" %>
                 <li><%= link_to 'Open', "?status=Open&type=Opportunity" %></li>
                 <li><%= link_to 'Approved', "?status=Approved&type=Opportunity" %></li>
                 <li><%= link_to 'Closed-Won', "?status=Closed-Won&type=Opportunity" %></li>
                 <li><%= link_to 'Closed-Loss', "?status=Closed-Loss&type=Opportunity" %></li>
-                <hr>
-                <h5 style="padding-left: 10px;">
-                    <small>Cases</small>
-                </h5>
-                <li><%= link_to 'Show All Cases', "?type=Case" %></li>
+                <li><%= link_to 'Show All Opportunities', "?type=Opportunity" %></li>
+                <% elsif params[:type] == "Case" %>
                 <li><%= link_to 'In Progress', "?status=In Progress&type=Case" %></li>
                 <li><%= link_to 'Solved', "?status=Solved&type=Case" %></li>
+                <li><%= link_to 'Show All Cases', "?type=Case" %></li>
+                <% elsif params[:type] == "Marketing" %>
+                <li><%= link_to 'Preparation', "?status=Preparation&type=Marketing"%></li>
+                <li><%= link_to 'Happening Now', "?status=Happening Now&type=Marketing" %></li>
+                <li><%= link_to 'Passed', "?status=Passed&type=Marketing" %></li>
+                <li><%= link_to 'Show All Marketing', "?type=Marketing" %></li>
+            <% else %>
+                <li><%= link_to 'Open', "?status=Open&type=Opportunity" %></li>
+                <li><%= link_to 'Approved', "?status=Approved&type=Opportunity" %></li>
+                <li><%= link_to 'Closed-Won', "?status=Closed-Won&type=Opportunity" %></li>
+                <li><%= link_to 'Closed-Loss', "?status=Closed-Loss&type=Opportunity" %></li>
+                <li><%= link_to 'Show All Opportunities', "?type=Opportunity" %></li>
+                <li class="divider" role="separator"></li>
+
+                <li><%= link_to 'In Progress', "?status=In Progress&type=Case" %></li>
+                <li><%= link_to 'Solved', "?status=Solved&type=Case" %></li>
+                <li><%= link_to 'Show All Cases', "?type=Case" %></li>
+                <li class="divider" role="separator"></li>
+
+                <li><%= link_to 'Preparation', "?status=Preparation&type=Marketing"%></li>
+                <li><%= link_to 'Happening Now', "?status=Happening Now&type=Marketing" %></li>
+                <li><%= link_to 'Passed', "?status=Passed&type=Marketing" %></li>
+                <li><%= link_to 'Show All Marketings', "?type=Marketing" %></li>
+                <% end %>
             </ul>
+
         </div>
         <br>
-    </div>
-    <div class="col-lg-2 col-xs-6">
-        <strong>
-          <% if params[:status] == "Approved" %>
-          Approved
-          <% elsif params[:status] == "Closed-Won" || params[:status] == "Closed-Loss" %>
-          Closed
-          <% elsif params[:status] == "Solved" %>
-          Solved
-          <% else %>
-          Closed / Solved / Approved
-          <% end %>
-          Date
-        </strong>
     </div>
     <div class="col-lg-2 col-xs-2 text-center">
         <strong>Action</strong>
@@ -121,8 +114,12 @@
 <% if @opportunities.blank? %>
 <hr>
 <div class="text-center">
-    No opportunities / cases found.<br><br>
-    Create opportunity / case through <%= link_to 'account', accounts_path %>.
+    No
+    <%= params[:type] ? params[:type].downcase : 'subjects'%>
+    found.<br><br>
+    Create new
+    <%= link_to "#{params[:type] ? params[:type].downcase : 'subject'}",
+    new_opportunity_path(type: params[:type]) %>.
 </div>
 
 <% else %>
@@ -150,7 +147,7 @@
         <%= link_to opportunity.account.account_name, account_path(opportunity.account) %>
         <% end %>
     </div>
-    <div class="col-lg-1 col-xs-6">
+    <div class="col-lg-2 col-xs-6">
         <!-- Current Stage -->
         <% if opportunity.stages.blank? %>
         <span style="color: red;">Not specified</span>
@@ -173,34 +170,9 @@
         <%= opportunity.business_type %>
     </div>
     <div class="col-lg-1 col-xs-6">
-        <% if opportunity.status == "Open"%>
-        Open
-        <% elsif opportunity.status == "Closed-Won" %>
-        <span style="color: green;">Closed-Won</span>
-        <% elsif opportunity.status == "Closed-Loss" %>
-        <span style="color: red;">Closed-Loss</span>
-        <% elsif opportunity.status == "In Progress" %>
-        In Progress
-        <% elsif opportunity.status == "Approved" %>
-        <span style="color: blue;">Approved</span>
-        <% elsif opportunity.status == "Solved" %>
-        <span style="color: green;">Solved</span>
-        <% end %>
+
+        <%= opportunity.status %>
         <br><br>
-    </div>
-    <div class="col-lg-2 col-xs-6">
-        <% if opportunity.status == "Open" || opportunity.status == "In Progress" %>
-        Date not available
-        <% elsif opportunity.status == "Closed-Won" ||
-        opportunity.status == "Closed-Loss" ||
-        opportunity.status == "Solved" ||
-        opportunity.status == "Approved" %>
-        <% if opportunity.close_date.blank? %>
-        <span style="color: red;">Not specified</span>
-    <% else %>
-        <%= opportunity.close_date.strftime('%d %b %Y') %>
-        <% end %>
-        <% end %>
     </div>
     <div class="col-lg-2 col-xs-2 text-center">
         <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
