@@ -78,7 +78,8 @@
                         <%= f.label "Opportunity close date", id: "opdate" %>
                         <%= f.label "Case solved date", id: "casedate" %>
                         <%= f.label "Approved date", id: "aprvdate" %>
-                        <%= f.input :close_date, label: false, as: :date_time_picker %>
+                        <%= f.input :close_date, label: false, as: :date_time_picker,
+                        input_html: { value: @opportunity.close_date ? @opportunity.close_date.strftime('%d %B %Y') : ''} %>
                     </div>
                     <div class="col-lg-4">
                         <br><br><br>
@@ -114,117 +115,4 @@
     </div>
 </div>
 
-<%= javascript_tag defer: 'defer' do %>
-
-<% if params[:action] == "show" %>
-
-$('.opportunity_close_date').hide();
-$('.opportunity_loss_reason').hide();
-$('#opdate').hide();
-$('#casedate').hide();
-$('#aprvdate').hide();
-
-$('.opportunity_business_type').on("change", function(){
-  $('.opportunity_close_date').hide();
-  $('#opdate').hide();
-  $('#casedate').hide();
-  var type_val = $('#opportunity_business_type').val();
-  if(type_val == "Opportunity"){
-    $('#opportunity_status option[id=optcase]').hide();
-    $('#opportunity_status option[id=optop]').show();
-    $('#opportunity_status').val('Open');
-    $('.opportunity_probability').show();
-  }else if(type_val == "Case"){
-    $('#opportunity_status option[id=optop]').hide();
-    $('#opportunity_status option[id=optcase]').show();
-    $('#opportunity_status').val('In Progress');
-    $('.opportunity_loss_reason').hide();
-    $('.opportunity_probability').hide();
-  }
-});
-
-$('.opportunity_status').on("change", function(){
-  var status_val = $('#opportunity_status').val();
-  if(status_val == "Closed-Won" || status_val == "Closed-Loss"){
-    $('.opportunity_close_date').show();
-    $('#opdate').show();
-    $('#casedate').hide();
-    $('#aprvdate').hide();
-  }
-
-  if(status_val == "Solved"){
-    $('#opdate').hide();
-    $('#aprvdate').hide();
-    $('#casedate').show();
-    $('.opportunity_close_date').show();
-  }
-
-  if(status_val == "Approved"){
-    $('#opdate').hide();
-    $('#aprvdate').show();
-    $('#casedate').hide();
-    $('.opportunity_close_date').show();
-  }
-
-  if(status_val == "Closed-Loss"){
-    $('.opportunity_loss_reason').show();
-  }
-
-  if(status_val == "Closed-Won" || status_val == "Solved" || status_val == "Approved"){
-    $('.opportunity_loss_reason').hide();
-  }
-
-  if(status_val == "Open" || status_val == "In Progress"){
-    $('.opportunity_close_date').hide();
-    $('#opdate').hide();
-    $('#casedate').hide();
-    $('#aprvdate').hide();
-    $('.opportunity_loss_reason').hide();
-  }
-
-});
-
-var status_val = $('#opportunity_status').val();
-if(status_val == "Closed-Won"){
-  $('.opportunity_close_date').show();
-  $('#aprvdate').hide();
-  $('#opdate').show();
-  $('#casedate').hide();
-}else if(status_val == "Closed-Loss"){
-  $('.opportunity_close_date').show();
-  $('#aprvdate').hide();
-  $('#opdate').show();
-  $('#casedate').hide();
-  $('.opportunity_loss_reason').show();
-}else if(status_val == "Approved"){
-  $('.opportunity_close_date').show();
-  $('#aprvdate').show();
-  $('#opdate').hide();
-  $('#casedate').hide();
-  $('.opportunity_loss_reason').show();
-}
-
-var close_date_val = $('#opportunity_close_date').val();
-if(close_date_val){
-  $('.opportunity_close_date').show();
-  var type_val = $('#opportunity_business_type').val();
-  if(type_val == "Opportunity"){
-    $('#opdate').show();
-  }else if(type_val == "Case"){
-    $('#casedate').show();
-  }
-}
-
-var loss_reason_val = $('#opportunity_loss_reason').val();
-if(loss_reason_val){
-  $('.opportunity_loss_reason').show();
-}
-
-var type_val = $('#opportunity_business_type').val();
-if(type_val == "Opportunity"){
-  $('#opportunity_status option[id=optcase]').hide();
-}else if(type_val == "Case"){
-  $('#opportunity_status option[id=optop]').hide();
-}
-<% end %>
-<% end %>
+<%= render 'opportunities/form_script' %>

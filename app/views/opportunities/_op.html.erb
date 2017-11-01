@@ -7,7 +7,7 @@
             </div>
             <div class="media-body">
                 <% if params[:type] %>
-                <h3><%= params[:type] %><br>
+                <h3><%= params[:type].pluralize %><br>
                     <small>
                         <%= params[:status].blank? ? "All #{params[:type]}" : params[:status] %>
                         Status
