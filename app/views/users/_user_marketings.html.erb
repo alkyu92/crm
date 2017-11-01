@@ -1,0 +1,36 @@
+<h4>Marketings Registered</h4>
+<hr>
+
+<% if @usermrkt.blank? %>
+No marketings found.
+<%= link_to 'Create marketing activity on opportunity', opportunities_path %>.
+<% else %>
+<div class="row">
+    <div class="col-lg-4 col-xs-4">
+        <strong>Name</strong>
+    </div>
+    <div class="col-lg-3 col-xs-3">
+        <strong>Status</strong>
+    </div>
+    <div class="col-lg-5 col-xs-5">
+        <strong>Created at DateTime</strong>
+    </div>
+</div>
+<% @usermrkt.each do |marketing| %>
+<div class="row">
+    <div class="col-lg-4 col-xs-4">
+        <%= link_to marketing.name, opportunity_path(marketing) %>
+    </div>
+    <div class="col-lg-3 col-xs-3">
+        <%= link_to marketing.status %>
+    </div>
+    <div class="col-lg-5 col-xs-5">
+      <%= marketing.created_at.strftime('%d %b %Y %H:%M:%S') %>
+    </div>
+</div>
+<% end %>
+<br>
+<div class="text-center">
+<%= paginate @usermrkt, param_name: :page_mrkt, remote: true %>
+</div>
+<% end %>
