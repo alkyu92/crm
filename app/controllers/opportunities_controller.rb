@@ -34,13 +34,22 @@ class OpportunitiesController < ApplicationController
   end
 
   def new
-    @account = Account.find(params[:account_id])
-    @opportunity = @account.opportunities.build
+    if params[:account_id]
+      @account = Account.find(params[:account_id])
+      @opportunity = @account.opportunities.build
+    else
+      @opportunity = Opportunity.new
+    end
   end
 
   def create
-    @account = Account.find(params[:account_id])
-    @opportunity = @account.opportunities.build(params_opportunity)
+    if params[:account_id]
+      @account = Account.find(params[:account_id])
+      @opportunity = @account.opportunities.build(params_opportunity)
+    else
+      @opportunity = Opportunity.new(params_opportunity)
+    end
+
     @opportunity.user_id = @opportunity.user_id || current_user.id
 
     # for AJAX

@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-10">
         <div class="media">
             <div class="media-left">
                 <div style="padding-top: 20px;"></div>
@@ -14,17 +14,16 @@
                     </small>
                 </h3>
             <% else %>
-                <h3><%= link_to 'Opportunities', opportunities_path(type: "Opportunity") %>
-                    /
-                    <%= link_to 'Cases', opportunities_path(type: "Case") %>
-                    /
-                    <%= link_to 'Marketing', opportunities_path(type: "Marketing") %>
+                <h3>All Subjects
                     <br>
-                    <small>Potential Deals / Issues Tracking / Marketing Activities</small>
+                    <small>Opportunities / Cases / Marketing Activities</small>
                 </h3>
                 <% end %>
             </div>
         </div>
+    </div>
+    <div class="col-lg-2">
+      <h3><%= link_to "Create New #{params[:type]}", new_opportunity_path(type: params[:type]), class: "btn btn-default" %></h3>
     </div>
 </div>
 
@@ -45,7 +44,7 @@
           <% elsif params[:type] == "Marketing" %>
           Marketing Activity
           <% else %>
-          Opportunity / Case / Marketing
+          Subject Name
           <% end %>
         </strong>
         <br><br>

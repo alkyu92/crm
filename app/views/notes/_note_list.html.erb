@@ -43,10 +43,7 @@
 <hr>
 <div class="text-center">
     No <%= params[:type] %> notes found.<br><br>
-    Create note on
-    <%= link_to 'account', accounts_path %>
-    or
-    <%= link_to 'opportunity / case', opportunities_path %>.
+    Create note through <%= link_to 'subject', opportunities_path %>
 </div>
 <% else %>
 

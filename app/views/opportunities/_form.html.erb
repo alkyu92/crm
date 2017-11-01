@@ -1,118 +1,50 @@
-<!-- Modal -->
-<div id="opportunityModalForm" class="modal fade" role="dialog">
-    <div class="modal-dialog" style="width: 1000px;">
+<% if params[:type] %>
+<%= f.input :business_type, as: :hidden, input_html: { value: params[:type] }%>
+<% else %>
+<%= f.input :business_type, label: "Type",
+  collection: ["Opportunity", "Case", "Marketing"], include_blank: false %>
+<% end %>
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><%= yield :form_title %></h4>
-            </div>
+<%= f.input :name, label: "Name", placeholder: "Name", autofocus: true %>
+<%= f.label "Assign to Account Name" %>
+<%= f.select :account_id,
+  Account.all.collect {|acc| [acc.account_name, acc.id] }, {},
+  {class: "form-control selectpicker", data: {live_search: true}} %>
+<br><br>
 
-            <% if @accounts.blank? %>
-            <div class="modal-body">
-                <div class="text-center">
-                    <h3>Create account first before create activity</h3>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
-            </div>
-        <% else %>
-            <div class="modal-body">
+<div class="form-group select optional opportunity_status">
+    <%= f.label "Status", class: "control-label select optional" %>
 
-                <%= simple_form_for @opportunity, html: {multipart: true}, remote: true do |f| %>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <h4>Activity Details</h4>
-                        <br>
-                        <%= f.label "Assign user as owner" %>
-                        <%= f.input :user_id, label: false, collection: User.all,
-                        include_blank: "Choose owner" %>
-                        <%= f.input :name, label: "Activity Name",
-                        placeholder: "Activity name", autofocus: true %>
+    <% opstatus = ["Open", "Approved", "Closed-Won", "Closed-Loss"] %>
+    <% casestatus = ["In Progress", "Solved"] %>
+    <% mrktstatus = ["Preparation", "Happening Now", "Passed"] %>
 
-                        <%= f.input :business_type, label: "Type",
-                        collection: ["Opportunity", "Case", "Marketing"], include_blank: false %>
+    <select name="opportunity[status]" id="opportunity_status" class="select form-control optional">
+        <% opstatus.each do |opstat| %>
+        <option id="optop" value="<%= opstat %>"><%= opstat %></option>
+        <% end %>
 
-                        <div class="form-group select optional opportunity_status required">
-                          <abbr title="required">*</abbr>
-                        <%= f.label "Status", class: "control-label select optional required" %>
-                        <% opstatus = ["Open", "Approved", "Closed-Won", "Closed-Loss"] %>
-                        <% casestatus = ["In Progress", "Solved"] %>
-                        <% mrktstatus = ["Preparation", "Happening Now", "Passed"] %>
-                        <select name="opportunity[status]" id="opportunity_status" class="select form-control optional">
-                          <% if @opportunity.status == "Open" ||
-                            @opportunity.status == "Closed-Won" ||
-                            @opportunity.status == "Closed-Loss" ||
-                            @opportunity.status == "Approved" %>
-                            <option id="optop">
-                          <% elsif @opportunity.status == "In Progress" ||
-                            @opportunity.status == "Solved" %>
-                            <option id="optcase">
-                          <% elsif @opportunity.status == "Preparation" ||
-                            @opportunity.status == "Happening Now" ||
-                            @opportunity.status == "Passed" %>
-                            <option id="optmrkt">
-                          <% end %>
-                              <%= @opportunity.status %>
-                            </option>
+        <% casestatus.each do |cstat| %>
+        <option id="optcase" value="<%= cstat %>"><%= cstat %></option>
+        <% end %>
 
-                            <% opstatus.each do |opstat| %>
-                            <% next if opstat == @opportunity.status %>
-                            <option id="optop" value="<%= opstat %>"><%= opstat %></option>
-                            <% end %>
-
-                            <% casestatus.each do |cstat| %>
-                            <% next if cstat == @opportunity.status %>
-                            <option id="optcase" value="<%= cstat %>"><%= cstat %></option>
-                            <% end %>
-
-                            <% mrktstatus.each do |mrktstat| %>
-                            <% next if mrktstat == @opportunity.status %>
-                            <option id="optmrkt" value="<%= mrktstat %>"><%= mrktstat%></option>
-                            <% end %>
-                        </select>
-                        </div>
-
-                        <%= f.label "Opportunity close date", id: "opdate" %>
-                        <%= f.label "Case solved date", id: "casedate" %>
-                        <%= f.label "Approved date", id: "aprvdate" %>
-                        <%= f.input :close_date, label: false, as: :date_time_picker,
-                        input_html: { value: @opportunity.close_date ? @opportunity.close_date.strftime('%d %B %Y') : ''} %>
-                    </div>
-                    <div class="col-lg-4">
-                        <br><br><br>
-                        <%= f.label "Account Association" %>
-                        <%= f.select :account_id,
-                        Account.all.collect {|acc| [acc.account_name, acc.id] }, {},
-                        {class: "form-control selectpicker", data: {live_search: true}} %>
-                        <br><br>
-                        <%= f.input :probability, label: "Probability",
-                        placeholder: "In percentage" %>
-                        <%= f.input :amount, label: "Amount", placeholder: "Opportunity amount" %>
-                        <%= f.input :loss_reason, label: "Loss Reason", placeholder: "Loss reason" %>
-                    </div>
-                    <div class="col-lg-4">
-                        <br><br><br>
-                        <%= f.input :description, input_html: {rows: 9}, label: "Description",
-                        placeholder: "Description" %>
-
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <%= f.button :submit, class: "btn-success" %>
-                <% end %>
-                <!-- simple_form_for -->
-
-                <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
-            </div>
-            <% end %>
-            <!-- @accounts.blank? -->
-        </div>
-    </div>
+        <% mrktstatus.each do |mrktstat| %>
+        <option id="optmrkt" value="<%= mrktstat %>"><%= mrktstat %></option>
+        <% end %>
+    </select>
 </div>
+<%= f.input :probability, label: "Opportunity probability",
+          placeholder: "In percentage" %>
 
-<%= render 'opportunities/form_script' %>
+<%= f.input :amount, label: "Amount", placeholder: "Activity amount" %>
+<%= f.label "Opportunity close date", id: "opdate" %>
+<%= f.label "Case solved date", id: "casedate" %>
+<%= f.label "Approved date", id: "aprvdate" %>
+<%= f.input :close_date, label: false, as: :date_time_picker %>
+<%= f.input :loss_reason, label: "Loss Reason", placeholder: "Loss reason" %>
+
+<%= f.input :description, input_html: {rows: 5},
+  label: "Description", placeholder: "Description" %>
+<%= f.label "Assign user as owner" %>
+<%= f.input :user_id, label: false, collection: User.all,
+  include_blank: "Choose owner" %>
