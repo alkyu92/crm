@@ -20,9 +20,31 @@
     <% mrktstatus = ["Preparation", "Happening Now", "Passed"] %>
 
     <select name="opportunity[status]" id="opportunity_status" class="select form-control optional">
+
       <% if @opportunity.status == nil %>
-      
+
+        <% if params[:type] == "Opportunity" %>
+
+        <% opstatus.each do |opstat| %>
+        <option id="optop"><%= opstat %></option>
+        <% end %>
+
+        <% elsif params[:type] == "Case" %>
+
+        <% casestatus.each do |cstat| %>
+        <option id="optcase"><%= cstat %></option>
+        <% end %>
+
+        <% elsif params[:type] == "Marketing" %>
+
+        <% mrktstatus.each do |mrktstat| %>
+        <option id="optmrkt"><%= mrktstat %></option>
+        <% end %>
+
+        <% end %>
+
       <% else %>
+
         <% if @opportunity.business_type == "Opportunity" %>
         <option id="optop">
         <% elsif @opportunity.business_type == "Case" %>
@@ -31,7 +53,6 @@
         <option id="optmrkt">
         <% end %>
         <%= @opportunity.status %></option>
-      <% end %>
 
         <% opstatus.each do |opstat| %>
         <% next if @opportunity.status == opstat %>
@@ -47,6 +68,10 @@
         <% next if @opportunity.status == mrktstat %>
         <option id="optmrkt" value="<%= mrktstat %>"><%= mrktstat %></option>
         <% end %>
+
+      <% end %>
+
+
     </select>
 </div>
 <%= f.input :probability, label: "Opportunity probability",
