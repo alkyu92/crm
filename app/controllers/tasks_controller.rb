@@ -3,8 +3,8 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy, :update_task_status]
 
   def index
-    # @tasks = Task.includes(:user, :opportunity).order('due_date').page(params[:page]).per(10)
-    @tasks = []
+    @tasks = Task.order('due_date').page(params[:page]).per(10)
+    # @tasks = []
 
     # AJAX
     @opportunity = Opportunity.find_by_id(session[:op_id])

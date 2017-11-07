@@ -3,8 +3,8 @@ class EventsController < ApplicationController
   before_action :find_event, only: [:edit, :update, :destroy, :update_event_status]
 
   def index
-    # @events = Event.includes(:user, :opportunity).order('event_date').page(params[:page]).per(10)
-    @events = []
+    @events = Event.order('event_date').page(params[:page]).per(10)
+    # @events = []
 
     # AJAX
     @opportunity = Opportunity.find_by_id(session[:op_id])

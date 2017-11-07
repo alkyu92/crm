@@ -20,6 +20,9 @@
     <% mrktstatus = ["Preparation", "Happening Now", "Passed"] %>
 
     <select name="opportunity[status]" id="opportunity_status" class="select form-control optional">
+      <% if @opportunity.status == nil %>
+      
+      <% else %>
         <% if @opportunity.business_type == "Opportunity" %>
         <option id="optop">
         <% elsif @opportunity.business_type == "Case" %>
@@ -28,6 +31,7 @@
         <option id="optmrkt">
         <% end %>
         <%= @opportunity.status %></option>
+      <% end %>
 
         <% opstatus.each do |opstat| %>
         <% next if @opportunity.status == opstat %>

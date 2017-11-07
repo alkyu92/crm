@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-lg-1 col-xs-1 text-center">
-        <strong>ID</strong>
+        <!-- <strong>ID</strong> -->
     </div>
     <div class="col-lg-2 col-xs-10">
         <strong>Description</strong>
@@ -43,7 +43,7 @@
 <hr>
 <div class="row">
     <div class="col-lg-1 col-xs-1 text-center">
-      <span class="badge"><%= call.id %></span>
+      <!-- <span class="badge"><%#= call.id %></span> -->
     </div>
     <div class="col-lg-2 col-xs-10">
         <%= link_to call.description.truncate(50), '#',
@@ -58,14 +58,17 @@
         <% end %>
     </div>
     <div class="col-lg-2 col-xs-6">
-      <small><%= call.opportunity.business_type %></small><br>
-      <%= link_to call.opportunity.name, opportunity_path(call.opportunity) %>
+      <small><%= call.polycall.business_type %></small><br>
+      <%= link_to call.polycall.name, opportunity_path(call.polycall) %>
       <br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
       <small>Account</small><br>
-      <%= link_to call.opportunity.account.account_name,
-      account_path(call.opportunity.account) %>
+      <% if call.polycall.business_type == "Account" %>
+      <%= link_to call.polycall.account_name, account_path(call.polycall) %>
+      <% elsif call.polycall.business_type == "Opportunity" || call.polycall.business_type == "Case" %>
+      <%= link_to call.polycall.name, account_path(call.polycall) %>
+      <% end %>
     </div>
     <div class="col-lg-1 col-xs-6">
       <%= call.created_at.strftime('%d %b %Y at %H:%M:%S') %>
@@ -76,8 +79,8 @@
             <i class="caret"></i>
         </a>
         <ul class="dropdown-menu">
-            <li><%= link_to 'Show', opportunity_path(call.opportunity, anchor: "call-callInfo-#{call.id}") %></li>
-            <li><%= link_to 'Delete', opportunity_call_path(call.opportunity, call),
+            <li><%= link_to 'Show', opportunity_path(call.polycall, anchor: "call-callInfo-#{call.id}") %></li>
+            <li><%= link_to 'Delete', opportunity_call_path(call.polycall, call),
         method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
         </ul>
     </div>
