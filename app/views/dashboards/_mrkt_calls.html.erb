@@ -1,0 +1,26 @@
+<div class="panel panel-default panel-body">
+  <h3>
+      <strong>Latest Marketing Calls</strong>
+  </h3>
+  <hr>
+  <div class="row">
+    <div class="col-lg-6">
+      <small>Call Description</small>
+    </div>
+    <div class="col-lg-6">
+      <small>Created at DateTime</small>
+    </div>
+  </div>
+  <% @marketings.each do |mrkt| %>
+    <% mrkt.calls.each do |call| %>
+    <div class="row">
+      <div class="col-lg-6">
+        <%= link_to call.description.truncate(50), opportunity_path(mrkt) %>
+      </div>
+      <div class="col-lg-6">
+        <%= call.created_at.strftime('%d %b %Y %H:%M:%S') %>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+</div>

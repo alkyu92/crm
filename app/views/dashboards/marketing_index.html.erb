@@ -34,31 +34,12 @@
 
 <div class="row">
   <div class="col-lg-4">
-    <div class="panel panel-default panel-body">
-      <h3>
-          <strong>Latest Marketing Tasks</strong>
-      </h3>
-      <hr>
-      <% @mrkttasks = Task.where(polytask_type: "Marketing") %>
-      <% @mrkttasks.each do |task| %>
-      <%= task.inspect %>
-      <% end %>
-    </div>
+    <%= render 'dashboards/mrkt_tasks' %>
   </div>
   <div class="col-lg-4">
-    <div class="panel panel-default panel-body">
-      <h3>
-          <strong>Latest Marketing Calls</strong>
-      </h3>
-      <hr>
-    </div>
+    <%= render 'dashboards/mrkt_calls' %>
   </div>
   <div class="col-lg-4">
-    <div class="panel panel-default panel-body">
-      <h3>
-          <strong>Latest Marketing Events</strong>
-      </h3>
-      <hr>
-    </div>
+    <%= render 'dashboards/mrkt_events' %>
   </div>
 </div>

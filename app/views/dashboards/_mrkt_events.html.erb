@@ -1,0 +1,26 @@
+<div class="panel panel-default panel-body">
+  <h3>
+      <strong>Latest Marketing Events</strong>
+  </h3>
+  <hr>
+  <div class="row">
+    <div class="col-lg-6">
+      <small>Event Description</small>
+    </div>
+    <div class="col-lg-6">
+      <small>Created at DateTime</small>
+    </div>
+  </div>
+  <% @marketings.each do |mrkt| %>
+    <% mrkt.events.each do |event| %>
+    <div class="row">
+      <div class="col-lg-6">
+        <%= link_to event.description.truncate(50), opportunity_path(mrkt) %>
+      </div>
+      <div class="col-lg-6">
+        <%= event.created_at.strftime('%d %b %Y %H:%M:%S') %>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+</div>
