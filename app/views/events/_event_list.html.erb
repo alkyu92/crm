@@ -5,7 +5,7 @@
 <hr>
 <div class="row">
     <div class="col-lg-1 col-xs-1 text-center">
-        <strong>ID</strong>
+        <!-- <strong>ID</strong> -->
     </div>
     <div class="col-lg-2 col-xs-10">
         <strong>Description</strong>
@@ -41,7 +41,7 @@
 <hr>
 <div class="row">
     <div class="col-lg-1 col-xs-1 text-center">
-      <span class="badge"><%= event.id %></span>
+      <!-- <span class="badge"><%#= event.id %></span> -->
     </div>
     <div class="col-lg-2 col-xs-10">
     <%= link_to event.description.truncate(50),'#',
@@ -52,14 +52,17 @@
         <%= render 'events/calc_date', event: event %>
     </div>
     <div class="col-lg-2 col-xs-6">
-      <small><%= event.opportunity.business_type %></small><br>
-      <%= link_to event.opportunity.name, opportunity_path(event.opportunity) %>
+      <small><%= event.polyevent.business_type %></small><br>
+      <%= link_to event.polyevent.name, opportunity_path(event.polyevent) %>
       <br><br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
       <small>Account</small><br>
-      <%= link_to event.opportunity.account.account_name,
-      account_path(event.opportunity.account) %>
+      <% if event.polyevent.business_type == "Account" %>
+      <%= link_to event.polyevent.account_name, account_path(event.polyevent) %>
+      <% elsif event.polyevent.business_type == "Opportunity" || event.polyevent.business_type == "Case" %>
+      <%= link_to event.polyevent.name, account_path(event.polyevent) %>
+      <% end %>
     </div>
     <div class="col-lg-1 col-xs-6">
       <%= event.created_at.strftime('%d %b %Y at %H:%M:%S') %>
@@ -70,8 +73,8 @@
         <i class="caret"></i>
       </a>
       <ul class="dropdown-menu">
-        <li><%= link_to 'Show', opportunity_path(event.opportunity, anchor: "event-eventInfo-#{event.id}") %></li>
-        <li><%= link_to 'Delete', opportunity_event_path(event.opportunity, event),
+        <li><%= link_to 'Show', opportunity_path(event.polyevent, anchor: "event-eventInfo-#{event.id}") %></li>
+        <li><%= link_to 'Delete', opportunity_event_path(event.polyevent, event),
         method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
       </ul>
     </div>

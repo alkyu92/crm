@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-lg-1 col-xs-1 text-center">
-        <strong>ID</strong>
+        <!-- <strong>ID</strong> -->
     </div>
     <div class="col-lg-2 col-xs-10">
         <strong>Description</strong>
@@ -43,7 +43,7 @@ Create task through <%= link_to 'subject', opportunities_path %>.
 <hr>
 <div class="row">
     <div class="col-lg-1 col-xs-1 text-center">
-      <span class="badge"><%= task.id %></span>
+      <!-- <span class="badge"><%#= task.id %></span> -->
     </div>
     <div class="col-lg-2 col-xs-10">
       <%= link_to task.description.truncate(50), '#',
@@ -54,14 +54,17 @@ Create task through <%= link_to 'subject', opportunities_path %>.
         <%= render 'tasks/calc_date', task: task %>
     </div>
     <div class="col-lg-2 col-xs-6">
-      <small><%= task.opportunity.business_type %></small><br>
-      <%= link_to task.opportunity.name, opportunity_path(task.opportunity) %>
+      <small><%= task.polytask.business_type %></small><br>
+      <%= link_to task.polytask.name, opportunity_path(task.polytask) %>
       <br><br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
       <small>Account</small><br>
-      <%= link_to task.opportunity.account.account_name,
-      account_path(task.opportunity.account) %>
+      <% if task.polytask.business_type == "Account" %>
+      <%= link_to task.polytask.account_name, account_path(task.polytask) %>
+      <% elsif task.polytask.business_type == "Case" || task.polytask.business_type == "Opportunity" %>
+      <%= link_to task.polytask.name, account_path(task.polytask) %>
+      <% end %>
     </div>
     <div class="col-lg-1 col-xs-6">
       <%= task.created_at.strftime('%d %b %Y at %H:%M:%S') %>
@@ -72,10 +75,10 @@ Create task through <%= link_to 'subject', opportunities_path %>.
         <i class="caret"></i>
       </a>
       <ul class="dropdown-menu">
-        <li><%= link_to "Show #{task.opportunity.business_type.downcase}",
-	opportunity_path(task.opportunity, anchor: "task-taskInfo-#{task.id}") %></li>
-        <li><%= link_to 'Edit', edit_opportunity_task_path(task.opportunity, task) %></li>
-        <li><%= link_to 'Delete', opportunity_task_path(task.opportunity, task),
+        <li><%= link_to "Show #{task.polytask.business_type.downcase}",
+	opportunity_path(task.polytask, anchor: "task-taskInfo-#{task.id}") %></li>
+        <li><%= link_to 'Edit', edit_opportunity_task_path(task.polytask, task) %></li>
+        <li><%= link_to 'Delete', opportunity_task_path(task.polytask, task),
         method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
       </ul>
     </div>

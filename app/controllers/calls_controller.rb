@@ -3,8 +3,8 @@ class CallsController < ApplicationController
   before_action :find_call, only: [:edit, :update, :destroy]
 
   def index
-    # @calls = Call.includes(:user, :opportunity).page(params[:page]).per(10)
-    @calls = []
+    @calls = Call.page(params[:page]).per(10)
+    # @calls = []
 
     # AJAX
     @opportunity = Opportunity.find_by_id(session[:op_id])
@@ -26,8 +26,8 @@ class CallsController < ApplicationController
     end
 
     # AJAX
-    session[:op_id] = @call.opportunity.id
-    @opportunity = Opportunity.find(@call.opportunity)
+    session[:op_id] = @call.polycall.id
+    @opportunity = Opportunity.find(@call.polycall)
     @opcall = @opportunity.calls.includes(:user).page(params[:call_page]).per(10)
   end
 
@@ -48,7 +48,7 @@ class CallsController < ApplicationController
 
   def destroy
     # AJAX
-    @opportunity = Opportunity.find_by_id(@call.opportunity.id)
+    @opportunity = Opportunity.find_by_id(@call.polycall.id)
     @opcall = @opportunity.calls.includes(:user).page(params[:task_page]).per(10)
 
     @call.destroy
