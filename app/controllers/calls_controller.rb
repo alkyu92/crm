@@ -7,9 +7,9 @@ class CallsController < ApplicationController
     # @calls = []
 
     # AJAX
-    @opportunity = Opportunity.find_by_id(session[:op_id])
-    @opcall = @opportunity.calls.includes(
-    :user).page(params[:call_page]).per(10) if @opportunity
+    # @opportunity = Opportunity.find_by_id(session[:op_id])
+    # @opcall = @opportunity.calls.includes(
+    # :user).page(params[:call_page]).per(10) if @opportunity
   end
 
   def create

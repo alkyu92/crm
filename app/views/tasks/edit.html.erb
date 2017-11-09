@@ -12,7 +12,7 @@
             <%= link_to @opportunity.account.name, account_path(@opportunity.account) %><br>
             <br>
 
-            <small><%= @opportunity.business_type == "Opportunity" ? 'Opportunity' : 'Case' %></small><br>
+            <small>Opportunity</small><br>
             <%= link_to @opportunity.name, opportunity_path(@opportunity) %><br>
             <br>
 
@@ -23,10 +23,11 @@
 
             <%= f.label :status %><br>
             <% if @task.complete %>
-		<h4><span style="color: green;">Completed</span></h4>
-	    <% else %>
-		<h4><span style="color: red;">Incomplete</span></h4>
-	    <% end %>
+  		        <h4><span style="color: green;">Completed</span></h4>
+	             <% else %>
+    		      <h4><span style="color: red;">Incomplete</span></h4>
+	          <% end %>
+
             <%= check_box_tag "completed" %>
             Mark as <%= @task.complete ? 'Incomplete' : 'Completed' %>
 	    <hr>

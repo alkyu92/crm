@@ -130,29 +130,27 @@ for i in 1..20 do
   user_id: 1)
 end
 
-Opportunity.create!(
-name: "Case 22",
-business_type: "Case",
-probability: "",
-amount: 1000.12,
-description: "Case 22 description",
-loss_reason: "",
-close_date: "",
-status: "In Progress",
-user_id: 1,
-account_id: 1)
+op = {
+  'first' => [
+    'Opportunity first',
+  ],
+  'second' => [
+    'Shimano Product One Processes',
+  ]
+}
 
-Opportunity.create!(
-name: "Shimano Product One Processes",
-business_type: "Opportunity",
-probability: "",
-amount: 123456.78,
-description: "Description",
-loss_reason: "",
-close_date: "",
-status: "Open",
-user_id: 1,
-account_id: 1)
+op.each do |k,v|
+  Opportunity.create!(
+  name: v[0],
+  probability: "",
+  amount: 123456.78,
+  description: "Description",
+  loss_reason: "",
+  close_date: "",
+  status: "Open",
+  user_id: 1,
+  account_id: 1)
+end
 
 process = ['Die and Tooling','Casting','Machining','Secondary Process', 'Finishing', 'Inspection']
 process.each do |prc|
@@ -244,7 +242,8 @@ for i in 1..15 do
   name: "Test Stage #{i}",
   status: "Waiting",
   current_status: false,
-  opportunity_id: 1,
+  polystage_type: 'Opportunity',
+  polystage_id: 1,
   user_id: 1,
   updated_by_id: 1)
 end

@@ -47,7 +47,7 @@
                         <h5>
                             <small>Call belongs to</small>
                         </h5>
-                        <small><%= call.polycall.business_type %></small><br>
+                        <small><%= params[:controller] %></small><br>
                         <%= link_to call.polycall.name,
                             opportunity_path(call.polycall, anchor: "call-callInfo-#{call.id}")%>
                             <br><br>

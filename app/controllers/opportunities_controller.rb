@@ -1,20 +1,7 @@
 class OpportunitiesController < ApplicationController
 
   def index
-    if params[:status] && params[:type]
-      @opportunities = Opportunity.includes(
-        :account, :stages).where(
-        status: params[:status], business_type: params[:type]).page(
-        params[:page]).per(10)
-    elsif params[:type]
-      @opportunities = Opportunity.includes(
-        :account, :stages).where(
-        business_type: params[:type]).page(
-        params[:page]).per(10)
-    else
-      @opportunities = Opportunity.includes(:account, :stages).page(params[:page]).per(10)
-    end
-
+    @opportunities = Opportunity.includes(:account, :stages).page(params[:page]).per(10)
     @opportunity = current_user.opportunities.build
 
     # AJAX Account opportunities
@@ -64,15 +51,15 @@ class OpportunitiesController < ApplicationController
         @acoptimeline = @opportunity.account.timelines.create!(
         tactivity: "",
         nactivity: @opportunity.name,
-        action: "created #{@opportunity.business_type.downcase}",
+        action: "created opportunity",
         user_id: current_user.id)
 
-        timeline_opportunity("#", @opportunity.name, "created #{@opportunity.business_type.downcase}")
+        timeline_opportunity("#", @opportunity.name, "created opportunity")
 
-        flash.now[:success] = "#{@opportunity.business_type.downcase} entry created!"
+        flash.now[:success] = "opportunity entry created!"
         redirect_to opportunity_path(@opportunity)
       else
-        flash.now[:danger] = "Failed to create #{@opportunity.business_type.downcase} entry!"
+        flash.now[:danger] = "Failed to create opportunity entry!"
         render 'new'
       end
 
@@ -92,7 +79,7 @@ class OpportunitiesController < ApplicationController
               @opportunity.documents.create!(doc: doc)
             }
             timeline_opportunity("relatedDocs", @opportunity.name,
-            "added attachment file to #{@opportunity.business_type.downcase}")
+            "added attachment file to opportunity")
           end
 
         if params[:attached]
@@ -111,16 +98,12 @@ class OpportunitiesController < ApplicationController
           @sql = "INSERT INTO relationships ('contact_id', 'contactable_id', 'contactable_type', 'created_at', 'updated_at') VALUES #{@values}"
           ActiveRecord::Base.connection.execute(@sql)
           timeline_opportunity("relatedContacts", @ctct.map {|ct| "#{ct.name}"}.join(','), "added association")
-          # params[:assigned].each { |ct_id|
-          #   @ctct = Contact.find(ct_id)
-          #   @opportunity.relationships.create!(contact: @ctct)
-          # }
         end
 
         save_timeline_if_any_changes(@old_name)
-        format.js { flash.now[:success] = "#{@opportunity.business_type.downcase} entry updated!" }
+        format.js { flash.now[:success] = "opportunity entry updated!" }
       else
-        format.js { flash.now[:danger] = "Failed to update #{@opportunity.business_type.downcase}!" }
+        format.js { flash.now[:danger] = "Failed to update opportunity!" }
       end
     end
   end
@@ -130,9 +113,9 @@ class OpportunitiesController < ApplicationController
     @opportunity.destroy
 
     respond_to do |format|
-      format.js { flash[:success] = "#{@opportunity.business_type.downcase} entry deleted!" }
+      format.js { flash[:success] = "opportunity entry deleted!" }
       format.html {
-        flash[:success] = "#{@opportunity.business_type.downcase} entry deleted!"
+        flash[:success] = "opportunity entry deleted!"
         redirect_to opportunities_path
       }
     end
@@ -148,7 +131,7 @@ class OpportunitiesController < ApplicationController
       @subject = @opportunity
 
       timeline_opportunity("relatedDocs", @opportunity.name,
-      "deleted attachment file from #{@opportunity.business_type.downcase}")
+      "deleted attachment file from opportunity")
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end
@@ -195,7 +178,7 @@ class OpportunitiesController < ApplicationController
   def save_timeline_if_any_changes(old_name)
     if @opportunity.name_previously_changed?
       timeline_opportunity("opportunityDetails",
-      old_name, "updated #{@opportunity.business_type.downcase} name from")
+      old_name, "updated opportunity name from")
     end
     if @opportunity.business_type_previously_changed?
       timeline_opportunity("opportunityDetails",
@@ -208,22 +191,20 @@ class OpportunitiesController < ApplicationController
     if @opportunity.amount_previously_changed?
       timeline_opportunity("opportunityDetails",
       sprintf('%.2f' % @opportunity.amount),
-      "updated #{@opportunity.business_type.downcase} amount to RM")
+      "updated opportunity amount to RM")
     end
     if @opportunity.description_previously_changed?
       timeline_opportunity("opportunityDetails",
-      "", "updated #{@opportunity.business_type} description")
+      "", "updated opportunity description")
     end
     if @opportunity.status_previously_changed?
       timeline_opportunity("opportunityDetails",
-      @opportunity.status, "updated #{@opportunity.business_type.downcase} status to")
+      @opportunity.status, "updated opportunity status to")
     end
     if @opportunity.close_date_previously_changed?
       timeline_opportunity("opportunityDetails",
       @opportunity.close_date.strftime('%d %b %Y'),
-      "updated #{@opportunity.business_type.downcase} #{
-      @opportunity.business_type == "Opportunity" ? 'closed' : 'solved'
-      } date to")
+      "updated opportunity closed date to")
     end
     if @opportunity.loss_reason_previously_changed?
       timeline_opportunity("opportunityDetails",

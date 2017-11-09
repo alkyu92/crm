@@ -3,27 +3,18 @@
         <div class="media">
             <div class="media-left">
                 <div style="padding-top: 20px;"></div>
-                <%= letter_avatar_tag("#{params[:type]}", 50, class: "media-object") %>
+                <%= letter_avatar_tag('Opportunity', 50, class: "media-object") %>
             </div>
             <div class="media-body">
-                <% if params[:type] %>
-                <h3><%= params[:type].pluralize %><br>
-                    <small>
-                        <%= params[:status].blank? ? "All #{params[:type]}" : params[:status] %>
-                        Status
-                    </small>
-                </h3>
-            <% else %>
-                <h3>All Subjects
+                <h3>Opportunities Activities
                     <br>
-                    <small>Opportunities / Cases / Marketing Activities</small>
+                    <small>All Opportunities Activities</small>
                 </h3>
-                <% end %>
             </div>
         </div>
     </div>
     <div class="col-lg-2">
-        <h3><%= link_to "Create New #{params[:type]}", new_opportunity_path(type: params[:type]), class: "btn btn-default" %></h3>
+        <h3><%= link_to "Create New Opportunity", new_opportunity_path(type: params[:type]), class: "btn btn-default" %></h3>
     </div>
 </div>
 
@@ -33,20 +24,10 @@
 
 <div class="row">
     <div class="col-lg-1 col-xs-1 text-center">
-        <!-- <strong>ID</strong> -->
+        <strong>ID</strong>
     </div>
     <div class="col-lg-2 col-xs-10">
-        <strong>
-            <% if params[:type] == "Opportunity" %>
-            Opportunity Name
-            <% elsif params[:type] == "Case" %>
-            Case Name
-            <% elsif params[:type] == "Marketing" %>
-            Marketing Activity
-        <% else %>
-            Subject Name
-            <% end %>
-        </strong>
+        <strong>Opportunity Name</strong>
         <br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
@@ -57,9 +38,6 @@
         <br><br>
     </div>
     <div class="col-lg-1 col-xs-6">
-        <strong>Type</strong>
-    </div>
-    <div class="col-lg-1 col-xs-6">
         <strong>Status</strong>
         <div class="dropdown">
             <%= link_to '#',data: {toggle: 'dropdown'}, class: 'dropdown-toggle' do %>
@@ -68,39 +46,11 @@
             <% end %>
 
             <ul class="dropdown-menu">
-                <% if params[:type] == "Opportunity" %>
-                <li><%= link_to 'Open', "?status=Open&type=Opportunity" %></li>
-                <li><%= link_to 'Approved', "?status=Approved&type=Opportunity" %></li>
-                <li><%= link_to 'Closed-Won', "?status=Closed-Won&type=Opportunity" %></li>
-                <li><%= link_to 'Closed-Loss', "?status=Closed-Loss&type=Opportunity" %></li>
-                <li><%= link_to 'Show All Opportunities', "?type=Opportunity" %></li>
-                <% elsif params[:type] == "Case" %>
-                <li><%= link_to 'In Progress', "?status=In Progress&type=Case" %></li>
-                <li><%= link_to 'Solved', "?status=Solved&type=Case" %></li>
-                <li><%= link_to 'Show All Cases', "?type=Case" %></li>
-                <% elsif params[:type] == "Marketing" %>
-                <li><%= link_to 'Preparation', "?status=Preparation&type=Marketing"%></li>
-                <li><%= link_to 'Happening Now', "?status=Happening Now&type=Marketing" %></li>
-                <li><%= link_to 'Passed', "?status=Passed&type=Marketing" %></li>
-                <li><%= link_to 'Show All Marketing', "?type=Marketing" %></li>
-            <% else %>
-                <li><%= link_to 'Open', "?status=Open&type=Opportunity" %></li>
-                <li><%= link_to 'Approved', "?status=Approved&type=Opportunity" %></li>
-                <li><%= link_to 'Closed-Won', "?status=Closed-Won&type=Opportunity" %></li>
-                <li><%= link_to 'Closed-Loss', "?status=Closed-Loss&type=Opportunity" %></li>
-                <li><%= link_to 'Show All Opportunities', "?type=Opportunity" %></li>
-                <li class="divider" role="separator"></li>
-
-                <li><%= link_to 'In Progress', "?status=In Progress&type=Case" %></li>
-                <li><%= link_to 'Solved', "?status=Solved&type=Case" %></li>
-                <li><%= link_to 'Show All Cases', "?type=Case" %></li>
-                <li class="divider" role="separator"></li>
-
-                <li><%= link_to 'Preparation', "?status=Preparation&type=Marketing"%></li>
-                <li><%= link_to 'Happening Now', "?status=Happening Now&type=Marketing" %></li>
-                <li><%= link_to 'Passed', "?status=Passed&type=Marketing" %></li>
-                <li><%= link_to 'Show All Marketings', "?type=Marketing" %></li>
-                <% end %>
+                <li><%= link_to 'Open', "?status=Open" %></li>
+                <li><%= link_to 'Approved', "?status=Approved" %></li>
+                <li><%= link_to 'Closed-Won', "?status=Closed-Won" %></li>
+                <li><%= link_to 'Closed-Loss', "?status=Closed-Loss" %></li>
+                <li><%= link_to 'Show All Opportunities', "#" %></li>
             </ul>
 
         </div>
@@ -114,12 +64,8 @@
 <% if @opportunities.blank? %>
 <hr>
 <div class="text-center">
-    No
-    <%= params[:type] ? params[:type].downcase : 'subjects'%>
-    found.<br><br>
-    Create new
-    <%= link_to "#{params[:type] ? params[:type].downcase : 'subject'}",
-    new_opportunity_path(type: params[:type]) %>.
+    No opportunities found.<br><br>
+    Create new <%= link_to 'opportunity', new_opportunity_path %>.
 </div>
 
 <% else %>
@@ -128,7 +74,7 @@
 <hr>
 <div class="row">
     <div class="col-lg-1 col-xs-1 text-center">
-        <!-- <span class="badge"><%#= opportunity.id %></span> -->
+        <span class="badge"><%= opportunity.id %></span>
     </div>
     <div class="col-lg-2 col-xs-10">
         <!-- Opportunity Name -->
@@ -167,10 +113,6 @@
         <br><br>
     </div>
     <div class="col-lg-1 col-xs-6">
-        <%= opportunity.business_type %>
-    </div>
-    <div class="col-lg-1 col-xs-6">
-
         <%= opportunity.status %>
         <br><br>
     </div>

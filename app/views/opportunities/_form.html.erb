@@ -1,10 +1,3 @@
-<% if params[:type] %>
-<%= f.input :business_type, as: :hidden, input_html: { value: params[:type] }%>
-<% else %>
-<%= f.input :business_type, label: "Type",
-  collection: ["Opportunity", "Case", "Marketing"], include_blank: false %>
-<% end %>
-
 <%= f.input :name, label: "Name", placeholder: "Name", autofocus: true %>
 <%= f.label "Assign to Account Name" %>
 <%= f.select :account_id,
@@ -39,28 +32,11 @@
 
       <% else %>
 
-        <% if @opportunity.business_type == "Opportunity" %>
-          <option id="optop">
-        <% elsif @opportunity.business_type == "Case" %>
-          <option id="optcase">
-        <% elsif @opportunity.business_type == "Marketing" %>
-          <option id="optmrkt">
-        <% end %>
-          <%= @opportunity.status %></option>
+        <option id="optop"><%= @opportunity.status %></option>
 
         <% opstatus.each do |opstat| %>
         <% next if @opportunity.status == opstat %>
         <option id="optop" value="<%= opstat %>"><%= opstat %></option>
-        <% end %>
-
-        <% casestatus.each do |cstat| %>
-        <% next if @opportunity.status == cstat %>
-        <option id="optcase" value="<%= cstat %>"><%= cstat %></option>
-        <% end %>
-
-        <% mrktstatus.each do |mrktstat| %>
-        <% next if @opportunity.status == mrktstat %>
-        <option id="optmrkt" value="<%= mrktstat %>"><%= mrktstat %></option>
         <% end %>
 
       <% end %>

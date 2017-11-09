@@ -6,36 +6,10 @@ Opportunities not found.
     <li class="list-group-item">
         <div class="row">
             <div class="col-lg-4">
-                <strong>
-                  <% if params[:type] == "Opportunity" %>
-                  Opportunity
-                  <% elsif params[:type] == "Case" %>
-                  Case
-                  <% elsif params[:type] == "Marketing" %>
-                  Marketing
-                  <% else %>
-                  Activity
-                  <% end %>
-                  Name
-                </strong>
+                <strong>Opportunity Name</strong>
                 <br><br>
             </div>
-            <div class="col-lg-2">
-              <strong>Type</strong>
-              <div class="dropdown">
-                  <%= link_to '#',data: {toggle: 'dropdown'}, class: 'dropdown-toggle' do %>
-                  Show only
-                  <span class="caret"></span>
-                  <% end %>
-                  <ul class="dropdown-menu">
-                      <li><%= link_to 'Opportunity', "?type=Opportunity" %></li>
-                      <li><%= link_to 'Case', "?type=Case" %></li>
-                      <li><%= link_to 'Marketing', "?type=Marketing" %></li>
-                  </ul>
-              </div>
-              <br>
-            </div>
-            <div class="col-lg-2">
+            <div class="col-lg-4">
                 <strong>Status</strong>
                 <% if params[:type] %>
                 <div class="dropdown">
@@ -83,19 +57,8 @@ Opportunities not found.
                 <%= link_to opportunity.name, opportunity_path(opportunity) %>
                 <br><br>
             </div>
-            <div class="col-lg-2">
-              <%= opportunity.business_type %>
-            </div>
-            <div class="col-lg-2">
-              <% if opportunity.status == "Approved" %>
-              <span style="color: blue;">
-              <% elsif opportunity.status == "Closed-Won" || opportunity.status == "Solved" %>
-              <span style="color: green;">
-              <% elsif opportunity.status == "Closed-Loss"%>
-              <span style="color: red;">
-              <% end %>
+            <div class="col-lg-4">
               <%= opportunity.status %>
-              </span>
             </div>
             <div class="col-lg-4"><%= opportunity.created_at.strftime('%d %b %Y %H:%M:%S')%></div>
         </div>
