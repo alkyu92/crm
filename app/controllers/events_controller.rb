@@ -30,8 +30,8 @@ class EventsController < ApplicationController
     end
 
     # AJAX
-    session[:op_id] = @event.opportunity.id
-    @opportunity = Opportunity.find(@event.opportunity)
+    session[:op_id] = @event.polyevent.id
+    @opportunity = Opportunity.find(@event.polyevent)
     @opevent = @opportunity.events.includes(
     :user).order('event_date').page(params[:event_page]).per(10)
   end
@@ -63,8 +63,9 @@ class EventsController < ApplicationController
 
   def destroy
     # AJAX
-    @opportunity = Opportunity.find_by_id(@event.opportunity.id)
-    @opevent = @opportunity.events.includes(:user).order('event_date').page(params[:task_page]).per(10)
+    @opportunity = Opportunity.find_by_id(@event.polyevent.id)
+    @opevent = @opportunity.events.includes(:user).order(
+    'event_date').page(params[:task_page]).per(10)
 
     @event.destroy
     timeline_event("deleted event")

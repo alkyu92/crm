@@ -93,7 +93,7 @@ class DashboardsController < ApplicationController
   end
 
   def marketing_index
-
+    @marketings = Opportunity.where(business_type: "Marketing")
   end
 
   def main

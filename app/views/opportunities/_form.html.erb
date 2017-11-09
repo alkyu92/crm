@@ -24,35 +24,29 @@
       <% if @opportunity.status == nil %>
 
         <% if params[:type] == "Opportunity" %>
-
-        <% opstatus.each do |opstat| %>
-        <option id="optop"><%= opstat %></option>
-        <% end %>
-
+          <% opstatus.each do |opstat| %>
+          <option id="optop"><%= opstat %></option>
+          <% end %>
         <% elsif params[:type] == "Case" %>
-
-        <% casestatus.each do |cstat| %>
-        <option id="optcase"><%= cstat %></option>
-        <% end %>
-
+          <% casestatus.each do |cstat| %>
+          <option id="optcase"><%= cstat %></option>
+          <% end %>
         <% elsif params[:type] == "Marketing" %>
-
-        <% mrktstatus.each do |mrktstat| %>
-        <option id="optmrkt"><%= mrktstat %></option>
-        <% end %>
-
+          <% mrktstatus.each do |mrktstat| %>
+          <option id="optmrkt"><%= mrktstat %></option>
+          <% end %>
         <% end %>
 
       <% else %>
 
         <% if @opportunity.business_type == "Opportunity" %>
-        <option id="optop">
+          <option id="optop">
         <% elsif @opportunity.business_type == "Case" %>
-        <option id="optcase">
+          <option id="optcase">
         <% elsif @opportunity.business_type == "Marketing" %>
-        <option id="optmrkt">
+          <option id="optmrkt">
         <% end %>
-        <%= @opportunity.status %></option>
+          <%= @opportunity.status %></option>
 
         <% opstatus.each do |opstat| %>
         <% next if @opportunity.status == opstat %>
