@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-lg-6">
         <% if result._index == "accounts" %>
-        <h4 style="margin-bottom: 0px;"><%= link_to result.account_name, account_path(result.id) %><br>
+        <h4 style="margin-bottom: 0px;"><%= link_to result.name, account_path(result.id) %><br>
           <small>Account</small>
         </h4>
         <%= result.account_type %>,

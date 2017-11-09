@@ -1,0 +1,34 @@
+<%= f.input :name, label: "Name", placeholder: "Name", autofocus: true %>
+<%= f.label "Assign to Account Name" %>
+<%= f.select :account_id,
+  Account.all.collect {|acc| [acc.name, acc.id] }, {},
+  {class: "form-control selectpicker", data: {live_search: true}} %>
+<br><br>
+
+<div class="form-group select optional marketing_status">
+    <%= f.label "Status", class: "control-label select optional" %>
+
+    <% opstatus = ["Open", "Approved", "Closed-Won", "Closed-Loss"] %>
+    <% casestatus = ["In Progress", "Solved"] %>
+    <% mrktstatus = ["Preparation", "Happening Now", "Passed"] %>
+
+    <select name="marketing[status]" id="marketing_status" class="select form-control optional">
+
+      <% if @marketing.status == nil %>
+        <% mrktstatus.each do |mrktstat| %>
+        <option id="optmrkt"><%= mrktstat %></option>
+        <% end %>
+      <% else %>
+        <option id="optmrkt"><%= @marketing.status %></option>
+        <% mrktstatus.each do |mrktstat| %>
+        <% next if @marketing.status == mrktstat %>
+        <option id="optmrkt" value="<%= mrktstat %>"><%= mrktstat %></option>
+        <% end %>
+      <% end %>
+    </select>
+</div>
+<%= f.input :probability, label: "Marketing probability", placeholder: "In percentage" %>
+<%= f.input :amount, label: "Amount", placeholder: "Activity amount" %>
+<%= f.input :description, input_html: {rows: 5}, label: "Description", placeholder: "Description" %>
+<%= f.label "Assign user as owner" %>
+<%= f.input :user_id, label: false, collection: User.all, include_blank: "Choose owner" %>

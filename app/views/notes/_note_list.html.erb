@@ -67,7 +67,7 @@
         <%= link_to note.info.name, opportunity_path(note.info) %>
         <% elsif note.info_type == "Account" %>
         <small>Account</small><br>
-        <%= link_to note.info.account_name, account_path(note.info) %>
+        <%= link_to note.info.name, account_path(note.info) %>
         <% end %>
         <br><br>
     </div>

@@ -30,7 +30,7 @@
                 to
                 <% if tl.timeline.activity_type == "Account" %>
                 <%= tl.timeline.activity_type.downcase %>
-                <strong><%= tl.timeline.activity.account_name %></strong>
+                <strong><%= tl.timeline.activity.name %></strong>
                 <% elsif tl.timeline.activity_type == "Opportunity" %>
                 <%= tl.timeline.activity.business_type.downcase %>
                 <strong><%= tl.timeline.activity.name %></strong>

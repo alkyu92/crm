@@ -59,7 +59,7 @@
     <div class="col-lg-2 col-xs-6">
       <small>Account</small><br>
       <% if event.polyevent.business_type == "Account" %>
-      <%= link_to event.polyevent.account_name, account_path(event.polyevent) %>
+      <%= link_to event.polyevent.name, account_path(event.polyevent) %>
       <% elsif event.polyevent.business_type == "Opportunity" || event.polyevent.business_type == "Case" %>
       <%= link_to event.polyevent.name, account_path(event.polyevent) %>
       <% end %>

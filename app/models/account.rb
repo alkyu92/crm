@@ -12,8 +12,10 @@ class Account < ApplicationRecord
   has_many :documents,  as: :attchdoc,    dependent: :destroy
 
   has_many :opportunities, dependent: :destroy
+  has_many :cases,  dependent: :destroy
+  has_many :marketings, dependent: :destroy
 
-  validates :account_name, presence: true
+  validates :name, presence: true
 
   def country_name(column_name)
     country = ISO3166::Country[column_name]
@@ -26,7 +28,7 @@ class Account < ApplicationRecord
         multi_match: {
           query: query,
           fields: [
-            'account_name'
+            'name'
           ]
         }
       },
@@ -34,7 +36,7 @@ class Account < ApplicationRecord
         pre_tags: ['<em>'],
         post_tags: ['</em>'],
         fields: {
-          account_name: {}
+          name: {}
         }
       }
     }

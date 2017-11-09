@@ -19,7 +19,7 @@
                 Account not specified
             </span>
         <% else %>
-            <%= link_to @opportunity.account.account_name, account_path(@opportunity.account) %>
+            <%= link_to @opportunity.account.name, account_path(@opportunity.account) %>
             <% end %>
         </h4>
         <br>

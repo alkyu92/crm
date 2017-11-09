@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829043310) do
+ActiveRecord::Schema.define(version: 20171109022421) do
 
   create_table "accounts", force: :cascade do |t|
-    t.string   "account_name"
+    t.string   "name"
     t.string   "account_type"
     t.string   "website"
     t.string   "email"
@@ -51,6 +51,24 @@ ActiveRecord::Schema.define(version: 20170829043310) do
     t.datetime "updated_at",                    null: false
     t.index ["polycall_type", "polycall_id"], name: "index_calls_on_polycall_type_and_polycall_id"
     t.index ["user_id"], name: "index_calls_on_user_id"
+  end
+
+  create_table "cases", force: :cascade do |t|
+    t.string   "name"
+    t.string   "probability"
+    t.decimal  "amount",      precision: 8, scale: 2, default: "0.0"
+    t.text     "description"
+    t.string   "loss_reason"
+    t.date     "close_date"
+    t.string   "status"
+    t.string   "dummy"
+    t.integer  "account_id"
+    t.integer  "user_id"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.index ["account_id"], name: "index_cases_on_account_id"
+    t.index ["status"], name: "index_cases_on_status"
+    t.index ["user_id"], name: "index_cases_on_user_id"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -98,6 +116,22 @@ ActiveRecord::Schema.define(version: 20170829043310) do
     t.datetime "updated_at",                     null: false
     t.index ["polyevent_type", "polyevent_id"], name: "index_events_on_polyevent_type_and_polyevent_id"
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "marketings", force: :cascade do |t|
+    t.string   "name"
+    t.string   "probability"
+    t.decimal  "amount",      precision: 8, scale: 2, default: "0.0"
+    t.text     "description"
+    t.string   "status"
+    t.string   "dummy"
+    t.integer  "account_id"
+    t.integer  "user_id"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.index ["account_id"], name: "index_marketings_on_account_id"
+    t.index ["status"], name: "index_marketings_on_status"
+    t.index ["user_id"], name: "index_marketings_on_user_id"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -155,11 +189,12 @@ ActiveRecord::Schema.define(version: 20170829043310) do
     t.string   "status",         default: "Waiting", null: false
     t.boolean  "current_status", default: false,     null: false
     t.integer  "updated_by_id"
+    t.string   "polystage_type"
+    t.integer  "polystage_id"
     t.integer  "user_id"
-    t.integer  "opportunity_id"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
-    t.index ["opportunity_id"], name: "index_stages_on_opportunity_id"
+    t.index ["polystage_type", "polystage_id"], name: "index_stages_on_polystage_type_and_polystage_id"
     t.index ["user_id"], name: "index_stages_on_user_id"
   end
 

@@ -65,7 +65,7 @@
     <div class="col-lg-2 col-xs-6">
       <small>Account</small><br>
       <% if call.polycall.business_type == "Account" %>
-      <%= link_to call.polycall.account_name, account_path(call.polycall) %>
+      <%= link_to call.polycall.name, account_path(call.polycall) %>
       <% elsif call.polycall.business_type == "Opportunity" || call.polycall.business_type == "Case" %>
       <%= link_to call.polycall.name, account_path(call.polycall) %>
       <% end %>

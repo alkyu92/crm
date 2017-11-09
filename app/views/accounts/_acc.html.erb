@@ -24,7 +24,7 @@
 
 <div class="row">
     <div class="col-lg-1 col-xs-1 text-center">
-        <!-- <strong>ID</strong> -->
+        <strong>ID</strong>
     </div>
     <div class="col-lg-2 col-xs-10">
         <strong>Name</strong>
@@ -61,13 +61,13 @@
 <hr>
 <div class="row">
     <div class="col-lg-1 col-xs-1 text-center">
-      <!-- <span class="badge"><%#= account.id %></span> -->
+      <span class="badge"><%= account.id %></span>
     </div>
     <div class="col-lg-2 col-xs-10">
-        <% if account.account_name.blank? %>
+        <% if account.name.blank? %>
         <span style="color: red;">Account name not specified</span>
     <% else %>
-        <%= link_to account.account_name, account_path(account) %>
+        <%= link_to account.name, account_path(account) %>
         <% end %>
         <br><br>
     </div>

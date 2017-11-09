@@ -18,7 +18,7 @@
       <% @oploss.take(6).each do |loss| %>
       <div class="row">
         <div class="col-lg-4 col-xs-4">
-          <%#= link_to loss.account.account_name, account_path(loss.account) %>
+          <%#= link_to loss.account.name, account_path(loss.account) %>
           <%= link_to loss[0], account_path(loss[1]) %>
         </div>
         <div class="col-lg-4 col-xs-4">

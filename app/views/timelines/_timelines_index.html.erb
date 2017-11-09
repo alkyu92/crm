@@ -44,7 +44,7 @@
                 to
                 <% if timeline.activity_type == "Account" %>
                 <%= timeline.activity_type.downcase %>
-                <strong><%= link_to timeline.activity.account_name, '#' %></strong>
+                <strong><%= link_to timeline.activity.name, '#' %></strong>
                 <% elsif timeline.activity_type == "Opportunity" %>
                 <strong><%= link_to timeline.activity.name, '#' %></strong>
                 <% end %>

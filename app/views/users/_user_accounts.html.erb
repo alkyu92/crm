@@ -18,7 +18,7 @@ No accounts found.
 <% @useracc.each do |acc| %>
 <div class="row">
     <div class="col-lg-6 col-xs-6">
-        <%= link_to acc.account_name, account_path(acc) %>
+        <%= link_to acc.name, account_path(acc) %>
     </div>
     <div class="col-lg-6 col-xs-6">
         <%= acc.created_at.strftime('%d %b %Y %H:%M:%S') %>

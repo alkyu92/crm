@@ -14,10 +14,9 @@ class Opportunity < ApplicationRecord
   has_many :tasks,      as: :polytask,    dependent: :destroy
   has_many :events,     as: :polyevent,   dependent: :destroy
   has_many :calls,      as: :polycall,    dependent: :destroy
+  has_many :stages,     as: :polystage,   dependent: :destroy
 
-  has_many :stages, dependent: :destroy
-
-  validates :name,:business_type, :status, presence: true
+  validates :name, :status, presence: true
 
   def self.search(query)
   __elasticsearch__.search(

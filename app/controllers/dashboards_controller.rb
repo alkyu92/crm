@@ -4,16 +4,16 @@ class DashboardsController < ApplicationController
     :id, :name, :created_at).take(6)
     @opportunities_open = Opportunity.joins(:account).where(
     business_type: "Opportunity", status: "Open").order('opportunities.created_at DESC').pluck(
-    :id, :name, "opportunities.created_at", :status, :account_name, "accounts.id").take(6)
+    :id, :name, "opportunities.created_at", :status, :name, "accounts.id").take(6)
     @opportunities_approved = Opportunity.joins(:account).where(
     business_type: "Opportunity", status: "Approved").order('opportunities.created_at DESC').pluck(
-    :id, :name, "opportunities.created_at", :status, :account_name, "accounts.id").take(6)
+    :id, :name, "opportunities.created_at", :status, :name, "accounts.id").take(6)
     @opportunities_closedwon = Opportunity.joins(:account).where(
     business_type: "Opportunity", status: "Closed-Won").order('opportunities.created_at DESC').pluck(
-    :id, :name, "opportunities.created_at", :status, :account_name, "accounts.id").take(6)
+    :id, :name, "opportunities.created_at", :status, :name, "accounts.id").take(6)
     @opportunities_closedloss = Opportunity.joins(:account).where(
     business_type: "Opportunity", status: "Closed-Loss").order('opportunities.created_at DESC').pluck(
-    :id, :name, "opportunities.created_at", :status, :account_name, "accounts.id").take(6)
+    :id, :name, "opportunities.created_at", :status, :name, "accounts.id").take(6)
 
     @cases = Opportunity.where(
     business_type: "Case").order('created_at DESC').pluck(
@@ -25,7 +25,7 @@ class DashboardsController < ApplicationController
     business_type: "Case", status: 'Solved').pluck(
     :id, :name, :created_at, :status).take(6)
 
-    @accounts = Account.order('created_at DESC').pluck(:id, :account_name, :created_at).take(6)
+    @accounts = Account.order('created_at DESC').pluck(:id, :name, :created_at).take(6)
 
     @tasks = Task.order('created_at DESC').pluck(
     :id, :description, :created_at, :polytask_id).take(6)
@@ -45,13 +45,13 @@ class DashboardsController < ApplicationController
     @contacts = Contact.order('created_at DESC').pluck(:name, :created_at).take(6)
 
     @opwon = Opportunity.joins(:account).where(status: "Closed-Won").order('amount DESC').pluck(
-    :account_name, :account_id, :name, :id, :amount)
+    :name, :account_id, :name, :id, :amount)
     @oploss = Opportunity.joins(:account).where(status: "Closed-Loss").order('amount DESC').pluck(
-    :account_name, :account_id, :name, :id, :amount, :loss_reason)
+    :name, :account_id, :name, :id, :amount, :loss_reason)
     @opopen = Opportunity.joins(:account).where(status: "Open").order('amount DESC').pluck(
-    :account_name, :account_id, :name, :id, :amount)
+    :name, :account_id, :name, :id, :amount)
     @opaprv = Opportunity.joins(:account).where(status: "Approved").order('amount DESC').pluck(
-    :account_name, :account_id, :name, :id, :amount)
+    :name, :account_id, :name, :id, :amount)
 
     @opwon_sum = Opportunity.where(status: "Closed-Won").pluck(:amount).sum
     @oploss_sum = Opportunity.where(status: "Closed-Loss").pluck(:amount).sum
@@ -65,28 +65,28 @@ class DashboardsController < ApplicationController
 
     @acc_won_hash = {}
     Account.all.each do |acc|
-      @acc_won_hash[acc.account_name] = acc.opportunities.where(status: "Closed-Won").sum("amount")
+      @acc_won_hash[acc.name] = acc.opportunities.where(status: "Closed-Won").sum("amount")
     end
     @acc_won_hash = @acc_won_hash.sort_by(&:last).reverse.take(6)
     gon.acc_won_hash = @acc_won_hash
 
     @acc_loss_hash = {}
     Account.all.each do |acc|
-      @acc_loss_hash[acc.account_name] = acc.opportunities.where(status: "Closed-Loss").sum("amount")
+      @acc_loss_hash[acc.name] = acc.opportunities.where(status: "Closed-Loss").sum("amount")
     end
     @acc_loss_hash = @acc_loss_hash.sort_by(&:last).reverse.take(6)
     gon.acc_loss_hash = @acc_loss_hash
 
     @acc_open_hash = {}
     Account.all.each do |acc|
-      @acc_open_hash[acc.account_name] = acc.opportunities.where(status: "Open").sum("amount")
+      @acc_open_hash[acc.name] = acc.opportunities.where(status: "Open").sum("amount")
     end
     @acc_open_hash = @acc_open_hash.sort_by(&:last).reverse.take(6)
     gon.acc_open_hash = @acc_open_hash
 
     @acc_approved_hash = {}
     Account.all.each do |acc|
-      @acc_approved_hash[acc.account_name] = acc.opportunities.where(status: "Approved").sum("amount")
+      @acc_approved_hash[acc.name] = acc.opportunities.where(status: "Approved").sum("amount")
     end
     @acc_approved_hash = @acc_approved_hash.sort_by(&:last).reverse.take(6)
     gon.acc_approved_hash = @acc_approved_hash

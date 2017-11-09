@@ -2,12 +2,12 @@
     <div class="col-lg-6">
         <small>Account Name</small>
         <h4>
-            <% if @account.account_name.blank? %>
+            <% if @account.name.blank? %>
             <span style="color: red;">
                 Account name not specified
             </span>
         <% else %>
-            <%= @account.account_name %>
+            <%= @account.name %>
             <% end %>
         </h4>
         <br>

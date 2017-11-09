@@ -1,0 +1,19 @@
+$('#opportunity_name').val('');
+$('#opportunity_current_stage').val('');
+$('#opportunity_business_type').val('');
+$('#opportunity_probability').val('');
+$('#opportunity_amount').val('');
+$('#opportunity_description').val('');
+$('#opportunity_loss_reason').val('');
+$('#opportunity_contacts').val('');
+$('#opportunity_close_date').val('');
+$('#opportunity_account_id').val('');
+
+$('.modal').modal('hide');
+
+$('#acc-op').html("<%= j (render 'accounts/acc_op') %>");
+
+$('.timelines').html("<%= j (render 'timelines/timelines_index') %>");
+// $('#op-list').html("<%= j (render 'opportunities/op') %>");
+$('#notice-op').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
+$('#crm-menu').html("<%= j (render 'layouts/menu') %>");

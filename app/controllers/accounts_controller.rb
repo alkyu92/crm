@@ -33,7 +33,7 @@ class AccountsController < ApplicationController
     @account = current_user.accounts.build(params_account)
 
     if @account.save
-      timeline_account("account", @account.account_name, "created account")
+      timeline_account("account", @account.name, "created account")
       flash[:success] = "Account created!"
       redirect_to account_path(@account)
     else
@@ -45,7 +45,7 @@ class AccountsController < ApplicationController
 
   def update
     @account = Account.find(params[:id])
-    @old_name = @account.account_name
+    @old_name = @account.name
     @subject = @account
       if @account.update(params_account)
 
@@ -53,7 +53,7 @@ class AccountsController < ApplicationController
           params[:docs].each { |doc|
             @account.documents.create!( doc: doc )
           }
-          timeline_account("relatedDocs", @account.account_name, "added attachment file to account")
+          timeline_account("relatedDocs", @account.name, "added attachment file to account")
         end
 
         if params[:assigned]
@@ -62,11 +62,6 @@ class AccountsController < ApplicationController
           @sql = "INSERT INTO relationships ('contact_id', 'contactable_id', 'contactable_type', 'created_at', 'updated_at') VALUES #{@values}"
           ActiveRecord::Base.connection.execute(@sql)
           timeline_account("relatedContacts", @ctct.map {|ct| "#{ct.name}"}.join(','), "added association")
-          # params[:assigned].each { |ct_id|
-          #   @ctct = Contact.find(ct_id)
-          #   @account.relationships.create!(contact: @ctct)
-          #   timeline_account("relatedContacts", @ctct.name, "added association")
-          # }
         end
 
         save_timeline_if_any_changes(@old_name)
@@ -99,7 +94,7 @@ class AccountsController < ApplicationController
     @account.documents.find(params[:id]).destroy
 
     respond_to do |format|
-      timeline_account("relatedDocs", @account.account_name, "deleted attachment file from account")
+      timeline_account("relatedDocs", @account.name, "deleted attachment file from account")
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end
@@ -118,7 +113,7 @@ class AccountsController < ApplicationController
   end
 
   def params_account
-    params.require(:account).permit(:account_name,
+    params.require(:account).permit(:name,
                                     :account_type,
                                     :website,
                                     :description,
@@ -145,7 +140,7 @@ class AccountsController < ApplicationController
 
   def save_timeline_if_any_changes(old_name)
 
-    if @account.account_name_previously_changed?
+    if @account.name_previously_changed?
       timeline_account("accountDetails",
       old_name, "updated account name from")
     end

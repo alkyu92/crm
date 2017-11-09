@@ -47,77 +47,53 @@ for i in 1..20 do
   user_id: 1)
 end
 
-Account.create!(
-account_name: "Local Basic Sdn. Bhd.",
-account_type: "Partner",
-website: "www.localbasic.com.my",
-email: "test@example.com",
-description: "Company description",
-phone: "123-456-890",
-fax: "098-765-432",
-industry: "Aluminium",
-number_of_employee: 200,
+account = {
+  'lb' => [
+    'Local Basic Sdn. Bhd.',
+    'Partner',
+    'www.localbasic.com.my',
+    'Aluminium'
+  ],
+  'lc' => [
+    'Local Casting Sdn. Bhd.',
+    'Partner',
+    'www.localcasting.com.my',
+    'Aluminium'
+  ],
+  'anchor' => [
+    'Anchor Sdn. Bhd.',
+    'Sub-contractor',
+    'www.anchor.com.my',
+    'Surface Finishing'
+  ]
+}
 
-billing_street: "No. 123, Jalan 123,",
-billing_city: "Johor Bahru",
-billing_state: "Johor",
-billing_postal_code: "80000",
-billing_country: "MY",
+account.each do |k, v|
+  Account.create!(
+  name: v[0],
+  account_type: v[1],
+  website: v[2],
+  email: "test@example.com",
+  description: "Company description",
+  phone: "123-456-890",
+  fax: "098-765-432",
+  industry: v[3],
+  number_of_employee: 200,
 
-shipping_street: "No. 123, Jalan 123,",
-shipping_city: "Johor Bahru",
-shipping_state: "Johor",
-shipping_postal_code: "80000",
-shipping_country: "MY",
-user_id: 1)
+  billing_street: "No. 123, Jalan 123,",
+  billing_city: "Johor Bahru",
+  billing_state: "Johor",
+  billing_postal_code: "80000",
+  billing_country: "MY",
 
-Account.create!(
-account_name: "Local Casting Sdn. Bhd.",
-account_type: "Partner",
-website: "www.localbasic.com.my",
-email: "test@example.com",
-description: "Company description",
-phone: "123-456-890",
-fax: "098-765-432",
-industry: "Aluminium",
-number_of_employee: 200,
+  shipping_street: "No. 123, Jalan 123,",
+  shipping_city: "Johor Bahru",
+  shipping_state: "Johor",
+  shipping_postal_code: "80000",
+  shipping_country: "MY",
 
-billing_street: "No. 123, Jalan 123,",
-billing_city: "Johor Bahru",
-billing_state: "Johor",
-billing_postal_code: "80000",
-billing_country: "MY",
-
-shipping_street: "No. 123, Jalan 123,",
-shipping_city: "Johor Bahru",
-shipping_state: "Johor",
-shipping_postal_code: "80000",
-shipping_country: "MY",
-user_id: 1)
-
-Account.create!(
-account_name: "Anchor",
-account_type: "Sub-contractor",
-website: "anchor.website",
-email: "test@example.com",
-description: "Company description",
-phone: "123-456-890",
-fax: "098-765-432",
-industry: "Painting",
-number_of_employee: 200,
-
-billing_street: "No. 123, Jalan 123,",
-billing_city: "Johor Bahru",
-billing_state: "Johor",
-billing_postal_code: "80000",
-billing_country: "MY",
-
-shipping_street: "No. 123, Jalan 123,",
-shipping_city: "Johor Bahru",
-shipping_state: "Johor",
-shipping_postal_code: "80000",
-shipping_country: "MY",
-user_id: 1)
+  user_id: 1)
+end
 
 industry = [
   "Aluminium Manufacturing",
@@ -130,7 +106,7 @@ industry = [
 ]
 for i in 1..20 do
   Account.create!(
-  account_name: "Test Account Name #{i}",
+  name: "Test Account Name #{i}",
   account_type: "Customer",
   website: "www.test#{i}-website.com",
   email: "test#{i}@example.com",

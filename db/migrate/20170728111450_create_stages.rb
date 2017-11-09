@@ -6,9 +6,9 @@ class CreateStages < ActiveRecord::Migration[5.0]
       t.boolean :current_status, null: false, default: false
       t.integer :updated_by_id
 
-      t.references :user, foreign_key: true
+      t.references :polystage, polymorphic: true, index: true
 
-      t.references :opportunity, foreign_key: true
+      t.references :user, foreign_key: true
       t.timestamps
     end
   end

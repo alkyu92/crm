@@ -9,7 +9,7 @@
       <hr>
       <strong>Belongs to</strong><br>
       <small>Account</small><br>
-      <%= link_to @opportunity.account.account_name, account_path(@opportunity.account) %>
+      <%= link_to @opportunity.account.name, account_path(@opportunity.account) %>
       <br><br>
 
       <small><%= @opportunity.business_type == "Opportunity" ? 'Opportunity' : 'Case' %></small><br>

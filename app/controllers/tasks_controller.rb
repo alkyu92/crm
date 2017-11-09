@@ -7,9 +7,9 @@ class TasksController < ApplicationController
     # @tasks = []
 
     # AJAX
-    @opportunity = Opportunity.find_by_id(session[:op_id])
-    @optask = @opportunity.tasks.includes(:user).order(
-    'due_date').page(params[:task_page]).per(10) if @opportunity
+    # @opportunity = Opportunity.find_by_id(session[:op_id])
+    # @optask = @opportunity.tasks.includes(:user).order(
+    # 'due_date').page(params[:task_page]).per(10) if @opportunity
   end
 
   def show
@@ -29,9 +29,9 @@ class TasksController < ApplicationController
     end
 
     # AJAX
-    session[:op_id] = @task.polytask.id
-    @opportunity = Opportunity.find(@task.polytask)
-    @optask = @opportunity.tasks.includes(:user).order('due_date').page(params[:task_page]).per(10)
+    # session[:op_id] = @task.polytask.id
+    # @opportunity = Opportunity.find(@task.polytask)
+    # @optask = @opportunity.tasks.includes(:user).order('due_date').page(params[:task_page]).per(10)
 
   end
 
@@ -62,9 +62,9 @@ class TasksController < ApplicationController
 
   def destroy
     # AJAX
-    @opportunity = Opportunity.find_by_id(@task.polytask.id)
-    @optask = @opportunity.tasks.includes(:user).order(
-    'due_date').page(params[:task_page]).per(10) if @opportunity
+    # @opportunity = Opportunity.find_by_id(@task.polytask.id)
+    # @optask = @opportunity.tasks.includes(:user).order(
+    # 'due_date').page(params[:task_page]).per(10) if @opportunity
 
     @task.destroy
     timeline_task("deleted task")
@@ -74,7 +74,7 @@ class TasksController < ApplicationController
     end
 
     # AJAX
-    @tasks = Task.includes(:user, :opportunity).order('due_date').page(params[:page]).per(10)
+    # @tasks = Task.includes(:user, :opportunity).order('due_date').page(params[:page]).per(10)
   end
 
   def update_task_status
@@ -117,7 +117,16 @@ class TasksController < ApplicationController
 
   def find_subject
     # for AJAX timelines
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-    @opportunity = @subject
+    if params[:opportunity_id]
+      @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+      @opportunity = @subject
+    elsif params[:marketing_id]
+      @subject = Marketing.find(params[:marketing_id]) if params[:marketing_id]
+      @marketing = @subject
+    elsif params[:case_id]
+      @subject = Case.find(params[:case_id]) if params[:case_id]
+      @case = @subject
+    end
   end
+
 end

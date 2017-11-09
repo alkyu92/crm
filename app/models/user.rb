@@ -13,8 +13,10 @@ class User < ApplicationRecord
 
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
-  has_many :opportunities
   has_many :accounts
+  has_many :opportunities
+  has_many :cases
+  has_many :marketings
 
   has_many :contacts
   has_many :notes

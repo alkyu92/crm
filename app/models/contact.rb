@@ -4,7 +4,11 @@ class Contact < ApplicationRecord
 
   has_many :relationships, dependent: :destroy
   has_many :accounts, through: :relationships, source: :contactable, source_type: 'Account'
+
   has_many :opportunities, through: :relationships, source: :contactable, source_type: 'Opportunity'
+  has_many :cases,  through: :relationships, source: :contactable, source_type: 'Case'
+  has_many :marketings, through: :relationships, source: :contactable, source_type: 'Marketing'
+  
   has_many :tasks, through: :relationships, source: :contactable, source_type: 'Task'
   has_many :calls, through: :relationships, source: :contactable, source_type: 'Call'
   has_many :events, through: :relationships, source: :contactable, source_type: 'Event'

@@ -106,7 +106,7 @@
                         <div class="row">
                             <% contactable_acc.each do |rl| %>
                             <div class="col-lg-4">
-                                <%= link_to rl.contactable.account_name,
+                                <%= link_to rl.contactable.name,
                           account_path(rl.contactable,
                           anchor: "relatedContacts-contactInfo-#{rl.contact.id}") %>
                             </div>

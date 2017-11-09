@@ -12,7 +12,7 @@ No association found.
     <div class="col-lg-4">
         <div class="panel panel-default panel-body">
             <h5>
-                <%= link_to rl.contactable.account_name, account_path(rl.contactable) %>
+                <%= link_to rl.contactable.name, account_path(rl.contactable) %>
                 <small class="pull-right">
                     <%= link_to destroy_relationship_contact_path(rl.contact_id, rl.id),
             method: :delete, data: {confirm: "Are you sure?"}, remote: true do %>

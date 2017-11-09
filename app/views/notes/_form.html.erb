@@ -9,7 +9,7 @@
         <%= link_to @note.info.name, opportunity_path(@note.info) %><br>
         <% elsif @note.info_type == "Account" %>
         <small>Account</small><br>
-        <%= link_to @note.info.account_name, account_path(@note.info) %><br>
+        <%= link_to @note.info.name, account_path(@note.info) %><br>
         <% end %>
         <br>
         <%= simple_form_for [@subject, @note] do |f| %>

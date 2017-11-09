@@ -37,7 +37,7 @@
                         <% elsif note.info_type == "Account" %>
                         
                         <small>Account</small><br>
-                        <%= link_to note.info.account_name,
+                        <%= link_to note.info.name,
                         account_path(note.info, anchor: "relatedNotes-noteInfo-#{note.id}") %>
 
                         <% end %>

@@ -18,7 +18,7 @@
       <% @opwon.take(6).each do |won| %>
       <div class="row">
         <div class="col-lg-4 col-xs-4">
-          <%#= link_to won.account.account_name, account_path(won.account) %>
+          <%#= link_to won.account.name, account_path(won.account) %>
           <%= link_to won[0], account_path(won[1]) %>
         </div>
         <div class="col-lg-4 col-xs-4">
