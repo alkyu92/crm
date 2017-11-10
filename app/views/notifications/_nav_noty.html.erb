@@ -16,24 +16,7 @@
         </div>
         <div class="media-body">
             <small>
-                <strong><%= tl.timeline.user.name %></strong>
-                <%= tl.timeline.action %>
-                <strong><%= tl.timeline.nactivity.truncate(30) %></strong>
-                <% unless tl.timeline.action == "created account" ||
-                  tl.timeline.action == "added attachment file to account" ||
-                  tl.timeline.action == "deleted attachment file from account" ||
-                  tl.timeline.action == "added attachment file to opportunity" ||
-                  tl.timeline.action == "deleted attachment file from opportunity" ||
-                  tl.timeline.action == "created opportunity" ||
-                  tl.timeline.action == "created case"
-                  %>
-                to
-                <%= tl.timeline.activity_type.downcase %>
-                <strong><%= tl.timeline.activity.name %></strong>
-                <% end %>
-                <br>
-                <%= time_ago_in_words(tl.created_at) %>
-                ago
+              <%= tl.timeline.action.html_safe %>
             </small>
         </div>
     </div>

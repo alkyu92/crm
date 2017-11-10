@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+        <h3>Create New Case Entry</h3>
+        <hr>
+        <%= simple_form_for [@account, @case] do |f| %>
+        <div class="row">
+            <div class="col-lg-12">
+              <%= render 'cases/form', f: f %>
+            </div>
+        </div>
+        <hr>
+        <%= f.button :submit, class: "btn-success" %>
+        <% end %>
+        <!-- simple_form_for -->
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+
+<%= render 'cases/form_script' %>

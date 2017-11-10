@@ -1,0 +1,39 @@
+<!-- Modal -->
+<div id="marketingModalForm" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="width: 1000px;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><%= yield :form_title %></h4>
+            </div>
+
+            <% if @accounts.blank? %>
+            <div class="modal-body">
+                <div class="text-center">
+                    <h3>Create account first before create activity</h3>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+            </div>
+        <% else %>
+            <div class="modal-body">
+                <%= simple_form_for @marketing, html: {multipart: true}, remote: true do |f| %>
+                <%= render 'marketings/form', f: f %>
+            </div>
+            <div class="modal-footer">
+                <%= f.button :submit, class: "btn-success" %>
+                <% end %>
+                <!-- simple_form_for -->
+
+                <%= link_to 'Cancel', '#', class: "btn btn-default", data: {dismiss: "modal"} %>
+            </div>
+            <% end %>
+            <!-- @accounts.blank? -->
+        </div>
+    </div>
+</div>
+
+<%= render 'marketings/form_script' %>

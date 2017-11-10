@@ -1,0 +1,79 @@
+<script>
+    //initialize
+    $('.opportunity_close_date').hide();
+    $('.opportunity_loss_reason').hide();
+    $('#casedate').hide();
+    $('#opdate').hide();
+    $('#aprvdate').hide();
+
+    //check initial type
+    $('#opportunity_status option[id=optop]').hide();
+    $('#opportunity_status option[id=optcase]').hide();
+    $('.opportunity_probability').hide();
+
+    // if(('#opportunity_status').val() == ''){
+    //   $('#opportunity_status').val('Preparation');
+    // }
+
+    //when type changes
+    $('.opportunity_business_type').on("change", function () {
+
+        $('.opportunity_close_date').hide();
+        $('#opdate').hide();
+        $('#casedate').hide();
+        $('#aprvdate').hide();
+
+        $('#opportunity_status option[id=optmrkt]').show();
+        $('#opportunity_status option[id=optop]').hide();
+        $('#opportunity_status option[id=optcase]').hide();
+
+        $('.opportunity_probability').hide();
+        $('#opportunity_status').val('Preparation');
+        $('.opportunity_loss_reason').hide();
+
+    });
+
+    //when status changes
+    $('.opportunity_status').on("change", function () {
+
+        var status_val = $('#opportunity_status').val();
+        if (status_val == "Closed-Won" || status_val == "Closed-Loss") {
+            $('.opportunity_close_date').show();
+            $('#opdate').show();
+            $('#casedate').hide();
+            $('#aprvdate').hide();
+        }
+
+        if (status_val == "Approved") {
+            $('#opdate').hide();
+            $('#casedate').hide();
+            $('#aprvdate').show();
+            $('.opportunity_loss_reason').hide();
+            $('.opportunity_close_date').show();
+        }
+
+        if (status_val == "Solved") {
+            $('#opdate').hide();
+            $('#casedate').show();
+            $('#aprvdate').hide();
+            $('.opportunity_close_date').show();
+        }
+
+        if (status_val == "Closed-Loss") {
+            $('.opportunity_loss_reason').show();
+        }
+
+        if (status_val == "Closed-Won" || status_val == "Solved") {
+            $('.opportunity_loss_reason').hide();
+        }
+
+        if (status_val == "Open" || status_val == "In Progress") {
+            $('.opportunity_close_date').hide();
+            $('#opdate').hide();
+            $('#casedate').hide();
+            $('#aprvdate').hide();
+            $('.opportunity_loss_reason').hide();
+        }
+
+    });
+</script>

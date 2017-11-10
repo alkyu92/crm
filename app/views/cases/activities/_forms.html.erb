@@ -1,0 +1,30 @@
+<div id="task" class="tab-pane fade in active">
+    <%= simple_form_for [@marketing, @task, Task.new], remote: true do |f| %>
+    <%= f.input :description, placeholder: "To-do" %>
+    <%= f.input :due_date, as: :date_time_picker %>
+    <%= f.button :submit %>
+    <% end %>
+</div>
+
+<div id="call" class="tab-pane fade in">
+    <%= simple_form_for [@marketing, @call, Call.new], remote: true do |f| %>
+    <%= f.input :description, placeholder: "Call description" %>
+    <div class="row">
+      <div class="col-lg-6">
+        <%= f.input :call_datetime, label: "Call Date Time", as: :date_time_picker %>
+      </div>
+      <div class="col-lg-6">
+        <%= f.input :duration, label: "Call Duration",hint: "in minutes", placeholder: "Insert number" %>
+      </div>
+    </div>
+    <%= f.button :submit %>
+    <% end %>
+</div>
+
+<div id="event" class="tab-pane fade in">
+    <%= simple_form_for [@marketing, @event, Event.new], remote: true do |f| %>
+    <%= f.input :description, placeholder: "Event description" %>
+    <%= f.input :event_date, as: :date_time_picker %>
+    <%= f.button :submit %>
+    <% end %>
+</div>

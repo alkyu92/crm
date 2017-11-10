@@ -10,10 +10,9 @@ class Account < ApplicationRecord
   has_many :timelines,  as: :activity,    dependent: :destroy
   has_many :notes,      as: :info,        dependent: :destroy
   has_many :documents,  as: :attchdoc,    dependent: :destroy
-
-  has_many :opportunities, dependent: :destroy
-  has_many :cases,  dependent: :destroy
-  has_many :marketings, dependent: :destroy
+  has_many :opportunities,                dependent: :destroy
+  has_many :cases,                        dependent: :destroy
+  has_many :marketings,                   dependent: :destroy
 
   validates :name, presence: true
 

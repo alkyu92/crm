@@ -1,28 +1,28 @@
 class DashboardsController < ApplicationController
   def sales_index
-    @opportunities = Opportunity.where(business_type: "Opportunity").order('created_at DESC').pluck(
+    @opportunities = Opportunity.order('created_at DESC').pluck(
     :id, :name, :created_at).take(6)
     @opportunities_open = Opportunity.joins(:account).where(
-    business_type: "Opportunity", status: "Open").order('opportunities.created_at DESC').pluck(
+    status: "Open").order('opportunities.created_at DESC').pluck(
     :id, :name, "opportunities.created_at", :status, :name, "accounts.id").take(6)
-    @opportunities_approved = Opportunity.joins(:account).where(
-    business_type: "Opportunity", status: "Approved").order('opportunities.created_at DESC').pluck(
+    @opportunities_approved = Opportunity.joins(:account).
+    where(status: "Approved").order('opportunities.created_at DESC').pluck(
     :id, :name, "opportunities.created_at", :status, :name, "accounts.id").take(6)
     @opportunities_closedwon = Opportunity.joins(:account).where(
-    business_type: "Opportunity", status: "Closed-Won").order('opportunities.created_at DESC').pluck(
+    status: "Closed-Won").order('opportunities.created_at DESC').pluck(
     :id, :name, "opportunities.created_at", :status, :name, "accounts.id").take(6)
     @opportunities_closedloss = Opportunity.joins(:account).where(
-    business_type: "Opportunity", status: "Closed-Loss").order('opportunities.created_at DESC').pluck(
+    status: "Closed-Loss").order('opportunities.created_at DESC').pluck(
     :id, :name, "opportunities.created_at", :status, :name, "accounts.id").take(6)
 
-    @cases = Opportunity.where(
-    business_type: "Case").order('created_at DESC').pluck(
+
+    @cases = Opportunity.order('created_at DESC').pluck(
     :id, :name, :created_at).take(6)
     @cases_inprogress = Opportunity.where(
-    business_type: "Case", status: 'In Progress').pluck(
+    status: 'In Progress').pluck(
     :id, :name, :created_at, :status).take(6)
     @cases_solved = Opportunity.where(
-    business_type: "Case", status: 'Solved').pluck(
+    status: 'Solved').pluck(
     :id, :name, :created_at, :status).take(6)
 
     @accounts = Account.order('created_at DESC').pluck(:id, :name, :created_at).take(6)

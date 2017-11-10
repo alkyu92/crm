@@ -9,7 +9,7 @@ class CreateAccounts < ActiveRecord::Migration[5.0]
       t.string :phone
       t.string :fax
       t.string :industry
-      t.integer :number_of_employee
+      t.integer :employee
 
       t.string :billing_street
       t.string :billing_city

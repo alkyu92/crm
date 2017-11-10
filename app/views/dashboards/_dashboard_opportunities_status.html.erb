@@ -8,13 +8,13 @@
 No opportunities found.
 <% else %>
 
-<%= render 'dashboards/op_status_block', opportunities_block: @opportunities_open %>
-<%= render 'dashboards/op_status_block', opportunities_block: @opportunities_approved %>
-<%= render 'dashboards/op_status_block', opportunities_block: @opportunities_closedwon %>
-<%= render 'dashboards/op_status_block', opportunities_block: @opportunities_closedloss %>
+<%= render 'dashboards/sbj_block', sbj_block: @opportunities_open %>
+<%= render 'dashboards/sbj_block', sbj_block: @opportunities_approved %>
+<%= render 'dashboards/sbj_block', sbj_block: @opportunities_closedwon %>
+<%= render 'dashboards/sbj_block', sbj_block: @opportunities_closedloss %>
 
 <h5 class="text-center"><%= link_to 'View All Opportunities',
-opportunities_path(type: "Opportunity") %></h5>
+opportunities_path %></h5>
 <% end %>
 <!-- opportunities blank end -->
 </div>

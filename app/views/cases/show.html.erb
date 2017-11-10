@@ -1,0 +1,62 @@
+<div class="container">
+    <div id="mrkt-title">
+      <%= render 'marketings/mrkt_title' %>
+    </div>
+    <% provide(:form_title, 'Edit Subject Entry')%>
+    <%= render 'marketings/modal_form' %>
+    <br>
+
+    <div id="mrkt-header">
+    <%= render 'marketings/mrkt_header' %>
+    </div>
+
+    <hr>
+    <%#= render 'stages/poly_stages'%>
+    <hr>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><%= link_to 'Activities', '#marketingActivities',
+              data: {toggle: "tab", target: "#marketingActivities"} %></li>
+                <li><%= link_to 'Related Contacts', '#relatedContacts',
+                data: {toggle: "tab", target: "#relatedContacts"} %></li>
+                <li><%= link_to 'Related Documents', '#relatedDocs',
+                data: {toggle: "tab", target: "#relatedDocs"} %></li>
+                <li><%= link_to 'Notes', '#relatedNotes',
+                data: {toggle: "tab", target: "#relatedNotes"} %></li>
+                <li><%= link_to 'Details', '#marketingDetails',
+                data: {toggle: "tab", target: "#marketingDetails"} %></li>
+            </ul>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+
+        <div class="col-lg-6">
+            <div class="tab-content">
+                <%= render 'marketings/activities/index' %>
+                <%= render 'contacts/related_contacts' %>
+                <%= render 'documents/related_docs' %>
+                <%= render 'notes/related_notes' %>
+                <%= render 'details' %>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="timelines">
+                <%= render 'timelines/timelines_index' %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%= javascript_tag defer: 'defer' do %>
+var locHash = window.location.hash.split('-')
+$('.nav-tabs a[href="' + locHash[0] + '"]').tab('show');
+
+var id = '#' + locHash[1] + '-' + locHash[2];
+$(id).modal('show');
+<% end %>

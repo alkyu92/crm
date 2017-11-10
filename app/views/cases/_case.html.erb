@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-lg-10">
+        <div class="media">
+            <div class="media-left">
+                <div style="padding-top: 20px;"></div>
+                <%= letter_avatar_tag('Cases', 50, class: "media-object") %>
+            </div>
+            <div class="media-body">
+                <h3>Cases and Issues
+                    <br>
+                    <small>All Cases and Issues</small>
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <h3><%= link_to "Create New Case", new_case_path, class: "btn btn-default" %></h3>
+    </div>
+</div>
+
+<div id="notice-op"></div>
+
+<hr>
+
+<div class="row">
+    <div class="col-lg-1 col-xs-1 text-center">
+        <strong>ID</strong>
+    </div>
+    <div class="col-lg-2 col-xs-10">
+        <strong>
+          Case Name
+        </strong>
+        <br><br>
+    </div>
+    <div class="col-lg-2 col-xs-6">
+        <strong>Account Name</strong>
+    </div>
+    <div class="col-lg-2 col-xs-6">
+        <strong>Current Stage</strong>
+        <br><br>
+    </div>
+    <div class="col-lg-1 col-xs-6">
+        <strong>Status</strong>
+        <div class="dropdown">
+            <%= link_to '#',data: {toggle: 'dropdown'}, class: 'dropdown-toggle' do %>
+            Show only
+            <span class="caret"></span>
+            <% end %>
+            <ul class="dropdown-menu">
+              <li><%= link_to 'In Progress', "?status=In Progress" %></li>
+              <li><%= link_to 'Solved', "?status=Solved" %></li>
+              <li><%= link_to 'Show All Cases', "" %></li>
+            </ul>
+        </div>
+        <br>
+    </div>
+    <div class="col-lg-2 col-xs-2 text-center">
+        <strong>Action</strong>
+    </div>
+</div>
+
+<% if @marketings.blank? %>
+<hr>
+<div class="text-center">
+    No marketing activities found.<br><br>
+    Create new <%= link_to 'marketing activities', new_marketing_path %>.
+</div>
+
+<% else %>
+
+<% @marketings.each do |marketing| %>
+<hr>
+<div class="row">
+    <div class="col-lg-1 col-xs-1 text-center">
+        <span class="badge"><%= marketing.id %></span>
+    </div>
+    <div class="col-lg-2 col-xs-10">
+        <% if marketing.name.blank? %>
+        <span style="color: red;">Marketing name not specified</span>
+    <% else %>
+        <%= link_to marketing.name, marketing_path(marketing) %>
+        <% end %>
+        <br><br>
+    </div>
+    <div class="col-lg-2 col-xs-6">
+        <!-- Account Name -->
+        <% if marketing.account_id.blank? %>
+        <span style="color: red;">Account not specified</span>
+    <% else %>
+        <%= link_to marketing.account.name, account_path(marketing.account) %>
+        <% end %>
+    </div>
+    <div class="col-lg-2 col-xs-6">
+        <!-- Current Stage -->
+        <% if marketing.stages.blank? %>
+        <span style="color: red;">Not specified</span>
+    <% else %>
+        <% marketing.stages.each do |stage| %>
+        <% if stage.status == "In Progress" %>
+        <%= stage.name %><br>
+        <small>(In Progress)</small>
+        <% elsif stage.status == "Completed" && stage.id == marketing.stages.last.id %>
+        <span style="color: green;">
+            <%= stage.name %><br>
+            <small>(Final stage completed)</small>
+        </span>
+        <% end %>
+        <% end %>
+        <% end %>
+        <br><br>
+    </div>
+    <div class="col-lg-1 col-xs-6">
+        <%= marketing.status %>
+        <br><br>
+    </div>
+    <div class="col-lg-2 col-xs-2 text-center">
+        <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+            <i class="caret"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li><%= link_to 'Show', marketing_path(marketing) %></li>
+            <li><%= link_to 'Delete', marketing_path(marketing),
+          method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
+        </ul>
+    </div>
+</div>
+
+<% end %>
+<br>
+<div class="text-center">
+    <%= paginate @marketings %>
+</div>
+<% end %>

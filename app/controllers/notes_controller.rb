@@ -23,7 +23,10 @@ class NotesController < ApplicationController
 
     respond_to do |format|
       if @note.save
-        timeline_note("created note")
+        @notetimeline = @subject.timelines.create!(
+        action: "#{current_user.name} created note <strong>#{@note.title.truncate(50)}</strong>",
+        user_id: current_user.id
+        )
         format.js { flash.now[:success] = "Note log added!" }
       else
         format.js { flash.now[:danger] = "Failed to add note log!" }
@@ -37,8 +40,18 @@ class NotesController < ApplicationController
   end
 
   def update
+    @old_title = @note.title
+    @old_description = @note.description
+
       if @note.update(params_note)
-        timeline_note("updated note")
+        # timeline
+        if @note.title_previously_changed?
+          timeline_note("title", @old_title, @note.title)
+        elsif @note.description_previously_changed?
+          timeline_note("description", @old_description, @note.description)
+        end
+
+
         flash[:success] = "Note entry created!"
         if params[:controller] == "accounts" || params[:account_id]
           redirect_to account_path(@subject, anchor: "relatedNotes")
@@ -53,7 +66,7 @@ class NotesController < ApplicationController
 
   def destroy
     @note.destroy
-    timeline_note("deleted note")
+    timeline_note("deleted")
     respond_to do |format|
       format.js { flash.now[:success] = "Note log deleted!" }
     end
@@ -64,15 +77,12 @@ class NotesController < ApplicationController
 
   private
 
-  def timeline_note(action)
+  def timeline_note(param, old, latest)
     @notetimeline = @subject.timelines.create!(
-    tactivity: "relatedNotes-" + @note.id.to_s,
-    nactivity: @note.title,
-    action: action,
+    action: "#{current_user.name} updated note <strong>#{param}</strong> from
+    <strong>#{old}</strong> to <strong>#{latest}</strong>",
     user_id: current_user.id
     )
-
-    notify_user(@notetimeline.id)
   end
 
   def params_note

@@ -1,0 +1,27 @@
+<div class="tab-pane fade in active" id="marketingActivities">
+  <h4>Opportunity / Case Activities</h4>
+  <div class="panel panel-default panel-body">
+      <ul class="nav nav-tabs">
+          <li class="active"><%= link_to 'Task', '#task',
+                  data: {toggle: "tab", target: "#task, #task_list"} %></li>
+          <li><%= link_to 'Call Log', '#call',
+                  data: {toggle: "tab", target: "#call, #call_list"}%></li>
+          <li><%= link_to 'Event', '#event',
+                  data: {toggle: "tab", target: "#event, #event_list"}%></li>
+      </ul>
+
+      <br>
+      <div class="tab-content">
+          <%= render 'marketings/activities/forms' %>
+        </div>
+  </div>
+
+  <br>
+
+  <div class="tab-content">
+  <%= render 'tasks/index' %>
+  <%= render 'calls/index' %>
+  <%= render 'events/index'%>
+</div>
+
+</div>

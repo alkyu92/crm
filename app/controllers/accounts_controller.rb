@@ -10,15 +10,11 @@ class AccountsController < ApplicationController
     @subject = @account
 
     if params[:status] && params[:type]
-      @accop = @account.opportunities.includes(
-        :account, :stages).where(
-        status: params[:status], business_type: params[:type]).page(
-        params[:acc_page]).per(10)
+      @accop = @account.opportunities.includes(:account, :stages).where(
+      status: params[:status], business_type: params[:type]).page(params[:acc_page]).per(10)
     elsif params[:type]
-      @accop = @account.opportunities.includes(
-        :account, :stages).where(
-        business_type: params[:type]).page(
-        params[:acc_page]).per(10)
+      @accop = @account.opportunities.includes(:account, :stages).where(
+      business_type: params[:type]).page(params[:acc_page]).per(10)
     else
       @accop = @account.opportunities.includes(
       :account, :stages).page(params[:acc_page]).per(10)
@@ -33,7 +29,12 @@ class AccountsController < ApplicationController
     @account = current_user.accounts.build(params_account)
 
     if @account.save
-      timeline_account("account", @account.name, "created account")
+      # timeline
+      @acctimeline = @account.timelines.create!(
+      action: "#{current_user.name} created account <strong>#{@account.name}</strong>",
+      anchor: "accountDetails",
+      user_id: current_user.id
+      )
       flash[:success] = "Account created!"
       redirect_to account_path(@account)
     else
@@ -45,32 +46,66 @@ class AccountsController < ApplicationController
 
   def update
     @account = Account.find(params[:id])
+
     @old_name = @account.name
+    @old_type = @account.account_type
+    @old_website = @account.website
+    @old_email = @account.email
+    @old_description = @account.description
+    @old_phone = @account.phone
+    @old_fax = @account.fax
+    @old_industry = @account.industry
+    @old_employee = @account.employee
+
     @subject = @account
+
+    respond_to do |format|
       if @account.update(params_account)
 
         if params[:docs]
           params[:docs].each { |doc|
             @account.documents.create!( doc: doc )
           }
-          timeline_account("relatedDocs", @account.name, "added attachment file to account")
+          # timeline
+          @acctimeline = @account.timelines.create!(
+          action: "#{current_user.name} added attachment
+          to account <strong>#{@account.name}</strong>",
+          user_id: current_user.id
+          )
         end
 
         if params[:assigned]
           @ctct = Contact.where(id: params[:assigned])
-          @values = @ctct.map {|ct| "(#{ct.id}, #{@account.id}, 'Account', '#{ct.created_at}', '#{ct.updated_at}')"}.join(',')
-          @sql = "INSERT INTO relationships ('contact_id', 'contactable_id', 'contactable_type', 'created_at', 'updated_at') VALUES #{@values}"
-          ActiveRecord::Base.connection.execute(@sql)
-          timeline_account("relatedContacts", @ctct.map {|ct| "#{ct.name}"}.join(','), "added association")
-        end
+          @values = @ctct.map {|ct|
+            "(#{ct.id}, #{@account.id}, 'Account', '#{ct.created_at}', '#{ct.updated_at}')"}.join(',')
 
-        save_timeline_if_any_changes(@old_name)
-        flash[:success] = "Account entry updated!"
-	      redirect_to account_path(@account)
+          @sql = "INSERT INTO relationships (
+          'contact_id', 'contactable_id', 'contactable_type', 'created_at', 'updated_at'
+          ) VALUES #{@values}"
+
+          ActiveRecord::Base.connection.execute(@sql)
+          # timeline
+          @acctimeline = @account.timelines.create!(
+          action: "#{current_user.name} assigned
+          <strong>#{@ctct.map {|ct| ct.name}.join(' ,')}</strong>
+          to account <strong>#{@account.name}</strong>",
+          user_id: current_user.id
+          )
+        end
+        # timeline update
+        save_timeline_if_any_changes
+
+        format.html {
+          flash[:success] = "Account entry updated!"
+          redirect_to account_path(@account)
+        }
+        format.js { flash[:success] = "Account entry updated!" }
       else
         flash[:danger] = "Failed to update account entry!"
-	      redirect_to account_path(@account, anchor: "accountModalForm")
+        format.html { redirect_to account_path(@account, anchor: "accountModalForm") }
+        format.js
       end
+    end
   end
 
   def destroy
@@ -94,21 +129,25 @@ class AccountsController < ApplicationController
     @account.documents.find(params[:id]).destroy
 
     respond_to do |format|
-      timeline_account("relatedDocs", @account.name, "deleted attachment file from account")
+      @acctimeline = @account.timelines.create!(
+      action: "#{current_user.name} deleted attachment from
+      <strong>#{@account.name}</strong>",
+      anchor: "relatedDocs",
+      user_id: current_user.id
+      )
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end
 
   private
 
-  def timeline_account(tactivity, nactivity, action)
+  def timeline_account(param,old,latest)
     @acctimeline = @account.timelines.create!(
-    tactivity: tactivity,
-    nactivity: nactivity,
-    action: action,
+    action: "#{current_user.name} updated account <strong>#{param}</strong>
+    from <strong>#{old}</strong> to <strong>#{latest}</strong>",
+    anchor: "accountDetails",
     user_id: current_user.id
     )
-
     notify_user(@acctimeline.id)
   end
 
@@ -121,7 +160,7 @@ class AccountsController < ApplicationController
                                     :phone,
                                     :fax,
                                     :industry,
-                                    :number_of_employee,
+                                    :employee,
                                     :billing_street,
                                     :billing_city,
                                     :billing_state,
@@ -138,42 +177,34 @@ class AccountsController < ApplicationController
                                     )
   end
 
-  def save_timeline_if_any_changes(old_name)
+  def save_timeline_if_any_changes
 
     if @account.name_previously_changed?
-      timeline_account("accountDetails",
-      old_name, "updated account name from")
+      timeline_account("name", @old_name, @account.name)
     end
     if @account.account_type_previously_changed?
-      timeline_account("accountDetails",
-      @account.account_type, "updated account type to")
+      timeline_account("type", @old_type, @account.account_type)
     end
     if @account.website_previously_changed?
-      timeline_account("accountDetails",
-      @account.website, "updated account website url to")
+      timeline_account("website URL", @old_website, @account.website)
     end
     if @account.email_previously_changed?
-      timeline_account("accountDetails",
-      @account.email, "updated account email to")
+      timeline_account("email", @old_email, @account.email)
     end
     if @account.description_previously_changed?
-      timeline_account("accountDetails", "", "updated account description")
+      timeline_account("description", @old_description, @account.description)
     end
     if @account.phone_previously_changed?
-      timeline_account("accountDetails",
-      @account.phone, "updated account phone number to")
+      timeline_account("phone number", @old_phone, @account.phone)
     end
     if @account.fax_previously_changed?
-      timeline_account("accountDetails",
-      @account.fax, "updated account fax number to")
+      timeline_account("fax number", @old_fax, @account.fax)
     end
     if @account.industry_previously_changed?
-      timeline_account("accountDetails",
-      @account.industry, "updated account industry to")
+      timeline_account("industry", @old_industry, @account.industry)
     end
-    if @account.number_of_employee_previously_changed?
-      timeline_account("accountDetails",
-      @account.number_of_employee, "updated account number of employee to")
+    if @account.employee_previously_changed?
+      timeline_account("number of employees", @old_employee, @account.employee)
     end
     if @account.billing_street_previously_changed? ||
       @account.billing_city_previously_changed? ||
@@ -181,8 +212,10 @@ class AccountsController < ApplicationController
       @account.billing_postal_code_previously_changed? ||
       @account.billing_country_previously_changed?
 
-      timeline_account("accountDetails", "", "updated account billing address")
-
+      @acctimeline = @account.timelines.create!(
+      action: "#{current_user.name} updated account billing address",
+      user_id: current_user.id
+      )
     end
     if @account.shipping_street_previously_changed? ||
       @account.shipping_city_previously_changed? ||
@@ -190,8 +223,10 @@ class AccountsController < ApplicationController
       @account.shipping_postal_code_previously_changed? ||
       @account.shipping_country_previously_changed?
 
-      timeline_account("accountDetails", "", "updated account shipping address")
-
+      @acctimeline = @account.timelines.create!(
+      action: "#{current_user.name} updated account shipping address",
+      user_id: current_user.id
+      )
     end
   end
 end

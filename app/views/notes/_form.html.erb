@@ -4,13 +4,15 @@
         <h3>Edit Note</h3>
         <hr>
         <strong>Belongs to</strong><br>
+
         <% if @note.info_type == "Opportunity" %>
-        <small><%= @note.info.business_type %></small><br>
-        <%= link_to @note.info.name, opportunity_path(@note.info) %><br>
+          <small><%= @note.info_type %></small><br>
+          <%= link_to @note.info.name, opportunity_path(@note.info) %><br>
         <% elsif @note.info_type == "Account" %>
-        <small>Account</small><br>
-        <%= link_to @note.info.name, account_path(@note.info) %><br>
+          <small><%= @note.info_type %></small><br>
+          <%= link_to @note.info.name, account_path(@note.info) %><br>
         <% end %>
+
         <br>
         <%= simple_form_for [@subject, @note] do |f| %>
         <%= f.input :title %>

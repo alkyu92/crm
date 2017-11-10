@@ -30,13 +30,13 @@
                         </h5>
                         <% if note.info_type == "Opportunity" %>
 
-                        <small><%= note.info.business_type %></small><br>
+                        <small><%= note.info_type %></small><br>
                         <%= link_to note.info.name,
                         opportunity_path(note.info, anchor: "relatedNotes-noteInfo-#{note.id}") %>
 
                         <% elsif note.info_type == "Account" %>
-                        
-                        <small>Account</small><br>
+
+                        <small><%= note.info_type %></small><br>
                         <%= link_to note.info.name,
                         account_path(note.info, anchor: "relatedNotes-noteInfo-#{note.id}") %>
 

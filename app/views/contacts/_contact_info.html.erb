@@ -121,7 +121,7 @@
                         <div class="row">
                             <% contactable_op.each do |rl| %>
                             <div class="col-lg-4">
-                              <small><%= rl.contactable.business_type %></small><br>
+                              <small><%= rl.contactable_type %></small><br>
                               <%= link_to rl.contactable.name,
                               opportunity_path(rl.contactable,
                               anchor: "relatedContacts-contactInfo-#{rl.contact.id}") %>

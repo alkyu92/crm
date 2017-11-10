@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-lg-6">
+        <small>Name</small>
+        <h4>
+            <% if @marketing.name.blank? %>
+            <span style="color: red;">
+                Name not specified
+            </span>
+        <% else %>
+            <%= @marketing.name %>
+            <% end %>
+        </h4>
+        <br>
+
+        <small>Account Name</small>
+        <h4>
+            <% if @marketing.account_id.blank? %>
+            <span style="color: red;">
+                Account not specified
+            </span>
+        <% else %>
+            <%= link_to @marketing.account.name, account_path(@marketing.account) %>
+            <% end %>
+        </h4>
+        <br>
+    </div>
+    <div class="col-lg-6">
+        <small>Amount</small>
+        <h4>
+            <% if @marketing.amount.blank? %>
+            <span style="color: red;">
+                Amount not specified
+            </span>
+        <% else %>
+            RM <%= sprintf('%.2f' % @marketing.amount) %>
+            <% end %>
+        </h4>
+        <br>
+
+        <small>Status</small>
+        <h4>
+            <%= @marketing.status %>
+        </h4>
+    </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <small>Description</small>
+    <h4>
+        <% if @marketing.description.blank? %>
+        <span style="color: red;">
+            Description not specified
+        </span>
+    <% else %>
+        <%= @marketing.description %>
+        <% end %>
+    </h4>
+    <br>
+  </div>
+</div>
+<hr>
+<div class="row">
+<div class="col-lg-6">
+  <small>Opportunity Created at</small>
+  <h4>
+      <%= @marketing.created_at.strftime('%d %b %Y  %H:%M:%S') %>
+  </h4>
+</div>
+<div class="col-lg-6">
+  <small>Opportunity Last Updated at</small>
+  <h4>
+      <%= @marketing.updated_at.strftime('%d %b %Y  %H:%M:%S') %>
+  </h4>
+</div>
+</div>

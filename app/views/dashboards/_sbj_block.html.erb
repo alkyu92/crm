@@ -1,5 +1,5 @@
-<% unless opportunities_block.blank? %>
-<strong><%= opportunities_block.first[3] %></strong>
+<% unless sbj_block.blank? %>
+<strong><%= sbj_block.first[3] %></strong>
 <div class="row">
     <div class="col-lg-4 col-xs-4">
         <small>Opportunity Name</small>
@@ -11,13 +11,13 @@
         <small>Created at DateTime</small>
     </div>
 </div>
-<% opportunities_block.each do |opaprv| %>
+<% sbj_block.each do |opaprv| %>
 <div class="row">
     <div class="col-lg-4 col-xs-4">
         <%= link_to opaprv[1], opportunity_path(opaprv[0]) %>
     </div>
     <div class="col-lg-4 col-xs-4">
-        <%= link_to opaprv[4], account_path(opaprv[5]) %>
+        <%#= link_to opaprv[4], account_path(opaprv[5]) %>
     </div>
     <div class="col-lg-4 col-xs-4">
         <%= opaprv[2].strftime('%d %b %Y %H:%M:%S')%>
@@ -26,8 +26,9 @@
 <% end %>
 <!-- loop end  -->
 <br>
-<%= link_to 'See more', opportunities_path(
-type: "Opportunity", status: "#{opportunities_block.first[3]}") %>
+<%= link_to 'See more', opportunities_path %>
+<%#= link_to 'See more', case_path %>
+<%#= link_to 'See more', marketing_path %>
 <hr>
 <% end %>
-<!-- unless opportunities_open end -->
+<!-- unless sbj_open end -->

@@ -46,286 +46,286 @@ for i in 1..20 do
 
   user_id: 1)
 end
-
-account = {
-  'lb' => [
-    'Local Basic Sdn. Bhd.',
-    'Partner',
-    'www.localbasic.com.my',
-    'Aluminium'
-  ],
-  'lc' => [
-    'Local Casting Sdn. Bhd.',
-    'Partner',
-    'www.localcasting.com.my',
-    'Aluminium'
-  ],
-  'anchor' => [
-    'Anchor Sdn. Bhd.',
-    'Sub-contractor',
-    'www.anchor.com.my',
-    'Surface Finishing'
-  ]
-}
-
-account.each do |k, v|
-  Account.create!(
-  name: v[0],
-  account_type: v[1],
-  website: v[2],
-  email: "test@example.com",
-  description: "Company description",
-  phone: "123-456-890",
-  fax: "098-765-432",
-  industry: v[3],
-  number_of_employee: 200,
-
-  billing_street: "No. 123, Jalan 123,",
-  billing_city: "Johor Bahru",
-  billing_state: "Johor",
-  billing_postal_code: "80000",
-  billing_country: "MY",
-
-  shipping_street: "No. 123, Jalan 123,",
-  shipping_city: "Johor Bahru",
-  shipping_state: "Johor",
-  shipping_postal_code: "80000",
-  shipping_country: "MY",
-
-  user_id: 1)
-end
-
-industry = [
-  "Aluminium Manufacturing",
-  "Consumer Electronics",
-  "Electrical Power Grid",
-  "Industrial Chemical",
-  "Oil and Gas",
-  "Automotive",
-  "Sport Utilities"
-]
-for i in 1..20 do
-  Account.create!(
-  name: "Test Account Name #{i}",
-  account_type: "Customer",
-  website: "www.test#{i}-website.com",
-  email: "test#{i}@example.com",
-  description: "Test#{i} account description",
-  phone: "123-456-890",
-  fax: "098-765-432",
-  industry: industry.sample,
-  number_of_employee: 200,
-
-  billing_street: "No. 123, Jalan 123,",
-  billing_city: "Johor Bahru",
-  billing_state: "Johor",
-  billing_postal_code: "80000",
-  billing_country: "MY",
-
-  shipping_street: "No. 123, Jalan 123,",
-  shipping_city: "Johor Bahru",
-  shipping_state: "Johor",
-  shipping_postal_code: "80000",
-  shipping_country: "MY",
-  user_id: 1)
-end
-
-op = {
-  'first' => [
-    'Opportunity first',
-  ],
-  'second' => [
-    'Shimano Product One Processes',
-  ]
-}
-
-op.each do |k,v|
-  Opportunity.create!(
-  name: v[0],
-  probability: "",
-  amount: 123456.78,
-  description: "Description",
-  loss_reason: "",
-  close_date: "",
-  status: "Open",
-  user_id: 1,
-  account_id: 1)
-end
-
-process = ['Die and Tooling','Casting','Machining','Secondary Process', 'Finishing', 'Inspection']
-process.each do |prc|
-  Stage.create!(
-  name: prc,
-  status: "Waiting",
-  current_status: false,
-  opportunity_id: 2,
-  user_id: 1,
-  updated_by_id: 1)
-end
-
-for j in 1..10 do
-  for i in 1..5 do
-    Opportunity.create!(
-    name: "Test Opportunity Open Status #{i}",
-    business_type: "Opportunity",
-    probability: "75%",
-    amount: 12345.35,
-    description: "Test#{i} opportunity description",
-    loss_reason: "",
-    close_date: "",
-    status: "Open",
-    user_id: 1,
-    account_id: j)
-  end
-
-  for i in 1..5 do
-    Opportunity.create!(
-    name: "Test Opportunity Closed-Won Status #{i}",
-    business_type: "Opportunity",
-    probability: "75%",
-    amount: 12345.35,
-    description: "Test#{i} opportunity description",
-    loss_reason: "",
-    close_date: Time.now,
-    status: "Closed-Won",
-    user_id: 1,
-    account_id: j)
-  end
-
-  for i in 1..5 do
-    Opportunity.create!(
-    name: "Test Opportunity Closed-Loss Status #{i}",
-    business_type: "Opportunity",
-    probability: "75%",
-    amount: 12345.35,
-    description: "Test#{i} opportunity description",
-    loss_reason: "",
-    close_date: Time.now,
-    status: "Closed-Loss",
-    user_id: 1,
-    account_id: j)
-  end
-
-  for i in 1..5 do
-    Opportunity.create!(
-    name: "Test Opportunity Approved Status #{i}",
-    business_type: "Opportunity",
-    probability: "75%",
-    amount: 12345.35,
-    description: "Test#{i} opportunity description",
-    loss_reason: "",
-    close_date: "",
-    status: "Approved",
-    user_id: 1,
-    account_id: j)
-  end
-end
-
-for j in 1..10 do
-  for i in 1..10 do
-    Opportunity.create!(
-    name: "Test Case #{i}",
-    business_type: "Case",
-    probability: "",
-    amount: 23456.56,
-    description: "Test#{i} case description",
-    loss_reason: "",
-    close_date: "",
-    status: "In Progress",
-    user_id: 1,
-    account_id: j)
-  end
-end
-
-for i in 1..15 do
-  Stage.create!(
-  name: "Test Stage #{i}",
-  status: "Waiting",
-  current_status: false,
-  polystage_type: 'Opportunity',
-  polystage_id: 1,
-  user_id: 1,
-  updated_by_id: 1)
-end
-
-for i in 1..20 do
-  Note.create!(
-  title: "Sample note #{i}",
-  description: "Sample description #{i}",
-  info_id: 1,
-  info_type: "Opportunity",
-  user_id: 1)
-end
-
-Task.create!(
-description: "Urgent task",
-due_date: 2.day.from_now,
-polytask_id: 1,
-polytask_type: "Opportunity",
-user_id: 1)
-
-for i in 1..20 do
-  Task.create!(
-  description: "Sample task #{i}",
-  due_date: 1.week.from_now,
-  polytask_id: 1,
-  polytask_type: "Opportunity",
-  user_id: 1)
-end
-
-for i in 1..20 do
-  Call.create!(
-  description: "Sample call log #{i}",
-  call_datetime: 1.week.from_now,
-  duration: 5,
-  polycall_id: 1,
-  polycall_type: "Opportunity",
-  user_id: 1)
-end
-
-Event.create!(
-description: "Urgent event",
-event_date: 1.day.from_now,
-polyevent_id: 1,
-polyevent_type: "Opportunity",
-user_id: 1)
-
-for i in 1..20 do
-  Event.create!(
-  description: "Sample event #{i}",
-  event_date: 1.week.from_now,
-  polyevent_id: 1,
-  polyevent_type: "Opportunity",
-  user_id: 1)
-end
-
-# testing timeline month display
-@op = Opportunity.first
-@op.timelines.create!(tactivity: "try",
-                      nactivity: "timeline",
-                      action: "created test",
-                      user_id: 1,
-                      activity_type: "Opportunity",
-                      activity_id: 1)
-
-@op.timelines.create!(tactivity: "try",
-                      nactivity: "timeline",
-                      action: "created test",
-                      user_id: 1,
-                      activity_type: "Opportunity",
-                      activity_id: 1,
-                      created_at: 1.month.ago,
-                      updated_at: 1.month.ago)
-
-@op.timelines.create!(tactivity: "try",
-                      nactivity: "timeline",
-                      action: "created test",
-                      user_id: 1,
-                      activity_type: "Opportunity",
-                      activity_id: 1,
-                      created_at: 2.month.ago,
-                      updated_at: 2.month.ago)
-
-# testing contact association
-@contact = Contact.first
-@op.relationships.create!(contact: @contact)
+#
+# account = {
+#   'lb' => [
+#     'Local Basic Sdn. Bhd.',
+#     'Partner',
+#     'www.localbasic.com.my',
+#     'Aluminium'
+#   ],
+#   'lc' => [
+#     'Local Casting Sdn. Bhd.',
+#     'Partner',
+#     'www.localcasting.com.my',
+#     'Aluminium'
+#   ],
+#   'anchor' => [
+#     'Anchor Sdn. Bhd.',
+#     'Sub-contractor',
+#     'www.anchor.com.my',
+#     'Surface Finishing'
+#   ]
+# }
+#
+# account.each do |k, v|
+#   Account.create!(
+#   name: v[0],
+#   account_type: v[1],
+#   website: v[2],
+#   email: "test@example.com",
+#   description: "Company description",
+#   phone: "123-456-890",
+#   fax: "098-765-432",
+#   industry: v[3],
+#   number_of_employee: 200,
+#
+#   billing_street: "No. 123, Jalan 123,",
+#   billing_city: "Johor Bahru",
+#   billing_state: "Johor",
+#   billing_postal_code: "80000",
+#   billing_country: "MY",
+#
+#   shipping_street: "No. 123, Jalan 123,",
+#   shipping_city: "Johor Bahru",
+#   shipping_state: "Johor",
+#   shipping_postal_code: "80000",
+#   shipping_country: "MY",
+#
+#   user_id: 1)
+# end
+#
+# industry = [
+#   "Aluminium Manufacturing",
+#   "Consumer Electronics",
+#   "Electrical Power Grid",
+#   "Industrial Chemical",
+#   "Oil and Gas",
+#   "Automotive",
+#   "Sport Utilities"
+# ]
+# for i in 1..20 do
+#   Account.create!(
+#   name: "Test Account Name #{i}",
+#   account_type: "Customer",
+#   website: "www.test#{i}-website.com",
+#   email: "test#{i}@example.com",
+#   description: "Test#{i} account description",
+#   phone: "123-456-890",
+#   fax: "098-765-432",
+#   industry: industry.sample,
+#   number_of_employee: 200,
+#
+#   billing_street: "No. 123, Jalan 123,",
+#   billing_city: "Johor Bahru",
+#   billing_state: "Johor",
+#   billing_postal_code: "80000",
+#   billing_country: "MY",
+#
+#   shipping_street: "No. 123, Jalan 123,",
+#   shipping_city: "Johor Bahru",
+#   shipping_state: "Johor",
+#   shipping_postal_code: "80000",
+#   shipping_country: "MY",
+#   user_id: 1)
+# end
+#
+# op = {
+#   'first' => [
+#     'Opportunity first',
+#   ],
+#   'second' => [
+#     'Shimano Product One Processes',
+#   ]
+# }
+#
+# op.each do |k,v|
+#   Opportunity.create!(
+#   name: v[0],
+#   probability: "",
+#   amount: 123456.78,
+#   description: "Description",
+#   loss_reason: "",
+#   close_date: "",
+#   status: "Open",
+#   user_id: 1,
+#   account_id: 1)
+# end
+#
+# process = ['Die and Tooling','Casting','Machining','Secondary Process', 'Finishing', 'Inspection']
+# process.each do |prc|
+#   Stage.create!(
+#   name: prc,
+#   status: "Waiting",
+#   current_status: false,
+#   opportunity_id: 2,
+#   user_id: 1,
+#   updated_by_id: 1)
+# end
+#
+# for j in 1..10 do
+#   for i in 1..5 do
+#     Opportunity.create!(
+#     name: "Test Opportunity Open Status #{i}",
+#     business_type: "Opportunity",
+#     probability: "75%",
+#     amount: 12345.35,
+#     description: "Test#{i} opportunity description",
+#     loss_reason: "",
+#     close_date: "",
+#     status: "Open",
+#     user_id: 1,
+#     account_id: j)
+#   end
+#
+#   for i in 1..5 do
+#     Opportunity.create!(
+#     name: "Test Opportunity Closed-Won Status #{i}",
+#     business_type: "Opportunity",
+#     probability: "75%",
+#     amount: 12345.35,
+#     description: "Test#{i} opportunity description",
+#     loss_reason: "",
+#     close_date: Time.now,
+#     status: "Closed-Won",
+#     user_id: 1,
+#     account_id: j)
+#   end
+#
+#   for i in 1..5 do
+#     Opportunity.create!(
+#     name: "Test Opportunity Closed-Loss Status #{i}",
+#     business_type: "Opportunity",
+#     probability: "75%",
+#     amount: 12345.35,
+#     description: "Test#{i} opportunity description",
+#     loss_reason: "",
+#     close_date: Time.now,
+#     status: "Closed-Loss",
+#     user_id: 1,
+#     account_id: j)
+#   end
+#
+#   for i in 1..5 do
+#     Opportunity.create!(
+#     name: "Test Opportunity Approved Status #{i}",
+#     business_type: "Opportunity",
+#     probability: "75%",
+#     amount: 12345.35,
+#     description: "Test#{i} opportunity description",
+#     loss_reason: "",
+#     close_date: "",
+#     status: "Approved",
+#     user_id: 1,
+#     account_id: j)
+#   end
+# end
+#
+# for j in 1..10 do
+#   for i in 1..10 do
+#     Opportunity.create!(
+#     name: "Test Case #{i}",
+#     business_type: "Case",
+#     probability: "",
+#     amount: 23456.56,
+#     description: "Test#{i} case description",
+#     loss_reason: "",
+#     close_date: "",
+#     status: "In Progress",
+#     user_id: 1,
+#     account_id: j)
+#   end
+# end
+#
+# for i in 1..15 do
+#   Stage.create!(
+#   name: "Test Stage #{i}",
+#   status: "Waiting",
+#   current_status: false,
+#   polystage_type: 'Opportunity',
+#   polystage_id: 1,
+#   user_id: 1,
+#   updated_by_id: 1)
+# end
+#
+# for i in 1..20 do
+#   Note.create!(
+#   title: "Sample note #{i}",
+#   description: "Sample description #{i}",
+#   info_id: 1,
+#   info_type: "Opportunity",
+#   user_id: 1)
+# end
+#
+# Task.create!(
+# description: "Urgent task",
+# due_date: 2.day.from_now,
+# polytask_id: 1,
+# polytask_type: "Opportunity",
+# user_id: 1)
+#
+# for i in 1..20 do
+#   Task.create!(
+#   description: "Sample task #{i}",
+#   due_date: 1.week.from_now,
+#   polytask_id: 1,
+#   polytask_type: "Opportunity",
+#   user_id: 1)
+# end
+#
+# for i in 1..20 do
+#   Call.create!(
+#   description: "Sample call log #{i}",
+#   call_datetime: 1.week.from_now,
+#   duration: 5,
+#   polycall_id: 1,
+#   polycall_type: "Opportunity",
+#   user_id: 1)
+# end
+#
+# Event.create!(
+# description: "Urgent event",
+# event_date: 1.day.from_now,
+# polyevent_id: 1,
+# polyevent_type: "Opportunity",
+# user_id: 1)
+#
+# for i in 1..20 do
+#   Event.create!(
+#   description: "Sample event #{i}",
+#   event_date: 1.week.from_now,
+#   polyevent_id: 1,
+#   polyevent_type: "Opportunity",
+#   user_id: 1)
+# end
+#
+# # testing timeline month display
+# @op = Opportunity.first
+# @op.timelines.create!(tactivity: "try",
+#                       nactivity: "timeline",
+#                       action: "created test",
+#                       user_id: 1,
+#                       activity_type: "Opportunity",
+#                       activity_id: 1)
+#
+# @op.timelines.create!(tactivity: "try",
+#                       nactivity: "timeline",
+#                       action: "created test",
+#                       user_id: 1,
+#                       activity_type: "Opportunity",
+#                       activity_id: 1,
+#                       created_at: 1.month.ago,
+#                       updated_at: 1.month.ago)
+#
+# @op.timelines.create!(tactivity: "try",
+#                       nactivity: "timeline",
+#                       action: "created test",
+#                       user_id: 1,
+#                       activity_type: "Opportunity",
+#                       activity_id: 1,
+#                       created_at: 2.month.ago,
+#                       updated_at: 2.month.ago)
+#
+# # testing contact association
+# @contact = Contact.first
+# @op.relationships.create!(contact: @contact)

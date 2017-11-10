@@ -9,26 +9,14 @@
     <%= f.label "Status", class: "control-label select optional" %>
 
     <% opstatus = ["Open", "Approved", "Closed-Won", "Closed-Loss"] %>
-    <% casestatus = ["In Progress", "Solved"] %>
-    <% mrktstatus = ["Preparation", "Happening Now", "Passed"] %>
 
     <select name="opportunity[status]" id="opportunity_status" class="select form-control optional">
 
       <% if @opportunity.status == nil %>
 
-        <% if params[:type] == "Opportunity" %>
           <% opstatus.each do |opstat| %>
           <option id="optop"><%= opstat %></option>
           <% end %>
-        <% elsif params[:type] == "Case" %>
-          <% casestatus.each do |cstat| %>
-          <option id="optcase"><%= cstat %></option>
-          <% end %>
-        <% elsif params[:type] == "Marketing" %>
-          <% mrktstatus.each do |mrktstat| %>
-          <option id="optmrkt"><%= mrktstat %></option>
-          <% end %>
-        <% end %>
 
       <% else %>
 

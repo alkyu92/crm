@@ -38,12 +38,12 @@
 
         <small>Number of employees</small>
         <h4>
-            <% if @account.number_of_employee.blank? %>
+            <% if @account.employee.blank? %>
             <span style="color: red;">
                 Not specified
             </span>
         <% else %>
-            <%= @account.number_of_employee %>
+            <%= @account.employee %>
             <% end %>
         </h4>
         <br>

@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20171109022421) do
     t.string   "phone"
     t.string   "fax"
     t.string   "industry"
-    t.integer  "number_of_employee"
+    t.integer  "employee"
     t.string   "billing_street"
     t.string   "billing_city"
     t.string   "billing_state"
@@ -55,11 +55,9 @@ ActiveRecord::Schema.define(version: 20171109022421) do
 
   create_table "cases", force: :cascade do |t|
     t.string   "name"
-    t.string   "probability"
     t.decimal  "amount",      precision: 8, scale: 2, default: "0.0"
     t.text     "description"
-    t.string   "loss_reason"
-    t.date     "close_date"
+    t.date     "case_date"
     t.string   "status"
     t.string   "dummy"
     t.integer  "account_id"
@@ -120,7 +118,6 @@ ActiveRecord::Schema.define(version: 20171109022421) do
 
   create_table "marketings", force: :cascade do |t|
     t.string   "name"
-    t.string   "probability"
     t.decimal  "amount",      precision: 8, scale: 2, default: "0.0"
     t.text     "description"
     t.string   "status"
@@ -210,9 +207,8 @@ ActiveRecord::Schema.define(version: 20171109022421) do
   end
 
   create_table "timelines", force: :cascade do |t|
-    t.string   "tactivity"
-    t.string   "nactivity"
     t.string   "action"
+    t.string   "anchor"
     t.string   "activity_type"
     t.integer  "activity_id"
     t.integer  "user_id"

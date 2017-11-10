@@ -47,15 +47,10 @@ class OpportunitiesController < ApplicationController
 
 
       if @opportunity.save
-
-        @acoptimeline = @opportunity.account.timelines.create!(
-        tactivity: "",
-        nactivity: @opportunity.name,
-        action: "created opportunity",
-        user_id: current_user.id)
-
-        timeline_opportunity("#", @opportunity.name, "created opportunity")
-
+        @opportunity.timelines.create!(
+        action: "#{current_user.name} created opportunity <strong>#{@opportunity.name}</strong>",
+        user_id: current_user.id
+        )
         flash.now[:success] = "opportunity entry created!"
         redirect_to opportunity_path(@opportunity)
       else
@@ -67,7 +62,15 @@ class OpportunitiesController < ApplicationController
 
   def update
     @opportunity = Opportunity.includes(:user).find(params[:id])
+
     @old_name = @opportunity.name
+    @old_probability = @opportunity.probability
+    @old_amount = @opportunity.amount
+    @old_description = @opportunity.description
+    @old_loss_reason = @opportunity.loss_reason
+    @old_close_date = @opportunity.close_date
+    @old_status = @opportunity.status
+
     respond_to do |format|
       # for AJAX
       @subject = @opportunity
@@ -78,8 +81,8 @@ class OpportunitiesController < ApplicationController
             params[:docs].each { |doc|
               @opportunity.documents.create!(doc: doc)
             }
-            timeline_opportunity("relatedDocs", @opportunity.name,
-            "added attachment file to opportunity")
+            # timeline
+
           end
 
         if params[:attached]
@@ -97,10 +100,15 @@ class OpportunitiesController < ApplicationController
           @values = @ctct.map {|ct| "(#{ct.id}, #{@opportunity.id}, 'Opportunity', '#{ct.created_at}', '#{ct.updated_at}')"}.join(',')
           @sql = "INSERT INTO relationships ('contact_id', 'contactable_id', 'contactable_type', 'created_at', 'updated_at') VALUES #{@values}"
           ActiveRecord::Base.connection.execute(@sql)
-          timeline_opportunity("relatedContacts", @ctct.map {|ct| "#{ct.name}"}.join(','), "added association")
+          # timeline
+          @opportunity.timelines.create!(
+          action: "#{current_user.name} assigned
+          <strong>#{@ctct.map {|ct| ct.name}.join(' ,')}</strong>",
+          user_id: current_user.id
+          )
         end
 
-        save_timeline_if_any_changes(@old_name)
+        save_timeline_if_any_changes
         format.js { flash.now[:success] = "opportunity entry updated!" }
       else
         format.js { flash.now[:danger] = "Failed to update opportunity!" }
@@ -130,24 +138,12 @@ class OpportunitiesController < ApplicationController
 
       @subject = @opportunity
 
-      timeline_opportunity("relatedDocs", @opportunity.name,
-      "deleted attachment file from opportunity")
+      # timeline
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end
 
   private
-
-  def timeline_opportunity(tactivity, nactivity, action)
-    @optimeline = @opportunity.timelines.create!(
-    tactivity: tactivity,
-    nactivity: nactivity,
-    action: action,
-    user_id: current_user.id
-    )
-
-    notify_user(@optimeline.id)
-  end
 
   def params_opportunity
     params.require(:opportunity).permit( :user_id,
@@ -155,7 +151,6 @@ class OpportunitiesController < ApplicationController
                                          :stage_id,
                                          :account,
                                          :account_id,
-                                         :business_type,
                                          :probability,
                                          :amount,
                                          :description,
@@ -167,6 +162,16 @@ class OpportunitiesController < ApplicationController
                                         )
   end
 
+  def timeline_opportunity(params, old, latest)
+    @opportunity.timelines.create!(
+    action: "#{current_user.name} updated opportunity
+    <strong>#{param}</strong> from <strong>#{old}</strong>
+    to <strong>#{latest}</strong>",
+    anchor: "opportunityDetails",
+    user_id: current_user.id
+    )
+  end
+
   def find_opportunity
     @opportunity = Opportunity.includes(:user).find(params[:id])
 
@@ -175,40 +180,27 @@ class OpportunitiesController < ApplicationController
     redirect_to opportunities_path
   end
 
-  def save_timeline_if_any_changes(old_name)
+  def save_timeline_if_any_changes
     if @opportunity.name_previously_changed?
-      timeline_opportunity("opportunityDetails",
-      old_name, "updated opportunity name from")
-    end
-    if @opportunity.business_type_previously_changed?
-      timeline_opportunity("opportunityDetails",
-      @opportunity.business_type, "updated type to")
+      timeline_opportunity("name", @old_name, @opportunity.name)
     end
     if @opportunity.probability_previously_changed?
-      timeline_opportunity("opportunityDetails",
-      @opportunity.probability, "updated opportunity probability to")
+      timeline_opportunity("probability", @old_probability, @opportunity.probability)
     end
     if @opportunity.amount_previously_changed?
-      timeline_opportunity("opportunityDetails",
-      sprintf('%.2f' % @opportunity.amount),
-      "updated opportunity amount to RM")
+      timeline_opportunity("amount", @old_amount, @opportunity.amount)
     end
     if @opportunity.description_previously_changed?
-      timeline_opportunity("opportunityDetails",
-      "", "updated opportunity description")
+      timeline_opportunity("description", @old_amount, @opportunity.description)
     end
     if @opportunity.status_previously_changed?
-      timeline_opportunity("opportunityDetails",
-      @opportunity.status, "updated opportunity status to")
+      timeline_opportunity("status", @old_status, @opportunity.status)
     end
     if @opportunity.close_date_previously_changed?
-      timeline_opportunity("opportunityDetails",
-      @opportunity.close_date.strftime('%d %b %Y'),
-      "updated opportunity closed date to")
+      timeline_opportunity("close date", @old_close_date, @opportunity.close_date)
     end
     if @opportunity.loss_reason_previously_changed?
-      timeline_opportunity("opportunityDetails",
-      @opportunity.loss_reason, "updated opportunity loss reason to")
+      timeline_opportunity("loss reason", @old_loss_reason, @opportunity.loss_reason)
     end
 
     if @opportunity.status == "Open" ||

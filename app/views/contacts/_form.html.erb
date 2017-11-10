@@ -71,15 +71,13 @@
 
                 <optgroup label="Opportunity">
                     <% @op_collect.each do |op| %>
-                    <% if op.business_type == "Opportunity" %>
                     <option value="Opportunity,<%= op.id %>"><%= op.name %></option>
-                    <% end %>
                     <% end %>
                 </optgroup>
 
                 <optgroup label="Case">
                     <% @op_collect.each do |op| %>
-                    <% if op.business_type == "Case" %>
+                    <% if op.polyevents_type == "Case" %>
                     <option value="Opportunity,<%= op.id %>"><%= op.name %></option>
                     <% end %>
                     <% end %>
@@ -87,7 +85,7 @@
 
                 <optgroup label="Marketing">
                     <% @op_collect.each do |op| %>
-                    <% if op.business_type == "Marketing" %>
+                    <% if op.polyevents_type == "Marketing" %>
                     <option value="Opportunity,<%= op.id %>"><%= op.name %></option>
                     <% end %>
                     <% end %>

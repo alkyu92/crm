@@ -1,0 +1,24 @@
+$('#doc').html("<%= j (render 'documents/doc') %>");
+$('#op-details').html("<%= j (render 'opportunities/op_details') %>");
+$('#op-header').html("<%= j (render 'opportunities/op_header')%>");
+$('#stage').html("<%= j (render 'stages/stage')%>");
+$('#op-title').html("<%= j (render 'opportunities/op_title')%>");
+$('.timelines').html("<%= j (render 'timelines/timelines_index') %>");
+
+$('#notice-doc').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
+
+$('#opportunityModalForm').modal('hide');
+$('#crm-menu').html("<%= j (render 'layouts/menu') %>");
+
+$('#docs_').val('');
+
+$('#assignContactForm').modal('hide');
+$('#contact').html("<%= j (render 'contacts/contact') %>")
+$('#notice-contact').html("<%= j (render 'layouts/message') %>").delay(1600).fadeOut();
+
+var collection = []
+collection = $('#assigned_').val();
+for(i = 0; i < collection.length; i++){
+  $('.selectpicker').find('[value=' + collection[i] +']').remove();
+  $('.selectpicker').selectpicker('refresh');
+}

@@ -43,7 +43,7 @@
 <hr>
 <div class="row">
     <div class="col-lg-1 col-xs-1 text-center">
-      <!-- <span class="badge"><%#= call.id %></span> -->
+      <span class="badge"><%= call.id %></span>
     </div>
     <div class="col-lg-2 col-xs-10">
         <%= link_to call.description.truncate(50), '#',
@@ -58,17 +58,13 @@
         <% end %>
     </div>
     <div class="col-lg-2 col-xs-6">
-      <small><%= call.polycall.business_type %></small><br>
+      <small><%= call.polycall_type %></small><br>
       <%= link_to call.polycall.name, opportunity_path(call.polycall) %>
       <br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
       <small>Account</small><br>
-      <% if call.polycall.business_type == "Account" %>
-      <%= link_to call.polycall.name, account_path(call.polycall) %>
-      <% elsif call.polycall.business_type == "Opportunity" || call.polycall.business_type == "Case" %>
-      <%= link_to call.polycall.name, account_path(call.polycall) %>
-      <% end %>
+        <%= link_to call.polycall.name, account_path(call.polycall) %>
     </div>
     <div class="col-lg-1 col-xs-6">
       <%= call.created_at.strftime('%d %b %Y at %H:%M:%S') %>
