@@ -21,38 +21,52 @@ class StagesController < ApplicationController
 
     respond_to do |format|
       if @stage.save
-        timeline_stage("created stage")
+        # timeline
+        @stagetimeline = @subject.timelines.create!(
+        action: "#{current_user.name} created stage <strong>#{@stage.name}</strong>",
+        user_id: current_user.id
+        )
         format.js { flash.now[:success] = "Opportunity stage created!" }
       else
-        format.js { flash.now[:danger] = "Failed to create opportunity stage!" }
+        format.js { flash.now[:danger] = "Failed to create subject stage!" }
       end
     end
 
   end
 
   def update
+    @old_name = @stage.name
     respond_to do |format|
       if @stage.update(params_stage)
         @stage.update_attributes(updated_by_id: current_user.id)
-        timeline_stage("updated stage")
+        # timeline
+        @stagetimeline = @subject.timelines.create!(
+        action: "#{current_user.name} updated stage <strong>name</strong> from
+        <strong>#{@old_name}</strong> to <strong>#{@stage.name}</strong>",
+        user_id: current_user.id
+        )
         format.js { flash.now[:success] = "Opportunity stage updated!" }
       else
-        format.js { flash.now[:success] = "Failed to update opportunity stage!" }
+        format.js { flash.now[:success] = "Failed to update subject stage!" }
       end
     end
   end
 
   def destroy
-      if @stage.status == "In Progress" && (@stage.id != @opportunity.stages.last.id)
+      if @stage.status == "In Progress" && (@stage.id != @subject.stages.last.id)
         @stage.destroy
-        @new_current_stage = @opportunity.stages.where("id > ?", @stage.id).first
+        @new_current_stage = @subject.stages.where("id > ?", @stage.id).first
         @new_current_stage.update_attributes(status: "In Progress")
 
         status_updater(@new_current_stage)
       end
 
       @stage.destroy
-      timeline_stage("deleted stage")
+      # timeline
+      @stagetimeline = @subject.timelines.create!(
+      action: "#{current_user.name} deleted stage #{@stage.name}",
+      user_id: current_user.id
+      )
 
       respond_to do |format|
         format.js { flash.now[:success] = "Opportunity stage deleted!" }
@@ -76,17 +90,6 @@ class StagesController < ApplicationController
 
   private
 
-  def timeline_stage(action)
-    @stagetimeline = @subject.timelines.create!(
-    tactivity: "stage",
-    nactivity: @stage.name,
-    action: action,
-    user_id: current_user.id
-    )
-
-    notify_user(@stagetimeline.id)
-  end
-
   def params_stage
     params.require(:stage).permit(:name)
   end
@@ -95,23 +98,20 @@ class StagesController < ApplicationController
     @stage.update_attributes(status: current, current_status: boolean,
     updated_by_id: current_user.id)
 
-    # due to redundant stage on op_header, cant use method status updater
-    # @opportunity.stages.includes(:user).each do |stage|
-    #   if stage.id < @stage.id
-    #     stage.update_attributes(status: "Completed")
-    #   elsif stage.id > @stage.id
-    #     stage.update_attributes(status: "Waiting")
-    #   end
-    # end
     status_updater(@stage)
 
-    timeline_stage("changed stage status from '#{previous}' to '#{current}' for")
+    # timeline
+    @stagetimeline = @subject.timelines.create!(
+    action: "#{current_user.name} changed stage <strong>#{@stage.name}</strong> status from
+    <strong>#{previous}</strong> to <strong>#{current}</strong>",
+    user_id: current_user.id
+    )
   end
 
   def status_updater(current_stage)
     @completed = []
     @waiting = []
-    @opportunity.stages.includes(:user).each do |stage|
+    @subject.stages.includes(:user).each do |stage|
       if stage.id < current_stage.id
         @completed << stage.id
       elsif stage.id > current_stage.id
@@ -124,17 +124,18 @@ class StagesController < ApplicationController
 
   def find_subject
     # for AJAX call
-    @subject = Opportunity.find(params[:opportunity_id])
-    @opportunity = @subject
-    rescue ActiveRecord::RecordNotFound
-    flash.now[:danger] = "Can't find records!"
-    redirect_to root_path
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+    @subject = Marketing.find(params[:marketing_id]) if params[:marketing_id]
+    @subject = Case.find(params[:case_id]) if params[:case_id]
+    # rescue ActiveRecord::RecordNotFound
+    # flash.now[:danger] = "Can't find records!"
+    # redirect_to root_path
   end
 
   def find_stage
     @stage = Stage.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-    flash.now[:danger] = "Can't find records!"
-    redirect_to root_path
+    # rescue ActiveRecord::RecordNotFound
+    # flash.now[:danger] = "Can't find records!"
+    # redirect_to root_path
   end
 end

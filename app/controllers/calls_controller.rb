@@ -18,7 +18,11 @@ class CallsController < ApplicationController
 
     respond_to do |format|
       if @call.save
-        timeline_call("created call log")
+        # timeline
+        @calltimeline = @opportunity.timelines.create!(
+        action: "#{current_user.name} created call log <strong>#{@call.description}</strong>",
+        user_id: current_user.id
+        )
         format.js { flash.now[:success] = "Call log created!" }
       else
         format.js { flash.now[:danger] = "Failed to create call log!" }
@@ -35,8 +39,14 @@ class CallsController < ApplicationController
   end
 
   def update
+    @old_description = @call.description
+    @old_duration = @call.duration
+    @old_date = @call.call_datetime.strftime('%d %b %Y %H:%M')
+
       if @call.update(params_call)
-        timeline_call("updated call log")
+
+        save_timeline_if_any_changes
+
         flash[:success] = "Call entry updated!"
         redirect_to opportunity_path(@opportunity, anchor: "call-callInfo-#{@call.id}")
       else
@@ -51,8 +61,14 @@ class CallsController < ApplicationController
     @opportunity = Opportunity.find_by_id(@call.polycall.id)
     @opcall = @opportunity.calls.includes(:user).page(params[:task_page]).per(10)
 
+    # timeline
+    @calltimeline = @opportunity.timelines.create!(
+    action: "#{current_user.name} deleted call log
+    <strong>#{@call.description.truncate(50)}</strong>",
+    user_id: current_user.id
+    )
     @call.destroy
-    timeline_call("deleted call log")
+
 
     respond_to do |format|
       format.html { redirect_to opportunity_path(@opportunity, anchor: "call") }
@@ -65,15 +81,24 @@ class CallsController < ApplicationController
 
   private
 
-  def timeline_call(action)
+  def timeline_call(param, old, latest)
     @calltimeline = @opportunity.timelines.create!(
-    tactivity: "call-" + @call.id.to_s,
-    nactivity: @call.description.truncate(50),
-    action: action,
+    action: "#{current_user.name} updated call log <strong>#{param}</strong> from
+    <strong>#{old}</strong> to <strong>#{latest}</strong>",
     user_id: current_user.id
     )
+  end
 
-    notify_user(@calltimeline.id)
+  def save_timeline_if_any_changes
+    if @call.description_previously_changed?
+      timeline_call("description", @old_description, @call.description)
+    end
+    if @call.duration_previously_changed?
+      timeline_call("duration", @old_duration, @call.duration)
+    end
+    if @call.call_datetime_previously_changed?
+      timeline_call("datetime", @old_date, @call.call_datetime.strftime('%d %b %Y %H:%M'))
+    end
   end
 
   def params_call

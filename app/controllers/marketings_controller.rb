@@ -54,12 +54,9 @@ class MarketingsController < ApplicationController
       if @marketing.save
 
         @acoptimeline = @marketing.account.timelines.create!(
-        tactivity: "",
-        nactivity: @marketing.name,
-        action: "created marketing",
-        user_id: current_user.id)
-
-        timeline_marketing("#", @marketing.name, "created marketing")
+        action: "#{current_user.name} created marketing entry",
+        user_id: current_user.id
+        )
 
         flash.now[:success] = "marketing entry created!"
         redirect_to marketing_path(@marketing)
@@ -72,7 +69,12 @@ class MarketingsController < ApplicationController
 
   def update
     @marketing = Marketing.includes(:user).find(params[:id])
+
     @old_name = @marketing.name
+    @old_status = @marketing.status
+    @old_description = @marketing.description
+    @old_amount = @marketing.amount
+
     respond_to do |format|
       # for AJAX
       @subject = @marketing
@@ -83,8 +85,11 @@ class MarketingsController < ApplicationController
             params[:docs].each { |doc|
               @marketing.documents.create!(doc: doc)
             }
-            timeline_marketing("relatedDocs", @marketing.name,
-            "added attachment file to marketing")
+            # timeline
+            @optimeline = @marketing.timelines.create!(
+            action: "#{current_user.name} added attachment file to #{@marketing.name}",
+            user_id: current_user.id
+            )
           end
 
         if params[:attached]
@@ -102,10 +107,15 @@ class MarketingsController < ApplicationController
           @values = @ctct.map {|ct| "(#{ct.id}, #{@marketing.id}, 'Marketing', '#{ct.created_at}', '#{ct.updated_at}')"}.join(',')
           @sql = "INSERT INTO relationships ('contact_id', 'contactable_id', 'contactable_type', 'created_at', 'updated_at') VALUES #{@values}"
           ActiveRecord::Base.connection.execute(@sql)
-          timeline_marketing("relatedContacts", @ctct.map {|ct| "#{ct.name}"}.join(','), "added association")
+          # timeline
+          @marketing.timelines.create!(
+          action: "#{current_user.name} assigned
+          <strong>#{@ctct.map {|ct| ct.name}.join(' ,')}</strong>",
+          user_id: current_user.id
+          )
         end
 
-        save_timeline_if_any_changes(@old_name)
+        save_timeline_if_any_changes
         format.js { flash.now[:success] = "Marketing entry updated!" }
       else
         format.js { flash.now[:danger] = "Failed to update marketing!" }
@@ -135,24 +145,16 @@ class MarketingsController < ApplicationController
 
       @subject = @marketing
 
-      timeline_marketing("relatedDocs", @marketing.name,
-      "deleted attachment file from marketing")
+      # timeline
+      @optimeline = @marketing.timelines.create!(
+      action: "#{current_user.name} deleted attachment file from marketing #{@marketing.name}",
+      user_id: current_user.id
+      )
       format.js { flash.now[:success] = "Attachment deleted!" }
     end
   end
 
   private
-
-  def timeline_marketing(tactivity, nactivity, action)
-    @optimeline = @marketing.timelines.create!(
-    tactivity: tactivity,
-    nactivity: nactivity,
-    action: action,
-    user_id: current_user.id
-    )
-
-    notify_user(@optimeline.id)
-  end
 
   def params_marketing
     params.require(:marketing).permit( :user_id,
@@ -179,27 +181,26 @@ class MarketingsController < ApplicationController
     redirect_to marketings_path
   end
 
-  def save_timeline_if_any_changes(old_name)
+  def timeline_marketing(param, old, latest)
+    @optimeline = @marketing.timelines.create!(
+    action: "#{current_user.name} updated marketing <strong>#{param}</strong>
+    from <strong>#{old}</strong> to <strong>#{latest}</strong>",
+    user_id: current_user.id
+    )
+  end
+
+  def save_timeline_if_any_changes
     if @marketing.name_previously_changed?
-      timeline_marketing("marketingDetails",
-      old_name, "updated marketing name from")
-    end
-    if @marketing.probability_previously_changed?
-      timeline_marketing("marketingDetails",
-      @marketing.probability, "updated marketing probability to")
+      timeline_marketing("name", @old_name, @marketing.name)
     end
     if @marketing.amount_previously_changed?
-      timeline_marketing("marketingDetails",
-      sprintf('%.2f' % @marketing.amount),
-      "updated marketing amount to RM")
+      timeline_marketing("amount", sprintf('%.2f' % @old_amount), sprintf('%.2f' % @marketing.amount))
     end
     if @marketing.description_previously_changed?
-      timeline_marketing("marketingDetails",
-      "", "updated marketing description")
+      timeline_marketing("description", @old_description, @marketing.description)
     end
     if @marketing.status_previously_changed?
-      timeline_marketing("marketingDetails",
-      @marketing.status, "updated marketing status to")
+      timeline_marketing("status", @old_status, @marketing.status)
     end
 
     @marketing.save

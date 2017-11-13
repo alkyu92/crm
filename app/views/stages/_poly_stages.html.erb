@@ -5,13 +5,13 @@
     <div class="row">
         <div class="col-lg-12 text-right">
             <%= link_to 'Add Stage','#', class: "btn btn-default",
-          data: {toggle: "modal", target: "#marketingModalStage"}, remote: true %>
+          data: {toggle: "modal", target: "#subjectModalStage"}, remote: true %>
         </div>
     </div>
 </div>
 
 <!-- Modal -->
-<div id="marketingModalStage" class="modal fade" role="dialog">
+<div id="subjectModalStage" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -21,7 +21,7 @@
                 <h4 class="modal-title">Create New Stage</h4>
             </div>
             <div class="modal-body">
-                <%= simple_form_for [@marketing, @stage, Stage.new], remote: true do |f| %>
+                <%= simple_form_for [@subject, @stage, Stage.new], remote: true do |f| %>
                 <%= f.input :name, label: "Stage Name", autofocus: true, hint: "required" %>
             </div>
             <div class="modal-footer">
@@ -33,7 +33,7 @@
     </div>
 </div>
 
-<% @marketing.stages.each do |stage| %>
+<% @subject.stages.each do |stage| %>
 <!-- Modal -->
 <div id="editStage-<%= stage.id %>" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -45,7 +45,7 @@
                 <h4 class="modal-title">Create New Stage</h4>
             </div>
             <div class="modal-body">
-                <%= simple_form_for [@marketing, stage], remote: true do |f| %>
+                <%= simple_form_for [@subject, stage], remote: true do |f| %>
                 <%= f.input :name, label: "Stage Name", autofocus: true, hint: "required" %>
             </div>
             <div class="modal-footer">

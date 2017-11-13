@@ -69,28 +69,29 @@
                     <% end %>
                 </optgroup>
 
+                <% unless @op_collect.blank? %>
                 <optgroup label="Opportunity">
                     <% @op_collect.each do |op| %>
                     <option value="Opportunity,<%= op.id %>"><%= op.name %></option>
                     <% end %>
                 </optgroup>
+                <% end %>
 
+                <% unless @case_collect.blank? %>
                 <optgroup label="Case">
-                    <% @op_collect.each do |op| %>
-                    <% if op.polyevents_type == "Case" %>
-                    <option value="Opportunity,<%= op.id %>"><%= op.name %></option>
-                    <% end %>
+                    <% @case_collect.each do |cs| %>
+                    <option value="Opportunity,<%= cs.id %>"><%= cs.name %></option>
                     <% end %>
                 </optgroup>
+                <% end %>
 
+                <% unless @mrkt_collect.blank? %>
                 <optgroup label="Marketing">
-                    <% @op_collect.each do |op| %>
-                    <% if op.polyevents_type == "Marketing" %>
-                    <option value="Opportunity,<%= op.id %>"><%= op.name %></option>
-                    <% end %>
+                    <% @mrkt_collect.each do |mrkt| %>
+                    <option value="Opportunity,<%= mrkt.id %>"><%= mrkt.name %></option>
                     <% end %>
                 </optgroup>
-
+                <% end %>
             </select>
 
             <hr>

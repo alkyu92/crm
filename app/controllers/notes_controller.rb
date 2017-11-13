@@ -25,6 +25,7 @@ class NotesController < ApplicationController
       if @note.save
         @notetimeline = @subject.timelines.create!(
         action: "#{current_user.name} created note <strong>#{@note.title.truncate(50)}</strong>",
+        anchor: "relatedNotes",
         user_id: current_user.id
         )
         format.js { flash.now[:success] = "Note log added!" }
@@ -66,7 +67,11 @@ class NotesController < ApplicationController
 
   def destroy
     @note.destroy
-    timeline_note("deleted")
+    @notetimeline = @subject.timelines.create!(
+    action: "#{current_user.name} deleted note <strong>#{@note.title.truncate(50)}</strong>",
+    anchor: "relatedNotes",
+    user_id: current_user.id
+    )
     respond_to do |format|
       format.js { flash.now[:success] = "Note log deleted!" }
     end
@@ -81,6 +86,7 @@ class NotesController < ApplicationController
     @notetimeline = @subject.timelines.create!(
     action: "#{current_user.name} updated note <strong>#{param}</strong> from
     <strong>#{old}</strong> to <strong>#{latest}</strong>",
+    anchor: "relatedNotes",
     user_id: current_user.id
     )
   end

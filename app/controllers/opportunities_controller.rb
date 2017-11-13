@@ -162,7 +162,7 @@ class OpportunitiesController < ApplicationController
                                         )
   end
 
-  def timeline_opportunity(params, old, latest)
+  def timeline_opportunity(param, old, latest)
     @opportunity.timelines.create!(
     action: "#{current_user.name} updated opportunity
     <strong>#{param}</strong> from <strong>#{old}</strong>

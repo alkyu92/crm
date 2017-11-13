@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div id="marketingModalForm" class="modal fade" role="dialog">
+<div id="caseModalForm" class="modal fade" role="dialog">
     <div class="modal-dialog" style="width: 1000px;">
 
         <!-- Modal content-->
@@ -20,8 +20,8 @@
             </div>
         <% else %>
             <div class="modal-body">
-                <%= simple_form_for @marketing, html: {multipart: true}, remote: true do |f| %>
-                <%= render 'marketings/form', f: f %>
+                <%= simple_form_for @case, html: {multipart: true}, remote: true do |f| %>
+                <%= render 'cases/form', f: f %>
             </div>
             <div class="modal-footer">
                 <%= f.button :submit, class: "btn-success" %>
@@ -36,4 +36,4 @@
     </div>
 </div>
 
-<%= render 'marketings/form_script' %>
+<%= render 'cases/form_script' %>

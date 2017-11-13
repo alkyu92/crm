@@ -21,7 +21,12 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        timeline_task("created task")
+        # timeline
+        @tasktimeline = @subject.timelines.create!(
+        action: "#{current_user.name} created task
+        <strong>#{@task.description.truncate(50)}</strong>",
+        user_id: current_user.id
+        )
         format.js { flash.now[:success] = "Task log added!" }
       else
         format.js { flash.now[:danger] = "Failed to add task log!" }
@@ -30,8 +35,9 @@ class TasksController < ApplicationController
 
     # AJAX
     # session[:op_id] = @task.polytask.id
-    # @opportunity = Opportunity.find(@task.polytask)
-    # @optask = @opportunity.tasks.includes(:user).order('due_date').page(params[:task_page]).per(10)
+    @opportunity = Opportunity.find(@task.polytask)
+    @optask = @opportunity.tasks.includes(:user).order(
+    'due_date').page(params[:task_page]).per(10)
 
   end
 
@@ -40,6 +46,10 @@ class TasksController < ApplicationController
   end
 
   def update
+    @old_description = @task.description.truncate(50)
+    @old_date = @task.due_date.strftime('%d %b %Y %H:%M')
+    @old_status = @task.complete
+
       if @task.update(params_task)
 
         if params[:completed]
@@ -50,7 +60,9 @@ class TasksController < ApplicationController
           end
         end
 
-        timeline_task("updated task")
+        # timeline
+        save_timeline_if_any_changes
+
         flash[:success] = "Task updated!"
         redirect_to opportunity_path(@opportunity, anchor: "task-taskInfo-#{@task.id}")
       else
@@ -67,7 +79,12 @@ class TasksController < ApplicationController
     # 'due_date').page(params[:task_page]).per(10) if @opportunity
 
     @task.destroy
-    timeline_task("deleted task")
+    # timeline
+    @tasktimeline = @subject.timelines.create!(
+    action: "#{current_user.name} deleted task
+    <strong>#{@task.description.truncate(50)}</strong>",
+    user_id: current_user.id
+    )
     respond_to do |format|
       format.html { redirect_to opportunity_path(@opportunity, anchor: "task") }
       format.js { flash[:success] = "Task deleted!" }
@@ -81,13 +98,21 @@ class TasksController < ApplicationController
     respond_to do |format|
     if @task.complete == true
       @task.update_attributes(complete: false)
-      status = "updated task status from Completed to Incomplete for task "
-      timeline_task(status)
+      # timeline
+      @tasktimeline = @subject.timelines.create!(
+      action: "#{current_user.name} updated task status from Completed to Incomplete
+      for task #{@task.description.truncate(50)}",
+      user_id: current_user.id
+      )
       format.js { flash.now[:success] = status.capitalize + @task.description.truncate(50) }
     else
       @task.update_attributes(complete: true)
-      status = "updated task status from Incomplete to Completed for task "
-      timeline_task(status)
+      # timeline
+      @tasktimeline = @subject.timelines.create!(
+      action: "#{current_user.name} updated task status from Incomplete to Completed
+      for task #{@task.description.truncate(50)}",
+      user_id: current_user.id
+      )
       format.js { flash.now[:success] = status.capitalize + @task.description.truncate(50) }
     end
     end
@@ -95,15 +120,26 @@ class TasksController < ApplicationController
 
   private
 
-  def timeline_task(action)
+  def timeline_task(param, old, latest)
+    # timeline
     @tasktimeline = @subject.timelines.create!(
-    tactivity: "task-" + @task.id.to_s,
-    nactivity: @task.description.truncate(50),
-    action: action,
+    action: "#{current_user.name} updated task <strong>#{param}</strong> from
+    <strong>#{old}</strong> to <strong>#{latest}</strong>
+    for task #{@task.description.truncate(50)}",
     user_id: current_user.id
     )
+  end
 
-    notify_user(@tasktimeline.id)
+  def save_timeline_if_any_changes
+    if @task.description_previously_changed?
+      timeline_task("description", @old_description, @task.description.truncate(50))
+    end
+    if @task.due_date_previously_changed?
+      timeline_task("due_date", @old_date, @task.due_date.strftime('%d %b %Y %H:%M'))
+    end
+    if @task.complete_previously_changed?
+      timeline_task("status", @old_status, @task.complete)
+    end
   end
 
   def params_task

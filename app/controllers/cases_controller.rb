@@ -52,19 +52,15 @@ class CasesController < ApplicationController
 
 
       if @case.save
-
-        @acoptimeline = @case.account.timelines.create!(
-        tactivity: "",
-        nactivity: @case.name,
-        action: "created #{@case.business_type.downcase}",
-        user_id: current_user.id)
-
-        timeline_case("#", @case.name, "created #{@case.business_type.downcase}")
-
-        flash.now[:success] = "#{@case.business_type.downcase} entry created!"
+        # timeline
+        @case.timelines.create!(
+        action: "#{current_user.name} created case <strong>#{@case.name}</strong>",
+        user_id: current_user.id
+        )
+        flash.now[:success] = "Case entry created!"
         redirect_to case_path(@case)
       else
-        flash.now[:danger] = "Failed to create #{@case.business_type.downcase} entry!"
+        flash.now[:danger] = "Failed to create case entry!"
         render 'new'
       end
 
@@ -72,7 +68,12 @@ class CasesController < ApplicationController
 
   def update
     @case = Case.includes(:user).find(params[:id])
+
     @old_name = @case.name
+    @old_amount = @case.amount
+    @old_description = @case.description
+    @old_status = @case.status
+
     respond_to do |format|
       # for AJAX
       @subject = @case
@@ -83,8 +84,8 @@ class CasesController < ApplicationController
             params[:docs].each { |doc|
               @case.documents.create!(doc: doc)
             }
-            timeline_case("relatedDocs", @case.name,
-            "added attachment file to #{@case.business_type.downcase}")
+            # timeline
+
           end
 
         if params[:attached]
@@ -109,10 +110,10 @@ class CasesController < ApplicationController
           # }
         end
 
-        save_timeline_if_any_changes(@old_name)
-        format.js { flash.now[:success] = "#{@case.business_type.downcase} entry updated!" }
+        save_timeline_if_any_changes
+        format.js { flash.now[:success] = "Case entry updated!" }
       else
-        format.js { flash.now[:danger] = "Failed to update #{@case.business_type.downcase}!" }
+        format.js { flash.now[:danger] = "Failed to update case!" }
       end
     end
   end
@@ -122,9 +123,9 @@ class CasesController < ApplicationController
     @case.destroy
 
     respond_to do |format|
-      format.js { flash[:success] = "#{@case.business_type.downcase} entry deleted!" }
+      format.js { flash[:success] = "Case entry deleted!" }
       format.html {
-        flash[:success] = "#{@case.business_type.downcase} entry deleted!"
+        flash[:success] = "Case entry deleted!"
         redirect_to cases_path
       }
     end
@@ -147,11 +148,11 @@ class CasesController < ApplicationController
 
   private
 
-  def timeline_case(tactivity, nactivity, action)
+  def timeline_case(param, old, latest)
     @optimeline = @case.timelines.create!(
-    tactivity: tactivity,
-    nactivity: nactivity,
-    action: action,
+    action: "#{current_user.name} updated case <strong>#{param}</strong> from
+    <strong>#{old}</strong> to <strong>#{latest}</strong>",
+    anchor: "caseDetails",
     user_id: current_user.id
     )
 
@@ -184,54 +185,18 @@ class CasesController < ApplicationController
     redirect_to cases_path
   end
 
-  def save_timeline_if_any_changes(old_name)
+  def save_timeline_if_any_changes
     if @case.name_previously_changed?
-      timeline_case("caseDetails",
-      old_name, "updated #{@case.business_type.downcase} name from")
-    end
-    if @case.business_type_previously_changed?
-      timeline_case("caseDetails",
-      @case.business_type, "updated type to")
-    end
-    if @case.probability_previously_changed?
-      timeline_case("caseDetails",
-      @case.probability, "updated case probability to")
+      timeline_case("caseDetails", @old_name, @case.name)
     end
     if @case.amount_previously_changed?
-      timeline_case("caseDetails",
-      sprintf('%.2f' % @case.amount),
-      "updated #{@case.business_type.downcase} amount to RM")
+      timeline_case("caseDetails", sprintf('%.2f' % @old_amount), sprintf('%.2f' % @case.amount))
     end
     if @case.description_previously_changed?
-      timeline_case("caseDetails",
-      "", "updated #{@case.business_type} description")
+      timeline_case("caseDetails", @old_description, @case.description)
     end
     if @case.status_previously_changed?
-      timeline_case("caseDetails",
-      @case.status, "updated #{@case.business_type.downcase} status to")
-    end
-    if @case.close_date_previously_changed?
-      timeline_case("caseDetails",
-      @case.close_date.strftime('%d %b %Y'),
-      "updated #{@case.business_type.downcase} #{
-      @case.business_type == "Case" ? 'closed' : 'solved'
-      } date to")
-    end
-    if @case.loss_reason_previously_changed?
-      timeline_case("caseDetails",
-      @case.loss_reason, "updated case loss reason to")
-    end
-
-    if @case.status == "Open" ||
-      @case.status == "In Progress"
-
-      @case.close_date = ""
-      @case.loss_reason = ""
-
-    elsif @case.status == "Close-Won" ||
-      @case.status == "Solved"
-
-      @case.loss_reason = ""
+      timeline_case("caseDetails", @old_status, @case.status)
     end
 
     @case.save

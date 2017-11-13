@@ -3,10 +3,10 @@
         <small>Account</small>
         <br>
         <h4>
-            <% if @marketing.account.blank? %>
+            <% if @case.account.blank? %>
             <span style="color: red;">Account not assigned</span>
         <% else %>
-            <%= link_to @marketing.account.name, account_path(@marketing.account) %>
+            <%= link_to @case.account.name, account_path(@case.account) %>
             <% end %>
         </h4>
         <br>
@@ -15,10 +15,10 @@
         <small>Amount</small>
         <br>
         <h4>
-            <% if @marketing.amount.blank? %>
+            <% if @case.amount.blank? %>
             <span style="color: red;">Not specified</span>
         <% else %>
-            RM <%= sprintf('%.2f' % @marketing.amount) %>
+            RM <%= sprintf('%.2f' % @case.amount) %>
             <% end %>
         </h4>
         <br>
@@ -28,19 +28,19 @@
         <small>Current Stage</small>
         <br>
         <h4>
-          <% if @marketing.stages.blank? %>
+          <% if @case.stages.blank? %>
             <span style="color: red;">Not specified</span>
           <% else %>
-            <% @marketing.stages.each_with_index do |stage, index| %>
+            <% @case.stages.each_with_index do |stage, index| %>
 
             <% if stage.status == "In Progress" %>
               <%= stage.name %><br>
-              <% if stage.id == @marketing.stages.last.id %>
+              <% if stage.id == @case.stages.last.id %>
               <small>Final stage in progress</small>
               <% else %>
               <small>Stage <%= index+1 %> In Progress</small>
               <% end %>
-            <% elsif stage.status == "Completed" && stage.id == @marketing.stages.last.id %>
+            <% elsif stage.status == "Completed" && stage.id == @case.stages.last.id %>
               <%= stage.name %><br>
               <small>Final stage completed</small>
             <% end %>
@@ -55,18 +55,18 @@
         <small>Status</small>
         <br>
         <h4>
-            <%= @marketing.status %>
+            <%= @case.status %>
         </h4>
         <br>
     </div>
 
-    <% if @marketing.status == "Closed-Won" ||
-      @marketing.status == "Closed-Loss" ||
-      @marketing.status == "Approved" ||
-      @marketing.status == "Solved" %>
+    <% if @case.status == "Closed-Won" ||
+      @case.status == "Closed-Loss" ||
+      @case.status == "Approved" ||
+      @case.status == "Solved" %>
     <div class="col-lg-2">
         <small>
-          <%= @marketing.status %>
+          <%= @case.status %>
           Date
         </small>
         <br>
@@ -78,8 +78,8 @@
     <% end %>
 
     <div class="col-lg-2">
-        <small>Marketing Owner</small>
+        <small>Case Owner</small>
         <br>
-        <h4><%= link_to @marketing.user.name, user_path(@marketing.user) %></h4>
+        <h4><%= link_to @case.user.name, user_path(@case.user) %></h4>
     </div>
 </div>

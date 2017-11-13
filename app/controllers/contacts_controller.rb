@@ -14,6 +14,8 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
   def new
     @acc_collect = Account.all
     @op_collect = Opportunity.all
+    @mrkt_collect = Marketing.all
+    @case_collect = Case.all
 
     @contact = Contact.new
   end
@@ -29,7 +31,11 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
 
         if params[:account_id] || params[:opportunity_id]
           @subject.relationships.create!(contact: @contact)
-          timeline_contact("created contact")
+          # timeline
+          @contacttimeline = @subject.timelines.create!(
+          action: "#{current_user.name} created contact #{@contact.name}",
+          user_id: current_user.id
+          )
           redirect_acc_or_op_path
         else
           redirect_to contacts_path(page: @contacts.num_pages, anchor: "contactInfo-#{@contact.id}")
@@ -63,7 +69,10 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
     if @contact.update(params_contact)
       flash[:success] = "Contact updated!"
       if params[:account_id] || params[:opportunity_id]
-        timeline_contact("updated contact")
+        @contacttimeline = @subject.timelines.create!(
+        action: "#{current_user.name} updated contact #{@contact.name}",
+        user_id: current_user.id
+        )
         redirect_acc_or_op_path
       else
         redirect_to contacts_path(page: session[:page], anchor: "contactInfo-#{@contact.id}")
@@ -83,10 +92,11 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
     end
 
     respond_to do |format|
+      @contacttimeline = @subject.timelines.create!(
+        action: "#{current_user.name} deleted contact #{@contact.name}",
+        user_id: current_user.id
+      )
       @contact.destroy
-      if params[:account_id] || params[:opportunity_id]
-        timeline_contact("deleted contact")
-      end
       format.js { flash.now[:success] = "Contact deleted!" }
     end
   end
@@ -103,7 +113,11 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
       end
 
       @relationship.destroy
-      timeline_contact("deleted association")
+      # timeline
+      @contacttimeline = @subject.timelines.create!(
+      action: "#{current_user.name} deleted contact association #{@contact.name}",
+      user_id: current_user.id
+      )
       format.js { flash.now[:success] = "Association deleted!"}
     end
   end
@@ -130,10 +144,16 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
       params[:assigned].each do |assign|
         if assign.split(',')[0] == "Account"
           @subject = Account.find(assign.split(',')[1])
-          timeline_contact("added association")
+          @contacttimeline = @subject.timelines.create!(
+          action: "#{current_user.name} added association #{@contact.name}",
+          user_id: current_user.id
+          )
         elsif assign.split(',')[0] == "Opportunity"
           @subject = Opportunity.find(assign.split(',')[1])
-          timeline_contact("added association")
+          @contacttimeline = @subject.timelines.create!(
+          action: "#{current_user.name} added association #{@contact.name}",
+          user_id: current_user.id
+          )
         end
 
         @contact.relationships.create!(contactable: @subject)
@@ -186,17 +206,6 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
     elsif params[:opportunity_id]
       @subject = Opportunity.find(params[:opportunity_id])
     end
-  end
-
-  def timeline_contact(action)
-    @contacttimeline = @subject.timelines.create!(
-    tactivity: "relatedContacts-" + @contact.id.to_s,
-    nactivity: @contact.name,
-    action: action,
-    user_id: current_user.id
-    )
-
-    notify_user(@contacttimeline.id)
   end
 
   def redirect_acc_or_op_path

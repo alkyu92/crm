@@ -4,7 +4,6 @@ class CreateCalls < ActiveRecord::Migration[5.0]
       t.text :description
       t.integer :duration
       t.datetime :call_datetime
-      t.boolean :complete, default: false
 
       t.references :polycall, polymorphic: true, index: true
 

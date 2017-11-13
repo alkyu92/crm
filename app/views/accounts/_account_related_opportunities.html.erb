@@ -1,10 +1,11 @@
 <div class="tab-pane fade in active" id="accountOpportunities">
     <div class="row">
-        <div class="col-lg-8">
-            <h4>Account Related Activities</h4>
+        <div class="col-lg-7">
+            <h4>Account Related Opportunities</h4>
         </div>
-        <div class="col-lg-4">
-          <%= link_to 'Create New', new_account_opportunity_path(@account),
+        <div class="col-lg-5">
+          <%= link_to 'Create New Opportunity',
+          new_account_opportunity_path(@account, type: "Opportunity"),
           class: "btn btn-default form-control" %>
         </div>
         <div id="notice-ops"></div>

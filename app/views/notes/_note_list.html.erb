@@ -52,7 +52,7 @@
 <hr>
 <div class="row">
     <div class="col-lg-1 col-xs-1 text-center">
-      <!-- <span class="badge"><%#= note.id %></span> -->
+      <span class="badge"><%= note.id %></span>
     </div>
     <div class="col-lg-2 col-xs-10">
         <%= link_to note.title, '#', data: {toggle: "modal", target: "#noteInfo-#{note.id}"} %>
@@ -62,11 +62,10 @@
         <%= note.description.truncate(50) %>
     </div>
     <div class="col-lg-2 col-xs-6">
+        <small><%= note.info_type %></small><br>
         <% if note.info_type == "Opportunity" %>
-        <small><%= note.info.business_type %></small><br>
         <%= link_to note.info.name, opportunity_path(note.info) %>
         <% elsif note.info_type == "Account" %>
-        <small>Account</small><br>
         <%= link_to note.info.name, account_path(note.info) %>
         <% end %>
         <br><br>

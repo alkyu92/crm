@@ -77,11 +77,25 @@ Create task through <%= link_to 'subject', opportunities_path %>.
         <i class="caret"></i>
       </a>
       <ul class="dropdown-menu">
+        <% if task.polytask_type == "Opportunity" %>
         <li><%= link_to "Show #{task.polytask_type.downcase}",
-	opportunity_path(task.polytask, anchor: "task-taskInfo-#{task.id}") %></li>
+        opportunity_path(task.polytask, anchor: "task-taskInfo-#{task.id}") %></li>
         <li><%= link_to 'Edit', edit_opportunity_task_path(task.polytask, task) %></li>
         <li><%= link_to 'Delete', opportunity_task_path(task.polytask, task),
         method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
+        <% elsif task.polytask_type == "Marketing" %>
+        <li><%= link_to "Show #{task.polytask_type.downcase}",
+        marketing_path(task.polytask, anchor: "task-taskInfo-#{task.id}") %></li>
+        <li><%= link_to 'Edit', edit_marketing_task_path(task.polytask, task) %></li>
+        <li><%= link_to 'Delete', marketing_task_path(task.polytask, task),
+        method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
+        <% elsif task.polytask_type == "Case" %>
+        <li><%= link_to "Show #{task.polytask_type.downcase}",
+        case_path(task.polytask, anchor: "task-taskInfo-#{task.id}") %></li>
+        <li><%= link_to 'Edit', edit_case_task_path(task.polytask, task) %></li>
+        <li><%= link_to 'Delete', case_task_path(task.polytask, task),
+        method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
+        <% end %>
       </ul>
     </div>
 </div>

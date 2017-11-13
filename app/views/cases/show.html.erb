@@ -1,32 +1,32 @@
 <div class="container">
-    <div id="mrkt-title">
-      <%= render 'marketings/mrkt_title' %>
+    <div id="case-title">
+      <%= render 'cases/case_title' %>
     </div>
     <% provide(:form_title, 'Edit Subject Entry')%>
-    <%= render 'marketings/modal_form' %>
+    <%= render 'cases/modal_form' %>
     <br>
 
-    <div id="mrkt-header">
-    <%= render 'marketings/mrkt_header' %>
+    <div id="case-header">
+    <%= render 'cases/case_header' %>
     </div>
 
     <hr>
-    <%#= render 'stages/poly_stages'%>
+    <%= render 'stages/poly_stages' %>
     <hr>
 
     <div class="row">
         <div class="col-lg-12">
             <ul class="nav nav-tabs">
-                <li class="active"><%= link_to 'Activities', '#marketingActivities',
-              data: {toggle: "tab", target: "#marketingActivities"} %></li>
+                <li class="active"><%= link_to 'Activities', '#caseActivities',
+              data: {toggle: "tab", target: "#caseActivities"} %></li>
                 <li><%= link_to 'Related Contacts', '#relatedContacts',
                 data: {toggle: "tab", target: "#relatedContacts"} %></li>
                 <li><%= link_to 'Related Documents', '#relatedDocs',
                 data: {toggle: "tab", target: "#relatedDocs"} %></li>
                 <li><%= link_to 'Notes', '#relatedNotes',
                 data: {toggle: "tab", target: "#relatedNotes"} %></li>
-                <li><%= link_to 'Details', '#marketingDetails',
-                data: {toggle: "tab", target: "#marketingDetails"} %></li>
+                <li><%= link_to 'Details', '#caseDetails',
+                data: {toggle: "tab", target: "#caseDetails"} %></li>
             </ul>
         </div>
     </div>
@@ -37,7 +37,7 @@
 
         <div class="col-lg-6">
             <div class="tab-content">
-                <%= render 'marketings/activities/index' %>
+                <%= render 'cases/activities/index' %>
                 <%= render 'contacts/related_contacts' %>
                 <%= render 'documents/related_docs' %>
                 <%= render 'notes/related_notes' %>
