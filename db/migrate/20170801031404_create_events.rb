@@ -3,6 +3,7 @@ class CreateEvents < ActiveRecord::Migration[5.0]
     create_table :events do |t|
       t.text :description
       t.datetime :event_date
+      t.datetime :event_finish
       t.boolean :complete, default: false
 
       t.references :polyevent, polymorphic: true, index: true

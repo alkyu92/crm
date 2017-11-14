@@ -115,7 +115,8 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
       @relationship.destroy
       # timeline
       @contacttimeline = @subject.timelines.create!(
-      action: "#{current_user.name} deleted contact association #{@contact.name}",
+      action: "#{current_user.name} deleted contact association
+      <strong>#{@contact.name}</strong>",
       user_id: current_user.id
       )
       format.js { flash.now[:success] = "Association deleted!"}

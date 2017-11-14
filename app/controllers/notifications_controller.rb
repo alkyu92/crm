@@ -7,13 +7,8 @@ class NotificationsController < ApplicationController
     @notification = Notification.find(params[:id])
     @notification.update_attributes(read: true)
 
-    if @notification.timeline.activity_type == "Opportunity"
-      redirect_to opportunity_path(@notification.timeline.activity_id,
-      anchor: @notification.timeline.anchor)
-    elsif @notification.timeline.activity_type == "Account"
-      redirect_to account_path(@notification.timeline.activity_id,
-      anchor: @notification.timeline.anchor)
-    end
+    redirect_to polymorphic_path(@notification.timeline.activity,
+    anchor: @notification.timeline.anchor)
   end
 
 end

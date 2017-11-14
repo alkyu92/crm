@@ -24,7 +24,14 @@
 <div id="event" class="tab-pane fade in">
     <%= simple_form_for [@opportunity, @event, Event.new], remote: true do |f| %>
     <%= f.input :description, placeholder: "Event description" %>
-    <%= f.input :event_date, as: :date_time_picker %>
+    <div class="row">
+      <div class="col-lg-6">
+        <%= f.input :event_date, as: :date_time_picker %>
+      </div>
+      <div class="col-lg-6">
+        <%= f.input :event_finish, as: :date_time_picker %>
+      </div>
+    </div>
     <%= f.button :submit %>
     <% end %>
 </div>

@@ -43,12 +43,11 @@ ActiveRecord::Schema.define(version: 20171109022421) do
     t.text     "description"
     t.integer  "duration"
     t.datetime "call_datetime"
-    t.boolean  "complete",      default: false
     t.string   "polycall_type"
     t.integer  "polycall_id"
     t.integer  "user_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.index ["polycall_type", "polycall_id"], name: "index_calls_on_polycall_type_and_polycall_id"
     t.index ["user_id"], name: "index_calls_on_user_id"
   end
@@ -106,6 +105,7 @@ ActiveRecord::Schema.define(version: 20171109022421) do
   create_table "events", force: :cascade do |t|
     t.text     "description"
     t.datetime "event_date"
+    t.datetime "event_finish"
     t.boolean  "complete",       default: false
     t.string   "polyevent_type"
     t.integer  "polyevent_id"

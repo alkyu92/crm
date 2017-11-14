@@ -30,7 +30,7 @@ No association found.
 <% unless @contact.relationships.where(contactable_type: "Opportunity").blank? %>
 <div class="row">
     <div class="col-lg-12">
-        <small>Opportunity / Case</small>
+        <small>Subjects</small>
     </div>
     <% @contact.relationships.each do |rl| %>
     <% if rl.contactable_type == "Opportunity" %>

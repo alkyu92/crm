@@ -43,57 +43,27 @@
                               @subject.stages.last.id == stage.id %>
 
                             <li>
-                            <% if stage.polystage_type == "Opportunity"%>
                             <%= link_to 'Mark as Completed',
-                            update_status_opportunity_stage_path(@subject, stage),
+                            polymorphic_path([@subject, stage], action: :update_status),
                             remote: true, method: :get %>
-                            <% elsif stage.polystage_type == "Marketing" %>
-                            <%= link_to 'Mark as Completed',
-                            update_status_marketing_stage_path(@subject, stage),
-                            remote: true, method: :get %>
-                            <% elsif stage.polystage_type == "Case" %>
-                            <%= link_to 'Mark as Completed',
-                            update_status_case_stage_path(@subject, stage),
-                            remote: true, method: :get %>
-                            <% end %>
                             </li>
                             <li role="separator" class="divider"></li>
 
                             <% elsif stage.status == "Waiting" %>
 
                             <li>
-                              <% if stage.polystage_type == "Opportunity"%>
                               <%= link_to 'Mark as In Progress',
-                              update_status_opportunity_stage_path(@subject, stage),
+                              polymorphic_path([@subject, stage], action: :update_status),
                               remote: true, method: :get %>
-                              <% elsif stage.polystage_type == "Marketing" %>
-                              <%= link_to 'Mark as In Progress',
-                              update_status_marketing_stage_path(@subject, stage),
-                              remote: true, method: :get %>
-                              <% elsif stage.polystage_type == "Case" %>
-                              <%= link_to 'Mark as In Progress',
-                              update_status_case_stage_path(@subject, stage),
-                              remote: true, method: :get %>
-                              <% end %>
                             </li>
                             <li role="separator" class="divider"></li>
 
                             <% elsif stage.status == "Completed" %>
 
                             <li>
-                              <% if stage.polystage_type == "Opportunity"%>
                               <%= link_to 'Mark as In Progress',
-                              update_status_opportunity_stage_path(@subject, stage),
+                              polymorphic_path([@subject, stage], action: :update_status),
                               remote: true, method: :get %>
-                              <% elsif stage.polystage_type == "Marketing" %>
-                              <%= link_to 'Mark as In Progress',
-                              update_status_marketing_stage_path(@subject, stage),
-                              remote: true, method: :get %>
-                              <% elsif stage.polystage_type == "Case" %>
-                              <%= link_to 'Mark as In Progress',
-                              update_status_case_stage_path(@subject, stage),
-                              remote: true, method: :get %>
-                              <% end %>
                             </li>
                             <li role="separator" class="divider"></li>
 
@@ -107,16 +77,8 @@
                             remote: true %></li>
 
                             <li>
-                            <% if stage.polystage_type == "Opportunity" %>
-                            <%= link_to 'Delete', opportunity_stage_path(@subject, stage),
+                            <%= link_to 'Delete', polymorphic_path([@subject, stage]),
                             method: :delete, remote: true, data: {confirm: "Are you sure?"} %>
-                            <% elsif stage.polystage_type == "Marketing" %>
-                            <%= link_to 'Delete', marketing_stage_path(@subject, stage),
-                            method: :delete, remote: true, data: {confirm: "Are you sure?"} %>
-                            <% elsif stage.polystage_type == "Case" %>
-                            <%= link_to 'Delete', case_stage_path(@subject, stage),
-                            method: :delete, remote: true, data: {confirm: "Are you sure?"} %>
-                            <% end %>
                             </li>
                         </ul>
                     </div>

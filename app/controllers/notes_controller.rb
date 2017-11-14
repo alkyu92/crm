@@ -98,6 +98,8 @@ class NotesController < ApplicationController
   def find_subject
     @subject = Account.find(params[:account_id]) if params[:account_id]
     @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
+    @subject = Marketing.find(params[:marketing_id]) if params[:marketing_id]
+    @subject = Case.find(params[:case_id]) if params[:case_id]
   end
 
   def find_note

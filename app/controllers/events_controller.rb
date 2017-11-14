@@ -109,7 +109,7 @@ class EventsController < ApplicationController
   end
 
   def params_event
-    params.require(:event).permit(:description, :event_date)
+    params.require(:event).permit(:description, :event_date, :event_finish)
   end
 
   def find_subject
