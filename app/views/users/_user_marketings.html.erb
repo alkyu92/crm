@@ -2,8 +2,8 @@
 <hr>
 
 <% if @usermrkt.blank? %>
-No marketings found.
-<%= link_to 'Create marketing on account', accounts_path %>.
+No marketings found.<br>
+<%= link_to 'Create new marketing', new_marketing_path %>.
 <% else %>
 <div class="row">
     <div class="col-lg-4 col-xs-4">

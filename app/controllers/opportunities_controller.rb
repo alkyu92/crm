@@ -47,10 +47,18 @@ class OpportunitiesController < ApplicationController
 
 
       if @opportunity.save
+        # account timeline
+        @acoptimeline = @opportunity.account.timelines.create!(
+        action: "#{current_user.name} created opportunity <strong>#{@opportunity.name}</strong>",
+        user_id: current_user.id
+        )
+
+        # opportunity timeline
         @opportunity.timelines.create!(
         action: "#{current_user.name} created opportunity <strong>#{@opportunity.name}</strong>",
         user_id: current_user.id
         )
+
         flash.now[:success] = "opportunity entry created!"
         redirect_to opportunity_path(@opportunity)
       else

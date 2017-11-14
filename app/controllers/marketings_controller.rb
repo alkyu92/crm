@@ -52,9 +52,15 @@ class MarketingsController < ApplicationController
 
 
       if @marketing.save
-
+        # account timeline
         @acoptimeline = @marketing.account.timelines.create!(
-        action: "#{current_user.name} created marketing #{@marketing.name}",
+        action: "#{current_user.name} created marketing <strong>#{@marketing.name}</strong>",
+        user_id: current_user.id
+        )
+
+        # marketing timeline
+        @marketing.timelines.create!(
+        action: "#{current_user.name} created marketing <strong>#{@marketing.name}</strong>",
         user_id: current_user.id
         )
 

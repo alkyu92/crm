@@ -1,8 +1,8 @@
 <h4>Cases Registered</h4>
 <hr>
 <% if @usercase.blank? %>
-No cases found.
-<%= link_to 'Create case on account', accounts_path %>.
+No cases found.<br>
+<%= link_to 'Create new case', new_case_path %>.
 <% else %>
 
 <div class="row">

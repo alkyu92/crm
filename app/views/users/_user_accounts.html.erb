@@ -3,7 +3,7 @@
 <h4>Accounts Registered</h4>
 <hr>
 <% if @useracc.blank? %>
-No accounts found.
+No accounts found.<br>
 <%= link_to 'Create new account', accounts_path(anchor: "accountModalForm") %>.
 <% else %>
 

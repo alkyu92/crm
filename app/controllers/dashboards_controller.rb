@@ -53,6 +53,7 @@ class DashboardsController < ApplicationController
     @opaprv = Opportunity.joins(:account).where(status: "Approved").order('amount DESC').pluck(
     :name, :account_id, :name, :id, :amount)
 
+    # calculate the sum of 'amount' of each opportunity status
     @opwon_sum = Opportunity.where(status: "Closed-Won").pluck(:amount).sum
     @oploss_sum = Opportunity.where(status: "Closed-Loss").pluck(:amount).sum
     @opopen_sum = Opportunity.where(status: "Open").pluck(:amount).sum
@@ -63,6 +64,7 @@ class DashboardsController < ApplicationController
     gon.opopen_sum = @opopen_sum
     gon.opaprv_sum = @opaprv_sum
 
+    # calculate the sum of 'amount' of each opportunity status for each accounts
     @acc_won_hash = {}
     Account.all.each do |acc|
       @acc_won_hash[acc.name] = acc.opportunities.where(status: "Closed-Won").sum("amount")

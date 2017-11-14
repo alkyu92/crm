@@ -52,11 +52,18 @@ class CasesController < ApplicationController
 
 
       if @case.save
-        # timeline
+        # account timeline
+        @acoptimeline = @case.account.timelines.create!(
+        action: "#{current_user.name} created case <strong>#{@case.name}</strong>",
+        user_id: current_user.id
+        )
+
+        # opportunity timeline
         @case.timelines.create!(
         action: "#{current_user.name} created case <strong>#{@case.name}</strong>",
         user_id: current_user.id
         )
+
         flash.now[:success] = "Case entry created!"
         redirect_to case_path(@case)
       else
