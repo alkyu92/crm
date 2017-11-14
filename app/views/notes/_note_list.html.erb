@@ -22,11 +22,12 @@
             Show only
             <span class="caret"></span>
             <% end %>
-
             <ul class="dropdown-menu">
-                <li><%= link_to 'All', notes_path %></li>
                 <li><%= link_to 'Account', "?type=Account" %></li>
-                <li><%= link_to 'Opportunity / Case / Marketing', "?type=Opportunity" %></li>
+                <li><%= link_to 'Opportunity', "?type=Opportunity" %></li>
+                <li><%= link_to 'Case', " ?type=Case" %></li>
+                <li><%= link_to 'Marketing', " ?type=Marketing" %></li>
+                <li><%= link_to 'All', notes_path %></li>
             </ul>
         </div>
         <br><br>
@@ -40,26 +41,33 @@
 </div>
 
 <% if @notes.blank? %>
+
 <hr>
 <div class="text-center">
-    No <%= params[:type] %> notes found.<br><br>
+    No
+    <%= params[:type] %>
+    notes found.<br><br>
     Create note through subject.
 </div>
-<% else %>
 
+<% else %>
 
 <% @notes.each do |note| %>
 <hr>
 <div class="row">
     <div class="col-lg-1 col-xs-1 text-center">
-      <span class="badge"><%= note.id %></span>
+        <span class="badge"><%= note.id %></span>
     </div>
     <div class="col-lg-2 col-xs-10">
         <%= link_to note.title, '#', data: {toggle: "modal", target: "#noteInfo-#{note.id}"} %>
         <br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
+      <% if note.description.blank? %>
+      <span style="color: red;">Not specified</span>
+      <% else %>
         <%= note.description.truncate(50) %>
+      <% end %>
     </div>
     <div class="col-lg-2 col-xs-6">
         <small><%= note.info_type %></small><br>
@@ -75,7 +83,7 @@
             <li><%= link_to 'Show', polymorphic_path(note.info, anchor: "relatedNotes-noteInfo-#{note.id}") %></li>
             <li><%= link_to 'Edit', edit_polymorphic_path([note.info, note]) %></li>
             <li><%= link_to 'Delete', polymorphic_path([note.info, note]),
-        method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
+            method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
         </ul>
     </div>
 </div>

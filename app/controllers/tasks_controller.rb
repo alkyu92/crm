@@ -94,7 +94,7 @@ class TasksController < ApplicationController
     end
 
     # AJAX
-    # @tasks = Task.includes(:user, :subject).order('due_date').page(params[:page]).per(10)
+    @tasks = Task.includes(:user, :subject).order('due_date').page(params[:page]).per(10)
   end
 
   def update_task_status
@@ -155,7 +155,7 @@ class TasksController < ApplicationController
 
   def find_subject
     # for AJAX timelines
-      @subject = Opportunity.find(params[:subject_id]) if params[:subject_id]
+      @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
       @subject = Marketing.find(params[:marketing_id]) if params[:marketing_id]
       @subject = Case.find(params[:case_id]) if params[:case_id]
   end

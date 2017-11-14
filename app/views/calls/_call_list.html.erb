@@ -59,12 +59,12 @@
     </div>
     <div class="col-lg-2 col-xs-6">
       <small><%= call.polycall_type %></small><br>
-      <%= link_to call.polycall.name, opportunity_path(call.polycall) %>
+      <%= link_to call.polycall.name, polymorphic_path(call.polycall) %>
       <br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
       <small>Account</small><br>
-        <%= link_to call.polycall.name, account_path(call.polycall) %>
+        <%= link_to call.polycall.account.name, account_path(call.polycall) %>
     </div>
     <div class="col-lg-1 col-xs-6">
       <%= call.created_at.strftime('%d %b %Y at %H:%M:%S') %>
@@ -75,8 +75,8 @@
             <i class="caret"></i>
         </a>
         <ul class="dropdown-menu">
-            <li><%= link_to 'Show', opportunity_path(call.polycall, anchor: "call-callInfo-#{call.id}") %></li>
-            <li><%= link_to 'Delete', opportunity_call_path(call.polycall, call),
+            <li><%= link_to 'Show', polymorphic_path(call.polycall, anchor: "call-callInfo-#{call.id}") %></li>
+            <li><%= link_to 'Delete', polymorphic_path([call.polycall, call]),
         method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
         </ul>
     </div>

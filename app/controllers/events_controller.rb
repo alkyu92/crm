@@ -147,7 +147,7 @@ class EventsController < ApplicationController
   end
 
   def find_subject
-    @subject = Opportunity.find(params[:subject_id]) if params[:subject_id]
+    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
     @subject = Case.find(params[:case_id]) if params[:case_id]
     @subject = Marketing.find(params[:marketing_id]) if params[:marketing_id]
 

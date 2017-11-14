@@ -33,7 +33,7 @@ only: [:create, :edit, :update, :destroy, :destroy_relationship]
           @subject.relationships.create!(contact: @contact)
           # timeline
           @contacttimeline = @subject.timelines.create!(
-          action: "#{current_user.name} created contact #{@contact.name}",
+          action: "#{current_user.name} created contact <strong>#{@contact.name}</strong>",
           user_id: current_user.id
           )
           redirect_acc_or_op_path

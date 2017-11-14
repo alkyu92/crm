@@ -9,22 +9,27 @@ class AccountsController < ApplicationController
     :relationships, :opportunities, :contacts, :user).find(params[:id])
     @subject = @account
 
-    if params[:status] && params[:type]
-
-      if params[:type] == "Opportunity"
+    if params[:type] == "Opportunity"
+      if params[:status]
         @accsbj = @account.opportunities.includes(:account, :stages).where(
         status: params[:status]).page(params[:sbj_page]).per(10)
-      elsif params[:type] == "Case"
+      else
+        @accsbj = @account.opportunities.includes(:account, :stages).page(params[:sbj_page]).per(10)
+      end
+    elsif params[:type] == "Case"
+      if params[:status]
         @accsbj = @account.cases.includes(:account, :stages).where(
         status: params[:status]).page(params[:sbj_page]).per(10)
-      elsif params[:type] == "Marketing"
+      else
+        @accsbj = @account.cases.includes(:account, :stages).page(params[:sbj_page]).per(10)
+      end
+    elsif params[:type] == "Marketing"
+      if params[:status]
         @accsbj = @account.marketings.includes(:account, :stages).where(
         status: params[:status]).page(params[:sbj_page]).per(10)
+      else
+        @accsbj = @account.marketings.includes(:account, :stages).page(params[:sbj_page]).per(10)
       end
-
-    else
-      @accsbj = @account.opportunities.includes(:account, :stages).where(
-      status: params[:status]).page(params[:sbj_page]).per(10)
     end
 
   end
