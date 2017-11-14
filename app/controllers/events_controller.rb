@@ -7,9 +7,9 @@ class EventsController < ApplicationController
     # @events = []
 
     # AJAX
-    @opportunity = Opportunity.find_by_id(session[:op_id])
-    @opevent = @opportunity.events.includes(
-    :user).order('event_date').page(params[:event_page]).per(10) if @opportunity
+    # @subject = Opportunity.find_by_id(session[:op_id])
+    # @opevent = @subject.events.includes(
+    # :user).order('event_date').page(params[:event_page]).per(10) if @subject
   end
 
   def show
@@ -22,7 +22,11 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        timeline_event("created event")
+        @eventtimeline = @subject.timelines.create!(
+        action: "#{current_user.name} created event
+        <strong>#{@event.description.truncate(50)}</strong>",
+        user_id: current_user.id
+        )
         format.js { flash.now[:success] = "Event log created!" }
       else
         format.js { flash.now[:success] = "Failed to create event log!" }
@@ -31,8 +35,12 @@ class EventsController < ApplicationController
 
     # AJAX
     session[:op_id] = @event.polyevent.id
-    @opportunity = Opportunity.find(@event.polyevent)
-    @opevent = @opportunity.events.includes(
+
+    @subject = Opportunity.find(@event.polyevent) if params[:opportunity_id]
+    @subject = Marketing.find(@event.polyevent) if params[:marketing_id]
+    @subject = Case.find(@event.polyevent) if params[:case_id]
+
+    @opevent = @subject.events.includes(
     :user).order('event_date').page(params[:event_page]).per(10)
   end
 
@@ -51,45 +59,62 @@ class EventsController < ApplicationController
           end
         end
 
-        timeline_event("updated event")
+        save_if_any_changes
+
         flash.now[:success] = "Event entry updated!"
-        redirect_to opportunity_path(@opportunity, anchor: "event-eventInfo-#{@event.id}")
+        redirect_to polymorphic_path(@subject, anchor: "event-eventInfo-#{@event.id}")
       else
         flash.now[:danger] = "Failed to update event entry!"
-        redirect_to opportunity_path(@opportunity, anchor: "event-eventInfo-#{@event.id}")
+        redirect_to polymorphic_path(@subject, anchor: "event-eventInfo-#{@event.id}")
       end
 
   end
 
   def destroy
     # AJAX
-    @opportunity = Opportunity.find_by_id(@event.polyevent.id)
-    @opevent = @opportunity.events.includes(:user).order(
+    @subject = Opportunity.find_by_id(@event.polyevent.id) if params[:opportunity_id]
+    @subject = Marketing.find_by_id(@event.polyevent.id) if params[:marketing_id]
+    @subject = Case.find_by_id(@event.polyevent.id) if params[:case_id]
+
+    @opevent = @subject.events.includes(:user).order(
     'event_date').page(params[:task_page]).per(10)
 
+    @eventtimeline = @subject.timelines.create!(
+    action: "#{current_user.name} deleted event <strong>#{@event.description.truncate(50)}</strong>",
+    user_id: current_user.id
+    )
     @event.destroy
-    timeline_event("deleted event")
 
     respond_to do |format|
-      format.html { redirect_to opportunity_path(@opportunity, anchor: "event") }
+      format.html { redirect_to polymorphic_path(@subject, anchor: "event") }
       format.js { flash[:success] = "Event deleted!" }
     end
 
     # AJAX
-    @events = Event.includes(:user, :opportunity).order('event_date').page(params[:page]).per(10)
+    @events = Event.includes(:user, :subject).order('event_date').page(params[:page]).per(10)
   end
 
   def update_event_status
     respond_to do |format|
       if @event.complete == true
         @event.update_attributes(complete: false)
-        status = "updated event status from Will Attend to Not Attend for event "
-        timeline_event(status)
+
+        @eventtimeline = @subject.timelines.create!(
+        action: "#{current_user.name} updated event status
+        from <strong>Will Attend</strong> to <strong>Not Attend</strong> for
+        event <strong>#{@event.description.truncate(50)}</strong>",
+        user_id: current_user.id
+        )
         format.js { flash.now[:success] = status.capitalize + @event.description.truncate(50) }
       else
         @event.update_attributes(complete: true)
-        status = "updated event status from Not Attend to Will Attend for event "
-        timeline_event(status)
+
+        @eventtimeline = @subject.timelines.create!(
+        action: "#{current_user.name} updated event status
+        from <strong>Not Attend</strong> to <strong>Will Attend</strong> for
+        event <strong>#{@event.description.truncate(50)}</strong>",
+        user_id: current_user.id
+        )
         format.js { flash.now[:success] = status.capitalize + @event.description.truncate(50) }
       end
     end
@@ -97,15 +122,24 @@ class EventsController < ApplicationController
 
   private
 
-  def timeline_event(action)
+  def timeline_event(param, old, latest)
     @eventtimeline = @subject.timelines.create!(
-    tactivity: "event-" + @event.id.to_s,
-    nactivity: @event.description.truncate(50),
-    action: action,
+    action: "#{current_user.name} updated event <strong>#{param}</strong> from
+    <strong>#{old}</strong> to <strong>#{latest}</strong>",
     user_id: current_user.id
     )
+  end
 
-    notify_user(@eventtimeline.id)
+  def save_if_any_changes
+    if @event.description_previously_changed?
+      timeline_event("description", @old_description, @event.description.truncate(50))
+    end
+    if @event.event_date_previously_changed?
+      timeline_event("datetime start", @old_start, @event.event_date)
+    end
+    if @event.event_finish_previously_changed?
+      timeline_event("datetime finish", @old_finish, @event.event_finish)
+    end
   end
 
   def params_event
@@ -113,8 +147,9 @@ class EventsController < ApplicationController
   end
 
   def find_subject
-    @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-    @opportunity = @subject
+    @subject = Opportunity.find(params[:subject_id]) if params[:subject_id]
+    @subject = Case.find(params[:case_id]) if params[:case_id]
+    @subject = Marketing.find(params[:marketing_id]) if params[:marketing_id]
 
   rescue ActiveRecord::RecordNotFound
     flash.now[:danger] = "Can't find records!"

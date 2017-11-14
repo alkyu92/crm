@@ -21,7 +21,7 @@
 
 $(document).ready(function(){
 
-  var id = ["#task_due_date", "#call_call_datetime", "#event_event_date"];
+  var id = ["#task_due_date", "#call_call_datetime", "#event_event_date", "#event_event_finish"];
 
   for(i = 0; i < id.length; i++){
     $(id[i]).datetimepicker({

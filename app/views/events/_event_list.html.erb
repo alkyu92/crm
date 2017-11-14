@@ -5,7 +5,7 @@
 <hr>
 <div class="row">
     <div class="col-lg-1 col-xs-1 text-center">
-        <!-- <strong>ID</strong> -->
+        <strong>ID</strong>
     </div>
     <div class="col-lg-2 col-xs-10">
         <strong>Description</strong>
@@ -33,7 +33,7 @@
 <hr>
 <div class="text-center">
   No events found.<br><br>
-  Create event through <%= link_to 'subject', opportunities_path %>.
+  Create event through subject.
 </div>
 <% else %>
 
@@ -41,7 +41,7 @@
 <hr>
 <div class="row">
     <div class="col-lg-1 col-xs-1 text-center">
-      <!-- <span class="badge"><%#= event.id %></span> -->
+      <span class="badge"><%= event.id %></span>
     </div>
     <div class="col-lg-2 col-xs-10">
     <%= link_to event.description.truncate(50),'#',

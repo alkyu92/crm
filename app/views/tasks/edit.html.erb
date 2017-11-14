@@ -3,20 +3,21 @@
         <div class="col-lg-3"></div>
         <div class="col-lg-6">
             <h3>Edit Task
-              <small class="pull-right"><%= link_to 'Delete this task', opportunity_task_path(@opportunity, @task),
+              <small class="pull-right"><%= link_to 'Delete this task',
+              polymorphic_path([@subject, @task]),
               method: :delete, data: {confirm: "Are you sure?"} %></small>
             </h3>
             <hr>
             <strong>Belongs to</strong><br>
             <small>Account</small><br>
-            <%= link_to @opportunity.account.name, account_path(@opportunity.account) %><br>
+            <%= link_to @subject.account.name, account_path(@subject.account) %><br>
             <br>
 
-            <small>Opportunity</small><br>
-            <%= link_to @opportunity.name, opportunity_path(@opportunity) %><br>
+            <small><%= @task.polytask_type %></small><br>
+            <%= link_to @subject.name, polymorphic_path(@subject) %><br>
             <br>
 
-            <%= simple_form_for [@opportunity, @task] do |f| %>
+            <%= simple_form_for [@subject, @task] do |f| %>
             <%= f.input :description, label: "Task Description", placeholder: "To-do" %>
             <%= f.input :due_date, label: "Task Due Date",as: :date_time_picker,
             input_html: { value: @task.due_date ? @task.due_date.strftime('%d %b %Y - %H:%M') : '' } %>
@@ -30,7 +31,7 @@
 
             <%= check_box_tag "completed" %>
             Mark as <%= @task.complete ? 'Incomplete' : 'Completed' %>
-	    <hr>
+	          <hr>
 
             <%= f.button :submit, class: "btn btn-success" %>
             <% end %>

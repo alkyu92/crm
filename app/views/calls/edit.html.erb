@@ -4,20 +4,20 @@
     <div class="col-lg-6">
       <h3>Edit Call Log
         <small class="pull-right"><%= link_to 'Delete this call log',
-        opportunity_call_path(@opportunity, @call),
+        polymorphic_path([@subject, @call]),
         method: :delete, data: {confirm: "Are you sure?"} %></small>
       </h3>
       <hr>
       <strong>Belongs to</strong><br>
       <small>Account</small><br>
-      <%= link_to @opportunity.account.name, account_path(@opportunity.account) %>
+      <%= link_to @subject.account.name, account_path(@subject.account) %>
       <br><br>
 
-      <small><%= params[:controller].capitalize %></small><br>
-      <%= link_to @opportunity.name, opportunity_path(@opportunity) %>
+      <small><%= @call.polycall_type %></small><br>
+      <%= link_to @subject.name, polymorphic_path(@subject) %>
       <br><br>
 
-<%= simple_form_for [@opportunity, @call] do |f| %>
+<%= simple_form_for [@subject, @call] do |f| %>
 <%= f.input :description, placeholder: "Call description" %>
 <div class="row">
     <div class="col-lg-6">

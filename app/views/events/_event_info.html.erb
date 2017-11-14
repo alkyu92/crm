@@ -42,7 +42,7 @@
                         <h5>
                             <small>Event belongs to</small>
                         </h5>
-                        <small><%= event.polyevent.business_type %></small><br>
+                        <small><%= event.polyevent_type %></small><br>
                         <%= link_to event.polyevent.name,
                         opportunity_path(event.polyevent, anchor: "event-eventInfo-#{event.id}") %>
                         <br><br>

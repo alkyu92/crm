@@ -7,9 +7,9 @@ class TasksController < ApplicationController
     # @tasks = []
 
     # AJAX
-    # @opportunity = Opportunity.find_by_id(session[:op_id])
-    # @optask = @opportunity.tasks.includes(:user).order(
-    # 'due_date').page(params[:task_page]).per(10) if @opportunity
+    # @subject = Opportunity.find_by_id(session[:op_id])
+    # @optask = @subject.tasks.includes(:user).order(
+    # 'due_date').page(params[:task_page]).per(10) if @subject
   end
 
   def show
@@ -35,8 +35,11 @@ class TasksController < ApplicationController
 
     # AJAX
     # session[:op_id] = @task.polytask.id
-    @opportunity = Opportunity.find(@task.polytask)
-    @optask = @opportunity.tasks.includes(:user).order(
+    @subject = Opportunity.find(@task.polytask) if params[:opportunity_id]
+    @subject = Marketing.find(@task.polytask) if params[:marketing_id]
+    @subject = Case.find(@task.polytask) if params[:case_id]
+
+    @optask = @subject.tasks.includes(:user).order(
     'due_date').page(params[:task_page]).per(10)
 
   end
@@ -64,19 +67,19 @@ class TasksController < ApplicationController
         save_timeline_if_any_changes
 
         flash[:success] = "Task updated!"
-        redirect_to opportunity_path(@opportunity, anchor: "task-taskInfo-#{@task.id}")
+        redirect_to polymorphic_path(@subject, anchor: "task-taskInfo-#{@task.id}")
       else
         flash[:danger] = "Failed to update task!"
-        redirect_to opportunity_path(@opportunity, anchor: "task-taskInfo-#{@task.id}")
+        redirect_to polymorphic_path(@subject, anchor: "task-taskInfo-#{@task.id}")
       end
 
   end
 
   def destroy
     # AJAX
-    # @opportunity = Opportunity.find_by_id(@task.polytask.id)
-    # @optask = @opportunity.tasks.includes(:user).order(
-    # 'due_date').page(params[:task_page]).per(10) if @opportunity
+    # @subject = Opportunity.find_by_id(@task.polytask.id)
+    # @optask = @subject.tasks.includes(:user).order(
+    # 'due_date').page(params[:task_page]).per(10) if @subject
 
     @task.destroy
     # timeline
@@ -86,12 +89,12 @@ class TasksController < ApplicationController
     user_id: current_user.id
     )
     respond_to do |format|
-      format.html { redirect_to opportunity_path(@opportunity, anchor: "task") }
+      format.html { redirect_to polymorphic_path(@subject, anchor: "task") }
       format.js { flash[:success] = "Task deleted!" }
     end
 
     # AJAX
-    # @tasks = Task.includes(:user, :opportunity).order('due_date').page(params[:page]).per(10)
+    # @tasks = Task.includes(:user, :subject).order('due_date').page(params[:page]).per(10)
   end
 
   def update_task_status
@@ -100,8 +103,8 @@ class TasksController < ApplicationController
       @task.update_attributes(complete: false)
       # timeline
       @tasktimeline = @subject.timelines.create!(
-      action: "#{current_user.name} updated task status from Completed to Incomplete
-      for task #{@task.description.truncate(50)}",
+      action: "#{current_user.name} updated task status from <strong>Completed</strong>
+      to <strong>Incomplete</strong> for task #{@task.description.truncate(50)}",
       user_id: current_user.id
       )
       format.js { flash.now[:success] = status.capitalize + @task.description.truncate(50) }
@@ -109,8 +112,8 @@ class TasksController < ApplicationController
       @task.update_attributes(complete: true)
       # timeline
       @tasktimeline = @subject.timelines.create!(
-      action: "#{current_user.name} updated task status from Incomplete to Completed
-      for task #{@task.description.truncate(50)}",
+      action: "#{current_user.name} updated task status from <strong>Incomplete</strong>
+      to <strong>Completed</strong> for task #{@task.description.truncate(50)}",
       user_id: current_user.id
       )
       format.js { flash.now[:success] = status.capitalize + @task.description.truncate(50) }
@@ -124,8 +127,7 @@ class TasksController < ApplicationController
     # timeline
     @tasktimeline = @subject.timelines.create!(
     action: "#{current_user.name} updated task <strong>#{param}</strong> from
-    <strong>#{old}</strong> to <strong>#{latest}</strong>
-    for task #{@task.description.truncate(50)}",
+    <strong>#{old}</strong> to <strong>#{latest}</strong>",
     user_id: current_user.id
     )
   end
@@ -153,16 +155,9 @@ class TasksController < ApplicationController
 
   def find_subject
     # for AJAX timelines
-    if params[:opportunity_id]
-      @subject = Opportunity.find(params[:opportunity_id]) if params[:opportunity_id]
-      @opportunity = @subject
-    elsif params[:marketing_id]
+      @subject = Opportunity.find(params[:subject_id]) if params[:subject_id]
       @subject = Marketing.find(params[:marketing_id]) if params[:marketing_id]
-      @marketing = @subject
-    elsif params[:case_id]
       @subject = Case.find(params[:case_id]) if params[:case_id]
-      @case = @subject
-    end
   end
 
 end
