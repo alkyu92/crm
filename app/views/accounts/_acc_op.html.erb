@@ -1,47 +1,62 @@
-<% if @account.opportunities.blank? %>
-Opportunities not found.
+<div class="row">
+    <div class="col-lg-3">
+        <div class="dropdown">
+            <%= link_to '#',data: {toggle: 'dropdown'}, class: 'dropdown-toggle' do %>
+            Show
+            <span class="caret"></span>
+            <% end %>
+            <ul class="dropdown-menu">
+
+                <small>Opportunity Status</small>
+                <li><%= link_to 'Open', "?type=Opportunity&status=Open" %></li>
+                <li><%= link_to 'Approved', "?type=Opportunity&status=Approved" %></li>
+                <li><%= link_to 'Closed-Won', "?type=Opportunity&status=Closed-Won" %></li>
+                <li><%= link_to 'Closed-Loss', "?type=Opportunity&status=Closed-Loss" %></li>
+                <li><%= link_to 'Show All Opportunities', "?type=Opportunity" %></li>
+                <li class="divider" role="separator"></li>
+
+                <small>Case Status</small>
+                <li><%= link_to 'In Progress', "?type=Case&status=In Progress" %></li>
+                <li><%= link_to 'Solved', "?type=Case&status=Solved" %></li>
+                <li><%= link_to 'Show All Cases', "?type=Case" %></li>
+                <li class="divider" role="separator"></li>
+
+                <small>Marketing Status</small>
+                <li><%= link_to 'Preparation', "?type=Marketing&status=Preparation" %></li>
+                <li><%= link_to 'On-going', "?type=Marketing&status=On-going" %></li>
+                <li><%= link_to 'Passed', "?type=Marketing&status=Passed" %></li>
+                <li><%= link_to 'Show All Marketings', "?type=Marketing" %></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-9">
+      <div class="col-lg-3">
+      <small>Type</small><br>
+      <%= params[:type] %>
+      </div>
+      <div class="col-lg-6">
+      <small>Status</small><br>
+      <%= params[:status] %>
+      </div>
+    </div>
+</div>
+
+<hr>
+<% if @accsbj.blank? %>
+No records found.
 <% else %>
 
 <ul class="list-group">
     <li class="list-group-item">
         <div class="row">
             <div class="col-lg-4">
-                <strong>Opportunity Name</strong>
+                <strong><%= params[:type] %>
+                    Name</strong>
                 <br><br>
             </div>
             <div class="col-lg-4">
                 <strong>Status</strong>
-                <% if params[:type] %>
-                <div class="dropdown">
-                    <%= link_to '#',data: {toggle: 'dropdown'}, class: 'dropdown-toggle' do %>
-                    Show only
-                    <span class="caret"></span>
-                    <% end %>
-
-                    <ul class="dropdown-menu">
-                        <% if params[:type] == "Opportunity" %>
-                          <li><%= link_to 'Open', "?status=Open&type=Opportunity" %></li>
-                          <li><%= link_to 'Approved', "?status=Approved&type=Opportunity" %></li>
-                          <li><%= link_to 'Closed-Won', "?status=Closed-Won&type=Opportunity" %></li>
-                          <li><%= link_to 'Closed-Loss', "?status=Closed-Loss&type=Opportunity" %></li>
-                          <li class="divider" role="separator"></li>
-                          <li><%= link_to 'Show All Opportunities', "?type=Opportunity" %></li>
-                        <% elsif params[:type] == "Case" %>
-                          <li><%= link_to 'In Progress', "?status=In Progress&type=Case" %></li>
-                          <li><%= link_to 'Solved', "?status=Solved&type=Case" %></li>
-                          <li class="divider" role="separator"></li>
-                          <li><%= link_to 'Show All Cases', "?type=Case" %></li>
-                        <% elsif params[:type] == "Marketing" %>
-                          <li><%= link_to 'Preparation', "?status=Preparation&type=Marketing" %></li>
-                          <li><%= link_to 'On-Going', "?status=On-Going&type=Marketing" %></li>
-                          <li><%= link_to 'Passed', "?status=On-Going&type=Marketing" %></li>
-                          <li class="divider" role="separator"></li>
-                          <li><%= link_to 'Show All Marketing', "?type=Marketing" %></li>
-
-                        <% end %>
-                    </ul>
-                </div>
-                <% end %>
                 <br>
             </div>
             <div class="col-lg-4">
@@ -50,22 +65,22 @@ Opportunities not found.
         </div>
     </li>
 
-    <% @accop.each do |opportunity| %>
+    <% @accsbj.each do |subject| %>
     <li class="list-group-item">
         <div class="row">
             <div class="col-lg-4">
-                <%= link_to opportunity.name, opportunity_path(opportunity) %>
+                <%= link_to subject.name, polymorphic_path(subject) %>
                 <br><br>
             </div>
             <div class="col-lg-4">
-              <%= opportunity.status %>
+                <%= subject.status %>
             </div>
-            <div class="col-lg-4"><%= opportunity.created_at.strftime('%d %b %Y %H:%M:%S')%></div>
+            <div class="col-lg-4"><%= subject.created_at.strftime('%d %b %Y %H:%M:%S')%></div>
         </div>
     </li>
     <% end %>
     <div class="text-center">
-      <%= paginate @accop, param_name: :acc_page, remote: true %>
+        <%= paginate @accsbj, param_name: :sbj_page, remote: true %>
     </div>
 </ul>
 <% end %>

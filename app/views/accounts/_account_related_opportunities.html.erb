@@ -1,12 +1,22 @@
 <div class="tab-pane fade in active" id="accountOpportunities">
     <div class="row">
-        <div class="col-lg-7">
-            <h4>Account Related Opportunities</h4>
+        <div class="col-lg-8">
+            <h4>Account Related Subjects</h4>
         </div>
-        <div class="col-lg-5">
-          <%= link_to 'Create New Opportunity',
-          new_account_opportunity_path(@account, type: "Opportunity"),
-          class: "btn btn-default form-control" %>
+        <div class="col-lg-4">
+
+          <a href="#", class="dropdown-toggle" data-toggle="dropdown">
+            <div class="btn btn-default form-control">
+              Create New
+              <i class="caret"></i>
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= link_to 'Opportunity', new_opportunity_path %></li>
+            <li><%= link_to 'Case', new_case_path %></li>
+            <li><%= link_to 'Marketing', new_marketing_path %></li>
+          </ul>
+
         </div>
         <div id="notice-ops"></div>
     </div>

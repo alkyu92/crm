@@ -10,18 +10,23 @@ class AccountsController < ApplicationController
     @subject = @account
 
     if params[:status] && params[:type]
-      @accop = @account.opportunities.includes(:account, :stages).where(
-      status: params[:status], business_type: params[:type]).page(params[:acc_page]).per(10)
-    elsif params[:type]
-      @accop = @account.opportunities.includes(:account, :stages).where(
-      business_type: params[:type]).page(params[:acc_page]).per(10)
+
+      if params[:type] == "Opportunity"
+        @accsbj = @account.opportunities.includes(:account, :stages).where(
+        status: params[:status]).page(params[:sbj_page]).per(10)
+      elsif params[:type] == "Case"
+        @accsbj = @account.cases.includes(:account, :stages).where(
+        status: params[:status]).page(params[:sbj_page]).per(10)
+      elsif params[:type] == "Marketing"
+        @accsbj = @account.marketings.includes(:account, :stages).where(
+        status: params[:status]).page(params[:sbj_page]).per(10)
+      end
+
     else
-      @accop = @account.opportunities.includes(
-      :account, :stages).page(params[:acc_page]).per(10)
+      @accsbj = @account.opportunities.includes(:account, :stages).where(
+      status: params[:status]).page(params[:sbj_page]).per(10)
     end
 
-    @opportunities = Opportunity.includes(
-    :relationships, :contacts, :user).where(account_id: @account.id)
   end
 
   def create

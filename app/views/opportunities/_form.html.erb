@@ -1,4 +1,4 @@
-<%= f.input :name, label: "Name", placeholder: "Name", autofocus: true %>
+<%= f.input :name, label: "Opportunity Name", placeholder: "Name", autofocus: true %>
 <%= f.label "Assign to Account Name" %>
 <%= f.select :account_id,
   Account.all.collect {|acc| [acc.name, acc.id] }, {},

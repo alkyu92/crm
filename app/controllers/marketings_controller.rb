@@ -54,7 +54,7 @@ class MarketingsController < ApplicationController
       if @marketing.save
 
         @acoptimeline = @marketing.account.timelines.create!(
-        action: "#{current_user.name} created marketing entry",
+        action: "#{current_user.name} created marketing #{@marketing.name}",
         user_id: current_user.id
         )
 
@@ -157,7 +157,7 @@ class MarketingsController < ApplicationController
   private
 
   def params_marketing
-    params.require(:marketing).permit( :user_id,
+    params.require(:marketing).permit(   :user_id,
                                          :name,
                                          :stage_id,
                                          :account,

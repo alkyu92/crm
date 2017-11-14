@@ -52,17 +52,13 @@
         <%= render 'events/calc_date', event: event %>
     </div>
     <div class="col-lg-2 col-xs-6">
-      <small><%= event.polyevent.business_type %></small><br>
-      <%= link_to event.polyevent.name, opportunity_path(event.polyevent) %>
+      <small><%= event.polyevent_type %></small><br>
+      <%= link_to event.polyevent.name, polymorphic_path(event.polyevent) %>
       <br><br><br>
     </div>
     <div class="col-lg-2 col-xs-6">
       <small>Account</small><br>
-      <% if event.polyevent.business_type == "Account" %>
-      <%= link_to event.polyevent.name, account_path(event.polyevent) %>
-      <% elsif event.polyevent.business_type == "Opportunity" || event.polyevent.business_type == "Case" %>
-      <%= link_to event.polyevent.name, account_path(event.polyevent) %>
-      <% end %>
+      <%= link_to event.polyevent.account.name, account_path(event.polyevent.account) %>
     </div>
     <div class="col-lg-1 col-xs-6">
       <%= event.created_at.strftime('%d %b %Y at %H:%M:%S') %>
@@ -73,8 +69,8 @@
         <i class="caret"></i>
       </a>
       <ul class="dropdown-menu">
-        <li><%= link_to 'Show', opportunity_path(event.polyevent, anchor: "event-eventInfo-#{event.id}") %></li>
-        <li><%= link_to 'Delete', opportunity_event_path(event.polyevent, event),
+        <li><%= link_to 'Show', polymorphic_path(event.polyevent, anchor: "event-eventInfo-#{event.id}") %></li>
+        <li><%= link_to 'Delete', polymorphic_path([event.polyevent, event]),
         method: :delete, data: {confirm: "Are you sure?"}, remote: true %></li>
       </ul>
     </div>
