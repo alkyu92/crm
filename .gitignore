@@ -20,6 +20,9 @@
 # Ignore all system files
 /public/system
 
+# Ignore assets
+/public/assets
+
 # Ignore Byebug command history file.
 .byebug_history
 
