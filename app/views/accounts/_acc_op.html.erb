@@ -40,7 +40,7 @@
         </div>
         <div class="col-lg-6">
             <small>Status</small><br>
-            <strong><%= params[:status] %></strong>
+            <strong><%= params[:status].nil? ? 'All' : params[:status] %></strong>
         </div>
     </div>
 </div>
